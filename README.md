@@ -1,3 +1,5 @@
+<p align="center"><img width="130" src="https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/src/icon.svg"></p>
+
 # Sprig
 
 ### A reactive Twig component framework for [Craft CMS](https://craftcms.com/).
@@ -356,4 +358,18 @@ composer require putyourlightson/craft-sprig:^0.1.0
 
 This plugin is licensed for free under the MIT License.
 
-<small>Created by [PutYourLightsOn](https://putyourlightson.com/).</small>
+## Acknowledgements
+
+This project stands on the shoulders of giants:
+
+- [Laravel Livewire](https://laravel-livewire.com/) by [@calebporzio](https://twitter.com/calebporzio).
+- [Htmx](https://htmx.org/) by [@htmx_org](https://twitter.com/htmx_org). 
+- [Craft CMS](https://craftcms.com/) by [@PixelAndTonic](https://twitter.com/PixelAndTonic).
+
+Special thanks to Andrew Welch, John D. Wells and Keyur for being sounding boards and a source of valuable input. Thanks also goes out to 🇿 (you know who you are).
+
+Icon: Herb emoji by [Twemoji](https://twemoji.twitter.com/).
+
+---
+
+Created by [PutYourLightsOn](https://putyourlightson.com/).
