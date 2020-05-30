@@ -12,95 +12,96 @@ It's basically [Laravel Livewire](https://laravel-livewire.com/) for [Craft CMS]
 
 ## How it Works 
 
-Take the following Twig template which contains an entry form (similar to in the [Craft docs](https://docs.craftcms.com/v3/dev/examples/entry-form.html)).
+Take the following Twig template which contains a user registration form (similar to the [Craft docs](https://docs.craftcms.com/v3/dev/examples/user-registration-form.html)).
 
 ```twig
 {#-- main.twig --#}
 
-<h1>Entry Form</h1>
+<h1>User Registration Form</h1>
 
 <form method="post">
     {{ csrfInput() }}
-    {{ actionInput('entries/save-entry') }}
-    {{ hiddenInput('sectionId', '2') }}
-
-    <input type="title" name="title" value="">
-
-    <input type="submit" value="Save">
+    {{ actionInput('users/save-user') }}
+   
+    <input type="text" name="username" value="">
+    <input type="email" name="email" value="">
+    <input type="password" name="password" value="">
+    <input type="submit" value="Register">
 </form>
 ```
 
-We can turn the `title` input field into a component using the `sprig()` function, passing in a template path. Note that in this case, a "component" is just another name for a reactive Twig template.
+We can turn the `username` input field into a component using the `sprig()` function, passing in a template path. Note that in this case, a "component" is just another name for a reactive Twig template.
 
 ```twig
 {#-- main.twig --#}
 
-<h1>Entry Form</h1>
+<h1>User Registration Form</h1>
 
 <form method="post">
     {{ csrfInput() }}
-    {{ actionInput('entries/save-entry') }}
-    {{ hiddenInput('sectionId', '2') }}
-
+    {{ actionInput('users/save-user') }}
+   
     {# Creates a component from the template path #}
-    {{ sprig('_components/entry-title') }}
+    {{ sprig('_components/username') }}
 
-    <input type="submit" value="Save">
+    <input type="email" name="email" value="">
+    <input type="password" name="password" value="">
+    <input type="submit" value="Register">
 </form>
 
 {# Add the required script like this or using your own build process #}
 {{ sprig.script }}
 
 
-{#-- _components/entry-title.twig --#}
+{#-- _components/username.twig --#}
 
-<input type="text" name="title" value="">
+<input type="text" name="username" value="">
 ```
 
 We can now add reactivity by add the `sprig` attribute to any elements that should be triggered on certain events. 
 
 ```twig
-{#-- _components/entry-title.twig --#}
+{#-- _components/username.twig --#}
 
-<input sprig type="text" name="title" value="">
+<input sprig type="text" name="username" value="">
 ```
 
-Now each time the `title` field changes, the component will re-render itself. Any `input` fields (including `textarea` and select`select` fields) in the component will be available as template variables.
+Now each time the `username` field value changes, the component will re-render itself. Any `input` fields (including `textarea` and select`select` fields) in the component will be available as template variables.
 
 ```twig
-{#-- _components/entry-title.twig --#}
+{#-- _components/username.twig --#}
 
-<input sprig type="text" name="title" value="{{ title ?? '' }}">
+<input sprig type="text" name="username" value="{{ username ?? '' }}">
 ```
 
-We can now get creative in our component. Let's check if an entry with the title already exists in Craft whenever the `title` field changes.
+We can now get creative in our component. Let's check if a user with the username already exists in Craft whenever the `username` field changes.
 
 ```twig
-{#-- _components/entry-title.twig --#}
+{#-- _components/username.twig --#}
 
-{% set title = title ?? '' %}
+{% set username = username ?? '' %}
 
-<input sprig type="text" name="title" value="{{ title }}">
+<input sprig type="text" name="username" value="{{ username }}">
 
-{% if title and craft.entries.title(title).count() > 0 %}
+{% if username and craft.users.username(username).count() > 0 %}
     <span class="warning">
-        An entry with the title "{{ title }}" already exists!
+        The username "{{ username }}" is already taken!
     </span>
 {% endif %}
 ```
 
-This component will re-render itself every time the `change` event of the `title` input field is fired. We can make it so that the re-render is triggered on `keyup` events, but only if the search value has changed and the user hasn't typed anything new for 1 second.
+This component will re-render itself every time the `change` event of the `username` input field is triggered. We can make it so that the re-render is triggered on `keyup` events, but only if the field value has changed and the user hasn't typed anything new for 1 second.
 
 ```twig
-{#-- _components/entry-title.twig --#}
+{#-- _components/username.twig --#}
 
-{% set title = title ?? '' %}
+{% set username = username ?? '' %}
 
-<input sprig s-trigger="keyup changed delay:1s" type="text" name="title" value="{{ title }}">
+<input sprig s-trigger="keyup changed delay:1s" type="text" name="username" value="{{ username }}">
 
-{% if title and craft.entries.title(title).count() > 0 %}
+{% if username and craft.users.username(username).count() > 0 %}
     <span class="warning">
-        An entry with the title "{{ title }}" already exists!
+        The username "{{ username }}" is already taken!
     </span>
 {% endif %}
 ```
@@ -110,91 +111,87 @@ Let's say we now want to make the entire form a reactive component. To do so we'
 ```twig
 {#-- main.twig --#}
 
-<h1>Entry Form</h1>
+<h1>User Registration Form</h1>
 
 {# Creates a component from the template path #}
-{{ sprig('_components/entry-form') }}
+{{ sprig('_components/registration-form') }}
 
 {# Add the required script like this or using your own build process #}
 {{ sprig.script }}
 
 
-{#-- _components/entry-form.twig --#}
+{#-- _components/registration-form.twig --#}
 
 <form method="post">
     {{ csrfInput() }}
-    {{ actionInput('entries/save-entry') }}
-    {{ hiddenInput('sectionId', '2') }}
+    {{ actionInput('users/save-user') }}
+   
+    {{ sprig('_components/username') }}
 
-    {{ sprig('_components/entry-title') }}
-
-    <input type="submit" value="Save">
+    <input type="email" name="email" value="">
+    <input type="password" name="password" value="">
+    <input type="submit" value="Register">
 </form>
 ```
 
-We can make the form reactive by adding the `sprig` attribute to it. We'll also use the `s-method` and `s-action` attributes to specify that the form should be `POST`ed and call the `entry/save-entry` action. Because we set the `s-method` to `post`, Sprig will automatically send a CSRF token along with our request, so we can remove it from the form. We can also remove the action input field.
+We can make the form reactive by adding the `sprig` attribute to it. We'll also use the `s-method` and `s-action` attributes to specify that the form should be `POST`ed and call the `users/save-user` action. Because we set the `s-method` to `post`, Sprig will automatically send a CSRF token along with our request, so we can remove it from the form. We can also remove the action input field.
 
 ```twig
-{#-- _components/entry-form.twig --#}
+{#-- _components/registration-form.twig --#}
 
-<form sprig s-method="post" s-action="entry/save-entry">
-    {{ hiddenInput('sectionId', '2') }}
+<form sprig s-method="post" s-action="users/save-user">
+    {{ sprig('_components/username') }}
 
-    {{ sprig('_components/entry-title') }}
-
-    <input type="submit" value="Save">
+    <input type="submit" value="Register">
 </form>
 ```
 
-Now, whenever the form is submitted, it will trigger a `POST` AJAX request to the `entry/save-entry` action and the component will be re-rendered. To make it display a success or error message, lets make it a bit smarter with some Twig logic.
+Now, whenever the form is submitted, it will trigger a `POST` AJAX request to the `users/save-user` action and the component will be re-rendered. To make it display a success or error message, lets make it a bit smarter with some Twig logic.
 
 ```twig
-{#-- _components/entry-form.twig --#}
+{#-- _components/registration-form.twig --#}
 
-{# The `entry` variable will be defined if the `entry/save-entry` action was called #}
-{% if entry is defined %}
-    {% if entry.hasErrors() %}
-        {% for error in entry.getErrors() %}
+{# The `user` variable will be defined if the `users/save-user` action was called #}
+{% if user is defined and not user.hasErrors() %}
+
+    <p class="success">
+        Your registration was successful!    
+    </p>
+
+{% else %}
+
+    {% if user is defined %}
+        {% for error in user.getErrors() %}
             <p class="error">{{ error }}</p>
         {% endfor %}
-    {% else %}
-        <p class="success">
-            Your entry was successfully saved!    
-        </p>
     {% endif %}
+
+    <form sprig s-method="post" s-action="users/save-user">
+        {{ sprig('_components/username') }}
+    
+        <input type="email" name="email" value="{{ email ?? '' }}">
+        <input type="password" name="password" value="{{ password ?? '' }}">
+        <input type="submit" value="Register">
+    </form>
+
 {% endif %}
-
-<form sprig s-method="post" s-action="entry/save-entry">
-    {{ hiddenInput('sectionId', '2') }}
-
-    {{ sprig('_components/entry-title') }}
-
-    <input type="submit" value="Save">
-</form>
 ```
 
 When creating a new component, you can pass it one or more values that will become available as variables in the template.
 
 ```twig
 {# Creates a component from the template path, passing in the provided variables #}
-{{ sprig('_components/entry-form', {
-    entryId: entry.id,
+{{ sprig('_components/registration-form', {
+    accountType: 'Premium',
 }) }}
 ```
 
-So now the `entryId` variable can be used to make this an edit entry form.
+So now the `accountType` variable will be available in the component.
 
 ```twig
-<form sprig s-method="post" s-action="entry/save-entry">
-    {{ hiddenInput('sectionId', '2') }}
+<h2>Account Type: {{ accountType }}</h2>
 
-    {# The `entryId` variable was passed in through the `sprig` function #}
-    {{ hiddenInput('entryId', entryId) }}
-
-    {{ sprig('_components/entry-title') }}
-
-    <input type="submit" value="Save">
-</form>
+<form sprig s-method="post" s-action="users/save-user">
 ```
 
 Any element can be made reactive by adding the `sprig` attribute to it. By default, the "natural" event of an element will be used as the trigger:
@@ -299,7 +296,7 @@ Now we can create a component from our `CheckWeather` class as follows.
 {# Outputs: The weather is sunny with a slight breeze #}
 ```
 
-We can pass initial property values into the component.
+We can pass property values into the component as well.
 
 ```twig
 {# Creates a component from the CheckWeather class  #}
@@ -313,22 +310,10 @@ We can pass initial property values into the component.
 We can also define actions as public methods in our `CheckWeather` class.
 
 ```php
-<?php
-namespace sprig\components;
-
-use putyourlightson\sprig\base\Component;
-
-class CheckWeather extends Component
-{
-    protected $template = '_components/check-weather';
-
-    public $weather = 'sunny with a slight breeze';
-
     public function refreshWeather()
     {
         $this->weather = SomeWeatherApi::getCurrentWeather();
     }
-}
 ```
 
 To call the action, we use the `s-action` attribute.
@@ -338,7 +323,7 @@ To call the action, we use the `s-action` attribute.
 
 The weather is {{ weather }}.
 
-{# Clicking the button will call the `refreshWeather()` method and re-render the component #}
+{# Clicking the button will call the `refreshWeather()` method and then re-render the component #}
 <button sprig s-action="refreshWeather">Refresh</button>
 ```
 
