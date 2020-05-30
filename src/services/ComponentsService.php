@@ -121,10 +121,13 @@ class ComponentsService extends Component
      */
     public function parseTagAttributes(string $html): string
     {
-        $request = Craft::$app->getRequest();
+        // Prevent XML errors from being thrown
+        libxml_use_internal_errors(true);
 
         $dom = new DOMDocument();
         $dom->loadHTML($html);
+
+        $csrf = false;
 
         /** @var DOMElement $element */
         foreach ($dom->getElementsByTagName('*') as $element) {
@@ -136,7 +139,7 @@ class ComponentsService extends Component
 
                 if ($this->getElementAttribute($element, 'method') == 'post') {
                     $verb = 'post';
-                    $params[$request->csrfParam] = $request->getCsrfToken();
+                    $csrf = true;
                 }
 
                 $action = $this->getElementAttribute($element, 'action');
@@ -159,6 +162,13 @@ class ComponentsService extends Component
                     $element->setAttribute('hx-'.$attribute, $value);
                 }
             }
+        }
+
+        if ($csrf) {
+            $element = $dom->appendChild(new DOMElement('input'));
+            $element->setAttribute('type', 'hidden');
+            $element->setAttribute('name', Craft::$app->getRequest()->csrfParam);
+            $element->setAttribute('value', Craft::$app->getRequest()->getCsrfToken());
         }
 
         $html = $dom->saveHTML() ?: '';

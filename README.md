@@ -89,16 +89,16 @@ We can now get creative in our component. Let's check if a user with the usernam
 {% endif %}
 ```
 
+![Username demo](./docs/username.gif)
+
 This component will re-render itself every time the `change` event of the `username` input field is triggered. We can make it so that the re-render is triggered on `keyup` events provided the field value has changed and the user hasn't typed anything for 1 second.
 
 ```twig
 {#-- _components/username.twig --#}
 
-{% set username = username ?? '' %}
+<input sprig s-trigger="keyup changed delay:1s" type="text" name="username" value="{{ username ?? '' }}">
 
-<input sprig s-trigger="keyup changed delay:1s" type="text" name="username" value="{{ username }}">
-
-{% if username and craft.users.username(username).count() > 0 %}
+{% if username is defined and craft.users.username(username).count() > 0 %}
     <span class="warning">
         The username "{{ username }}" is already taken!
     </span>
@@ -142,6 +142,8 @@ We can make the form reactive by adding the `sprig` attribute to it. We'll also 
 <form sprig s-method="post" s-action="users/save-user">
     {{ sprig('_components/username') }}
 
+    <input type="email" name="email" value="">
+    <input type="password" name="password" value="">
     <input type="submit" value="Register">
 </form>
 ```
@@ -161,13 +163,15 @@ Now, whenever the form is submitted, it will trigger a `POST` AJAX request to th
 {% else %}
 
     {% if user is defined %}
-        {% for error in user.getErrors() %}
+        {% for error in user.getFirstErrors() %}
             <p class="error">{{ error }}</p>
         {% endfor %}
     {% endif %}
 
     <form sprig s-method="post" s-action="users/save-user">
-        {{ sprig('_components/username') }}
+        {{ sprig('_components/username'), {
+            username: username ?? '',
+        }) }}
     
         <input type="email" name="email" value="{{ email ?? '' }}">
         <input type="password" name="password" value="{{ password ?? '' }}">
@@ -176,6 +180,8 @@ Now, whenever the form is submitted, it will trigger a `POST` AJAX request to th
 
 {% endif %}
 ```
+
+![Registration demo](./docs/registration.gif)
 
 When creating a new component, you can pass it one or more values that will become available as variables in the template.
 

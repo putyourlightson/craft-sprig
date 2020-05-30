@@ -46,11 +46,17 @@ class ComponentsController extends Controller
         }
         else {
             if ($action) {
-                Craft::$app->runAction($action);
+                // Force the request to accept JSON only
+                Craft::$app->getRequest()->setAcceptableContentTypes(['application/json' => []]);
 
-                // Set status code and remove redirects in case the action attempted a redirect
-                $response->setStatusCode(200);
-                $response->getHeaders()->remove('Location');
+                $jsonResponse = Craft::$app->runAction($action);
+
+                if ($jsonResponse !== null) {
+                    $variables = array_merge($variables, $jsonResponse->data);
+                }
+
+                // Force format to HTML
+                $response->format = $response::FORMAT_HTML;
             }
 
             $template = $this->_getValidatedParam('sprig:template');
@@ -94,8 +100,7 @@ class ComponentsController extends Controller
         $variableSources = array_merge(
             $variableParams,
             $request->getQueryParams(),
-            $request->getBodyParams(),
-            Craft::$app->getUrlManager()->getRouteParams()
+            $request->getBodyParams()
         );
 
         foreach ($variableSources as $name => $value) {
