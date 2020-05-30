@@ -51,14 +51,15 @@ We can turn the `username` input field into a component using the `sprig()` func
 
 {# Add the required script like this or using your own build process #}
 {{ sprig.script }}
+```
 
-
+```twig
 {#-- _components/username.twig --#}
 
 <input type="text" name="username" value="">
 ```
 
-We can now add reactivity by add the `sprig` attribute to any elements that should be triggered on certain events. 
+We can now add reactivity by adding the `sprig` attribute to any elements that should be triggered on certain events. 
 
 ```twig
 {#-- _components/username.twig --#}
@@ -79,18 +80,16 @@ We can now get creative in our component. Let's check if a user with the usernam
 ```twig
 {#-- _components/username.twig --#}
 
-{% set username = username ?? '' %}
+<input sprig type="text" name="username" value="{{ username ?? '' }}">
 
-<input sprig type="text" name="username" value="{{ username }}">
-
-{% if username and craft.users.username(username).count() > 0 %}
+{% if username is defined and craft.users.username(username).count() > 0 %}
     <span class="warning">
         The username "{{ username }}" is already taken!
     </span>
 {% endif %}
 ```
 
-This component will re-render itself every time the `change` event of the `username` input field is triggered. We can make it so that the re-render is triggered on `keyup` events, but only if the field value has changed and the user hasn't typed anything new for 1 second.
+This component will re-render itself every time the `change` event of the `username` input field is triggered. We can make it so that the re-render is triggered on `keyup` events provided the field value has changed and the user hasn't typed anything for 1 second.
 
 ```twig
 {#-- _components/username.twig --#}
@@ -118,8 +117,9 @@ Let's say we now want to make the entire form a reactive component. To do so we'
 
 {# Add the required script like this or using your own build process #}
 {{ sprig.script }}
+```
 
-
+```twig
 {#-- _components/registration-form.twig --#}
 
 <form method="post">
