@@ -5,7 +5,7 @@
 
 namespace putyourlightson\sprig\base;
 
-interface SprigComponentInterface
+interface ComponentInterface
 {
     /**
      * Returns the rendered component as a string.

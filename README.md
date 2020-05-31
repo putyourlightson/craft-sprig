@@ -4,7 +4,7 @@
 
 ### A reactive Twig component framework for [Craft CMS](https://craftcms.com/).
 
-Sprig allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions) using AJAX requests, without having to write a single line of JavaScript.
+Sprig is a free Craft plugin that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions) using AJAX requests, without having to write a single line of JavaScript.
 
 It's basically [Laravel Livewire](https://laravel-livewire.com/) for [Craft CMS](https://craftcms.com/).
 
@@ -252,9 +252,9 @@ Let's create a file called `CheckWeather.php` for our component.
 <?php
 namespace sprig\components;
 
-use putyourlightson\sprig\base\SprigComponent;
+use putyourlightson\sprig\base\Component;
 
-class CheckWeather extends SprigComponent
+class CheckWeather extends Component
 {
     public $weather = 'sunny with a slight breeze';
 }
@@ -266,9 +266,9 @@ In most cases, you'll want the component to render a template. This can be done 
 <?php
 namespace sprig\components;
 
-use putyourlightson\sprig\base\SprigComponent;
+use putyourlightson\sprig\base\Component;
 
-class CheckWeather extends SprigComponent
+class CheckWeather extends Component
 {
     protected $template = '_components/check-weather';
 

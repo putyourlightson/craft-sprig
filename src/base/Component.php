@@ -6,9 +6,9 @@
 namespace putyourlightson\sprig\base;
 
 use Craft;
-use craft\base\Component;
+use craft\base\Component as BaseComponent;
 
-abstract class SprigComponent extends Component implements SprigComponentInterface
+abstract class Component extends BaseComponent implements ComponentInterface
 {
     /**
      * The path to the template that the `render` method should render.

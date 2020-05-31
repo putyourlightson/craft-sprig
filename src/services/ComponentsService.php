@@ -13,7 +13,7 @@ use craft\helpers\Template;
 use craft\helpers\UrlHelper;
 use DOMDocument;
 use DOMElement;
-use putyourlightson\sprig\base\SprigComponentInterface;
+use putyourlightson\sprig\base\ComponentInterface;
 use Twig\Markup;
 use yii\base\Exception;
 
@@ -99,7 +99,7 @@ class ComponentsService extends Component
 
         $componentObject = new $componentClass;
 
-        if (!($componentObject instanceof SprigComponentInterface)) {
+        if (!($componentObject instanceof ComponentInterface)) {
             return null;
         }
 
