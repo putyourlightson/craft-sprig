@@ -25,5 +25,7 @@ abstract class Component extends BaseComponent implements ComponentInterface
         if ($this->template !== null) {
             return Craft::$app->getView()->renderTemplate($this->template, $this->getAttributes());
         }
+
+        return '';
     }
 }
