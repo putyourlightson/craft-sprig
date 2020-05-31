@@ -59,7 +59,7 @@ We can turn the `username` input field into a component using the `sprig()` func
 <input type="text" name="username" value="">
 ```
 
-We can now add reactivity by adding the `sprig` attribute to any elements that should be triggered on certain events. 
+Nothing special so far, but now we can make the component reactive by adding the `sprig` attribute to any elements that should be triggered on certain events. 
 
 ```twig
 {#-- _components/username.twig --#}
@@ -75,7 +75,7 @@ Now each time the `username` field value changes, the component will re-render i
 <input sprig type="text" name="username" value="{{ username ?? '' }}">
 ```
 
-We can now get creative in our component. Let's check if a user with the username already exists in Craft whenever the `username` field changes.
+We can get much more creative in our component. Let's check if a user with the username already exists in Craft whenever the `username` field changes.
 
 ```twig
 {#-- _components/username.twig --#}
