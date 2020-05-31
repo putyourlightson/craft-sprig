@@ -22,7 +22,7 @@
         "handle": "sprig",
         "developer": "PutYourLightsOn",
         "developerUrl": "https://putyourlightson.com/",
-        "documentationUrl": "https://github.com/putyourlightson/craft-sprig",
+        "documentationUrl": "https://putyourlightson.com/plugins/sprig",
         "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/CHANGELOG.md",
         "class": "putyourlightson\\sprig\\Sprig"
     }
