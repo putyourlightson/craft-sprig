@@ -140,7 +140,7 @@ We can make the form reactive by adding the `sprig` attribute to it. We'll also 
 </form>
 ```
 
-Now, whenever the form is submitted, it will trigger a `POST` AJAX request to the `users/save-user` action and the component will be re-rendered. To make it display a success or error message, lets make it a bit smarter with some Twig logic.
+Now, whenever the form is submitted, it will POST an AJAX request to the `users/save-user` action, and the component will be re-rendered. To make it display a success or error message, lets make it a bit smarter with some Twig logic.
 
 ```twig
 {#-- _components/registration-form.twig --#}
