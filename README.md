@@ -9,6 +9,9 @@ Sprig is a free plugin for [Craft CMS](https://craftcms.com/) that allows you to
 It's basically [Laravel Livewire](https://laravel-livewire.com/) for Craft, with a focus on developer experience and simplicity.
 
 > This plugin is currently in active development. Please contribute by reporting any bugs or issues.
+
+![Demo](https://putyourlightson.com/assets/images/plugins/sprig/registration1.gif)
+
 ## Documentation
 
 Learn more and read the documentation at [putyourlightson.com/plugins/sprig »](https://putyourlightson.com/plugins/sprig?x-craft-preview=EXYUsLK6ik&token=qq5k_aE52NPYWaeQhLF3WItg3THksd-N)
