@@ -353,11 +353,11 @@ This plugin is licensed for free under the MIT License.
 
 This project stands on the shoulders of giants:
 
-- [Laravel Livewire](https://laravel-livewire.com/) by [@calebporzio](https://twitter.com/calebporzio).
-- [Htmx](https://htmx.org/) by [@htmx_org](https://twitter.com/htmx_org). 
-- [Craft CMS](https://craftcms.com/) by [@PixelAndTonic](https://twitter.com/PixelAndTonic).
+- Entirely inspired by [Laravel Livewire](https://laravel-livewire.com/).
+- JavaScript magic provided by [Htmx](https://htmx.org/).
+- Built for the excellent [Craft CMS](https://craftcms.com/).
 
-Special thanks to Andrew Welch, John D. Wells and Keyur for being sounding boards and a source of valuable input. Thanks also goes out to 🇿 (you know who you are).
+Special thanks to Andrew Welch, John D. Wells and Keyur for being a sounding board and a source of valuable input. Thanks also goes out to 🇿 (you know who you are).
 
 Icon: Herb emoji by [Twemoji](https://twemoji.twitter.com/).
 
