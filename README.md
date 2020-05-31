@@ -94,15 +94,7 @@ We can now get creative in our component. Let's check if a user with the usernam
 This component will re-render itself every time the `change` event of the `username` input field is triggered. We can make it so that the re-render is triggered on `keyup` events provided the field value has changed and the user hasn't typed anything for 1 second.
 
 ```twig
-{#-- _components/username.twig --#}
-
 <input sprig s-trigger="keyup changed delay:1s" type="text" name="username" value="{{ username ?? '' }}">
-
-{% if username is defined and craft.users.username(username).count() > 0 %}
-    <span class="warning">
-        The username "{{ username }}" is already taken!
-    </span>
-{% endif %}
 ```
 
 Let's say we now want to make the entire form a reactive component. To do so we'll use the `sprig()` function again and create a new template for our component.
@@ -285,10 +277,10 @@ The weather is {{ weather }}
 If you prefer then you can override the `render` method which will be called each time the component is rendered.
 
 ```php
-    public function render(): string
-    {
-        return 'The weather is ' . $this->weather;
-    }
+public function render(): string
+{
+    return 'The weather is ' . $this->weather;
+}
 ```
 
 Now we can create a component from our `CheckWeather` class as follows.
@@ -316,10 +308,10 @@ We can pass property values into the component as well.
 We can also define actions as public methods in our `CheckWeather` class.
 
 ```php
-    public function refreshWeather()
-    {
-        $this->weather = SomeWeatherApi::getCurrentWeather();
-    }
+public function refreshWeather()
+{
+    $this->weather = SomeWeatherApi::getCurrentWeather();
+}
 ```
 
 To call the action, we use the `s-action` attribute.
