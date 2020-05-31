@@ -126,7 +126,7 @@ Let's say we now want to make the entire form a reactive component. To do so we'
 </form>
 ```
 
-We can make the form reactive by adding the `sprig` attribute to it. We'll also use the `s-method` and `s-action` attributes to specify that the form should be `POST`ed and call the `users/save-user` action. Because we set the `s-method` to `post`, Sprig will automatically send a CSRF token along with our request, so we can remove it from the form. We can also remove the action input field.
+We can make the form reactive by adding the `sprig` attribute to it. We'll also use the `s-method` and `s-action` attributes to specify that the form should be `POST`ed and call the `users/save-user` action. Because we set the `s-method` to `post`, Sprig will automatically send a CSRF token along with our request, so we can remove it from the form. We can also remove the action input field as Sprig with add that for us too.
 
 ```twig
 {#-- _components/registration-form.twig --#}
@@ -308,7 +308,7 @@ We can pass property values into the component as well.
 We can also define actions as public methods in our `CheckWeather` class.
 
 ```php
-public function refreshWeather()
+public function refresh()
 {
     $this->weather = SomeWeatherApi::getCurrentWeather();
 }
@@ -321,8 +321,8 @@ To call the action, we use the `s-action` attribute.
 
 The weather is {{ weather }}.
 
-{# Clicking the button will call the `refreshWeather()` method and then re-render the component #}
-<button sprig s-action="refreshWeather">Refresh</button>
+{# Clicking the button will call the `refresh()` method and then re-render the component #}
+<button sprig s-action="refresh">Refresh</button>
 ```
 
 ## Requirements

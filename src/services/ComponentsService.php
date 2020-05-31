@@ -164,16 +164,21 @@ class ComponentsService extends Component
             }
         }
 
-        if ($csrf) {
-            $element = $dom->appendChild(new DOMElement('input'));
-            $element->setAttribute('type', 'hidden');
-            $element->setAttribute('name', Craft::$app->getRequest()->csrfParam);
-            $element->setAttribute('value', Craft::$app->getRequest()->getCsrfToken());
+        /**
+         * Generate output by concatenating all child elements of the body tag.
+         * https://stackoverflow.com/a/38079328/1769259
+         */
+        $output = '';
+
+        foreach ($dom->getElementsByTagName('body')->item(0)->childNodes as $node) {
+            $output .= $dom->saveHTML($node);
         }
 
-        $html = $dom->saveHTML() ?: '';
+        if ($csrf) {
+            $output = Html::csrfInput().$output;
+        }
 
-        return $html;
+        return $output;
     }
 
     /**

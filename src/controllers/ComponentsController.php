@@ -55,7 +55,8 @@ class ComponentsController extends Controller
                     $variables = array_merge($variables, $jsonResponse->data);
                 }
 
-                // Force format to HTML
+                // Force 200 status code and set format to HTML
+                $response->statusCode = 200;
                 $response->format = $response::FORMAT_HTML;
             }
 
