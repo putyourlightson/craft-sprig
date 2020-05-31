@@ -4,11 +4,11 @@
 
 ### A reactive Twig component framework for [Craft CMS](https://craftcms.com/).
 
-Sprig is a free Craft plugin that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions) using AJAX requests, without having to write a single line of JavaScript.
+Sprig is a free [Craft CMS](https://craftcms.com/) plugin that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions) using AJAX requests, without having to write a single line of JavaScript.
 
-It's basically [Laravel Livewire](https://laravel-livewire.com/) for [Craft CMS](https://craftcms.com/).
+It's basically [Laravel Livewire](https://laravel-livewire.com/) for Craft, with a focus on developer experience and simplicity.
 
-> This plugin is currently in development. Please contribute by reporting any bugs or issues.
+> This plugin is currently in active development. Please contribute by reporting any bugs or issues.
 
 ## How it Works 
 
@@ -49,7 +49,7 @@ We can turn the `username` input field into a component using the `sprig()` func
     <input type="submit" value="Register">
 </form>
 
-{# Add the required script like this or using your own build process #}
+{# Output the required script form unpkg, or use your own build process #}
 {{ sprig.script }}
 ```
 
@@ -107,7 +107,7 @@ Let's say we now want to make the entire form a reactive component. To do so we'
 {# Creates a component from the template path #}
 {{ sprig('_components/registration-form') }}
 
-{# Add the required script like this or using your own build process #}
+{# Output the required script form unpkg, or use your own build process #}
 {{ sprig.script }}
 ```
 
@@ -214,14 +214,6 @@ If you want a trigger to only happen once, you can use the `once` modifier for t
 </div>
 ```
 
-## Htmx
-
-Sprig requires and uses [htmx](https://htmx.org/) under the hood, so anything you can do with `hx-` attributes you can also do with `s-` attributes. See the [full attribute reference](https://htmx.org/reference).
-
-## Alertnative Syntax
-
-If for whatever reason you cannot or do not want to use `s-` attributes, you can use `sprig-` attributes in the same way.
-
 ## Component Class
 
 In the examples above, we passed a template path into the `sprig()` function, which created a component directly from that template. If you want to have more control over the component and be able to use PHP logic then you can create a Component class.
@@ -326,6 +318,14 @@ The weather is {{ weather }}.
 ```
 
 ![Check weather demo](./docs/check-weather.gif)
+
+## Alertnative Syntax
+
+If for whatever reason you cannot or do not want to use `s-` attributes, you can use `sprig-` attributes in the same way.
+
+## Htmx
+
+Sprig requires and uses [htmx](https://htmx.org/) under the hood, so anything you can do with `hx-` attributes you can also do with `s-` attributes. See the [full attribute reference](https://htmx.org/reference).
 
 ## Requirements
 

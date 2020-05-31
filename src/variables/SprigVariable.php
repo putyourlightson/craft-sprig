@@ -33,7 +33,7 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
-        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org', $attributes));
+        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@^0.0.4', $attributes));
     }
 
     /**
