@@ -29,18 +29,4 @@ Install the plugin using composer.
 composer require putyourlightson/craft-sprig:^0.1.0
 ```
 
-## Acknowledgements
-
-This project stands on the shoulders of giants:
-
-- Entirely inspired by [Laravel Livewire](https://laravel-livewire.com/).
-- JavaScript magic provided by [Htmx](https://htmx.org/).
-- Built for the excellent [Craft CMS](https://craftcms.com/).
-
-Special thanks to Andrew Welch, John D. Wells and Keyur for being a sounding board and a source of valuable input. Thanks also goes out to 🇿 (you know who you are).
-
-Icon: Herb emoji by [Twemoji](https://twemoji.twitter.com/).
-
----
-
 Created by [PutYourLightsOn](https://putyourlightson.com/).
