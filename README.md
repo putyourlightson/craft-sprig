@@ -325,6 +325,8 @@ The weather is {{ weather }}.
 <button sprig s-action="refresh">Refresh</button>
 ```
 
+![Check weather demo](./docs/check-weather.gif)
+
 ## Requirements
 
 Craft CMS 3.0.0 or later.
