@@ -12,6 +12,8 @@ It's basically [Laravel Livewire](https://laravel-livewire.com/) for Craft, with
 
 ![Demo](https://putyourlightson.com/assets/images/plugins/sprig/registration1.gif)
 
+> No full page requests were made in the demo above. 
+
 ## Documentation
 
 Learn more and read the documentation at [putyourlightson.com/plugins/sprig »](https://putyourlightson.com/plugins/sprig)
