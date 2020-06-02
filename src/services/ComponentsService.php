@@ -39,9 +39,10 @@ class ComponentsService extends Component
      *
      * @param string $value
      * @param array $variables
+     * @param array $attributes
      * @return Markup
      */
-    public function create(string $value, array $variables = []): Markup
+    public function create(string $value, array $variables = [], array $attributes = []): Markup
     {
         $componentObject = $this->createObject($value, $variables);
 
@@ -69,13 +70,20 @@ class ComponentsService extends Component
             $content .= Html::hiddenInput('sprig:variables['.$name.']', $value);
         }
 
-        $content .= Html::tag('div', $renderedContent, ['hx-target' => 'this']);
+        $content .= Html::tag('div', $renderedContent, [
+            'hx-target' => 'this',
+            'class' => 'component',
+        ]);
 
-        $id = StringHelper::randomString();
-        $attributes = [
-            'id' => $id,
-            'hx-include' => '#'.$id.' *',
-        ];
+        $id = $attributes['id'] ?? StringHelper::randomString();
+
+        $attributes = array_merge(
+            [
+                'id' => $id,
+                'hx-include' => '#'.$id.' *',
+            ],
+            $attributes
+        );
 
         return Template::raw(
             Html::tag('div', $content, $attributes)
@@ -121,6 +129,10 @@ class ComponentsService extends Component
      */
     public function parseTagAttributes(string $html): string
     {
+        if (empty(trim($html))) {
+            return $html;
+        }
+
         // Prevent XML errors from being thrown
         libxml_use_internal_errors(true);
 
