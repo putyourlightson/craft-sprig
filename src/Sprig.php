@@ -7,9 +7,7 @@ namespace putyourlightson\sprig;
 
 use Craft;
 use craft\base\Plugin;
-use craft\events\TemplateEvent;
 use craft\web\twig\variables\CraftVariable;
-use craft\web\View;
 use putyourlightson\sprig\services\ComponentsService;
 use putyourlightson\sprig\twigextensions\SprigTwigExtension;
 use putyourlightson\sprig\variables\SprigVariable;
