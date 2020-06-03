@@ -75,7 +75,8 @@ class ComponentsService extends Component
             'class' => 'component',
         ]);
 
-        $id = $attributes['id'] ?? StringHelper::randomString();
+        // Ensure ID does not start with a digit, otherwise a JS error will be thrown
+        $id = $attributes['id'] ?? 'component-'.StringHelper::randomString();
 
         $attributes = array_merge(
             [
