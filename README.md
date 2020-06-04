@@ -10,9 +10,9 @@ It's basically [Laravel Livewire](https://laravel-livewire.com/) for Craft, with
 
 > This plugin is currently in active development. Please contribute by reporting any bugs or issues.
 
-![Demo](https://putyourlightson.com/assets/images/plugins/sprig/registration1.gif)
+![Demo](https://putyourlightson.com/assets/images/plugins/sprig/search-demo.gif)
 
-> No full page requests were made in the demo above. 
+> No full-page requests were harmed in the making of the demo above. 
 
 ## Documentation
 
