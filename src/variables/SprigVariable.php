@@ -18,11 +18,12 @@ class SprigVariable
      *
      * @param string $template
      * @param array $variables
+     * @param array $attributes
      * @return Markup
      */
-    public function getComponent(string $template, array $variables = []): Markup
+    public function getComponent(string $template, array $variables = [], array $attributes = []): Markup
     {
-        return Sprig::$plugin->componentsService->create($template, $variables);
+        return Sprig::$plugin->componentsService->create($template, $variables, $attributes);
     }
 
     /**
@@ -37,11 +38,21 @@ class SprigVariable
     }
 
     /**
+     * Returns whether this is a component mount.
+     *
+     * @return bool
+     */
+    public function getIsMount(): bool
+    {
+        return !$this->getIsRequest();
+    }
+
+    /**
      * Returns whether this is a Sprig request.
      *
      * @return bool
      */
-    public function getRequest(): bool
+    public function getIsRequest(): bool
     {
         return (bool)Craft::$app->getRequest()->getHeaders()->get('X-HX-Request', false, true);
     }
