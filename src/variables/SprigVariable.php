@@ -34,17 +34,7 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
-        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@^0.0.4', $attributes));
-    }
-
-    /**
-     * Returns whether this is a component mount.
-     *
-     * @return bool
-     */
-    public function getIsMount(): bool
-    {
-        return !$this->getIsRequest();
+        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@0.0.4', $attributes));
     }
 
     /**
@@ -52,7 +42,7 @@ class SprigVariable
      *
      * @return bool
      */
-    public function getIsRequest(): bool
+    public function getRequest(): bool
     {
         return (bool)Craft::$app->getRequest()->getHeaders()->get('X-HX-Request', false, true);
     }
