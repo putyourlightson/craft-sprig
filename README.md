@@ -31,7 +31,7 @@ Craft CMS 3.0.0 or later.
 Install the plugin using composer.
 
 ```
-composer require putyourlightson/craft-sprig:^0.1.0
+composer require putyourlightson/craft-sprig:dev-develop
 ```
 
 Created by [PutYourLightsOn](https://putyourlightson.com/).
