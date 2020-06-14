@@ -4,9 +4,11 @@
 
 ### A reactive Twig component framework for Craft.
 
-Sprig is a free plugin for [Craft CMS](https://craftcms.com/) that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions) using AJAX requests, without requiring you to write a single line of JavaScript.
+Sprig is a free plugin for [Craft CMS](https://craftcms.com/) that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions, etc.) using AJAX requests, without requiring you to write a single line of JavaScript.
 
-Entirely inspired by [Laravel Livewire](https://laravel-livewire.com/). Built for Craft with a focus on developer experience and simplicity.
+Inspired entirely by [Laravel Livewire](https://laravel-livewire.com/), built specifically for Craft with a focus on developer experience and simplicity.
+
+> Sprig is currently in beta. Please report any bugs or issues in [Github](https://github.com/putyourlightson/craft-sprig/issues).
 
 ![Demo](https://putyourlightson.com/assets/images/plugins/sprig/search-demo.gif)
 
@@ -29,7 +31,7 @@ Craft CMS 3.0.0 or later.
 To install the plugin, search for “Sprig” in the Craft Plugin Store, or install manually using composer.
 
 ```
-composer require putyourlightson/craft-sprig
+composer require putyourlightson/craft-sprig:^1.0.0-beta.1
 ```
 
 ---
