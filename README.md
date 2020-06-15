@@ -30,7 +30,7 @@ Craft CMS 3.0.0 or later.
 
 To install the plugin, search for “Sprig” in the Craft Plugin Store, or install manually using composer.
 
-> Sprig is currently in beta and therefore requires that you add `"minimum-stability": "dev"` to `composer.json` before installing.
+> Sprig is currently in beta and therefore requires that you add `"minimum-stability": "beta"` to `composer.json` before installing.
 
 ```
 composer require putyourlightson/craft-sprig:^1.0.0-beta.1
