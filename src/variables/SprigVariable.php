@@ -34,7 +34,17 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
-        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@0.0.4', $attributes));
+        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@0.0.5', $attributes));
+    }
+
+    /**
+     * Returns whether this is a Sprig mount.
+     *
+     * @return bool
+     */
+    public function getMount(): bool
+    {
+        return !$this->getRequest();
     }
 
     /**
@@ -44,7 +54,7 @@ class SprigVariable
      */
     public function getRequest(): bool
     {
-        return (bool)Craft::$app->getRequest()->getHeaders()->get('X-HX-Request', false, true);
+        return (bool)Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true);
     }
 
     /**
@@ -57,8 +67,8 @@ class SprigVariable
         $headers = Craft::$app->getRequest()->getHeaders();
 
         return [
-            'id' => $headers->get('X-HX-Trigger', '', true),
-            'name' => $headers->get('X-HX-Trigger-Name', '', true),
+            'id' => $headers->get('HX-Trigger', '', true),
+            'name' => $headers->get('HX-Trigger-Name', '', true),
         ];
     }
     /**
@@ -71,7 +81,7 @@ class SprigVariable
         $headers = Craft::$app->getRequest()->getHeaders();
 
         return [
-            'id' => $headers->get('X-HX-Target', '', true),
+            'id' => $headers->get('HX-Target', '', true),
         ];
     }
 
@@ -82,7 +92,7 @@ class SprigVariable
      */
     public function getUrl(): string
     {
-        return Craft::$app->getRequest()->getHeaders()->get('X-HX-Current-URL', '', true);
+        return Craft::$app->getRequest()->getHeaders()->get('HX-Current-URL', '', true);
     }
 
     /**
@@ -92,7 +102,7 @@ class SprigVariable
      */
     public function getPrompt(): string
     {
-        return Craft::$app->getRequest()->getHeaders()->get('X-HX-Prompt', '', true);
+        return Craft::$app->getRequest()->getHeaders()->get('HX-Prompt', '', true);
     }
 
     /**
@@ -105,7 +115,7 @@ class SprigVariable
         $headers = Craft::$app->getRequest()->getHeaders();
 
         return [
-            'id' => $headers->get('X-HX-Event-Target', '', true),
+            'id' => $headers->get('HX-Event-Target', '', true),
         ];
     }
 
@@ -119,9 +129,9 @@ class SprigVariable
         $headers = Craft::$app->getRequest()->getHeaders();
 
         return [
-            'id' => $headers->get('X-HX-Active-Element', '', true),
-            'name' => $headers->get('X-HX-Active-Element-Name', '', true),
-            'value' => $headers->get('X-HX-Active-Element-Value', '', true),
+            'id' => $headers->get('HX-Active-Element', '', true),
+            'name' => $headers->get('HX-Active-Element-Name', '', true),
+            'value' => $headers->get('HX-Active-Element-Value', '', true),
         ];
     }
 }
