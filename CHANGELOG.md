@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.2 - Unreleased
+## 1.0.0-beta.2 - 2020-06-21
 ### Added
 - Added the `sprig.include` variable.
 
