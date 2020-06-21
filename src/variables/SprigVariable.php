@@ -34,15 +34,15 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
-        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@0.0.5', $attributes));
+        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@0.0.6', $attributes));
     }
 
     /**
-     * Returns whether this is a Sprig mount.
+     * Returns whether this is a Sprig include.
      *
      * @return bool
      */
-    public function getMount(): bool
+    public function getInclude(): bool
     {
         return !$this->getRequest();
     }
