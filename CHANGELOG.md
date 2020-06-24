@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.3 - Unreleased
+### Added
+- Added the ability to send events back in the response header.
+
+### Changed
+- Removed the `error-url` from the list of available attributes since it was dropped in htmx 0.0.6.
+
 ## 1.0.0-beta.2 - 2020-06-21
 ### Added
 - Added the `sprig.include` variable.

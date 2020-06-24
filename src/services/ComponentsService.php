@@ -30,9 +30,9 @@ class ComponentsService extends Component
     const RENDER_CONTROLLER_ACTION = 'sprig/components/render';
 
     /**
-     * @const array
+     * @const string[]
      */
-    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'error-url', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'ws'];
+    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'ws'];
 
     /**
      * Creates a new component.
@@ -60,6 +60,10 @@ class ComponentsService extends Component
             }
 
             $renderedContent = Craft::$app->getView()->renderTemplate($value, $variables);
+
+            if (!empty($variables['events'])) {
+                $this->setResponseEvents($variables['events']);
+            }
         }
 
         $renderedContent = $this->parseTagAttributes($renderedContent);
@@ -214,5 +218,24 @@ class ComponentsService extends Component
         }
 
         return '';
+    }
+
+    /**
+     * Sets the response events in the `HX-Trigger` header.
+     * @see https://htmx.org/headers/x-hx-trigger/
+     *
+     * @param mixed $events
+     * @return string
+     */
+    public function setResponseEvents($events)
+    {
+        if ($events === null) {
+            return;
+        }
+
+        // If this is a Sprig request, set the `HX-Trigger` response header
+        if (Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true)) {
+            Craft::$app->getResponse()->getHeaders()->set('HX-Trigger', $events);
+        }
     }
 }
