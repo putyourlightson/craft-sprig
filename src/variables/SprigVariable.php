@@ -44,7 +44,7 @@ class SprigVariable
      */
     public function getInclude(): bool
     {
-        return !$this->getRequest();
+        return !Sprig::$plugin->getIsRequest();
     }
 
     /**
@@ -54,7 +54,7 @@ class SprigVariable
      */
     public function getRequest(): bool
     {
-        return (bool)Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true);
+        return Sprig::$plugin->getIsRequest();
     }
 
     /**

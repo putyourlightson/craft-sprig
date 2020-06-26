@@ -60,10 +60,6 @@ class ComponentsService extends Component
             }
 
             $renderedContent = Craft::$app->getView()->renderTemplate($value, $variables);
-
-            if (!empty($variables['events'])) {
-                $this->setResponseEvents($variables['events']);
-            }
         }
 
         $renderedContent = $this->parseTagAttributes($renderedContent);
@@ -218,24 +214,5 @@ class ComponentsService extends Component
         }
 
         return '';
-    }
-
-    /**
-     * Sets the response events in the `HX-Trigger` header.
-     * @see https://htmx.org/headers/x-hx-trigger/
-     *
-     * @param mixed $events
-     * @return string
-     */
-    public function setResponseEvents($events)
-    {
-        if ($events === null) {
-            return;
-        }
-
-        // If this is a Sprig request, set the `HX-Trigger` response header
-        if (Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true)) {
-            Craft::$app->getResponse()->getHeaders()->set('HX-Trigger', $events);
-        }
     }
 }

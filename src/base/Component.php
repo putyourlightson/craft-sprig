@@ -12,19 +12,27 @@ use putyourlightson\sprig\Sprig;
 abstract class Component extends BaseComponent implements ComponentInterface
 {
     /**
-     * The events to send in the `HX-Trigger` response header.
+     * The client-side events to trigger in a response.
      * @see https://htmx.org/headers/x-hx-trigger/
      *
      * @var mixed
      */
-    public $events;
+    protected $_events;
+
+    /**
+     * The URL to push into the history stack.
+     * @see https://htmx.org/reference#response_headers
+     *
+     * @var mixed
+     */
+    protected $_url;
 
     /**
      * The path to the template that the `render` method should render.
      *
      * @var string|null
      */
-    protected $template;
+    protected $_template;
 
     /**
      * @inheritDoc
@@ -33,7 +41,10 @@ abstract class Component extends BaseComponent implements ComponentInterface
     {
         parent::init();
 
-        Sprig::$plugin->componentsService->setResponseEvents($this->events);
+        Sprig::$plugin->setResponseHeaders([
+            'events' => $this->_events,
+            'url' => $this->_url,
+        ]);
     }
 
     /**
@@ -42,7 +53,7 @@ abstract class Component extends BaseComponent implements ComponentInterface
     public function render(): string
     {
         if ($this->template !== null) {
-            return Craft::$app->getView()->renderTemplate($this->template, $this->getAttributes());
+            return Craft::$app->getView()->renderTemplate($this->_template, $this->getAttributes());
         }
 
         return '';
