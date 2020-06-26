@@ -138,7 +138,10 @@ class ComponentsService extends Component
         libxml_use_internal_errors(true);
 
         $dom = new DOMDocument();
-        $dom->loadHTML($html);
+
+        // Force UTF-8 encoding
+        // https://stackoverflow.com/a/8218649/1769259
+        $dom->loadHTML('<?xml encoding="utf-8" ?>'.$html);
 
         $csrf = false;
 

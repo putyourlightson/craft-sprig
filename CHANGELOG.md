@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.4 - Unreleased
+### Fixed
+- Fixed characters not being encoded in UTF-8 in rendered components ([#2](https://github.com/putyourlightson/craft-sprig/issues/2)).
+
 ## 1.0.0-beta.3 - 2020-06-26
 ### Added
 - Added the ability to send events and a URL back in the response header.
