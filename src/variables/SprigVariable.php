@@ -27,14 +27,22 @@ class SprigVariable
     }
 
     /**
-     * Returns a script tag to the Htmx source file using unpkg.com.
+     * Returns a script tag to the Htmx source file and any provided extensions using unpkg.com.
      *
+     * @param array $extensions
      * @param array $attributes
      * @return Markup
      */
-    public function getScript(array $attributes = []): Markup
+    public function getScript(array $extensions = [], array $attributes = []): Markup
     {
-        return Template::raw(Html::jsFile('https://unpkg.com/htmx.org@0.0.6', $attributes));
+        $baseUrl = 'https://unpkg.com/htmx.org@0.0.6';
+        $script = Html::jsFile($baseUrl, $attributes);
+
+        foreach ($extensions as $extension) {
+            $script .= Html::jsFile($baseUrl.'/dist/ext/'.$extension.'.js', $attributes);
+        }
+
+        return Template::raw($script);
     }
 
     /**
