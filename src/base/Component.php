@@ -52,7 +52,7 @@ abstract class Component extends BaseComponent implements ComponentInterface
      */
     public function render(): string
     {
-        if ($this->template !== null) {
+        if ($this->_template !== null) {
             return Craft::$app->getView()->renderTemplate($this->_template, $this->getAttributes());
         }
 

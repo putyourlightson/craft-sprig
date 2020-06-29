@@ -1,8 +1,12 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.4 - Unreleased
+## 1.0.0-beta.4 - 2020-06-29
+### Added
+- Added the `s-vars` attribute.
+
 ### Fixed
 - Fixed characters not being encoded in UTF-8 in rendered components ([#2](https://github.com/putyourlightson/craft-sprig/issues/2)).
+- Fixed a bug that could throw an error when creating a component class.
 
 ## 1.0.0-beta.3 - 2020-06-26
 ### Added
