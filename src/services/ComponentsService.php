@@ -67,10 +67,7 @@ class ComponentsService extends Component
         $content = Html::hiddenInput('sprig:'.$type, Craft::$app->getSecurity()->hashData($value));
 
         foreach ($variables as $name => $value) {
-            // Hash the variable if its name begins with an underscore
-            if (strpos($name, '_') === 0) {
-                $value = Craft::$app->getSecurity()->hashData($value);
-            }
+            $value = Craft::$app->getSecurity()->hashData($value);
 
             $content .= Html::hiddenInput('sprig:variables['.$name.']', $value);
         }

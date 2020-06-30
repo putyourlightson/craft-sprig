@@ -72,8 +72,9 @@ class ComponentsController extends Controller
     }
 
     /**
-     * Returns a validated request param.
+     * Returns a validated request parameter.
      *
+     * @param $name
      * @return string|false|null
      */
     private function _getValidatedParam($name)
@@ -88,6 +89,25 @@ class ComponentsController extends Controller
     }
 
     /**
+     * Returns an array of validated request parameter values.
+     *
+     * @param $name
+     * @return []
+     */
+    private function _getValidatedParamValues($name)
+    {
+        $values = [];
+
+        $param = Craft::$app->getRequest()->getParam($name, []);
+
+        foreach ($param as $name => $value) {
+            $values[$name] = Craft::$app->getSecurity()->validateData($value);
+        }
+
+        return $values;
+    }
+
+    /**
      * Returns variables to be passed to the template.
      *
      * @return array
@@ -96,7 +116,7 @@ class ComponentsController extends Controller
     {
         $request = Craft::$app->getRequest();
 
-        $params = $request->getParam('sprig:variables', []);
+        $variables = $this->_getValidatedParamValues('sprig:variables');
 
         $requestParams = array_merge(
             $request->getQueryParams(),
@@ -104,24 +124,10 @@ class ComponentsController extends Controller
         );
 
         foreach ($requestParams as $name => $value) {
-            // Only include the variable if its name does not begin with an underscore
-            if (strpos($name, '_') !== 0) {
-                $params[$name] = $value;
+            // Only include the variable if its name does not begin with an underscore or `sprig:`
+            if (strpos($name, '_') !== 0 && strpos($name, 'sprig:') !== 0) {
+                $variables[$name] = $value;
             }
-        }
-
-        foreach ($params as $name => $value) {
-            // Don't include the variable if its name begins with `sprig:`
-            if (strpos($name, 'sprig:') === 0) {
-                continue;
-            }
-
-            // Validate the variable value if its name begins with an underscore
-            if (strpos($name, '_') === 0) {
-                $value = Craft::$app->getSecurity()->validateData($value);
-            }
-
-            $variables[$name] = $value;
         }
 
         return $variables;
