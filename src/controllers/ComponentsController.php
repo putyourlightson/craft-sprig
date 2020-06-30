@@ -94,22 +94,34 @@ class ComponentsController extends Controller
      */
     private function _getVariables(): array
     {
-        $variables = [];
         $request = Craft::$app->getRequest();
 
-        $variableParams = $request->getParam('sprig:variables', []);
+        $params = $request->getParam('sprig:variables', []);
 
-        // The order of the sources is important as later sources will take precedence
-        $variableSources = array_merge(
-            $variableParams,
+        $requestParams = array_merge(
             $request->getQueryParams(),
             $request->getBodyParams()
         );
 
-        foreach ($variableSources as $name => $value) {
-            if (strpos($name, 'sprig:') === false) {
-                $variables[$name] = $value;
+        foreach ($requestParams as $name => $value) {
+            // Only include the variable if its name does not begin with an underscore
+            if (strpos($name, '_') !== 0) {
+                $params[$name] = $value;
             }
+        }
+
+        foreach ($params as $name => $value) {
+            // Don't include the variable if its name begins with `sprig:`
+            if (strpos($name, 'sprig:') === 0) {
+                continue;
+            }
+
+            // Validate the variable value if its name begins with an underscore
+            if (strpos($name, '_') === 0) {
+                $value = Craft::$app->getSecurity()->validateData($value);
+            }
+
+            $variables[$name] = $value;
         }
 
         return $variables;

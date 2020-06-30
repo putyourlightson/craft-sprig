@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.5 - Unreleased
+### Added
+- Added the ability to pass protected variables into components by prefixing them with an underscore.
+
 ## 1.0.0-beta.4 - 2020-06-29
 ### Added
 - Added the `s-vars` attribute.

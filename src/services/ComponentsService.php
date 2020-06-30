@@ -67,6 +67,11 @@ class ComponentsService extends Component
         $content = Html::hiddenInput('sprig:'.$type, Craft::$app->getSecurity()->hashData($value));
 
         foreach ($variables as $name => $value) {
+            // Hash the variable if its name begins with an underscore
+            if (strpos($name, '_') === 0) {
+                $value = Craft::$app->getSecurity()->hashData($value);
+            }
+
             $content .= Html::hiddenInput('sprig:variables['.$name.']', $value);
         }
 
@@ -153,7 +158,8 @@ class ComponentsService extends Component
             if ($element->hasAttribute('sprig')) {
                 $verb = 'get';
 
-                if ($this->getElementAttribute($element, 'method') == 'post') {
+                // Make the check case-insensitive
+                if (strtolower($this->getElementAttribute($element, 'method')) == 'post') {
                     $verb = 'post';
                     $csrf = true;
                 }
