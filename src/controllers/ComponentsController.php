@@ -8,6 +8,7 @@ namespace putyourlightson\sprig\controllers;
 use Craft;
 use craft\web\Controller;
 use putyourlightson\sprig\Sprig;
+use yii\base\Exception;
 use yii\base\InvalidRouteException;
 use yii\web\Response;
 
@@ -82,7 +83,7 @@ class ComponentsController extends Controller
         $value = Craft::$app->getRequest()->getParam($name);
 
         if ($value !== null) {
-            $value = Craft::$app->getSecurity()->validateData($value);
+            $value = $this->_validateData($value);
         }
 
         return $value;
@@ -101,7 +102,7 @@ class ComponentsController extends Controller
         $param = Craft::$app->getRequest()->getParam($name, []);
 
         foreach ($param as $name => $value) {
-            $values[$name] = Craft::$app->getSecurity()->validateData($value);
+            $values[$name] = $this->_validateData($value);
         }
 
         return $values;
@@ -131,5 +132,23 @@ class ComponentsController extends Controller
         }
 
         return $variables;
+    }
+
+    /**
+     * Validates if the given data is tampered and throws an exception.
+     *
+     * @param $value
+     * @return string
+     * @throws Exception
+     */
+    private function _validateData($value)
+    {
+        $value = Craft::$app->getSecurity()->validateData($value);
+
+        if ($value === false) {
+            throw new Exception('Submitted data was tampered.');
+        }
+
+        return $value;
     }
 }
