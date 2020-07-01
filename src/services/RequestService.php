@@ -36,7 +36,7 @@ class RequestService extends Component
             $disallowed = false;
 
             foreach (self::DISALLOWED_PREFIXES as $prefix) {
-                if (strpos($name, $prefix) !== 0) {
+                if (strpos($name, $prefix) === 0) {
                     $disallowed = true;
                     break;
                 }
