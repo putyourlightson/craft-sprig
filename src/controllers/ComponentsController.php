@@ -93,7 +93,7 @@ class ComponentsController extends Controller
      * Returns an array of validated request parameter values.
      *
      * @param $name
-     * @return []
+     * @return string[]
      */
     private function _getValidatedParamValues($name)
     {
