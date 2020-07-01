@@ -9,12 +9,14 @@ use Craft;
 use craft\base\Plugin;
 use craft\web\twig\variables\CraftVariable;
 use putyourlightson\sprig\services\ComponentsService;
+use putyourlightson\sprig\services\RequestService;
 use putyourlightson\sprig\twigextensions\SprigTwigExtension;
 use putyourlightson\sprig\variables\SprigVariable;
 use yii\base\Event;
 
 /**
- * @property ComponentsService $componentsService
+ * @property ComponentsService $components
+ * @property RequestService $request
  */
 class Sprig extends Plugin
 {
@@ -39,7 +41,8 @@ class Sprig extends Plugin
         self::$sprigVariable = new SprigVariable();
 
         $this->setComponents([
-            'componentsService' => ComponentsService::class,
+            'components' => ComponentsService::class,
+            'request' => ComponentsService::class,
         ]);
 
         $this->_registerTwigExtensions();

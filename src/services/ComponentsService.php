@@ -14,6 +14,7 @@ use craft\helpers\UrlHelper;
 use DOMDocument;
 use DOMElement;
 use putyourlightson\sprig\base\ComponentInterface;
+use putyourlightson\sprig\Sprig;
 use Twig\Markup;
 use yii\base\Exception;
 
@@ -44,6 +45,11 @@ class ComponentsService extends Component
      */
     public function create(string $value, array $variables = [], array $attributes = []): Markup
     {
+        $variables = array_merge(
+            $variables,
+            Sprig::$plugin->request->getVariables()
+        );
+
         $componentObject = $this->createObject($value, $variables);
 
         if ($componentObject) {

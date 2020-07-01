@@ -8,7 +8,6 @@ namespace putyourlightson\sprig\controllers;
 use Craft;
 use craft\web\Controller;
 use putyourlightson\sprig\Sprig;
-use yii\base\Exception;
 use yii\base\InvalidRouteException;
 use yii\web\Response;
 
@@ -29,13 +28,18 @@ class ComponentsController extends Controller
     {
         $response = Craft::$app->getResponse();
 
-        $component = $this->_getValidatedParam('sprig:component');
-        $action = $this->_getValidatedParam('sprig:action');
-        $variables = $this->_getVariables();
+        $component = Sprig::$plugin->request->getValidatedParam('sprig:component');
+        $action = Sprig::$plugin->request->getValidatedParam('sprig:action');
+
+        $variables = array_merge(
+            Sprig::$plugin->request->getValidatedParamValues('sprig:variables'),
+            Sprig::$plugin->request->getVariables()
+        );
+
         $content = '';
 
         if ($component) {
-            $componentObject = Sprig::$plugin->componentsService->createObject($component, $variables);
+            $componentObject = Sprig::$plugin->components->createObject($component, $variables);
 
             if ($componentObject) {
                 if ($action && method_exists($componentObject, $action)) {
@@ -63,92 +67,12 @@ class ComponentsController extends Controller
 
             Sprig::$plugin->setResponseHeaders($variables);
 
-            $template = $this->_getValidatedParam('sprig:template');
+            $template = Sprig::$plugin->request->getValidatedParam('sprig:template');
             $content = Craft::$app->getView()->renderTemplate($template, $variables);
         }
 
-        $response->data = Sprig::$plugin->componentsService->parseTagAttributes($content);
+        $response->data = Sprig::$plugin->components->parseTagAttributes($content);
 
         return $response;
-    }
-
-    /**
-     * Returns a validated request parameter.
-     *
-     * @param $name
-     * @return string|false|null
-     */
-    private function _getValidatedParam($name)
-    {
-        $value = Craft::$app->getRequest()->getParam($name);
-
-        if ($value !== null) {
-            $value = $this->_validateData($value);
-        }
-
-        return $value;
-    }
-
-    /**
-     * Returns an array of validated request parameter values.
-     *
-     * @param $name
-     * @return string[]
-     */
-    private function _getValidatedParamValues($name)
-    {
-        $values = [];
-
-        $param = Craft::$app->getRequest()->getParam($name, []);
-
-        foreach ($param as $name => $value) {
-            $values[$name] = $this->_validateData($value);
-        }
-
-        return $values;
-    }
-
-    /**
-     * Returns variables to be passed to the template.
-     *
-     * @return array
-     */
-    private function _getVariables(): array
-    {
-        $request = Craft::$app->getRequest();
-
-        $variables = $this->_getValidatedParamValues('sprig:variables');
-
-        $requestParams = array_merge(
-            $request->getQueryParams(),
-            $request->getBodyParams()
-        );
-
-        foreach ($requestParams as $name => $value) {
-            // Only include the variable if its name does not begin with an underscore or `sprig:`
-            if (strpos($name, '_') !== 0 && strpos($name, 'sprig:') !== 0) {
-                $variables[$name] = $value;
-            }
-        }
-
-        return $variables;
-    }
-
-    /**
-     * Validates if the given data is tampered and throws an exception.
-     *
-     * @param $value
-     * @return string
-     * @throws Exception
-     */
-    private function _validateData($value)
-    {
-        $value = Craft::$app->getSecurity()->validateData($value);
-
-        if ($value === false) {
-            throw new Exception('Submitted data was tampered.');
-        }
-
-        return $value;
     }
 }

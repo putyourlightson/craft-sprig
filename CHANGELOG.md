@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.6 - Unreleased
+### Changed
+- Request parameters are now added as variables to the initial sprig include.
+
 ## 1.0.0-beta.5 - 2020-07-01
 ### Added
 - Added the ability to pass protected variables into components by prefixing them with an underscore.
