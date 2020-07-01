@@ -1,8 +1,11 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.5 - Unreleased
+## 1.0.0-beta.5 - 2020-07-01
 ### Added
 - Added the ability to pass protected variables into components by prefixing them with an underscore.
+
+### Changed
+- Requires htmx 0.0.7.
 
 ## 1.0.0-beta.4 - 2020-06-29
 ### Added
@@ -26,7 +29,7 @@
 - Added the `sprig.include` variable.
 
 ### Changed
-- Require htmx 0.0.6.
+- Requires htmx 0.0.6.
 
 ## 1.0.0-beta.1 - 2020-06-15
 - Initial release.

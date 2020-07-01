@@ -35,7 +35,7 @@ class SprigVariable
      */
     public function getScript(array $extensions = [], array $attributes = []): Markup
     {
-        $baseUrl = 'https://unpkg.com/htmx.org@0.0.6';
+        $baseUrl = 'https://unpkg.com/htmx.org@0.0.7';
         $script = Html::jsFile($baseUrl, $attributes);
 
         foreach ($extensions as $extension) {
