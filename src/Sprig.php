@@ -42,7 +42,7 @@ class Sprig extends Plugin
 
         $this->setComponents([
             'components' => ComponentsService::class,
-            'request' => ComponentsService::class,
+            'request' => RequestService::class,
         ]);
 
         $this->_registerTwigExtensions();
