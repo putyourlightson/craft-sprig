@@ -18,7 +18,7 @@ class SprigTwigExtension extends AbstractExtension implements GlobalsInterface
     public function getFunctions()
     {
         return [
-            new TwigFunction('sprig', [Sprig::$plugin->componentsService, 'create']),
+            new TwigFunction('sprig', [Sprig::$plugin->components, 'create']),
         ];
     }
 

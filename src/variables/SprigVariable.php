@@ -23,7 +23,7 @@ class SprigVariable
      */
     public function getComponent(string $template, array $variables = [], array $attributes = []): Markup
     {
-        return Sprig::$plugin->componentsService->create($template, $variables, $attributes);
+        return Sprig::$plugin->components->create($template, $variables, $attributes);
     }
 
     /**
