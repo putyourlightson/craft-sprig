@@ -87,7 +87,7 @@ class RequestService extends Component
     }
 
     /**
-     * Validates if the given data is tampered and throws an exception.
+     * Validates if the given data is tampered with and throws an exception if it is.
      *
      * @param $value
      * @return string

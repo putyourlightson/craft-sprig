@@ -1,8 +1,12 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.6 - Unreleased
+## 1.0.0-beta.6 - 2020-07-03
+### Added
+- Added the `sprig.htmxVersion` variable.
+
 ### Changed
 - Request parameters are now added as variables to the initial sprig include.
+- Removed the ability to load extensions using the `sprig.script` tag.
 
 ## 1.0.0-beta.5 - 2020-07-01
 ### Added

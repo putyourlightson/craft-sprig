@@ -14,6 +14,13 @@ use Twig\Markup;
 class SprigVariable
 {
     /**
+     * The htmx version number required by Sprig.
+     *
+     * @var string
+     */
+    public $htmxVersion = '0.0.7';
+
+    /**
      * Returns a new component.
      *
      * @param string $template
@@ -27,20 +34,15 @@ class SprigVariable
     }
 
     /**
-     * Returns a script tag to the Htmx source file and any provided extensions using unpkg.com.
+     * Returns a script tag to the htmx source file using unpkg.com.
      *
-     * @param array $extensions
      * @param array $attributes
      * @return Markup
      */
-    public function getScript(array $extensions = [], array $attributes = []): Markup
+    public function getScript(array $attributes = []): Markup
     {
-        $baseUrl = 'https://unpkg.com/htmx.org@0.0.7';
-        $script = Html::jsFile($baseUrl, $attributes);
-
-        foreach ($extensions as $extension) {
-            $script .= Html::jsFile($baseUrl.'/dist/ext/'.$extension.'.js', $attributes);
-        }
+        $url = 'https://unpkg.com/htmx.org@'.$this->htmxVersion;
+        $script = Html::jsFile($url, $attributes);
 
         return Template::raw($script);
     }
