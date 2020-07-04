@@ -1,5 +1,10 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.7 - Unreleased
+### Changed
+- Replaced htmx script from unpkg.com with a local version.
+- Removed the `sprig.htmxVersion` variable.
+
 ## 1.0.0-beta.6 - 2020-07-03
 ### Added
 - Added the `sprig.htmxVersion` variable.

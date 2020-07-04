@@ -14,13 +14,6 @@ use Twig\Markup;
 class SprigVariable
 {
     /**
-     * The htmx version number required by Sprig.
-     *
-     * @var string
-     */
-    public $htmxVersion = '0.0.7';
-
-    /**
      * Returns a new component.
      *
      * @param string $template
@@ -41,7 +34,9 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
-        $url = 'https://unpkg.com/htmx.org@'.$this->htmxVersion;
+        $path = '@putyourlightson/sprig/resources/js/htmx-0.0.7.1.js';
+        $url = Craft::$app->assetManager->getPublishedUrl($path, true);
+
         $script = Html::jsFile($url, $attributes);
 
         return Template::raw($script);
