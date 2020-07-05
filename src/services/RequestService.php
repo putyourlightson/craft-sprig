@@ -8,6 +8,7 @@ namespace putyourlightson\sprig\services;
 use Craft;
 use craft\base\Component;
 use yii\base\Exception;
+use yii\web\BadRequestHttpException;
 
 class RequestService extends Component
 {
@@ -53,10 +54,10 @@ class RequestService extends Component
     /**
      * Returns a validated request parameter.
      *
-     * @param $name
+     * @param string $name
      * @return string|false|null
      */
-    public function getValidatedParam($name)
+    public function getValidatedParam(string $name)
     {
         $value = Craft::$app->getRequest()->getParam($name);
 
@@ -70,10 +71,10 @@ class RequestService extends Component
     /**
      * Returns an array of validated request parameter values.
      *
-     * @param $name
+     * @param string $name
      * @return string[]
      */
-    public function getValidatedParamValues($name)
+    public function getValidatedParamValues(string $name)
     {
         $values = [];
 
@@ -89,7 +90,7 @@ class RequestService extends Component
     /**
      * Validates if the given data is tampered with and throws an exception if it is.
      *
-     * @param $value
+     * @param mixed $value
      * @return string
      * @throws Exception
      */
@@ -98,7 +99,7 @@ class RequestService extends Component
         $value = Craft::$app->getSecurity()->validateData($value);
 
         if ($value === false) {
-            throw new Exception('Submitted data was tampered.');
+            throw new BadRequestHttpException('Submitted data was tampered.');
         }
 
         return $value;

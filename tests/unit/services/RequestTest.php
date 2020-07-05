@@ -1,0 +1,80 @@
+<?php
+/**
+ * @copyright Copyright (c) PutYourLightsOn
+ */
+
+namespace putyourlightson\sprigtests\unit;
+
+use Codeception\Test\Unit;
+use Craft;
+use craft\helpers\App;
+use craft\web\Request;
+use putyourlightson\sprig\Sprig;
+use UnitTester;
+use yii\web\BadRequestHttpException;
+
+/**
+ * @author    PutYourLightsOn
+ * @package   Sprig
+ * @since     1.0.0
+ */
+
+class RequestTest extends Unit
+{
+    /**
+     * @var UnitTester
+     */
+    protected $tester;
+
+    public function testGetVariables()
+    {
+        $this->tester->mockCraftMethods('request', [
+            'getFullPath' => [''],
+            'getQueryParams' => [
+                'page' => 1,
+                '_secret' => 'xyz',
+                'sprig:template' => 't',
+            ]
+        ]);
+
+        $variables = Sprig::$plugin->request->getVariables();
+
+        $this->assertEquals(['page' => 1], $variables);
+    }
+
+    public function testGetValidatedParam()
+    {
+        $this->tester->mockCraftMethods('request', [
+            'getFullPath' => [''],
+            'getParam' => Craft::$app->getSecurity()->hashData('xyz'),
+        ]);
+
+        $param = Sprig::$plugin->request->getValidatedParam('page');
+
+        $this->assertEquals('xyz', $param);
+    }
+
+    public function testGetValidatedParamValues()
+    {
+        $this->tester->mockCraftMethods('request', [
+            'getFullPath' => [''],
+            'getParam' => [
+                Craft::$app->getSecurity()->hashData('abc'),
+                Craft::$app->getSecurity()->hashData('xyz'),
+            ]
+        ]);
+
+        $values = Sprig::$plugin->request->getValidatedParamValues('page');
+
+        $this->assertEquals(['abc', 'xyz'], $values);
+    }
+
+    public function testValidateData()
+    {
+        $this->expectException(BadRequestHttpException::class);
+
+        $data = Craft::$app->getSecurity()->hashData('xyz').'abc';
+
+        Sprig::$plugin->request->validateData($data);
+    }
+}

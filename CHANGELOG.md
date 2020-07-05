@@ -1,7 +1,11 @@
 # Release Notes for Sprig
 
 ## 1.0.0-beta.7 - Unreleased
+### Added
+- Added unit tests.
+
 ### Changed
+- Returns a 400 error when submitted data is determined to be tampered.
 - Replaced htmx script from unpkg.com with a local version.
 - Removed the `sprig.htmxVersion` variable.
 
