@@ -16,7 +16,7 @@ use DOMElement;
 use putyourlightson\sprig\base\ComponentInterface;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
-use yii\base\Exception;
+use yii\web\BadRequestHttpException;
 
 class ComponentsService extends Component
 {
@@ -60,7 +60,7 @@ class ComponentsService extends Component
             $type = 'template';
 
             if (!Craft::$app->getView()->doesTemplateExist($value)) {
-                throw new Exception(Craft::t('sprig', 'Unable to find the component or template “{value}”.', [
+                throw new BadRequestHttpException(Craft::t('sprig', 'Unable to find the component or template “{value}”.', [
                     'value' => $value,
                 ]));
             }

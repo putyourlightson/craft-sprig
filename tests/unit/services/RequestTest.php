@@ -7,8 +7,6 @@ namespace putyourlightson\sprigtests\unit;
 
 use Codeception\Test\Unit;
 use Craft;
-use craft\helpers\App;
-use craft\web\Request;
 use putyourlightson\sprig\Sprig;
 use UnitTester;
 use yii\web\BadRequestHttpException;
@@ -28,14 +26,11 @@ class RequestTest extends Unit
 
     public function testGetVariables()
     {
-        $this->tester->mockCraftMethods('request', [
-            'getFullPath' => [''],
-            'getQueryParams' => [
-                'page' => 1,
-                '_secret' => 'xyz',
-                'sprig:template' => 't',
-            ]
-        ]);
+        $this->_mockRequestMethods(['getQueryParams' => [
+            'page' => 1,
+            '_secret' => 'xyz',
+            'sprig:template' => 't',
+        ]]);
 
         $variables = Sprig::$plugin->request->getVariables();
 
@@ -44,6 +39,10 @@ class RequestTest extends Unit
 
     public function testGetValidatedParam()
     {
+        $this->_mockRequestMethods(['getParam' => [
+            Craft::$app->getSecurity()->hashData('xyz'),
+        ]]);
+
         $this->tester->mockCraftMethods('request', [
             'getFullPath' => [''],
             'getParam' => Craft::$app->getSecurity()->hashData('xyz'),
@@ -56,13 +55,10 @@ class RequestTest extends Unit
 
     public function testGetValidatedParamValues()
     {
-        $this->tester->mockCraftMethods('request', [
-            'getFullPath' => [''],
-            'getParam' => [
-                Craft::$app->getSecurity()->hashData('abc'),
-                Craft::$app->getSecurity()->hashData('xyz'),
-            ]
-        ]);
+        $this->_mockRequestMethods(['getParam' => [
+            Craft::$app->getSecurity()->hashData('abc'),
+            Craft::$app->getSecurity()->hashData('xyz'),
+        ]]);
 
         $values = Sprig::$plugin->request->getValidatedParamValues('page');
 
@@ -76,5 +72,12 @@ class RequestTest extends Unit
         $data = Craft::$app->getSecurity()->hashData('xyz').'abc';
 
         Sprig::$plugin->request->validateData($data);
+    }
+
+    private function _mockRequestMethods(array $methods)
+    {
+        $this->tester->mockCraftMethods('request',
+            array_merge(['getFullPath' => ['']], $methods)
+        );
     }
 }
