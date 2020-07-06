@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.7 - Unreleased
+## 1.0.0-beta.7 - 2020-07-06
 ### Added
 - Added unit tests.
 

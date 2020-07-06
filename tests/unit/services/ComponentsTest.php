@@ -7,7 +7,6 @@ namespace putyourlightson\sprigtests\unit;
 
 use Codeception\Test\Unit;
 use Craft;
-use craft\web\View;
 use putyourlightson\sprig\Sprig;
 use UnitTester;
 use yii\web\BadRequestHttpException;
