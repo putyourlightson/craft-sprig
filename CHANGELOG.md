@@ -1,5 +1,14 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.8 - Unreleased
+### Added
+- Added the `sprig.htmxVersion` variable back in.
+- Added unit tests.
+
+### Changed
+- Requires htmx 0.0.8.
+- Uses the htmx script from unpkg.com unless in a `dev` environment, in which case it uses a local version.
+
 ## 1.0.0-beta.7 - 2020-07-06
 ### Added
 - Added unit tests.

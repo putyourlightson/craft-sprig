@@ -17,7 +17,7 @@ modules:
             projectConfig: {}
             migrations: []
 #            plugins:
-#                blitz:
+#                sprig:
 #                    class: '\putyourlightson\sprig\Sprig'
 #                    handle: sprig
             cleanup: true

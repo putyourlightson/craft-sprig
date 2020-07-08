@@ -14,6 +14,11 @@ use Twig\Markup;
 class SprigVariable
 {
     /**
+     * @var string
+     */
+    public $htmxVersion = '0.0.8';
+
+    /**
      * Returns a new component.
      *
      * @param string $template
@@ -27,15 +32,19 @@ class SprigVariable
     }
 
     /**
-     * Returns a script tag to the htmx source file using unpkg.com.
+     * Returns a script tag to the htmx source file.
      *
      * @param array $attributes
      * @return Markup
      */
     public function getScript(array $attributes = []): Markup
     {
-        $path = '@putyourlightson/sprig/resources/js/htmx-0.0.7.1.js';
-        $url = Craft::$app->assetManager->getPublishedUrl($path, true);
+        $url = 'https://unpkg.com/htmx.org@'.$this->htmxVersion;
+
+        if (Craft::$app->getConfig()->env == 'dev') {
+            $path = '@putyourlightson/sprig/resources/js/htmx-'.$this->htmxVersion.'.js';
+            $url = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
+        }
 
         $script = Html::jsFile($url, $attributes);
 
@@ -49,7 +58,7 @@ class SprigVariable
      */
     public function getInclude(): bool
     {
-        return !Sprig::$plugin->getIsRequest();
+        return !$this->getRequest();
     }
 
     /**
@@ -59,7 +68,7 @@ class SprigVariable
      */
     public function getRequest(): bool
     {
-        return Sprig::$plugin->getIsRequest();
+        return (bool)Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true);
     }
 
     /**

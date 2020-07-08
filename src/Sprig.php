@@ -50,16 +50,6 @@ class Sprig extends Plugin
     }
 
     /**
-     * Returns whether this is a Sprig request.
-     *
-     * @return bool
-     */
-    public function getIsRequest(): bool
-    {
-        return (bool)Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true);
-    }
-
-    /**
      * Sets the response headers.
      * @see https://htmx.org/reference/#response_headers
      *
