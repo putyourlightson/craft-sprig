@@ -19,19 +19,6 @@ class SprigVariable
     public $htmxVersion = '0.0.8';
 
     /**
-     * Returns a new component.
-     *
-     * @param string $template
-     * @param array $variables
-     * @param array $attributes
-     * @return Markup
-     */
-    public function getComponent(string $template, array $variables = [], array $attributes = []): Markup
-    {
-        return Sprig::$plugin->components->create($template, $variables, $attributes);
-    }
-
-    /**
      * Returns a script tag to the htmx source file.
      *
      * @param array $attributes
@@ -52,16 +39,6 @@ class SprigVariable
     }
 
     /**
-     * Returns whether this is a Sprig include.
-     *
-     * @return bool
-     */
-    public function getInclude(): bool
-    {
-        return !$this->getRequest();
-    }
-
-    /**
      * Returns whether this is a Sprig request.
      *
      * @return bool
@@ -72,19 +49,63 @@ class SprigVariable
     }
 
     /**
-     * Returns the element that triggered the request.
+     * Returns the URL that the Sprig component was loaded from.
      *
-     * @return array
+     * @return string
      */
-    public function getTrigger(): array
+    public function getUrl(): string
+    {
+        return Craft::$app->getRequest()->getHeaders()->get('HX-Current-URL', '', true);
+    }
+
+    /**
+     * Returns the value entered by the user when prompted via `s-prompt` or `hx-prompt`.
+     *
+     * @return string
+     */
+    public function getPrompt(): string
+    {
+        return Craft::$app->getRequest()->getHeaders()->get('HX-Prompt', '', true);
+    }
+
+    /**
+     * Returns the name of the element that triggered the request.
+     *
+     * @return string
+     */
+    public function getTrigger(): string
     {
         $headers = Craft::$app->getRequest()->getHeaders();
 
-        return [
-            'id' => $headers->get('HX-Trigger', '', true),
-            'name' => $headers->get('HX-Trigger-Name', '', true),
-        ];
+        return $headers->get('HX-Trigger-Name', '', true);
     }
+
+    // Undocumented variables (subject to change)
+    // =========================================================================
+
+    /**
+     * Returns whether this is a Sprig include.
+     *
+     * @return bool
+     */
+    public function getInclude(): bool
+    {
+        return !$this->getRequest();
+    }
+
+    /**
+     * Returns a new component.
+     *
+     * @param string $template
+     * @param array $variables
+     * @param array $attributes
+     * @return Markup
+     */
+    public function getComponent(string $template, array $variables = [], array $attributes = []): Markup
+    {
+        return Sprig::$plugin->components->create($template, $variables, $attributes);
+    }
+
     /**
      * Returns the target element.
      *
@@ -97,26 +118,6 @@ class SprigVariable
         return [
             'id' => $headers->get('HX-Target', '', true),
         ];
-    }
-
-    /**
-     * Returns the URL of the browser.
-     *
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Current-URL', '', true);
-    }
-
-    /**
-     * Returns value entered by the user when prompted via `hx-prompt`.
-     *
-     * @return string
-     */
-    public function getPrompt(): string
-    {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Prompt', '', true);
     }
 
     /**

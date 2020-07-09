@@ -78,10 +78,7 @@ class ComponentsService extends Component
             $content .= Html::hiddenInput('sprig:variables['.$name.']', $value);
         }
 
-        $content .= Html::tag('div', $renderedContent, [
-            'hx-target' => 'this',
-            'class' => 'component',
-        ]);
+        $content .= Html::tag('div', $renderedContent);
 
         // Ensure ID does not start with a digit, otherwise a JS error will be thrown
         $id = $attributes['id'] ?? 'component-'.StringHelper::randomString();
@@ -89,7 +86,10 @@ class ComponentsService extends Component
         $attributes = array_merge(
             [
                 'id' => $id,
+                'hx-target' => '#'.$id.' > div',
                 'hx-include' => '#'.$id.' *',
+                'hx-trigger' => 'refresh',
+                'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
             ],
             $attributes
         );

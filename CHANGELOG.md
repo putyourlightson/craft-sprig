@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.9 - Unreleased
+### Added
+- Added a `refresh` event trigger to components.
+
 ## 1.0.0-beta.8 - 2020-07-09
 ### Added
 - Added the `sprig.htmxVersion` variable back in.
