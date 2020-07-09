@@ -1,12 +1,12 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.8 - Unreleased
+## 1.0.0-beta.8 - 2020-07-09
 ### Added
 - Added the `sprig.htmxVersion` variable back in.
-- Added unit tests.
+- Added unit tests to ensure that both local and remote versions of htmx exist.
 
 ### Changed
-- Requires htmx 0.0.8.
+- Requires htmx 0.0.8 ([release notes](https://htmx.org/posts/2020-7-8-htmx-0.0.8-is-released/)).
 - Uses the htmx script from unpkg.com unless in a `dev` environment, in which case it uses a local version.
 
 ## 1.0.0-beta.7 - 2020-07-06
@@ -31,7 +31,7 @@
 - Added the ability to pass protected variables into components by prefixing them with an underscore.
 
 ### Changed
-- Requires htmx 0.0.7.
+- Requires htmx 0.0.7 ([release notes](https://htmx.org/posts/2020-6-30-htmx-0.0.7-is-released/)).
 
 ## 1.0.0-beta.4 - 2020-06-29
 ### Added
@@ -55,7 +55,7 @@
 - Added the `sprig.include` variable.
 
 ### Changed
-- Requires htmx 0.0.6.
+- Requires htmx 0.0.6 ([release notes](https://htmx.org/posts/2020-6-20-htmx-0.0.6-is-released/)).
 
 ## 1.0.0-beta.1 - 2020-06-15
 - Initial release.
