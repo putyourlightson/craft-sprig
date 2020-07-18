@@ -5,7 +5,7 @@
 - Added a `refresh` event trigger to components.
 
 ### Changed
-- Request parameters are not hashed as variables when a component is created initially.
+- Request parameters are not hashed as variables when a component is created initially ([#5](https://github.com/putyourlightson/craft-sprig/issues/5)).
 
 ## 1.0.0-beta.8 - 2020-07-09
 ### Added
