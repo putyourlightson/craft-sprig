@@ -45,12 +45,12 @@ class ComponentsService extends Component
      */
     public function create(string $value, array $variables = [], array $attributes = []): Markup
     {
-        $variables = array_merge(
+        $allVariables = array_merge(
             $variables,
             Sprig::$plugin->request->getVariables()
         );
 
-        $componentObject = $this->createObject($value, $variables);
+        $componentObject = $this->createObject($value, $allVariables);
 
         if ($componentObject) {
             $type = 'component';
@@ -65,7 +65,7 @@ class ComponentsService extends Component
                 ]));
             }
 
-            $renderedContent = Craft::$app->getView()->renderTemplate($value, $variables);
+            $renderedContent = Craft::$app->getView()->renderTemplate($value, $allVariables);
         }
 
         $renderedContent = $this->parseTagAttributes($renderedContent);
