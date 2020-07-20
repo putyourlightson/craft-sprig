@@ -68,28 +68,26 @@ class ComponentsService extends Component
             $renderedContent = Craft::$app->getView()->renderTemplate($value, $allVariables);
         }
 
-        $renderedContent = $this->parseTagAttributes($renderedContent);
+        $content = $this->parseTagAttributes($renderedContent);
 
-        $content = Html::hiddenInput('sprig:'.$type, Craft::$app->getSecurity()->hashData($value));
+        $vars = [];
+        $vars['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
 
         foreach ($variables as $name => $value) {
-            $value = Craft::$app->getSecurity()->hashData($value);
-
-            $content .= Html::hiddenInput('sprig:variables['.$name.']', $value);
+            $vars['sprig:variables['.$name.']'] = Craft::$app->getSecurity()->hashData($value);
         }
 
-        $content .= Html::tag('div', $renderedContent);
-
         // Ensure ID does not start with a digit, otherwise a JS error will be thrown
-        $id = $attributes['id'] ?? 'component-'.StringHelper::randomString();
+        $id = $attributes['id'] ?? 'component-'.StringHelper::randomString(6);
 
         $attributes = array_merge(
             [
                 'id' => $id,
-                'hx-target' => '#'.$id.' > div',
+                'hx-target' => 'this',
                 'hx-include' => '#'.$id.' *',
                 'hx-trigger' => 'refresh',
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
+                'hx-vars' => $this->parseVars($vars),
             ],
             $attributes
         );
@@ -155,9 +153,6 @@ class ComponentsService extends Component
 
         /** @var DOMElement $element */
         foreach ($dom->getElementsByTagName('*') as $element) {
-            $verb = '';
-            $params = [];
-
             if ($element->hasAttribute('sprig')) {
                 $verb = 'get';
 
@@ -167,17 +162,17 @@ class ComponentsService extends Component
                     $csrf = true;
                 }
 
+                $element->setAttribute('hx-'.$verb,
+                    UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION)
+                );
+
                 $action = $this->getElementAttribute($element, 'action');
 
                 if ($action) {
-                    $params['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
+                    $element->setAttribute('hx-vars', $this->parseVars([
+                        'sprig:action' => Craft::$app->getSecurity()->hashData($action)
+                    ]));
                 }
-            }
-
-            if ($verb) {
-                $element->setAttribute('hx-'.$verb,
-                    UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION, $params)
-                );
             }
 
             foreach (self::HTMX_ATTRIBUTES as $attribute) {
@@ -204,6 +199,25 @@ class ComponentsService extends Component
         }
 
         return $output;
+    }
+
+    /**
+     * Parses variables for the `hx-vars` attribute.
+     *
+     * @param array $values
+     * @return string
+     */
+    public function parseVars(array $values): string
+    {
+        // JSON encode, then remove braces
+        $variables = [];
+
+        foreach ($values as $name => $value) {
+            // Wrap name and value in single quotes so it can be used within a HTML attribute
+            $variables[] = "'".$name."':'".$value."'";
+        }
+
+        return implode(',', $variables);
     }
 
     /**

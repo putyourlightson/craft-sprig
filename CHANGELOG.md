@@ -2,6 +2,7 @@
 
 ## 1.0.0-beta.9 - Unreleased
 ### Added
+- Added support for nesting components.
 - Added a `refresh` event trigger to components.
 
 ### Changed
