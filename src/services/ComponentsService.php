@@ -155,6 +155,7 @@ class ComponentsService extends Component
         foreach ($dom->getElementsByTagName('*') as $element) {
             if ($element->hasAttribute('sprig')) {
                 $verb = 'get';
+                $params = [];
 
                 // Make the check case-insensitive
                 if (strtolower($this->getElementAttribute($element, 'method')) == 'post') {
@@ -162,17 +163,18 @@ class ComponentsService extends Component
                     $csrf = true;
                 }
 
-                $element->setAttribute('hx-'.$verb,
-                    UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION)
-                );
-
                 $action = $this->getElementAttribute($element, 'action');
 
                 if ($action) {
+                    $params['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
                     $element->setAttribute('hx-vars', $this->parseVars([
                         'sprig:action' => Craft::$app->getSecurity()->hashData($action)
                     ]));
                 }
+
+                $element->setAttribute('hx-'.$verb,
+                    UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION, $params)
+                );
             }
 
             foreach (self::HTMX_ATTRIBUTES as $attribute) {
