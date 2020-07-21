@@ -1,8 +1,8 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.9 - Unreleased
+## 1.0.0-beta.9 - 2020-07-21
 ### Added
-- Added support for nesting components.
+- Added support for nesting components ([#6](https://github.com/putyourlightson/craft-sprig/issues/6)).
 - Added a `refresh` event trigger to components.
 
 ### Changed

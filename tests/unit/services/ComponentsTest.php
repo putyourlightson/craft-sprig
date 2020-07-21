@@ -54,7 +54,7 @@ class ComponentsTest extends Unit
 
     public function testParseTagAttributes()
     {
-        $html = '<div sprig s-method="post" s-action="a/b/c"></div>';
+        $html = '<div sprig s-method="post" s-action="a/b/c" s-vars="limit: 1"></div>';
 
         $html = Sprig::$plugin->components->parseTagAttributes($html);
 
@@ -63,5 +63,7 @@ class ComponentsTest extends Unit
 
         $action = Craft::$app->getSecurity()->hashData('a/b/c');
         $this->assertStringContainsString('sprig:action='.$action, $html);
+
+        $this->assertStringContainsString('hx-vars="limit: 1"', $html);
     }
 }
