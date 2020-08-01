@@ -7,6 +7,7 @@ namespace putyourlightson\sprigtests\unit;
 
 use Codeception\Test\Unit;
 use Craft;
+use craft\test\TestCase;
 use putyourlightson\sprig\Sprig;
 use UnitTester;
 use yii\web\BadRequestHttpException;
@@ -17,7 +18,7 @@ use yii\web\BadRequestHttpException;
  * @since     1.0.0
  */
 
-class RequestTest extends Unit
+class RequestTest extends TestCase
 {
     /**
      * @var UnitTester

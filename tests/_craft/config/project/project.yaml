@@ -1,0 +1,6 @@
+dateModified: 1595534691
+plugins:
+  sprig:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0

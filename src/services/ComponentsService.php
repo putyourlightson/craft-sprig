@@ -73,12 +73,12 @@ class ComponentsService extends Component
         $vars = [];
         $vars['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
 
-        foreach ($variables as $name => $value) {
-            $vars['sprig:variables['.$name.']'] = Craft::$app->getSecurity()->hashData($value);
+        foreach ($variables as $name => $val) {
+            $vars['sprig:variables['.$name.']'] = Craft::$app->getSecurity()->hashData($val);
         }
 
         // Ensure ID does not start with a digit, otherwise a JS error will be thrown
-        $id = $attributes['id'] ?? 'component-'.StringHelper::randomString(6);
+        $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
 
         $attributes = array_merge(
             [
@@ -149,38 +149,46 @@ class ComponentsService extends Component
         // https://stackoverflow.com/a/8218649/1769259
         $dom->loadHTML('<?xml encoding="utf-8" ?>'.$html);
 
-        $csrf = false;
-
         /** @var DOMElement $element */
         foreach ($dom->getElementsByTagName('*') as $element) {
             if ($element->hasAttribute('sprig')) {
                 $verb = 'get';
-                $params = [];
+                $vars = [];
 
                 // Make the check case-insensitive
                 if (strtolower($this->getElementAttribute($element, 'method')) == 'post') {
                     $verb = 'post';
-                    $csrf = true;
+
+                    $request = Craft::$app->getRequest();
+                    $vars[$request->csrfParam] = $request->getCsrfToken();
                 }
 
                 $action = $this->getElementAttribute($element, 'action');
 
                 if ($action) {
-                    $params['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
-                    $element->setAttribute('hx-vars', $this->parseVars([
-                        'sprig:action' => Craft::$app->getSecurity()->hashData($action)
-                    ]));
+                    $vars['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
                 }
 
                 $element->setAttribute('hx-'.$verb,
-                    UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION, $params)
+                    UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION)
                 );
+
+                if (!empty($vars)) {
+                    $element->setAttribute('hx-vars', $this->parseVars($vars));
+                }
             }
 
             foreach (self::HTMX_ATTRIBUTES as $attribute) {
                 $value = $this->getElementAttribute($element, $attribute);
 
                 if ($value) {
+                    // Append value to current value if `vars`
+                    if ($attribute == 'vars') {
+                        $currentValue = $element->getAttribute('hx-'.$attribute);
+
+                        $value = $currentValue ? $currentValue.','.$value : $value;
+                    }
+
                     $element->setAttribute('hx-'.$attribute, $value);
                 }
             }
@@ -194,10 +202,6 @@ class ComponentsService extends Component
 
         foreach ($dom->getElementsByTagName('body')->item(0)->childNodes as $node) {
             $output .= $dom->saveHTML($node);
-        }
-
-        if ($csrf) {
-            $output = Html::csrfInput().$output;
         }
 
         return $output;
