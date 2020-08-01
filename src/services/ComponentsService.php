@@ -45,6 +45,11 @@ class ComponentsService extends Component
      */
     public function create(string $value, array $variables = [], array $attributes = []): Markup
     {
+        $vars = [];
+
+        $siteId = Craft::$app->getSites()->getCurrentSite()->id;
+        $vars['sprig:siteId'] = Craft::$app->getSecurity()->hashData($siteId);
+
         $allVariables = array_merge(
             $variables,
             Sprig::$plugin->request->getVariables()
@@ -70,7 +75,6 @@ class ComponentsService extends Component
 
         $content = $this->parseTagAttributes($renderedContent);
 
-        $vars = [];
         $vars['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
 
         foreach ($variables as $name => $val) {

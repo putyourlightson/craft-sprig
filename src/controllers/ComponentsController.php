@@ -28,6 +28,9 @@ class ComponentsController extends Controller
     {
         $response = Craft::$app->getResponse();
 
+        $siteId = Sprig::$plugin->request->getValidatedParam('sprig:siteId');
+        Craft::$app->getSites()->setCurrentSite($siteId);
+
         $component = Sprig::$plugin->request->getValidatedParam('sprig:component');
         $action = Sprig::$plugin->request->getValidatedParam('sprig:action');
 

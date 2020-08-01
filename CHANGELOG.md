@@ -3,6 +3,7 @@
 ## 1.0.0-beta.10 - Unreleased
 ### Changed
 - CSRF tokens are now added as `vars` instead of input fields ([#6](https://github.com/putyourlightson/craft-sprig/issues/6)).
+- The current site is now maintained when rendering components ([#13](https://github.com/putyourlightson/craft-sprig/issues/13)).
 
 ## 1.0.0-beta.9 - 2020-07-21
 ### Added
