@@ -81,15 +81,18 @@ class ComponentsService extends Component
             $vars['sprig:variables['.$name.']'] = Craft::$app->getSecurity()->hashData($val);
         }
 
-        // Ensure ID does not start with a digit, otherwise a JS error will be thrown
+        // Allow ID to be overriden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
         $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
+
+        // Allow trigger to be overriden
+        $trigger = $attributes['trigger'] ?? 'refresh';
 
         $attributes = array_merge(
             [
                 'id' => $id,
                 'hx-target' => 'this',
                 'hx-include' => '#'.$id.' *',
-                'hx-trigger' => 'refresh',
+                'hx-trigger' => $trigger,
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
                 'hx-vars' => $this->parseVars($vars),
             ],
@@ -130,6 +133,23 @@ class ComponentsService extends Component
         }
 
         return $componentObject;
+    }
+
+    /**
+     * Sets the response headers.
+     * @see https://htmx.org/reference/#response_headers
+     *
+     * @param mixed $params
+     */
+    public function setResponseHeaders($params)
+    {
+        if (!empty($params['_events'])) {
+            Craft::$app->getResponse()->getHeaders()->set('HX-Trigger', $params['_events']);
+        }
+
+        if (!empty($params['_url'])) {
+            Craft::$app->getResponse()->getHeaders()->set('HX-Push', $params['_url']);
+        }
     }
 
     /**

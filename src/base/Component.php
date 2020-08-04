@@ -41,7 +41,7 @@ abstract class Component extends BaseComponent implements ComponentInterface
     {
         parent::init();
 
-        Sprig::$plugin->setResponseHeaders([
+        Sprig::$plugin->components->setResponseHeaders([
             'events' => $this->_events,
             'url' => $this->_url,
         ]);

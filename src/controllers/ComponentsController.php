@@ -68,7 +68,7 @@ class ComponentsController extends Controller
                 $response->format = $response::FORMAT_HTML;
             }
 
-            Sprig::$plugin->setResponseHeaders($variables);
+            Sprig::$plugin->components->setResponseHeaders($variables);
 
             $template = Sprig::$plugin->request->getValidatedParam('sprig:template');
             $content = Craft::$app->getView()->renderTemplate($template, $variables);

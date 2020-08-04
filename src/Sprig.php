@@ -50,23 +50,6 @@ class Sprig extends Plugin
     }
 
     /**
-     * Sets the response headers.
-     * @see https://htmx.org/reference/#response_headers
-     *
-     * @param mixed $params
-     */
-    public function setResponseHeaders($params)
-    {
-        if (!empty($params['_events'])) {
-            Craft::$app->getResponse()->getHeaders()->set('HX-Trigger', $params['_events']);
-        }
-
-        if (!empty($params['_url'])) {
-            Craft::$app->getResponse()->getHeaders()->set('HX-Push', $params['_url']);
-        }
-    }
-
-    /**
      * Registers Twig extensions
      */
     private function _registerTwigExtensions()
