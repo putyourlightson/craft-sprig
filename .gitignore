@@ -1,4 +1,4 @@
 .DS_Store
 tests/_craft/storage/
 tests/_craft/config/project/
-/tests/_craft/web
+tests/_craft/web
