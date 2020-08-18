@@ -1,5 +1,14 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.11 - 2020-08-18
+> {warning} The ability to override the component trigger using the `trigger` attribute has been removed. Use `s-trigger` instead.
+ 
+### Added
+- Added the ability to override all `s-` attributes on the component.
+
+### Changed 
+- Removed the ability to override the component trigger using the `trigger` attribute.
+
 ## 1.0.0-beta.10 - 2020-08-04
 ### Added
 - Added the ability to override the component trigger using the `trigger` attribute.

@@ -39,6 +39,16 @@ class SprigVariable
     }
 
     /**
+     * Returns whether this is a Sprig include.
+     *
+     * @return bool
+     */
+    public function getInclude(): bool
+    {
+        return !$this->getRequest();
+    }
+
+    /**
      * Returns whether this is a Sprig request.
      *
      * @return bool
@@ -82,16 +92,6 @@ class SprigVariable
 
     // Undocumented variables (subject to change)
     // =========================================================================
-
-    /**
-     * Returns whether this is a Sprig include.
-     *
-     * @return bool
-     */
-    public function getInclude(): bool
-    {
-        return !$this->getRequest();
-    }
 
     /**
      * Returns a new component.

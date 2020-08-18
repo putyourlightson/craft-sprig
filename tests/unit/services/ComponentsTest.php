@@ -31,10 +31,16 @@ class ComponentsTest extends Unit
         ]);
 
         Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
-        $markup = Sprig::$plugin->components->create('_component', ['number' => '15'], ['id' => 'abc']);
+        $markup = Sprig::$plugin->components->create('_component', ['number' => '15'], [
+            'id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1'
+        ]);
         $html = (string)$markup;
 
-        $this->assertStringContainsString('<div id="abc"', $html);
+        $this->assertStringContainsString('id="abc"', $html);
+        $this->assertStringContainsString('hx-include="#abc *"', $html);
+        $this->assertStringContainsString('hx-trigger="load"', $html);
+        $this->assertStringContainsString('sprig:template', $html);
+        $this->assertStringContainsString('limit:1', $html);
         $this->assertStringContainsString('xyz 15', $html);
     }
 
@@ -52,11 +58,11 @@ class ComponentsTest extends Unit
         $this->assertNull($object);
     }
 
-    public function testParseTagAttributes()
+    public function testGetParsedTagAttributes()
     {
         $html = '<div sprig s-method="post" s-action="a/b/c" s-vars="limit:1"></div>';
 
-        $html = Sprig::$plugin->components->parseTagAttributes($html);
+        $html = Sprig::$plugin->components->getParsedTagAttributes($html);
 
         $this->assertStringContainsString('hx-post', $html);
         $this->assertStringContainsString('CRAFT_CSRF_TOKEN', $html);

@@ -74,7 +74,7 @@ class ComponentsController extends Controller
             $content = Craft::$app->getView()->renderTemplate($template, $variables);
         }
 
-        $response->data = Sprig::$plugin->components->parseTagAttributes($content);
+        $response->data = Sprig::$plugin->components->getParsedTagAttributes($content);
 
         return $response;
     }
