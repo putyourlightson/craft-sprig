@@ -22,4 +22,4 @@ modules:
                     handle: sprig
             cleanup: true
             transaction: true
-#            dbSetup: {clean: true, setupCraft: true}
+            dbSetup: {clean: true, setupCraft: true}
