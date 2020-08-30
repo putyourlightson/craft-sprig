@@ -89,6 +89,7 @@ class ComponentsService extends Component
         $attributes = array_merge(
             [
                 'id' => $id,
+                'class' => 'sprig-component',
                 'hx-target' => 'this',
                 'hx-include' => '#'.$id.' *',
                 'hx-trigger' => 'refresh',

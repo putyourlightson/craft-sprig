@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.12 - Unreleased
+### Added
+- Added a default `class="sprig-component"` to all components.
+
 ## 1.0.0-beta.11 - 2020-08-18
 > {warning} The ability to override the component trigger using the `trigger` attribute has been removed. Use `s-trigger` instead.
  
