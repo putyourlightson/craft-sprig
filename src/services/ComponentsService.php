@@ -253,7 +253,6 @@ class ComponentsService extends Component
      * Returns parsed htmx attributes.
      *
      * @param DOMElement|array $attributes
-     * @param string $attribute
      * @return array
      */
     public function getParsedAttributes($attributes): array
