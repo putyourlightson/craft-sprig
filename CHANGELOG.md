@@ -4,6 +4,9 @@
 ### Added
 - Added a default `class="sprig-component"` to all components.
 
+### Changed 
+- An exception is now thrown if an array, object or value that cannot be converted to a string is passed into a Sprig component as a variable.
+
 ## 1.0.0-beta.11 - 2020-08-18
 > {warning} The ability to override the component trigger using the `trigger` attribute has been removed. Use `s-trigger` instead.
  

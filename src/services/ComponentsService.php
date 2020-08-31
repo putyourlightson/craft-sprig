@@ -16,6 +16,8 @@ use DOMElement;
 use putyourlightson\sprig\base\ComponentInterface;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
+use yii\base\ErrorException;
+use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 
 class ComponentsService extends Component
@@ -78,7 +80,7 @@ class ComponentsService extends Component
         $vars['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
 
         foreach ($variables as $name => $val) {
-            $vars['sprig:variables['.$name.']'] = Craft::$app->getSecurity()->hashData($val);
+            $vars['sprig:variables['.$name.']'] = $this->_hashVariable($name, $val);
         }
 
         // Allow ID to be overridden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
@@ -306,5 +308,30 @@ class ComponentsService extends Component
         }
 
         return '';
+    }
+
+    /**
+     * Hashes a variable, possibly throwing an exception.
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return string
+     */
+    private function _hashVariable(string $name, $value): string
+    {
+        if (is_array($value)) {
+            throw new InvalidArgumentException(Craft::t('sprig', 'The variable `{name}` is an array and cannot be passed into a Sprig component.', ['name' => $name]));
+        }
+
+        if (is_object($value)) {
+            throw new InvalidArgumentException(Craft::t('sprig', 'The variable `{name}` is an object and cannot be passed into a Sprig component.', ['name' => $name]));
+        }
+
+        try {
+            return Craft::$app->getSecurity()->hashData($value);
+        }
+        catch (ErrorException $exception) {
+            throw new InvalidArgumentException(Craft::t('sprig', 'The variable `{name}` cannot not be converted to a string and therefore cannot be passed into a Sprig component.', ['name' => $name]));
+        }
     }
 }

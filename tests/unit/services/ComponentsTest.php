@@ -7,8 +7,10 @@ namespace putyourlightson\sprigtests\unit;
 
 use Codeception\Test\Unit;
 use Craft;
+use craft\elements\Entry;
 use putyourlightson\sprig\Sprig;
 use UnitTester;
+use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 
 /**
@@ -26,11 +28,9 @@ class ComponentsTest extends Unit
 
     public function testCreate()
     {
-        $this->tester->mockCraftMethods('view', [
-            'doesTemplateExist' => true
-        ]);
-
+        $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
         Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
+
         $markup = Sprig::$plugin->components->create('_component', ['number' => '15'], [
             'id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1'
         ]);
@@ -44,14 +44,25 @@ class ComponentsTest extends Unit
         $this->assertStringContainsString('xyz 15', $html);
     }
 
-    public function testCreateFail()
+    public function testCreateNoComponent()
     {
         $this->expectException(BadRequestHttpException::class);
 
         Sprig::$plugin->components->create('_no-component');
     }
 
-    public function testCreateObjectFail()
+    public function testCreateInvalidVariable()
+    {
+        $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
+        Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Sprig::$plugin->components->create('_component', ['number' => '', 'array' => []]);
+        Sprig::$plugin->components->create('_component', ['number' => '', 'entry' => new Entry()]);
+    }
+
+    public function testCreateObjectNoComponent()
     {
         $object = Sprig::$plugin->components->createObject('_no-component');
 
