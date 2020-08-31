@@ -19,6 +19,11 @@ class SprigVariable
     public $htmxVersion = '0.0.8';
 
     /**
+     * @var string
+     */
+    public $hyperscriptVersion = '0.0.1-alpha4';
+
+    /**
      * Returns a script tag to the htmx source file.
      *
      * @param array $attributes
@@ -26,16 +31,18 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
-        $url = 'https://unpkg.com/htmx.org@'.$this->htmxVersion;
+        return $this->_getScript('htmx', $this->htmxVersion, $attributes);
+    }
 
-        if (Craft::$app->getConfig()->env == 'dev') {
-            $path = '@putyourlightson/sprig/resources/js/htmx-'.$this->htmxVersion.'.js';
-            $url = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
-        }
-
-        $script = Html::jsFile($url, $attributes);
-
-        return Template::raw($script);
+    /**
+     * Returns a script tag to the hyperscript source file.
+     *
+     * @param array $attributes
+     * @return Markup
+     */
+    public function getHyperscript(array $attributes = []): Markup
+    {
+        return $this->_getScript('hyperscript', $this->hyperscriptVersion, $attributes);
     }
 
     /**
@@ -148,5 +155,27 @@ class SprigVariable
             'name' => $headers->get('HX-Active-Element-Name', '', true),
             'value' => $headers->get('HX-Active-Element-Value', '', true),
         ];
+    }
+
+    /**
+     * Returns a script tag to a source file.
+     *
+     * @param string $name
+     * @param string $version
+     * @param array $attributes
+     * @return Markup
+     */
+    private function _getScript(string $name, string $version, array $attributes = []): Markup
+    {
+        $url = 'https://unpkg.com/'.$name.'.org@'.$version;
+
+        if (Craft::$app->getConfig()->env == 'dev') {
+            $path = '@putyourlightson/sprig/resources/js/'.$name.'-'.$version.'.js';
+            $url = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
+        }
+
+        $script = Html::jsFile($url, $attributes);
+
+        return Template::raw($script);
     }
 }

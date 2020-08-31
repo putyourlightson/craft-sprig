@@ -24,13 +24,50 @@ class SprigVariableTest extends Unit
      */
     protected $tester;
 
+    /**
+     * @var SprigVariable
+     */
+    protected $variable;
+
+    protected function _before()
+    {
+        parent::_before();
+
+        $this->variable = new SprigVariable();
+    }
+
     public function testHtmxScriptExistsLocally()
     {
-        $sprigVariable = new SprigVariable();
-        $client = Craft::createGuzzleClient();
         Craft::$app->getConfig()->env = 'dev';
 
-        $script = $sprigVariable->getScript();
+        $this->_testScriptExistsLocally($this->variable->getScript());
+    }
+
+    public function testHyperscriptScriptExistsLocally()
+    {
+        Craft::$app->getConfig()->env = 'dev';
+
+        $this->_testScriptExistsLocally($this->variable->getHyperscript());
+    }
+
+    public function testHtmxScriptExistsRemotely()
+    {
+        Craft::$app->getConfig()->env = 'production';
+
+        $this->_testScriptExistsRemotely($this->variable->getScript());
+    }
+
+    public function testHyperscriptScriptExistsRemotely()
+    {
+        Craft::$app->getConfig()->env = 'production';
+
+        $this->_testScriptExistsRemotely($this->variable->getHyperscript());
+    }
+
+    private function _testScriptExistsLocally(string $script)
+    {
+        $client = Craft::createGuzzleClient();
+
         preg_match('/src="(.*?)"/', (string)$script, $matches);
         $url = $matches[1];
 
@@ -48,13 +85,10 @@ class SprigVariableTest extends Unit
         $this->assertEquals(200, $statusCode);
     }
 
-    public function testHtmxScriptExistsRemotely()
+    private function _testScriptExistsRemotely(string $script)
     {
-        $sprigVariable = new SprigVariable();
         $client = Craft::createGuzzleClient();
-        Craft::$app->getConfig()->env = 'production';
 
-        $script = $sprigVariable->getScript();
         preg_match('/src="(.*?)"/', (string)$script, $matches);
         $url = $matches[1];
 
