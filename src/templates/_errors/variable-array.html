@@ -1,0 +1,13 @@
+{{ 'The variable `{name}` is an array and cannot be passed into a Sprig component. Instead of passing an array, consider passing a comma-separated string.'|t('sprig', {name: name}) }}
+
+---
+
+Before:
+
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}': [1, 2, 3] }) {{ '}}' }}
+
+---
+
+After:
+
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}': '1, 2, 3' }) {{ '}}' }}

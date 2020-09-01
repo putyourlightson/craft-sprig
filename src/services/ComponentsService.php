@@ -7,10 +7,12 @@ namespace putyourlightson\sprig\services;
 
 use Craft;
 use craft\base\Component;
+use craft\base\ElementInterface;
 use craft\helpers\Html;
 use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
+use craft\web\View;
 use DOMDocument;
 use DOMElement;
 use putyourlightson\sprig\base\ComponentInterface;
@@ -18,6 +20,7 @@ use putyourlightson\sprig\Sprig;
 use Twig\Markup;
 use yii\base\ErrorException;
 use yii\base\InvalidArgumentException;
+use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
 class ComponentsService extends Component
@@ -319,11 +322,21 @@ class ComponentsService extends Component
     private function _hashVariable(string $name, $value): string
     {
         if (is_array($value)) {
-            throw new InvalidArgumentException(Craft::t('sprig', 'The variable `{name}` is an array and cannot be passed into a Sprig component.', ['name' => $name]));
+            throw new InvalidArgumentException(
+                $this->_renderErrorTemplate('variable-array', ['name' => $name])
+            );
         }
 
-        if (is_object($value)) {
-            throw new InvalidArgumentException(Craft::t('sprig', 'The variable `{name}` is an object and cannot be passed into a Sprig component.', ['name' => $name]));
+        if ($value instanceof ElementInterface) {
+            throw new InvalidArgumentException(
+                $this->_renderErrorTemplate('variable-element', ['name' => $name])
+            );
+        }
+
+        if ($value instanceof Model) {
+            throw new InvalidArgumentException(
+                $this->_renderErrorTemplate('variable-model', ['name' => $name])
+            );
         }
 
         try {
@@ -332,5 +345,19 @@ class ComponentsService extends Component
         catch (ErrorException $exception) {
             throw new InvalidArgumentException(Craft::t('sprig', 'The variable `{name}` cannot not be converted to a string and therefore cannot be passed into a Sprig component.', ['name' => $name]));
         }
+    }
+
+    /**
+     * Returns a rendered error template.
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return string
+     */
+    private function _renderErrorTemplate(string $templateName, array $variables = [])
+    {
+        $template = 'sprig/_errors/'.$templateName;
+
+        return Craft::$app->getView()->renderTemplate($template, $variables, View::TEMPLATE_MODE_CP);
     }
 }

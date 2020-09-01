@@ -1,0 +1,13 @@
+{{ 'The variable `{name}` is an element and cannot be passed into a Sprig component. Instead of passing an element, consider passing its `id`.'|t('sprig', {name: name}) }}
+
+---
+
+Before:
+
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}': {{ name }} }) {{ '}}' }}
+
+---
+
+After:
+
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}Id': {{ name }}.id }) {{ '}}' }}
