@@ -1,51 +1,18 @@
-{% extends "_layouts/message" %}
+The variable `{{ name }}` is an array and cannot be passed into a Sprig component.
+Instead of passing an array, consider passing a comma-separated string.
 
-{% block message %}
+---
 
-    {{ 'The variable `{name}` is an array and cannot be passed into a Sprig component. Instead of passing an array, consider passing a comma-separated string.'|t('sprig', {name: name}) }}
+Before:
 
-    ---
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}': {{ name }} }) {{ '}}' }}
 
-    Before:
+---
 
-    {{ '{{' }} sprig('_components/my-component', { '{{ name }}': [1, 2, 3] }) {{ '}}' }}
+After:
 
-    ---
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}': {{ name }} | join(',') }) {{ '}}' }}
 
-    After:
+Then in your component you could split the string.
 
-    {{ '{{' }} sprig('_components/my-component', { '{{ name }}': '1, 2, 3' }) {{ '}}' }}
-
-{% endblock %}
-{% extends 'sprig/_errors/layout' %}
-
-{% set title = title ?? 'Sprig Variable Error' %}
-
-
-{% block message %}
-
-    {{ parent() }}
-
-    <h2>
-        The variable <code>{{ name }}</code> is an array and cannot be passed into a Sprig component. Instead of passing an array, consider passing a comma-separated string..
-    </h2>
-
-    <hr>
-
-    <h2>Before</h2>
-
-    <pre><code>&#123;{ sprig('_components/my-component', { '{{ name }}': {{ value }} }) }&#125;</code></pre>
-
-    <hr>
-
-    <h2>After</h2>
-
-    <pre><code>&#123;{ sprig('_components/my-component', { '{{ name }}': {{ value|join(',') }} }) }}' }&#125;</code></pre>
-
-    <br>
-
-    <h3>Then in your component you could split the string as follows:</h3>
-
-    <pre><code>&#123;% set {{ name }} = {{ name }}|split(',') %&#125;</code></pre>
-
-{% endblock %}
+{{ '{%' }} set {{ name }} = {{ name }} | split(',') {{ '%}' }}

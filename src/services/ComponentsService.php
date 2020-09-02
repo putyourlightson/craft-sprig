@@ -16,9 +16,9 @@ use craft\web\View;
 use DOMDocument;
 use DOMElement;
 use putyourlightson\sprig\base\ComponentInterface;
+use putyourlightson\sprig\errors\InvalidVariableException;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
-use yii\base\ErrorException;
 use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
@@ -317,6 +317,7 @@ class ComponentsService extends Component
      * @param string $name
      * @param mixed $value
      * @return string
+     * @throws InvalidVariableException
      */
     private function _hashVariable(string $name, $value): string
     {
@@ -325,44 +326,36 @@ class ComponentsService extends Component
             'value' => $value,
         ];
 
-        if (is_array($value)) {
-            $this->_outputError('variable-array', $variables);
-        }
-
         if ($value instanceof ElementInterface) {
-            $this->_outputError('variable-element', $variables);
+            throw new InvalidVariableException($this->_getError('variable-element', $variables));
         }
 
         if ($value instanceof Model) {
-            $this->_outputError('variable-model', $variables);
+            throw new InvalidVariableException($this->_getError('variable-model', $variables));
         }
 
-        try {
-            return Craft::$app->getSecurity()->hashData($value);
-        }
-        catch (ErrorException $exception) {
-            $this->_outputError('variable-error', $variables);
+        if (is_array($value)) {
+            throw new InvalidVariableException($this->_getError('variable-array', $variables));
         }
 
-        return '';
+        if (is_object($value)) {
+            throw new InvalidVariableException($this->_getError('variable-object', $variables));
+        }
+
+        return Craft::$app->getSecurity()->hashData($value);
     }
 
     /**
-     * Outputs an error from a rendered template.
+     * Returns an error from a rendered template.
      *
      * @param string $templateName
      * @param array $variables
+     * @return string
      */
-    private function _outputError(string $templateName, array $variables = [])
+    private function _getError(string $templateName, array $variables = []): string
     {
         $template = 'sprig/_errors/'.$templateName;
 
-        $output = Craft::$app->getView()->renderPageTemplate($template, $variables, View::TEMPLATE_MODE_CP);
-
-        $response = Craft::$app->getResponse();
-        $response->data = $output;
-
-        // Output the response and end the script
-        Craft::$app->end(0, $response);
+        return Craft::$app->getView()->renderTemplate($template, $variables, View::TEMPLATE_MODE_CP);
     }
 }

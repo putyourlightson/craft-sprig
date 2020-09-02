@@ -1,30 +1,14 @@
-{% extends 'sprig/_errors/layout' %}
+The variable `{{ name }}` is a model of type `{{ value.className }}` and cannot be passed into a Sprig component.
+Instead of passing a model, consider passing its `id`.
 
-{% set title = title ?? 'Sprig Variable Error' %}
+---
 
+Before
 
-{% block message %}
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}': {{ name }} }) {{ '}}' }}
 
-    {{ parent() }}
+---
 
-    <h2>
-        The variable <code>{{ name }}</code> is a model and cannot be passed into a Sprig component. Instead of passing a model, consider passing its <code>id</code>.
-    </h2>
+After
 
-    <hr>
-
-    <h2>Before</h2>
-
-    <pre><code>&#123;{ sprig('_components/my-component', { '{{ name }}': {{ name }} }) }&#125;</code></pre>
-
-    <hr>
-
-    <h2>After</h2>
-
-    <pre><code>&#123;{ sprig('_components/my-component', { '{{ name }}Id': {{ name }}.id }) }}' }&#125;</code></pre>
-
-    <br>
-
-    <h3>Then in your component you could fetch the model as necessary.</h3>
-
-{% endblock %}
+{{ '{{' }} sprig('_components/my-component', { '{{ name }}Id': {{ name }}.id }) {{ '}}' }}
