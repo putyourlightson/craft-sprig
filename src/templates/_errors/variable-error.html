@@ -1,0 +1,14 @@
+{% extends 'sprig/_errors/layout' %}
+
+{% set title = title ?? 'Sprig Variable Error' %}
+
+
+{% block message %}
+
+    {{ parent() }}
+
+    <h2>
+        The variable <code>{{ name }}</code> cannot not be converted to a string and therefore cannot be passed into a Sprig component.
+    </h2>
+
+{% endblock %}
