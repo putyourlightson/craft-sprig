@@ -4,6 +4,9 @@
 ### Added
 - Added the `sprig.hyperscript` tag.
 
+### Changed 
+- Invalid variable exceptions include suggestions for how code could be fixed.
+
 ## 1.0.0-beta.12 - 2020-09-01
 ### Added
 - Added a default `class="sprig-component"` to all components.
