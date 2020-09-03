@@ -38,16 +38,20 @@ class SprigVariableTest extends Unit
 
     public function testHtmxScriptExistsLocally()
     {
-        Craft::$app->getConfig()->env = 'dev';
+        // Simplified check that file version exists locally
+        $version = $this->variable->htmxVersion;
+        $filepath = '@putyourlightson/sprig/resources/js/htmx-'.$version.'.js';
 
-        $this->_testScriptExistsLocally($this->variable->getScript());
+        $this->assertFileExists(Craft::getAlias($filepath));
     }
 
     public function testHyperscriptScriptExistsLocally()
     {
-        Craft::$app->getConfig()->env = 'dev';
+        // Simplified check that file version exists locally
+        $version = $this->variable->hyperscriptVersion;
+        $filepath = '@putyourlightson/sprig/resources/js/hyperscript-'.$version.'.js';
 
-        $this->_testScriptExistsLocally($this->variable->getHyperscript());
+        $this->assertFileExists(Craft::getAlias($filepath));
     }
 
     public function testHtmxScriptExistsRemotely()

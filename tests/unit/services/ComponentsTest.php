@@ -8,9 +8,11 @@ namespace putyourlightson\sprigtests\unit;
 use Codeception\Test\Unit;
 use Craft;
 use craft\elements\Entry;
+use putyourlightson\sprig\errors\InvalidVariableException;
 use putyourlightson\sprig\Sprig;
 use UnitTester;
 use yii\base\InvalidArgumentException;
+use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
 /**
@@ -56,10 +58,12 @@ class ComponentsTest extends Unit
         $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
         Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidVariableException::class);
 
-        Sprig::$plugin->components->create('_component', ['number' => '', 'array' => []]);
         Sprig::$plugin->components->create('_component', ['number' => '', 'entry' => new Entry()]);
+        Sprig::$plugin->components->create('_component', ['number' => '', 'model' => new Model()]);
+        Sprig::$plugin->components->create('_component', ['number' => '', 'model' => (object)[]]);
+        Sprig::$plugin->components->create('_component', ['number' => '', 'array' => []]);
     }
 
     public function testCreateObjectNoComponent()
