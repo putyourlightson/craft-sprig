@@ -54,12 +54,13 @@ class ComponentsController extends Controller
         }
         else {
             if ($action) {
-                // Force the request to accept JSON only
+                // Force the request to be an AJAX request that accepts JSON only
+                Craft::$app->getRequest()->getHeaders()->set('X-Requested-With', 'XMLHttpRequest');
                 Craft::$app->getRequest()->setAcceptableContentTypes(['application/json' => []]);
 
                 $jsonResponse = Craft::$app->runAction($action);
 
-                if ($jsonResponse !== null) {
+                if ($jsonResponse !== null && !empty($jsonResponse->data)) {
                     $variables = array_merge($variables, $jsonResponse->data);
                 }
 

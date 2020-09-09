@@ -21,5 +21,5 @@ modules:
                     class: '\putyourlightson\sprig\Sprig'
                     handle: sprig
             cleanup: true
-            transaction: true
+            transaction: false
             dbSetup: {clean: true, setupCraft: true}

@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.14 - Unreleased
+### Changed
+- Requests are now forced to be AJAX requests.
+
 ## 1.0.0-beta.13 - 2020-09-03
 ### Added
 - Added the `sprig.hyperscript` tag.
