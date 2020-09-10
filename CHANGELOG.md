@@ -2,7 +2,7 @@
 
 ## 1.0.0-beta.14 - 2020-09-10
 ### Changed
-- Requests are now forced to be AJAX requests.
+- Requests to controller actions are now forced to be AJAX requests.
 
 ### Fixed
 - Fixed an error that could occur if a controller action did not return a JSON response ([#26](https://github.com/putyourlightson/craft-sprig/issues/26)).
