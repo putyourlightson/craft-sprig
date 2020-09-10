@@ -1,8 +1,11 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.14 - Unreleased
+## 1.0.0-beta.14 - 2020-09-10
 ### Changed
 - Requests are now forced to be AJAX requests.
+
+### Fixed
+- Fixed an error that could occur if a controller action did not return a JSON object ([#26](https://github.com/putyourlightson/craft-sprig/issues/26)).
 
 ## 1.0.0-beta.13 - 2020-09-03
 ### Added

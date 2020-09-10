@@ -46,6 +46,17 @@ class ComponentsTest extends Unit
         $this->assertStringContainsString('xyz 15', $html);
     }
 
+    public function testCreateEmptyComponent()
+    {
+        $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
+        Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
+
+        $markup = Sprig::$plugin->components->create('_empty');
+        $html = (string)$markup;
+
+        $this->assertStringContainsString('hx-get', $html);
+    }
+
     public function testCreateNoComponent()
     {
         $this->expectException(BadRequestHttpException::class);
