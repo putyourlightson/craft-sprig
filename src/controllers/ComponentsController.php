@@ -9,6 +9,7 @@ use Craft;
 use craft\web\Controller;
 use putyourlightson\sprig\Sprig;
 use yii\base\InvalidRouteException;
+use yii\base\Model;
 use yii\web\Response;
 
 class ComponentsController extends Controller
@@ -54,19 +55,8 @@ class ComponentsController extends Controller
         }
         else {
             if ($action) {
-                // Force the request to be an AJAX request that accepts JSON only
-                Craft::$app->getRequest()->getHeaders()->set('X-Requested-With', 'XMLHttpRequest');
-                Craft::$app->getRequest()->setAcceptableContentTypes(['application/json' => []]);
-
-                $jsonResponse = Craft::$app->runAction($action);
-
-                if ($jsonResponse !== null && !empty($jsonResponse->data)) {
-                    $variables = array_merge($variables, $jsonResponse->data);
-                }
-
-                // Force 200 status code and set format to HTML
-                $response->statusCode = 200;
-                $response->format = $response::FORMAT_HTML;
+                $actionVariables = $this->_runActionInternal($action);
+                $variables = array_merge($variables, $actionVariables);
             }
 
             Sprig::$plugin->components->setResponseHeaders($variables);
@@ -75,8 +65,39 @@ class ComponentsController extends Controller
             $content = Craft::$app->getView()->renderTemplate($template, $variables);
         }
 
+        // Force 200 status code and set format to HTML
+        $response->statusCode = 200;
+        $response->format = $response::FORMAT_HTML;
+
         $response->data = Sprig::$plugin->components->getParsedTagAttributes($content);
 
         return $response;
+    }
+
+    /**
+     * Runs an action and returns the variables from the response
+     *
+     * @param string $action
+     * @return array
+     */
+    private function _runActionInternal(string $action): array
+    {
+        // Force the request to be an AJAX request that accepts JSON only
+        Craft::$app->getRequest()->getHeaders()->set('X-Requested-With', 'XMLHttpRequest');
+        Craft::$app->getRequest()->setAcceptableContentTypes(['application/json' => []]);
+
+        $response = Craft::$app->runAction($action);
+
+        if (!empty($response->data)) {
+            if (is_array($response->data)) {
+                return $response->data;
+            }
+
+            if ($response->data instanceof Model) {
+                return $response->data->getAttributes();
+            }
+        }
+
+        return [];
     }
 }

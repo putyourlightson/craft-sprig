@@ -11,7 +11,6 @@ use craft\elements\Entry;
 use putyourlightson\sprig\errors\InvalidVariableException;
 use putyourlightson\sprig\Sprig;
 use UnitTester;
-use yii\base\InvalidArgumentException;
 use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
@@ -28,11 +27,15 @@ class ComponentsTest extends Unit
      */
     protected $tester;
 
+    protected function _before()
+    {
+        parent::_before();
+
+        Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
+    }
+
     public function testCreate()
     {
-        $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
-        Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
-
         $markup = Sprig::$plugin->components->create('_component', ['number' => '15'], [
             'id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1'
         ]);
@@ -48,9 +51,6 @@ class ComponentsTest extends Unit
 
     public function testCreateEmptyComponent()
     {
-        $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
-        Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
-
         $markup = Sprig::$plugin->components->create('_empty');
         $html = (string)$markup;
 

@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.15 - Unreleased
+### Changed
+- Controller actions that return models are now dealt with accordingly.
+
 ## 1.0.0-beta.14 - 2020-09-10
 ### Changed
 - Requests to controller actions are now forced to be AJAX requests.
