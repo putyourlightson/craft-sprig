@@ -88,4 +88,17 @@ class ComponentsControllerTest extends Unit
 
         $this->assertEquals('<span>success</span>', trim($response->data));
     }
+
+    public function testRenderAsAjaxRequest()
+    {
+        Craft::$app->getRequest()->setQueryParams([
+            'sprig:template' => Craft::$app->getSecurity()->hashData('_action'),
+            'sprig:action' => Craft::$app->getSecurity()->hashData('sprig/test/get-null'),
+        ]);
+
+        Sprig::$plugin->runAction('components/render');
+
+        $this->assertTrue(Craft::$app->getRequest()->getAcceptsJson());
+        $this->assertTrue(Craft::$app->getRequest()->getIsAjax());
+    }
 }

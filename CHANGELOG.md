@@ -4,6 +4,10 @@
 ### Changed
 - Controller actions that return models are now dealt with accordingly.
 
+### Deprecated
+- The `sprig.include` template variable has been deprecated and will be removed in version 1.0.0. Use `sprig.isInclude` instead.
+- The `sprig.request` template variable has been deprecated and will be removed in version 1.0.0. Use `sprig.isRequest` instead.
+
 ## 1.0.0-beta.14 - 2020-09-10
 ### Changed
 - Requests to controller actions are now forced to be AJAX requests.

@@ -46,23 +46,51 @@ class SprigVariable
     }
 
     /**
-     * Returns whether this is a Sprig include.
-     *
-     * @return bool
-     */
-    public function getInclude(): bool
-    {
-        return !$this->getRequest();
-    }
-
-    /**
      * Returns whether this is a Sprig request.
      *
      * @return bool
      */
-    public function getRequest(): bool
+    public function getIsRequest(): bool
     {
         return (bool)Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true);
+    }
+
+    /**
+     * Returns whether this is a Sprig include.
+     *
+     * @return bool
+     */
+    public function getIsInclude(): bool
+    {
+        return !$this->getIsRequest();
+    }
+
+    // TODO: remove in 1.0.0
+    /**
+     * Returns whether this is a Sprig request.
+     *
+     * @return bool
+     * @deprecated Use [[SprigVariable::getIsRequest()]] instead.
+     */
+    public function getRequest(): bool
+    {
+        Craft::$app->getDeprecator()->log('SprigVariable::getRequest()', 'The “sprig.request” template variable has been deprecated and will be removed in version 1.0.0. Use “sprig.isRequest” instead.');
+
+        return $this->getIsRequest();
+    }
+
+    // TODO: remove in 1.0.0
+    /**
+     * Returns whether this is a Sprig include.
+     *
+     * @return bool
+     * @deprecated Use [[SprigVariable::getIsInclude()]] instead.
+     */
+    public function getInclude(): bool
+    {
+        Craft::$app->getDeprecator()->log('SprigVariable::getInclude()', 'The “sprig.include” template variable has been deprecated and will be removed in version 1.0.0. Use “sprig.isInclude” instead.');
+
+        return $this->getIsInclude();
     }
 
     /**
