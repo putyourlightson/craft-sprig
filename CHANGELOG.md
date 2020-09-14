@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.15 - Unreleased
+## 1.0.0-beta.15 - 2020-09-14
 ### Changed
 - Controller actions that return models are now dealt with accordingly.
 
