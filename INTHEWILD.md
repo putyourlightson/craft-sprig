@@ -9,6 +9,10 @@
 > - A concise description of what and/or why Sprig is being used for.
 > - The developer name (optionally linked to a URL).
 
+### [CraftQuest](https://craftquest.io)
+Filtering video lessons by type (premium, free), polling for livestream status to update and change class and text on main navigation item.
+_[Ryan Irelan](https://craftquest.io)_
+
 ### [Ishvii Reviews](https://ishvii.reviews)
 Searching and filtering a large list of personal video game reviews with multiple fields.
 _[CodeKnight](https://codeknight.co.uk)_
