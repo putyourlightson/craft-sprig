@@ -9,8 +9,6 @@
 > - A concise description of what and/or why Sprig is being used for.
 > - The developer name (optionally linked to a URL).
 
----
-
 ### [Sprig Cookbook](https://putyourlightson.com/sprig-cookbook)
 Copy-paste recipes that showcase many common use-cases of Sprig along with code samples.  
 _[PutYourLightsOn](https://putyourlightson.com/)_
