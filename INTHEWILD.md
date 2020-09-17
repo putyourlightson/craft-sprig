@@ -4,15 +4,15 @@
 
 ### A curated list of sites in the wild that use [Sprig](https://putyourlightson.com/plugins/sprig).
 
-To add, edit or remove an item, please submit a pull request providing the following:
-- A title (required)
-- A public-facing URL (required)
-- A concise description of what and/or why Sprig is being used for (optional)
-- The developer name and a URL to link to (optional)
+To add, edit or remove an item, please submit a pull request providing the following (all required):
+- A title
+- A public-facing URL
+- A concise description of what and/or why Sprig is being used for
+- The developer name (optionally linked to a URL)
 
 ---
 
-#### [Sprig Cookbook](https://putyourlightson.com/sprig-cookbook)
+### [Sprig Cookbook](https://putyourlightson.com/sprig-cookbook)
 Copy-paste recipes that showcase many common use-cases of Sprig along with code samples.  
 –[PutYourLightsOn](https://putyourlightson.com/)
 
