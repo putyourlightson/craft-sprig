@@ -4,7 +4,7 @@
 
 ### A curated list of sites in the wild that use [Sprig](https://putyourlightson.com/plugins/sprig).
 
-> To add, edit or remove an item, please submit a pull request providing the following (listed alphabetically ascending):
+> To add, edit or remove an item, please submit a pull request providing the following (items listed alphabetically):
 > - A title linked to a URL on which Sprig is used.
 > - A concise description of what and/or why Sprig is being used for.
 > - The developer name (optionally linked to a URL).
