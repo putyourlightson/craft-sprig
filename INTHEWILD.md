@@ -4,18 +4,18 @@
 
 ### A curated list of sites in the wild that use [Sprig](https://putyourlightson.com/plugins/sprig).
 
-> To add, edit or remove an item, please submit a pull request providing the following (all required):
+> To add, edit or remove an item, please submit a pull request providing the following (listed alphabetically ascending):
 > - A title linked to a URL on which Sprig is used.
 > - A concise description of what and/or why Sprig is being used for.
 > - The developer name (optionally linked to a URL).
 
-### [Sprig Cookbook](https://putyourlightson.com/sprig-cookbook)
-Copy-paste recipes that showcase many common use-cases of Sprig along with code samples.
-_[PutYourLightsOn](https://putyourlightson.com/)_
-
 ### [Ishvii Reviews](https://ishvii.reviews)
 Searching and filtering a large list of personal video game reviews with multiple fields.
 _[CodeKnight](https://codeknight.co.uk)_
+
+### [Sprig Cookbook](https://putyourlightson.com/sprig-cookbook)
+Copy-paste recipes that showcase many common use-cases of Sprig along with code samples.
+_[PutYourLightsOn](https://putyourlightson.com/)_
 
 ---
 
