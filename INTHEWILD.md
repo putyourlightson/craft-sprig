@@ -10,8 +10,12 @@
 > - The developer name (optionally linked to a URL).
 
 ### [Sprig Cookbook](https://putyourlightson.com/sprig-cookbook)
-Copy-paste recipes that showcase many common use-cases of Sprig along with code samples.  
+Copy-paste recipes that showcase many common use-cases of Sprig along with code samples.
 _[PutYourLightsOn](https://putyourlightson.com/)_
+
+### [Ishvii Reviews](https://ishvii.reviews)
+Searching and filtering a large list of personal video game reviews with multiple fields.
+_[CodeKnight](https://codeknight.co.uk)_
 
 ---
 
