@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.16 - 2020-09-18
+### Changed
+- Uses htmx 0.1.0 ([release notes](https://htmx.org/posts/2020-9-18-htmx-0.1.0-is-released/)).
+
 ## 1.0.0-beta.15 - 2020-09-14
 ### Changed
 - Controller actions that return models are now dealt with accordingly.

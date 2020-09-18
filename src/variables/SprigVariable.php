@@ -16,12 +16,12 @@ class SprigVariable
     /**
      * @var string
      */
-    public $htmxVersion = '0.0.8';
+    public $htmxVersion = '0.1.0';
 
     /**
      * @var string
      */
-    public $hyperscriptVersion = '0.0.1-alpha4';
+    public $hyperscriptVersion = '0.0.1';
 
     /**
      * Returns a script tag to the htmx source file.
