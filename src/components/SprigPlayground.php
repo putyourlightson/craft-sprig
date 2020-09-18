@@ -4,10 +4,25 @@ namespace putyourlightson\sprig\components;
 use Craft;
 use Exception;
 use putyourlightson\sprig\base\Component;
+use putyourlightson\sprig\Sprig;
+use yii\web\ForbiddenHttpException;
 
 class SprigPlayground extends Component
 {
     public $variables = [];
+
+    /**
+     * @inheritDoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        // Validate that user has permission to access the plugin in the CP
+        if (!Craft::$app->getUser()->checkPermission('accessPlugin-'.Sprig::$plugin->id)) {
+            throw new ForbiddenHttpException('Access denied.');
+        }
+    }
 
     /**
      * @inheritDoc
