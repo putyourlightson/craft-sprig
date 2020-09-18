@@ -1,0 +1,45 @@
+{% extends '_layouts/cp' %}
+
+{% set title = 'Sprig Playground'|t('sprig') %}
+
+{% do view.registerAssetBundle('putyourlightson\\sprig\\assets\\PlaygroundAsset') %}
+
+
+{% block main %}
+
+    <div class="playground">
+        <div>
+            <div class="content-pane" style="height: 340px;">
+                <p class="light code">Component</p>
+                <textarea id="component" class="code fullwidth" style="height: 300px;">
+                    {%- verbatim -%}
+<p>
+    hello {{ currentUser.username }}
+</p>
+                    {%- endverbatim -%}
+                </textarea>
+                <button id="run" type="submit" class="btn submit">Run</button>
+            </div>
+            <div class="content-pane" style="height: 60px;">
+                <p class="light code">Variables</p>
+                <input id="variables" class="input code fullwidth" value="" placeholder="x=1,y=2,z=3">
+            </div>
+        </div>
+
+        <div>
+            <div class="content-pane" style="height: 200px;">
+                <p class="light code">Output</p>
+                <div class="output">
+                    {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
+                </div>
+            </div>
+            <div class="content-pane" style="height: 200px;">
+                <p class="light code">Source Code</p>
+                <textarea id="sourcecode" class="code fullwidth output" disabled></textarea>
+            </div>
+        </div>
+    </div>
+
+    {{ sprig.script }}
+
+{% endblock %}

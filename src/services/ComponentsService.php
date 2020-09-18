@@ -16,6 +16,7 @@ use craft\web\View;
 use DOMDocument;
 use DOMElement;
 use putyourlightson\sprig\base\ComponentInterface;
+use putyourlightson\sprig\components\SprigPlayground;
 use putyourlightson\sprig\errors\InvalidVariableException;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
@@ -121,13 +122,17 @@ class ComponentsService extends Component
      */
     public function createObject(string $component, array $variables = [])
     {
+        if ($component == 'SprigPlayground') {
+            return new SprigPlayground();
+        }
+
         $componentClass = self::COMPONENT_NAMESPACE.$component;
 
         if (!class_exists($componentClass)) {
             return null;
         }
 
-        $componentObject = new $componentClass;
+        $componentObject = new $componentClass();
 
         if (!($componentObject instanceof ComponentInterface)) {
             return null;

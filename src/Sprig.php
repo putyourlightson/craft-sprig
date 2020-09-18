@@ -33,6 +33,11 @@ class Sprig extends Plugin
     /**
      * @inheritdoc
      */
+    public $hasCpSection = true;
+
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
