@@ -1139,8 +1139,9 @@ return (function () {
                 triggerEvent(elt, "htmx:error", {errorInfo:detail})
             }
             var eventResult = elt.dispatchEvent(event);
-            if (eventResult) {
-                var kebabedEvent = makeEvent(kebabEventName(eventName), event.detail);
+            var kebabName = kebabEventName(eventName);
+            if (eventResult && kebabName !== eventName) {
+                var kebabedEvent = makeEvent(kebabName, event.detail);
                 eventResult = eventResult && elt.dispatchEvent(kebabedEvent)
             }
             withExtensions(elt, function (extension) {
@@ -1653,8 +1654,13 @@ return (function () {
                 try {
                     if (!triggerEvent(elt, 'htmx:beforeOnLoad', eventDetail)) return;
 
-                    handleTrigger(elt, this.getResponseHeader("HX-Trigger"));
-                    var pushedUrl = this.getResponseHeader("HX-Push");
+                    if (xhr.getAllResponseHeaders().search(/HX-Trigger/i) >= 0) {
+                        handleTrigger(elt, this.getResponseHeader("HX-Trigger"));
+                    }
+
+                    if (xhr.getAllResponseHeaders().search(/HX-Push/i) >= 0) {
+                        var pushedUrl = this.getResponseHeader("HX-Push");
+                    }
 
                     var shouldSaveHistory = shouldPush(elt) || pushedUrl;
 
