@@ -4,7 +4,13 @@ htmx.on('htmx:beforeRequest', function(event) {
 });
 
 htmx.on('htmx:afterSwap', function(event) {
-    $('#sourcecode').val($('#playground').html());
+    $('#sourcecode').val('');
+
+    var sourcecode = $('#playground').html();
+
+    if (sourcecode.indexOf('id="sprig-error"') === -1) {
+        $('#sourcecode').val(sourcecode);
+    }
 });
 
 $('#run').click(function() {
