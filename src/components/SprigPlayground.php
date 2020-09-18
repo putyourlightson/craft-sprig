@@ -50,8 +50,8 @@ class SprigPlayground extends Component
 
     private function _getErrorMessage(string $error)
     {
-        $error = preg_replace('/"__string_template__(.*?)"/', 'component', $error);
+        $error = preg_replace('/in "__string_template__(.*?)"/', '', $error);
 
-        return '<div id="sprig-error" class="error">'.$error.'</div>';
+        return '<h2 id="sprig-error" class="error">'.$error.'</h2>';
     }
 }
