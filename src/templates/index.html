@@ -28,7 +28,10 @@
 
         <div>
             <div class="content-pane" style="height: 200px;">
-                <p class="light code">Output</p>
+                <p class="light code">
+                    Output
+                    <span class="spinner" style="display: none;"></span>
+                </p>
                 <div class="output">
                     {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
                 </div>

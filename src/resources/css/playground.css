@@ -29,9 +29,14 @@
     overflow-y: auto;
 }
 
-.playground .btn.submit {
+.playground .btn {
     position: absolute;
     top: 0;
     right: 0;
     margin: 20px;
+}
+
+.playground .spinner {
+    position: absolute;
+    margin: -8px 8px;
 }
