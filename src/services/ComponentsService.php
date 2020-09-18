@@ -123,7 +123,7 @@ class ComponentsService extends Component
     public function createObject(string $component, array $variables = [])
     {
         if ($component == 'SprigPlayground') {
-            return new SprigPlayground();
+            return new SprigPlayground(['variables' => $variables]);
         }
 
         $componentClass = self::COMPONENT_NAMESPACE.$component;
