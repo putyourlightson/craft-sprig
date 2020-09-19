@@ -16,13 +16,7 @@ htmx.on('htmx:configRequest', function(event) {
 
 htmx.on('htmx:afterSwap', function(event) {
     $('.spinner').hide();
-    $('#sourcecode').val('');
-
-    var sourcecode = $('#playground').html();
-
-    if (sourcecode.indexOf('id="sprig-error"') === -1) {
-        $('#sourcecode').val(sourcecode);
-    }
+    $('#sourcecode').val($('#playground').html());
 });
 
 $('#create').click(function() {

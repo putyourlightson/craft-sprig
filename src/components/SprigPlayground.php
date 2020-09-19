@@ -67,6 +67,6 @@ class SprigPlayground extends Component
     {
         $error = preg_replace('/in "__string_template__(.*?)"/', '', $error);
 
-        return '<h2 id="sprig-error" class="error">'.$error.'</h2>';
+        return '<h2 class="error">'.$error.'</h2>';
     }
 }

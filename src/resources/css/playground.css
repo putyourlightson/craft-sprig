@@ -15,12 +15,13 @@
     margin-right: 10px;
 }
 
-.playground > div > div:first-of-type {
-    flex-grow: 4;
-}
-
 .playground > div > div {
     flex-grow: 1;
+}
+
+.playground .variables {
+    height: 66px;
+    flex-grow: 0;
 }
 
 .playground .fields .content-pane:first-of-type {
