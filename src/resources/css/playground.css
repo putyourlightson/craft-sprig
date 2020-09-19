@@ -19,9 +19,16 @@
     font-size: 1em !important;
 }
 
-.playground textarea, .playground input {
+.playground .fields textarea, .playground .fields input {
     border: none;
+    padding: 10px 5px 8px;
     background: #fff;
+}
+
+.playground .fields textarea:focus, .playground .fields input:focus {
+    outline: none;
+    border: 1px solid #e4edf6;
+    padding: 9px 4px 7px;
 }
 
 .playground .output {
@@ -29,9 +36,9 @@
     overflow-y: auto;
 }
 
-.playground .btn {
+.playground .fields .btn {
     position: absolute;
-    top: 0;
+    top: -5px;
     right: 0;
     margin: 20px;
 }

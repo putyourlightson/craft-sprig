@@ -8,13 +8,18 @@
 {% block main %}
 
     <div class="playground">
-        <div>
+        <div class="fields">
             <div class="content-pane" style="height: 340px;">
                 <p class="light code">Component</p>
-                <textarea id="component" class="code fullwidth" style="height: 300px;">
+                <textarea id="component" class="code fullwidth" style="height: 290px;">
                     {%- verbatim -%}
 <p>
-    hello {{ currentUser.username }}
+    Hello, {{ currentUser.username }}
+</p>
+
+<p>
+    <button sprig s-vars="count:{{ count + 1 }}">Re-render</button>
+    <em>component re-rendered {{ count }} times</em>
 </p>
                     {%- endverbatim -%}
                 </textarea>
@@ -22,7 +27,7 @@
             </div>
             <div class="content-pane" style="height: 60px;">
                 <p class="light code">Variables</p>
-                <input id="variables" class="input code fullwidth" value="" placeholder="x=1,y=2,z=3">
+                <input id="variables" class="input code fullwidth" value="count=0" placeholder="x=1,y=2,z=3">
             </div>
         </div>
 
@@ -36,7 +41,7 @@
                     {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
                 </div>
             </div>
-            <div class="content-pane" style="height: 200px;">
+            <div class="content-pane fields" style="height: 200px;">
                 <p class="light code">Source Code</p>
                 <textarea id="sourcecode" class="code fullwidth output" disabled></textarea>
             </div>
