@@ -43,12 +43,6 @@
     resize: none;
 }
 
-.playground .fields textarea:focus, .playground .fields input:focus {
-    outline: none;
-    border: 1px solid #e4edf6;
-    padding: 9px 4px 7px;
-}
-
 .playground .output .content-pane {
     height: 100%;
     box-sizing: border-box;
@@ -70,4 +64,13 @@
 .playground .spinner {
     position: absolute;
     margin-left: 10px !important;
+}
+
+
+/*--- CodeMirror ---*/
+
+.CodeMirror {
+    height: 390px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 1em;
 }
