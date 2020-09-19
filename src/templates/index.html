@@ -13,17 +13,16 @@
                 <p class="light code">Component</p>
                 <textarea id="component" class="code fullwidth">
                     {%- verbatim -%}
-<p>
+<h1>
     Hello, {{ currentUser.username }}
-</p>
+</h1>
+
+<button sprig s-vars="count:{{ count + 1 }}" class="btn submit">
+    Re-render
+</button>
 
 <p>
-    <button sprig s-vars="count:{{ count + 1 }}" class="btn">
-        Re-render
-    </button>
-    <em>
-        component re-rendered {{ count }} times
-    </em>
+    <em>Component re-rendered {{ count }} times</em>
 </p>
                     {%- endverbatim -%}
                 </textarea>

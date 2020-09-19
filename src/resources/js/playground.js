@@ -20,7 +20,7 @@ htmx.on('htmx:afterSwap', function(event) {
 });
 
 $('#create').click(function() {
-    $('.playground .btn.submit').removeClass('submit');
+    $('.playground .create.submit').removeClass('submit');
 
     sprigInclude = true;
 
