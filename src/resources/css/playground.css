@@ -38,6 +38,18 @@
     background: #fff;
 }
 
+.playground .fields textarea, .playground .fields input, .playground .output .component {
+    border: none;
+    padding: 10px 5px 8px;
+    background: #fff;
+}
+
+.playground .fields textarea:focus, .playground .fields input:focus {
+    outline: none;
+    border: 1px solid #e4edf6;
+    padding: 9px 4px 7px;
+}
+
 .playground .fields textarea {
     height: 90%;
     resize: none;
