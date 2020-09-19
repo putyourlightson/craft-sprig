@@ -14,8 +14,6 @@ htmx.on('htmx:configRequest', function(event) {
     console.log(event.detail.headers);
 });
 
-
-
 htmx.on('htmx:afterSwap', function(event) {
     $('.spinner').hide();
     $('#sourcecode').val('');
@@ -27,11 +25,16 @@ htmx.on('htmx:afterSwap', function(event) {
     }
 });
 
-$('#run').click(function() {
+$('#create').click(function() {
     $('.playground .btn.submit').removeClass('submit');
 
     sprigInclude = true;
 
     document.getElementById('playground').dispatchEvent(new Event('refresh'));
+});
+
+$('.output-toggle').click(function() {
+    $('.playground .content-pane').show();
+    $(this).closest('.content-pane').hide();
 });
 

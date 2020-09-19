@@ -9,41 +9,50 @@
 
     <div class="playground">
         <div class="fields">
-            <div class="content-pane" style="height: 340px;">
+            <div class="content-pane">
                 <p class="light code">Component</p>
-                <textarea id="component" class="code fullwidth" style="height: 290px;">
+                <textarea id="component" class="code fullwidth">
                     {%- verbatim -%}
 <p>
     Hello, {{ currentUser.username }}
 </p>
 
 <p>
-    <button sprig s-vars="count:{{ count + 1 }}">Re-render</button>
-    <em>component re-rendered {{ count }} times</em>
+    <button sprig s-vars="count:{{ count + 1 }}" class="btn">
+        Re-render
+    </button>
+    <em>
+        component re-rendered {{ count }} times
+    </em>
 </p>
                     {%- endverbatim -%}
                 </textarea>
-                <button id="run" type="submit" class="btn submit">Run</button>
+                <button id="create" type="submit" class="create btn submit">Create</button>
             </div>
-            <div class="content-pane" style="height: 60px;">
+            <div class="content-pane">
                 <p class="light code">Variables</p>
                 <input id="variables" class="input code fullwidth" value="count=0" placeholder="x=1,y=2,z=3">
             </div>
         </div>
 
-        <div>
-            <div class="content-pane" style="height: 200px;">
+        <div class="output">
+            <div class="content-pane">
                 <p class="light code">
                     Output
+                    <a href="#" class="output-toggle btn small">&lt;/&gt;</a>
                     <span class="spinner" style="display: none;"></span>
                 </p>
-                <div class="output">
+                <div class="component">
                     {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
                 </div>
             </div>
-            <div class="content-pane fields" style="height: 200px;">
-                <p class="light code">Source Code</p>
-                <textarea id="sourcecode" class="code fullwidth output" disabled></textarea>
+            <div class="content-pane fields" style="display: none;">
+                <p class="light code">
+                    <a href="#" class="output-toggle btn small">Output</a>
+                    &lt;/&gt;
+                    <span class="spinner" style="display: none;"></span>
+                </p>
+                <textarea id="sourcecode" class="code fullwidth" disabled></textarea>
             </div>
         </div>
     </div>

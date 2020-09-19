@@ -1,17 +1,29 @@
 .playground {
+    height: 600px;
     display: flex;
     align-items: flex-start;
  }
 
 .playground > div {
     width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .playground > div:first-of-type {
     margin-right: 10px;
 }
 
-.playground .content-pane {
+.playground > div > div:first-of-type {
+    flex-grow: 4;
+}
+
+.playground > div > div {
+    flex-grow: 1;
+}
+
+.playground .fields .content-pane:first-of-type {
     margin-bottom: 10px;
 }
 
@@ -19,10 +31,15 @@
     font-size: 1em !important;
 }
 
-.playground .fields textarea, .playground .fields input {
+.playground .fields textarea, .playground .fields input, .playground .output .component {
     border: none;
     padding: 10px 5px 8px;
     background: #fff;
+}
+
+.playground .fields textarea {
+    height: 90%;
+    resize: none;
 }
 
 .playground .fields textarea:focus, .playground .fields input:focus {
@@ -31,12 +48,18 @@
     padding: 9px 4px 7px;
 }
 
-.playground .output {
-    height: 160px;
-    overflow-y: auto;
+.playground .output .content-pane {
+    height: 100%;
+    box-sizing: border-box;
 }
 
-.playground .fields .btn {
+.playground .output .component {
+    height: 95%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.playground .fields .create {
     position: absolute;
     top: -5px;
     right: 0;
@@ -45,5 +68,5 @@
 
 .playground .spinner {
     position: absolute;
-    margin: -8px 8px;
+    margin-left: 10px !important;
 }
