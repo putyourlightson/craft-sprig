@@ -52,7 +52,7 @@ class SprigVariable
      */
     public function getIsRequest(): bool
     {
-        return (bool)Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true);
+        return Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true) == 'true';
     }
 
     /**
