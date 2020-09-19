@@ -71,6 +71,18 @@
 
 .CodeMirror {
     height: 390px;
+    border-radius: 5px 0 0 5px;
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 1em;
+}
+
+.CodeMirror-gutters {
+    border: none;
+    box-shadow: inset -1px 0 0 rgba(51, 64, 77, 0.1);
+    background-color: #f3f7fc;
+}
+
+.CodeMirror-linenumber {
+    padding: 0 6px 0 2px;
+    color: #9aa5b1;
 }
