@@ -182,7 +182,7 @@ class ComponentsService extends Component
 
         $dom = new DOMDocument();
 
-        // Surround with a div to avoid tags being added
+        // Surround html with a div to avoid tags being added
         $surroundingId = StringHelper::randomString();
         $html = '<div id="'.$surroundingId.'">'.$html.'</div>';
 
