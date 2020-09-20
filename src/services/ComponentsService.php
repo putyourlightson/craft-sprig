@@ -182,6 +182,10 @@ class ComponentsService extends Component
 
         $dom = new DOMDocument();
 
+        // Surround with a div to avoid tags being added
+        $surroundingId = StringHelper::randomString();
+        $html = '<div id="'.$surroundingId.'">'.$html.'</div>';
+
         // Force UTF-8 encoding
         // https://stackoverflow.com/a/8218649/1769259
         $dom->loadHTML('<?xml encoding="utf-8" ?>'.$html);
@@ -224,13 +228,10 @@ class ComponentsService extends Component
             }
         }
 
-        /**
-         * Generate output by concatenating all child elements of the body tag.
-         * https://stackoverflow.com/a/38079328/1769259
-         */
+        // Generate output by concatenating all child elements of the surrounding div
         $output = '';
 
-        foreach ($dom->getElementsByTagName('body')->item(0)->childNodes as $node) {
+        foreach ($dom->getElementById($surroundingId)->childNodes as $node) {
             $output .= $dom->saveHTML($node);
         }
 

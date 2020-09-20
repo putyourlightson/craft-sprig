@@ -39,7 +39,14 @@ class SprigPlayground extends Component
 
     private function _getComponent(): string
     {
-        return urldecode(Craft::$app->getRequest()->getHeaders()->get('Sprig-Playground-Component', ''));
+        $component = Craft::$app->getRequest()->getHeaders()->get('Sprig-Playground-Component', '');
+        $uriEncoded = Craft::$app->getRequest()->getHeaders()->get('Sprig-Playground-Component-URI-AutoEncoded', '');
+
+        if ($uriEncoded == 'true') {
+            $component = urldecode($component);
+        }
+
+        return $component;
     }
 
     private function _getVariables(): array
