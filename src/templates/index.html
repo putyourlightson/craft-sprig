@@ -14,7 +14,7 @@
                 <textarea id="component" class="code fullwidth">
                     {%- verbatim -%}
 <h1>
-    Hello, {{ currentUser.username }}
+    Hello {{ currentUser.firstName }}!
 </h1>
 
 <button sprig s-vars="count:{{ count + 1 }}" class="btn submit">
