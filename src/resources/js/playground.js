@@ -1,6 +1,4 @@
-var sprigInclude = true;
-
-var editor = CodeMirror.fromTextArea($('#component')[0], {
+var editor = CodeMirror.fromTextArea($('#input')[0], {
     lineNumbers: true,
     lineWrapping: true,
     mode: 'twig',
@@ -8,17 +6,20 @@ var editor = CodeMirror.fromTextArea($('#component')[0], {
 
 htmx.on('htmx:configRequest', function(event) {
     $('.spinner').show();
+
     event.detail.headers['Sprig-Playground-Component'] = editor.getValue();
-    event.detail.headers['Sprig-Playground-Variables'] = $('#variables').val();
-    if (sprigInclude) {
+    event.detail.headers['Sprig-Playground-Variables'] = $('#input-variables').val();
+
+    if ($('#playground').html() == '') {
         event.detail.headers['HX-Request'] = 'false';
-        sprigInclude = false;
     }
 });
 
 htmx.on('htmx:afterSwap', function(event) {
     $('.spinner').hide();
-    $('#sourcecode').val(html_beautify($('#playground').html()));
+    $('#sourcecode').val(html_beautify(event.detail.xhr.responseText));
+
+    $('#output-variables').val(event.detail.xhr.getResponseHeader('Sprig-Playground-Variables'));
 });
 
 htmx.on('htmx:responseError', function(event) {
@@ -30,13 +31,21 @@ htmx.on('htmx:responseError', function(event) {
     $('#sourcecode').val('');
 });
 
-$('#create').click(function() {
-    $('.playground .create.submit').removeClass('submit');
-    sprigInclude = true;
+$('#create').click(function(event) {
+    event.preventDefault();
+    $(this).removeClass('submit');
+
+    $('#playground').html('');
+    $('#sourcecode').html('');
+    $('#output-variables').val('');
+
     document.getElementById('playground').dispatchEvent(new Event('refresh'));
 });
 
-$('.output-toggle').click(function() {
-    $('.playground .content-pane').show();
-    $(this).closest('.content-pane').hide();
+$('#output-toggle').click(function(event) {
+    event.preventDefault();
+    $(this).toggleClass('submit');
+
+    $('.playground #playground').toggle();
+    $('.playground #sourcecode').toggle();
 });

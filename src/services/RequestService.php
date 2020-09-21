@@ -34,16 +34,7 @@ class RequestService extends Component
         );
 
         foreach ($requestParams as $name => $value) {
-            $disallowed = false;
-
-            foreach (self::DISALLOWED_PREFIXES as $prefix) {
-                if (strpos($name, $prefix) === 0) {
-                    $disallowed = true;
-                    break;
-                }
-            }
-
-            if (!$disallowed) {
+            if ($this->_getIsVariableAllowed($name)) {
                 $variables[$name] = $value;
             }
         }
@@ -103,5 +94,26 @@ class RequestService extends Component
         }
 
         return $value;
+    }
+
+    /**
+     * Returns whether a variable name is allowed.
+     *
+     * @param string $name
+     * @return bool
+     */
+    private function _getIsVariableAllowed(string $name): bool
+    {
+        if ($name == Craft::$app->getConfig()->getGeneral()->getPageTrigger()) {
+            return false;
+        }
+
+        foreach (self::DISALLOWED_PREFIXES as $prefix) {
+            if (strpos($name, $prefix) === 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

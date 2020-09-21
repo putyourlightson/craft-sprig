@@ -8,10 +8,10 @@
 {% block main %}
 
     <div class="playground">
-        <div class="fields">
+        <div>
             <div class="content-pane">
-                <p class="light code">Component</p>
-                <textarea id="component" class="code fullwidth">
+                <p class="light code">Input</p>
+                <textarea id="input" class="code fullwidth field">
                     {%- verbatim -%}
 <h1>
     Hello {{ currentUser.firstName }}!
@@ -26,32 +26,27 @@
 </p>
                     {%- endverbatim -%}
                 </textarea>
-                <button id="create" type="submit" class="create btn submit">Create</button>
+                <button id="create" type="submit" class="btn submit topright">Create</button>
             </div>
             <div class="variables content-pane">
-                <p class="light code">Variables</p>
-                <input id="variables" class="input code fullwidth" value="count=0" placeholder="x=1,y=2,z=3">
+                <p class="light code">Input Variables</p>
+                <input id="input-variables" class="input code fullwidth field" value="count=0" placeholder="x=1,y=2,z=3">
             </div>
         </div>
 
-        <div class="output">
-            <div class="content-pane">
+        <div>
+            <div class="output content-pane">
                 <p class="light code">
                     Output
-                    <a href="#" class="output-toggle btn small">&lt;/&gt;</a>
-                    <span class="spinner" style="display: none;"></span>
+                    <span id="spinner" class="spinner" style="display: none;"></span>
                 </p>
-                <div class="component">
-                    {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
-                </div>
+                <a href="#" id="output-toggle" class="btn topright">&lt;/&gt;</a>
+                {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
+                <textarea id="sourcecode" class="code fullwidth field" style="display: none;" disabled></textarea>
             </div>
-            <div class="content-pane fields" style="display: none;">
-                <p class="light code">
-                    <a href="#" class="output-toggle btn small">Output</a>
-                    &lt;/&gt;
-                    <span class="spinner" style="display: none;"></span>
-                </p>
-                <textarea id="sourcecode" class="code fullwidth" disabled></textarea>
+            <div class="variables content-pane">
+                <p class="light code">Output Variables</p>
+                <input id="output-variables" class="input code fullwidth field" value="" disabled>
             </div>
         </div>
     </div>

@@ -29,8 +29,18 @@ class SprigPlayground extends Component
      */
     public function render(): string
     {
+        $variables = $this->_getVariables();
+
+        $headerVariables = [];
+
+        foreach ($variables as $key => $value) {
+            $headerVariables[] = $key.'='.$value;
+        }
+
+        Craft::$app->getResponse()->getHeaders()->set('Sprig-Playground-Variables', implode(',', $headerVariables));
+
         try {
-            return Craft::$app->getView()->renderString($this->_getComponent(), $this->_getVariables());
+            return Craft::$app->getView()->renderString($this->_getComponent(), $variables);
         }
         catch (Exception $exception) {
             return $this->_getErrorMessage($exception->getMessage());

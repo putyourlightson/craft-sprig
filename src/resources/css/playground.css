@@ -17,6 +17,7 @@
 
 .playground > div > div {
     flex-grow: 1;
+    margin-bottom: 10px;
 }
 
 .playground .variables {
@@ -24,56 +25,47 @@
     flex-grow: 0;
 }
 
-.playground .fields .content-pane:first-of-type {
-    margin-bottom: 10px;
-}
-
 .playground code, .playground .code {
     font-size: 1em !important;
 }
 
-.playground .fields textarea, .playground .fields input, .playground .output .component {
+.playground .sprig-component, .playground textarea.field, .playground input.field {
     border: none;
     padding: 10px 5px 8px;
     background: #fff;
+    margin: 0;
 }
 
-.playground .fields textarea, .playground .fields input, .playground .output .component {
-    border: none;
-    padding: 10px 5px 8px;
-    background: #fff;
-}
-
-.playground .fields textarea:focus, .playground .fields input:focus {
+.playground textarea.field:focus, .playground input.field:focus {
     outline: none;
     border: 1px solid #e4edf6;
     padding: 9px 4px 7px;
 }
 
-.playground .fields textarea {
-    height: 90%;
+.playground textarea.field {
+    height: 88%;
     resize: none;
 }
 
-.playground .output .content-pane {
+.playground .output {
     height: 100%;
     box-sizing: border-box;
 }
 
-.playground .output .component {
-    height: 95%;
+.playground .output .sprig-component {
+    height: 380px;
     overflow-y: auto;
     box-sizing: border-box;
 }
 
-.playground .fields .create {
+.playground .topright {
     position: absolute;
     top: -5px;
     right: 0;
     margin: 20px;
 }
 
-.playground .spinner {
+.playground #spinner {
     position: absolute;
     margin-left: 10px !important;
 }
@@ -82,7 +74,7 @@
 /*--- CodeMirror ---*/
 
 .CodeMirror {
-    height: 390px;
+    height: 380px;
     border-radius: 5px 0 0 5px;
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 1em;
