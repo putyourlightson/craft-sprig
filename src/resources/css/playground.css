@@ -67,7 +67,7 @@
 
 .playground #spinner {
     position: absolute;
-    margin-left: 10px !important;
+    margin: -8px 8px !important;
 }
 
 

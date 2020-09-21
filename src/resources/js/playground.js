@@ -36,7 +36,7 @@ $('#create').click(function(event) {
     $(this).removeClass('submit');
 
     $('#playground').html('');
-    $('#sourcecode').html('');
+    $('#sourcecode').val('');
     $('#output-variables').val('');
 
     document.getElementById('playground').dispatchEvent(new Event('refresh'));
