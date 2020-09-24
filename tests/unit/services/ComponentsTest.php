@@ -95,4 +95,18 @@ class ComponentsTest extends Unit
         $this->assertStringContainsString('sprig:action', $html);
         $this->assertStringContainsString('limit:1', $html);
     }
+
+    public function testGetParsedTagAttributesEmpty()
+    {
+        $html = '';
+        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $this->assertEquals($html, $result);
+    }
+
+    public function testGetParsedTagAttributesHtml()
+    {
+        $html = '<div><p><span><template><h1>Hello</h1></template></span></p></div>';
+        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $this->assertEquals($html, $result);
+    }
 }
