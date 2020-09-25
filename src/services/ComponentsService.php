@@ -15,6 +15,7 @@ use craft\helpers\UrlHelper;
 use craft\web\View;
 use DOMDocument;
 use DOMElement;
+use IvoPetkov\HTML5DOMDocument;
 use putyourlightson\sprig\base\ComponentInterface;
 use putyourlightson\sprig\errors\InvalidVariableException;
 use putyourlightson\sprig\Sprig;
@@ -172,18 +173,12 @@ class ComponentsService extends Component
             return $html;
         }
 
-        // Prevent XML errors from being thrown
-        libxml_use_internal_errors(true);
+        // Use HTML5DOMDocument which supports HTML5 and takes care of UTF-8 encoding
+        $dom = new HTML5DOMDocument();
 
-        $dom = new DOMDocument();
-
-        // Surround html with a div to avoid tags being added
-        $surroundingId = StringHelper::randomString();
-        $html = '<div id="'.$surroundingId.'">'.$html.'</div>';
-
-        // Force UTF-8 encoding
-        // https://stackoverflow.com/a/8218649/1769259
-        $dom->loadHTML('<?xml encoding="utf-8" ?>'.$html);
+        // Surround html with body tag to ensure script tags are not tampered with
+        // https://github.com/putyourlightson/craft-sprig/issues/34
+        $dom->loadHTML('<html><body>'.$html.'</body></html>');
 
         /** @var DOMElement $element */
         foreach ($dom->getElementsByTagName('*') as $element) {
@@ -223,14 +218,7 @@ class ComponentsService extends Component
             }
         }
 
-        // Generate output by concatenating all child elements of the surrounding div
-        $output = '';
-
-        foreach ($dom->getElementById($surroundingId)->childNodes as $node) {
-            $output .= $dom->saveHTML($node);
-        }
-
-        return $output;
+        return $dom->getElementsByTagName('body')[0]->innerHTML;
     }
 
     /**

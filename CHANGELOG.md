@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.17 - 2020-09-25
+### Changed
+- Uses a HTML5 compatible DOM parser.
+
+### Fixed 
+- Fixed a bug in which HTML tags would be stripped when inside of `<script>` tags ([#34](https://github.com/putyourlightson/craft-sprig/issues/34)).
+
 ## 1.0.0-beta.16 - 2020-09-18
 ### Changed
 - Uses htmx 0.1.2 and hyperscript 0.0.2 ([release notes](https://htmx.org/posts/2020-9-18-htmx-0.1.0-is-released/)).
