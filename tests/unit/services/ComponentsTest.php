@@ -109,4 +109,18 @@ class ComponentsTest extends Unit
         $result = Sprig::$plugin->components->getParsedTagAttributes($html);
         $this->assertEquals($html, $result);
     }
+
+    public function testGetParsedTagAttributesScript()
+    {
+        $html = '<script><h1>Hello</h1></script>';
+        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $this->assertEquals($html, $result);
+    }
+
+    public function testGetParsedTagAttributesUtfEncoding()
+    {
+        $html = 'ÆØÅäöü';
+        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $this->assertEquals($html, $result);
+    }
 }
