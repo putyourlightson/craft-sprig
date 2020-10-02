@@ -91,6 +91,7 @@ class ComponentsService extends Component
 
         // Allow the HTML element to be overridden, otherwise default to a regular div.
         $element = $attributes['_element'] ?? 'div';
+        unset($attributes['_element']);
 
         // Merge base attributes with provided attributes, then merge attributes with parsed attributes.
         // This is done in two steps so that `hx-vars` is included in the attributes when they are parsed.
