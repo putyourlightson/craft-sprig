@@ -89,6 +89,9 @@ class ComponentsService extends Component
         // Allow ID to be overridden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
         $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
 
+        // Allow the HTML element to be overridden, otherwise default to a regular div.
+        $element = $attributes['_element'] ?? 'div';
+
         // Merge base attributes with provided attributes, then merge attributes with parsed attributes.
         // This is done in two steps so that `hx-vars` is included in the attributes when they are parsed.
         $attributes = array_merge(
@@ -109,7 +112,7 @@ class ComponentsService extends Component
         );
 
         return Template::raw(
-            Html::tag('div', $content, $attributes)
+            Html::tag($element, $content, $attributes)
         );
     }
 
