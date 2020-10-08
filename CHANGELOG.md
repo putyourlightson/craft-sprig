@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.18 - Unreleased
+### Changed
+- Duplicate IDs in components no longer throw an error.
+
 ## 1.0.0-beta.17 - 2020-09-25
 ### Changed
 - Uses a HTML5 compatible DOM parser.
