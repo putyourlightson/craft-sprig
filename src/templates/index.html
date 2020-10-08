@@ -20,7 +20,8 @@
         <div>
             <div class="content-pane">
                 <p class="light code">{{ 'Component'|t('sprig') }}</p>
-                <textarea id="input" class="code fullwidth field">
+                <div id="editor" style="height: 100%"></div>
+                <textarea id="input" class="hidden">
                     {%- verbatim -%}
 <h1>
     Hello {{ currentUser.firstName }}!
@@ -62,5 +63,19 @@
 
     {{ sprig.script }}
     {{ sprig.hyperscript }}
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+    {% js %}
+        let suggestions = [
+            {% for attribute in sprig.getHtmxAttributes() %}
+                {
+                    label: 's-{{ attribute }}',
+                    insertText: 's-{{ attribute }}=""',
+                    kind: 1,
+                },
+            {% endfor %}
+        ];
+    {% endjs %}
 
 {% endblock %}

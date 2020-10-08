@@ -22,14 +22,12 @@ class PlaygroundAsset extends AssetBundle
         ];
 
         $this->css = [
-            'lib/codemirror/codemirror.css',
             'css/playground.css',
         ];
 
         $this->js = [
-            'lib/codemirror/codemirror.js',
-            'lib/codemirror/twig.js',
             'lib/js-beautify/beautify-html.js',
+            'lib/requirejs/require.js',
             'js/playground.js',
         ];
 

@@ -13,7 +13,6 @@ use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
 use craft\web\View;
-use DOMDocument;
 use DOMElement;
 use IvoPetkov\HTML5DOMDocument;
 use putyourlightson\sprig\base\ComponentInterface;

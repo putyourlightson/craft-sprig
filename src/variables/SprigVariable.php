@@ -8,6 +8,7 @@ namespace putyourlightson\sprig\variables;
 use Craft;
 use craft\helpers\Html;
 use craft\helpers\Template;
+use putyourlightson\sprig\services\ComponentsService;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
 
@@ -183,6 +184,16 @@ class SprigVariable
             'name' => $headers->get('HX-Active-Element-Name', '', true),
             'value' => $headers->get('HX-Active-Element-Value', '', true),
         ];
+    }
+
+    /**
+     * Returns the htmx attributes.
+     *
+     * @return array
+     */
+    public function getHtmxAttributes(): array
+    {
+        return ComponentsService::HTMX_ATTRIBUTES;
     }
 
     /**
