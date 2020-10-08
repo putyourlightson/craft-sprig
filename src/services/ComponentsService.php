@@ -183,7 +183,11 @@ class ComponentsService extends Component
 
         // Surround html with body tag to ensure script tags are not tampered with
         // https://github.com/putyourlightson/craft-sprig/issues/34
-        $dom->loadHTML('<html><body>'.$html.'</body></html>');
+        $html = '<!DOCTYPE html><html><body>'.$html.'</body></html>';
+
+        // Allow duplicate IDs to avoid an error being thrown
+        // https://github.com/ivopetkov/html5-dom-document-php/issues/21
+        $dom->loadHTML($html, HTML5DOMDocument::ALLOW_DUPLICATE_IDS);
 
         /** @var DOMElement $element */
         foreach ($dom->getElementsByTagName('*') as $element) {

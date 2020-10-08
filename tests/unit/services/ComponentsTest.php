@@ -110,6 +110,13 @@ class ComponentsTest extends Unit
         $this->assertEquals($html, $result);
     }
 
+    public function testGetParsedTagAttributesDuplicateIds()
+    {
+        $html = '<div id="my-id"><p id="my-id"><span id="my-id"></span></p></div>';
+        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $this->assertEquals($html, $result);
+    }
+
     public function testGetParsedTagAttributesScript()
     {
         $html = '<script><h1>Hello</h1></script>';
