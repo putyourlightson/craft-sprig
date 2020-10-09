@@ -2,29 +2,32 @@ $( document ).ready(function() {
 
     let editor;
 
-    require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor/min/vs' }});
+    require.config({ paths: { 'vs': resourcesUrl + '/lib/monaco-editor/min/vs' }});
     window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
     let proxy = URL.createObjectURL(new Blob([`
         self.MonacoEnvironment = {
-            baseUrl: 'https://unpkg.com/monaco-editor/min/'
+            baseUrl: '` + resourcesUrl + `/lib/monaco-editor/min/'
         };
-        importScripts('https://unpkg.com/monaco-editor/min/vs/base/worker/workerMain.js');
+        importScripts('` + resourcesUrl + `/lib/monaco-editor/min/vs/base/worker/workerMain.js');
     `], { type: 'text/javascript' }));
-
-    suggestions = suggestions.concat([
-        {
-            label: 'sprig',
-            insertText: 'sprig',
-            kind: 1,
-        }
-    ]);
 
     require(["vs/editor/editor.main"], function () {
         monaco.languages.registerCompletionItemProvider('twig', {
             provideCompletionItems: function() {
                 return {
-                    suggestions: suggestions,
+                    suggestions: [
+                        {
+                            label: 'sprig',
+                            insertText: 'sprig',
+                            kind: 1,
+                        },
+                        {
+                            label: 's-trigger',
+                            insertText: 's-trigger=""',
+                            kind: 1,
+                        },
+                    ],
                 };
             }
         });

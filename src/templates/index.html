@@ -2,7 +2,8 @@
 
 {% set title = 'Sprig Playground'|t('sprig') %}
 
-{% do view.registerAssetBundle('putyourlightson\\sprig\\assets\\PlaygroundAsset') %}
+{% set bundle = view.registerAssetBundle('putyourlightson\\sprig\\assets\\PlaygroundAsset') %}
+{% set resourcesUrl = bundle.baseUrl %}
 
 
 {% block actionButton %}
@@ -64,18 +65,8 @@
     {{ sprig.script }}
     {{ sprig.hyperscript }}
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
     {% js %}
-        let suggestions = [
-            {% for attribute in sprig.getHtmxAttributes() %}
-                {
-                    label: 's-{{ attribute }}',
-                    insertText: 's-{{ attribute }}=""',
-                    kind: 1,
-                },
-            {% endfor %}
-        ];
+        let resourcesUrl = '{{ resourcesUrl }}';
     {% endjs %}
 
 {% endblock %}

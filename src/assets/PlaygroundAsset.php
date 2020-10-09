@@ -27,7 +27,7 @@ class PlaygroundAsset extends AssetBundle
 
         $this->js = [
             'lib/js-beautify/beautify-html.js',
-            'lib/requirejs/require.js',
+            'lib/monaco-editor/min/vs/loader.js',
             'js/playground.js',
         ];
 
