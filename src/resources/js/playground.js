@@ -12,17 +12,19 @@ $( document ).ready(function() {
         importScripts('https://unpkg.com/monaco-editor/min/vs/base/worker/workerMain.js');
     `], { type: 'text/javascript' }));
 
+    suggestions = suggestions.concat([
+        {
+            label: 'sprig',
+            insertText: 'sprig',
+            kind: 1,
+        }
+    ]);
+
     require(["vs/editor/editor.main"], function () {
         monaco.languages.registerCompletionItemProvider('twig', {
             provideCompletionItems: function() {
                 return {
-                    suggestions: suggestions.concat([
-                        {
-                            label: 'sprig',
-                            insertText: 'sprig',
-                            kind: monaco.languages.CompletionItemKind.Function,
-                        }
-                    ])
+                    suggestions: suggestions,
                 };
             }
         });
