@@ -12,22 +12,38 @@ $( document ).ready(function() {
         importScripts('` + resourcesUrl + `/lib/monaco-editor/min/vs/base/worker/workerMain.js');
     `], { type: 'text/javascript' }));
 
+    let suggestions = [
+        'sprig',
+        's-action=""',
+        's-method=""', 's-method="post"',
+        's-confirm=""',
+        's-include=""',
+        's-indicator=""',
+        's-params=""',
+        's-prompt=""',
+        's-push-url=""',
+        's-select=""',
+        's-swap=""', 's-swap="innerHTML"', 's-swap="outerHTML"', 's-swap="beforebegin"', 's-swap="afterbegin"', 's-swap="beforeend"', 's-swap="afterend"',
+        's-swap-oob=""',
+        's-target=""',
+        's-trigger=""', 's-trigger="click"', 's-trigger="change"', 's-trigger="submit"',
+        's-vars=""',
+    ];
+
+    for (let i = 0; i < suggestions.length; i++) {
+        suggestions[i] = {
+            label: suggestions[i],
+            insertText: suggestions[i],
+            preselect: true,
+            kind: suggestions[i] == 'sprig' ? 1 : 3,
+        };
+    }
+
     require(["vs/editor/editor.main"], function () {
         monaco.languages.registerCompletionItemProvider('twig', {
             provideCompletionItems: function() {
                 return {
-                    suggestions: [
-                        {
-                            label: 'sprig',
-                            insertText: 'sprig',
-                            kind: 1,
-                        },
-                        {
-                            label: 's-trigger',
-                            insertText: 's-trigger=""',
-                            kind: 1,
-                        },
-                    ],
+                    suggestions: suggestions,
                 };
             }
         });
@@ -35,6 +51,11 @@ $( document ).ready(function() {
         editor = monaco.editor.create($('#editor')[0], {
             language: 'twig',
             value: $('#input').val(),
+            wordWrap: true,
+            scrollBeyondLastLine: false,
+            lineNumbersMinChars: 4,
+            fontSize: 14,
+            fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace',
             minimap: {
                 enabled: false
             },

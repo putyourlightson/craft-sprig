@@ -20,6 +20,10 @@
     margin-bottom: 10px;
 }
 
+.playground .editor {
+    height: 380px;
+}
+
 .playground .variables {
     height: 66px;
     flex-grow: 0;
