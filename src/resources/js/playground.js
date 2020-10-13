@@ -1,19 +1,15 @@
-$( document ).ready(function() {
-
-    let editor;
-
-    require.config({ paths: { 'vs': resourcesUrl + '/lib/monaco-editor/min/vs' }});
-    window.MonacoEnvironment = { getWorkerUrl: () => proxy };
-
-    let proxy = URL.createObjectURL(new Blob([`
-        self.MonacoEnvironment = {
-            baseUrl: '` + resourcesUrl + `/lib/monaco-editor/min/'
-        };
-        importScripts('` + resourcesUrl + `/lib/monaco-editor/min/vs/base/worker/workerMain.js');
-    `], { type: 'text/javascript' }));
-
+function getCompletionItems()
+{
     let suggestions = [
-        'sprig',
+        {
+            label: 'sprig',
+            insertText: 'sprig',
+            kind: monaco.languages.CompletionItemKind.Function,
+            sortText: '_sprig',
+        },
+    ];
+
+    let suggestionLabels = [
         's-action=""',
         's-method=""', 's-method="post"',
         's-confirm=""',
@@ -30,22 +26,36 @@ $( document ).ready(function() {
         's-vars=""',
     ];
 
-    for (let i = 0; i < suggestions.length; i++) {
-        suggestions[i] = {
-            label: suggestions[i],
-            insertText: suggestions[i],
-            preselect: true,
-            kind: suggestions[i] == 'sprig' ? 1 : 3,
+    for (let i = 0; i < suggestionLabels.length; i++) {
+        suggestions[i + 1] = {
+            label: suggestionLabels[i],
+            insertText: suggestionLabels[i],
+            kind: monaco.languages.CompletionItemKind.Field,
         };
     }
 
+    return {
+        suggestions: suggestions,
+    };
+}
+
+$(document).ready(function() {
+
+    let editor;
+
+    require.config({ paths: { 'vs': resourcesUrl + '/lib/monaco-editor/min/vs' }});
+    window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+
+    let proxy = URL.createObjectURL(new Blob([`
+        self.MonacoEnvironment = {
+            baseUrl: '` + resourcesUrl + `/lib/monaco-editor/min/'
+        };
+        importScripts('` + resourcesUrl + `/lib/monaco-editor/min/vs/base/worker/workerMain.js');
+    `], { type: 'text/javascript' }));
+
     require(["vs/editor/editor.main"], function () {
         monaco.languages.registerCompletionItemProvider('twig', {
-            provideCompletionItems: function() {
-                return {
-                    suggestions: suggestions,
-                };
-            }
+            provideCompletionItems: getCompletionItems,
         });
 
         editor = monaco.editor.create($('#editor')[0], {
