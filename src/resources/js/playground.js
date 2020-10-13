@@ -117,4 +117,27 @@ $(document).ready(function() {
         $('.playground #playground').toggle();
         $('.playground #sourcecode').toggle();
     });
+
+    let shareHud;
+
+    $('#share').click(function(event) {
+        event.preventDefault();
+
+        let url = $(this).attr('data-url') + '?component=' + btoa(encodeURI(editor.getValue())) + '&variables=' + btoa(encodeURI($('#input-variables').val()));
+
+        if (shareHud) {
+            shareHud.show();
+        }
+        else {
+            let textarea = '<textarea id="share-url" class="text fullwidth" rows="3">' + url + '</textarea>';
+            shareHud = new Garnish.HUD($('#share'), textarea, {
+                onShow: $.proxy(function() {
+                    $('#share-url').select();
+                    document.execCommand('copy');
+                    Craft.cp.displayNotice('Copied to clipboard.');
+                }),
+            });
+        }
+    })
+
 });

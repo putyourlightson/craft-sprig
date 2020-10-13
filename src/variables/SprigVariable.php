@@ -197,6 +197,17 @@ class SprigVariable
     }
 
     /**
+     * Decodes and returns encoded text.
+     *
+     * @param string $text
+     * @return string
+     */
+    public function decode(string $text): string
+    {
+        return urldecode(base64_decode($text));
+    }
+
+    /**
      * Returns a script tag to a source file.
      *
      * @param string $name

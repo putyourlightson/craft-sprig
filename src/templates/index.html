@@ -8,6 +8,7 @@
 
 {% block actionButton %}
 
+    <a href="#" id="share" class="btn" data-url="{{ url('sprig') }}">{{ 'Share'|t('sprig') }}</a>
     <a href="https://putyourlightson.com/plugins/sprig" class="btn" target="_blank">{{ 'Docs'|t('sprig') }}</a>
     <a href="https://putyourlightson.com/sprig-cookbook" class="btn" target="_blank">{{ 'Cookbook'|t('sprig') }}</a>
     <a href="https://github.com/putyourlightson/craft-sprig/issues" class="btn" target="_blank">{{ 'Issues'|t('sprig') }}</a>
@@ -23,7 +24,11 @@
                 <p class="light code">{{ 'Component'|t('sprig') }}</p>
                 <div id="editor" class="editor"></div>
                 <textarea id="input" class="hidden">
-                    {%- verbatim -%}
+                    {%- set component = craft.app.request.getParam('component') -%}
+                    {%- if component -%}
+                        {{ sprig.decode(component) }}
+                    {%- else -%}
+                        {%- verbatim -%}
 <h1>
     Hello {{ currentUser.firstName }}!
 </h1>
@@ -35,7 +40,8 @@
 <p>
     <em>Component re-rendered {{ count }} times</em>
 </p>
-                    {%- endverbatim -%}
+                        {%- endverbatim -%}
+                    {%- endif -%}
                 </textarea>
                 <button id="create" type="submit" class="btn submit topright">{{ 'Create'|t('sprig') }}</button>
             </div>

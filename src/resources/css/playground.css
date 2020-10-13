@@ -74,6 +74,10 @@
     margin: -8px 8px !important;
 }
 
+#share-url {
+    width: 350px;
+}
+
 
 /*--- CodeMirror ---*/
 
