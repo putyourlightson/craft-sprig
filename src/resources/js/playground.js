@@ -54,12 +54,12 @@ $(document).ready(function() {
     `], { type: 'text/javascript' }));
 
     require(["vs/editor/editor.main"], function () {
-        monaco.languages.registerCompletionItemProvider('html', {
+        monaco.languages.registerCompletionItemProvider('twig', {
             provideCompletionItems: getCompletionItems,
         });
 
         editor = monaco.editor.create($('#editor')[0], {
-            language: 'html',
+            language: 'twig',
             value: $('#input').val(),
             wordWrap: true,
             scrollBeyondLastLine: false,
