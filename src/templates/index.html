@@ -47,7 +47,8 @@
             </div>
             <div class="variables content-pane">
                 <p class="light code">{{ 'Component Variables'|t('sprig') }}</p>
-                <input id="input-variables" class="input code fullwidth field" value="count=0" placeholder="x=1,y=2,z=3">
+                {% set variables = craft.app.request.getParam('variables') %}
+                <input id="input-variables" class="input code fullwidth field" value="{{ variables ? sprig.decode(variables) : 'count=0' }}" placeholder="x=1,y=2,z=3">
             </div>
         </div>
 
