@@ -82,15 +82,15 @@ $(document).ready(function()
         $('.playground #sourcecode').toggle();
     });
 
-    $('#main-form').submit(function(event) {
-        $('#main-form textarea[name=component]').val(editor.getValue());
-        $('#main-form textarea[name=variables]').val($('#input-variables').val());
+    $('#action-form').submit(function(event) {
+        $(this).find('textarea[name=component]').val(editor.getValue());
+        $(this).find('textarea[name=variables]').val($('#input-variables').val());
 
-        if ($('#main-form input[name=action]:last').val() == 'sprig/playground/save') {
+        if ($(this).find('input[name=action]:last').val() == 'sprig/playground/save') {
             let name = prompt('Enter a name for this playground.');
 
             if (name) {
-                $('#main-form input[name=name]').val(name);
+                $(this).find('input[name=name]').val(name);
                 return;
             }
         }
@@ -116,7 +116,7 @@ function getCompletionItems()
     let suggestionLabels = [
         's-action=""',
         's-method=""', 's-method="post"',
-        's-confirm=""',
+        's-confirm=""', 's-confirm="Are you sure?"',
         's-include=""',
         's-indicator=""',
         's-params=""',
@@ -127,7 +127,7 @@ function getCompletionItems()
         's-swap-oob=""',
         's-target=""',
         's-trigger=""', 's-trigger="click"', 's-trigger="change"', 's-trigger="submit"',
-        's-vars=""',
+        's-vars=""', 's-vars="x: 1, y: 2"',
     ];
 
     for (let i = 0; i < suggestionLabels.length; i++) {

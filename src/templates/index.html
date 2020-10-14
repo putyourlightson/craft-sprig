@@ -35,43 +35,48 @@
 
 {% block actionButton %}
 
-    <a href="https://putyourlightson.com/plugins/sprig" class="btn" target="_blank">{{ 'Docs'|t('sprig') }}</a>
-    <a href="https://putyourlightson.com/sprig-cookbook" class="btn" target="_blank">{{ 'Cookbook'|t('sprig') }}</a>
+    <form id="action-form" method="post">
 
-    {% if playground %}
-        <div class="btngroup">
-            <button type="button" class="btn submit formsubmit" data-action="sprig/playground/update">{{ 'Update'|t('sprig') }}</button>
-            <button type="button" class="btn submit menubtn"></button>
-            <div class="menu">
-                <ul>
-                    <li>
-                        <a class="formsubmit">{{ 'Save as a new playground'|t('sprig') }}</a>
-                    </li>
-                </ul>
-                <hr>
-                <ul>
-                    <li>
-                        <a class="formsubmit error" data-action="sprig/playground/delete" data-confirm="{{ 'Are you sure you want to delete this playground?'|t('sprig') }}">{{ 'Delete playground'|t('sprig') }}</a>
-                    </li>
-                </ul>
-            </div>
+        {{ csrfInput() }}
+        <input type="hidden" name="action" value="sprig/playground/save">
+        <input type="hidden" name="id" value="{{ playground ? playground.id }}">
+        <input type="hidden" name="name" value="">
+        <textarea name="component" class="hidden"></textarea>
+        <textarea name="variables" class="hidden"></textarea>
+
+        <div class="flex">
+            <a href="https://putyourlightson.com/plugins/sprig" class="btn" target="_blank">{{ 'Docs'|t('sprig') }}</a>
+            <a href="https://putyourlightson.com/sprig-cookbook" class="btn" target="_blank">{{ 'Cookbook'|t('sprig') }}</a>
+
+            {% if playground %}
+                <div class="btngroup">
+                    <button type="button" class="btn submit formsubmit" data-action="sprig/playground/update">{{ 'Save'|t('sprig') }}</button>
+                    <button type="button" class="btn submit menubtn"></button>
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                <a class="formsubmit">{{ 'Save as a new playground'|t('sprig') }}</a>
+                            </li>
+                        </ul>
+                        <hr>
+                        <ul>
+                            <li>
+                                <a class="formsubmit error" data-action="sprig/playground/delete" data-confirm="{{ 'Are you sure you want to delete this playground?'|t('sprig') }}">{{ 'Delete playground'|t('sprig') }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <button type="button" class="btn submit formsubmit">{{ 'Save'|t('sprig') }}</button>
+            {% endif %}
         </div>
-    {% else %}
-        <button type="button" class="btn submit formsubmit">{{ 'Save'|t('sprig') }}</button>
-    {% endif %}
+
+    </form>
 
 {% endblock %}
 
 
 {% block main %}
-
-    <div class="hidden">
-        <input type="hidden" name="action" value="sprig/playground/save">
-        <input type="hidden" name="id" value="{{ playground ? playground.id }}">
-        <input type="hidden" name="name" value="">
-        <textarea name="component"></textarea>
-        <textarea name="variables"></textarea>
-    </div>
 
     <div class="playground">
         <div>

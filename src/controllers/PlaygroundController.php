@@ -27,7 +27,6 @@ class PlaygroundController extends Controller
         return $this->renderTemplate('sprig/index', [
             'playground' => $playground,
             'allPlaygrounds' => Sprig::$plugin->playground->getAll(),
-            'fullPageForm' => true,
         ]);
     }
 
