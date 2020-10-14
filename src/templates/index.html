@@ -6,17 +6,53 @@
 {% set resourcesUrl = bundle.baseUrl %}
 
 
+{% block contextMenu %}
+
+    <div id="context-btngroup" class="btngroup">
+        <button type="button" id="context-btn" class="btn menubtn">
+            <span id="revision-label">{{ playground ? playground.name : 'New' }}</span>
+        </button>
+        <div class="menu">
+            <ul class="padded">
+                <li>
+                    <a href="{{ url('sprig') }}" class="{{ playground is null ? 'sel' }}">
+                        New
+                    </a>
+                </li>
+                {% for curPlayground in allPlaygrounds %}
+                    <li>
+                        <a href="{{ url('sprig/' ~ curPlayground.id) }}" class="{{ playground and playground.id == curPlayground.id ? 'sel' }}">
+                            {{ curPlayground.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    {% if playground %}
+        <input type="hidden" name="id" value="{{ playground.id }}">
+        <button class="btn formsubmit" data-action="sprig/playground/delete">{{ 'Delete'|t('sprig') }}</button>
+    {% endif %}
+
+{% endblock %}
+
+
 {% block actionButton %}
 
-    <a href="#" id="share" class="btn" data-url="{{ url('sprig') }}">{{ 'Share'|t('sprig') }}</a>
+    <button id="save" class="btn formsubmit" data-action="sprig/playground/save">{{ 'Save'|t('sprig') }}</button>
     <a href="https://putyourlightson.com/plugins/sprig" class="btn" target="_blank">{{ 'Docs'|t('sprig') }}</a>
     <a href="https://putyourlightson.com/sprig-cookbook" class="btn" target="_blank">{{ 'Cookbook'|t('sprig') }}</a>
-    <a href="https://github.com/putyourlightson/craft-sprig/issues" class="btn" target="_blank">{{ 'Issues'|t('sprig') }}</a>
 
 {% endblock %}
 
 
 {% block main %}
+
+    {{ csrfInput() }}
+    <input type="hidden" name="name">
+    <input type="hidden" name="component">
+    <input type="hidden" name="variables">
 
     <div class="playground">
         <div>
@@ -24,9 +60,8 @@
                 <p class="light code">{{ 'Component'|t('sprig') }}</p>
                 <div id="editor" class="editor"></div>
                 <textarea id="input" class="hidden">
-                    {%- set component = craft.app.request.getParam('component') -%}
-                    {%- if component -%}
-                        {{ sprig.decode(component) }}
+                    {%- if playground -%}
+                        {{ playground.component }}
                     {%- else -%}
                         {%- verbatim -%}
 <h1>
@@ -47,8 +82,8 @@
             </div>
             <div class="variables content-pane">
                 <p class="light code">{{ 'Component Variables'|t('sprig') }}</p>
-                {% set variables = craft.app.request.getParam('variables') %}
-                <input id="input-variables" class="input code fullwidth field" value="{{ variables ? sprig.decode(variables) : 'count=0' }}" placeholder="x=1,y=2,z=3">
+                {% set variables = playground ? playground.variables : 'count=0' %}
+                <input id="input-variables" class="input code fullwidth field" value="{{ variables }}" placeholder="x=1,y=2,z=3">
             </div>
         </div>
 

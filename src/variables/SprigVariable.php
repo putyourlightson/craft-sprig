@@ -8,6 +8,7 @@ namespace putyourlightson\sprig\variables;
 use Craft;
 use craft\helpers\Html;
 use craft\helpers\Template;
+use putyourlightson\sprig\records\PlaygroundRecord;
 use putyourlightson\sprig\services\ComponentsService;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
@@ -194,17 +195,6 @@ class SprigVariable
     public function getHtmxAttributes(): array
     {
         return ComponentsService::HTMX_ATTRIBUTES;
-    }
-
-    /**
-     * Decodes and returns encoded text.
-     *
-     * @param string $text
-     * @return string
-     */
-    public function decode(string $text): string
-    {
-        return urldecode(base64_decode($text));
     }
 
     /**

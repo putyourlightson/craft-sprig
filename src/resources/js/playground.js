@@ -1,44 +1,3 @@
-function getCompletionItems()
-{
-    let suggestions = [
-        {
-            label: 'sprig',
-            insertText: 'sprig',
-            kind: monaco.languages.CompletionItemKind.Function,
-            sortText: '_sprig',
-        },
-    ];
-
-    let suggestionLabels = [
-        's-action=""',
-        's-method=""', 's-method="post"',
-        's-confirm=""',
-        's-include=""',
-        's-indicator=""',
-        's-params=""',
-        's-prompt=""',
-        's-push-url=""',
-        's-select=""',
-        's-swap=""', 's-swap="innerHTML"', 's-swap="outerHTML"', 's-swap="beforebegin"', 's-swap="afterbegin"', 's-swap="beforeend"', 's-swap="afterend"',
-        's-swap-oob=""',
-        's-target=""',
-        's-trigger=""', 's-trigger="click"', 's-trigger="change"', 's-trigger="submit"',
-        's-vars=""',
-    ];
-
-    for (let i = 0; i < suggestionLabels.length; i++) {
-        suggestions[i + 1] = {
-            label: suggestionLabels[i],
-            insertText: suggestionLabels[i],
-            kind: monaco.languages.CompletionItemKind.Field,
-        };
-    }
-
-    return {
-        suggestions: suggestions,
-    };
-}
-
 $(document).ready(function() {
 
     let editor;
@@ -101,7 +60,6 @@ $(document).ready(function() {
 
     $('#create').click(function(event) {
         event.preventDefault();
-        $(this).removeClass('submit');
 
         $('#playground').html('');
         $('#sourcecode').val('');
@@ -116,6 +74,16 @@ $(document).ready(function() {
 
         $('.playground #playground').toggle();
         $('.playground #sourcecode').toggle();
+    });
+
+    $('#save').click(function(event) {
+        event.preventDefault();
+
+        $('input[name=name').val(prompt('Enter a name for this playground.'));
+        $('input[name=component').val(editor.getValue());
+        $('input[name=variables').val($('#input-variables').val());
+
+        $(this).closest('form').submit();
     });
 
     let shareHud;
@@ -141,6 +109,46 @@ $(document).ready(function() {
                 }),
             });
         }
-    })
-
+    });
 });
+
+function getCompletionItems()
+{
+    let suggestions = [
+        {
+            label: 'sprig',
+            insertText: 'sprig',
+            kind: monaco.languages.CompletionItemKind.Function,
+            sortText: '_sprig',
+        },
+    ];
+
+    let suggestionLabels = [
+        's-action=""',
+        's-method=""', 's-method="post"',
+        's-confirm=""',
+        's-include=""',
+        's-indicator=""',
+        's-params=""',
+        's-prompt=""',
+        's-push-url=""',
+        's-select=""',
+        's-swap=""', 's-swap="innerHTML"', 's-swap="outerHTML"', 's-swap="beforebegin"', 's-swap="afterbegin"', 's-swap="beforeend"', 's-swap="afterend"',
+        's-swap-oob=""',
+        's-target=""',
+        's-trigger=""', 's-trigger="click"', 's-trigger="change"', 's-trigger="submit"',
+        's-vars=""',
+    ];
+
+    for (let i = 0; i < suggestionLabels.length; i++) {
+        suggestions[i + 1] = {
+            label: suggestionLabels[i],
+            insertText: suggestionLabels[i],
+            kind: monaco.languages.CompletionItemKind.Field,
+        };
+    }
+
+    return {
+        suggestions: suggestions,
+    };
+}

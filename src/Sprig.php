@@ -7,8 +7,11 @@ namespace putyourlightson\sprig;
 
 use Craft;
 use craft\base\Plugin;
+use craft\events\RegisterUrlRulesEvent;
 use craft\web\twig\variables\CraftVariable;
+use craft\web\UrlManager;
 use putyourlightson\sprig\services\ComponentsService;
+use putyourlightson\sprig\services\PlaygroundService;
 use putyourlightson\sprig\services\RequestService;
 use putyourlightson\sprig\twigextensions\SprigTwigExtension;
 use putyourlightson\sprig\variables\SprigVariable;
@@ -17,6 +20,7 @@ use yii\base\Event;
 /**
  * @property ComponentsService $components
  * @property RequestService $request
+ * @property PlaygroundService $playground
  */
 class Sprig extends Plugin
 {
@@ -48,10 +52,12 @@ class Sprig extends Plugin
         $this->setComponents([
             'components' => ComponentsService::class,
             'request' => RequestService::class,
+            'playground' => PlaygroundService::class,
         ]);
 
         $this->_registerTwigExtensions();
         $this->_registerVariables();
+        $this->_registerCpRoutes();
     }
 
     /**
@@ -72,6 +78,19 @@ class Sprig extends Plugin
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
                 $variable->set('sprig', self::$sprigVariable);
+            }
+        );
+    }
+
+    /**
+     * Registers CP routes.
+     */
+    private function _registerCpRoutes()
+    {
+        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES,
+            function(RegisterUrlRulesEvent $event) {
+                $event->rules['sprig'] = 'sprig/playground/index';
+                $event->rules['sprig/<id:\d+>'] = 'sprig/playground/index';
             }
         );
     }
