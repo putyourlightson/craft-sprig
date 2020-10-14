@@ -52,6 +52,26 @@ class PlaygroundController extends Controller
     }
 
     /**
+     * Updates a playground.
+     *
+     * @return Response
+     */
+    public function actionUpdate(): Response
+    {
+        $request = Craft::$app->getRequest();
+
+        $id = $request->getParam('id');
+        $component = $request->getParam('component', '');
+        $variables = $request->getParam('variables', '');
+
+        Sprig::$plugin->playground->update($id, $component, $variables);
+
+        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Playground updated.'));
+
+        return $this->redirect('sprig/'.$id);
+    }
+
+    /**
      * Deletes a playground.
      *
      * @return Response

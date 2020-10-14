@@ -1,4 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function()
+{
+    //--- Monaco editor ---//
 
     let editor;
 
@@ -31,6 +33,8 @@ $(document).ready(function() {
         });
     });
 
+    //--- htmx ---//
+
     htmx.on('htmx:configRequest', function(event) {
         $('.spinner').show();
 
@@ -58,6 +62,8 @@ $(document).ready(function() {
         $('#sourcecode').val('');
     });
 
+    //--- Buttons ---//
+
     $('#create').click(function(event) {
         event.preventDefault();
 
@@ -76,39 +82,23 @@ $(document).ready(function() {
         $('.playground #sourcecode').toggle();
     });
 
-    $('#save').click(function(event) {
-        event.preventDefault();
+    $('#main-form').submit(function(event) {
+        $('#main-form textarea[name=component]').val(editor.getValue());
+        $('#main-form textarea[name=variables]').val($('#input-variables').val());
 
-        $('input[name=name').val(prompt('Enter a name for this playground.'));
-        $('input[name=component').val(editor.getValue());
-        $('input[name=variables').val($('#input-variables').val());
+        if ($('#main-form input[name=action]:last').val() == 'sprig/playground/save') {
+            let name = prompt('Enter a name for this playground.');
 
-        $(this).closest('form').submit();
-    });
-
-    let shareHud;
-
-    $('#share').click(function(event) {
-        event.preventDefault();
-
-        if (shareHud) {
-            shareHud.show();
+            if (name) {
+                $('#main-form input[name=name]').val(name);
+                return;
+            }
         }
         else {
-            let textarea = '<textarea id="share-url" class="text fullwidth" rows="3"></textarea>';
-
-            shareHud = new Garnish.HUD($('#share'), textarea, {
-                onShow: $.proxy(function() {
-                    let url = $('#share').attr('data-url') + '?component=' + btoa(encodeURIComponent(editor.getValue())) + '&variables=' + btoa(encodeURIComponent($('#input-variables').val()));
-
-                    console.log(encodeURIComponent(editor.getValue()));
-
-                    $('#share-url').val(url).select();
-                    document.execCommand('copy');
-                    Craft.cp.displayNotice('Copied to clipboard.');
-                }),
-            });
+            return;
         }
+
+        event.preventDefault();
     });
 });
 

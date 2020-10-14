@@ -83,6 +83,27 @@ class PlaygroundService extends Component
     }
 
     /**
+     * Updates a playground.
+     *
+     * @param int $id
+     * @param string $name
+     * @param string $component
+     * @param string $variables
+     */
+    public function update(int $id, string $component, string $variables)
+    {
+        $record = PlaygroundRecord::findOne(['id' => $id]);
+
+        if ($record === null) {
+            return null;
+        }
+
+        $record->component = $component;
+        $record->variables = $variables;
+        $record->save();
+    }
+
+    /**
      * Deletes a playground.
      *
      * @param int $id
