@@ -1,6 +1,9 @@
 # Release Notes for Sprig
 
 ## 1.0.0-beta.18 - Unreleased
+### Added
+- Added `beforeCreateComponent` and `afterCreateComponent` events to `ComponentsService` ([#40](https://github.com/putyourlightson/craft-sprig/issues/40)).
+
 ### Changed
 - Duplicate IDs in components no longer throw an error.
 
