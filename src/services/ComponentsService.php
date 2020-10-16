@@ -18,13 +18,27 @@ use IvoPetkov\HTML5DOMDocument;
 use putyourlightson\sprig\base\ComponentInterface;
 use putyourlightson\sprig\components\SprigPlayground;
 use putyourlightson\sprig\errors\InvalidVariableException;
+use putyourlightson\sprig\events\ComponentEvent;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
 use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
+/**
+ * @property-write mixed $responseHeaders
+ */
 class ComponentsService extends Component
 {
+    /**
+     * @event ComponentEvent
+     */
+    const EVENT_BEFORE_CREATE_COMPONENT = 'beforeCreateComponent';
+
+    /**
+     * @event ComponentEvent
+     */
+    const EVENT_AFTER_CREATE_COMPONENT = 'afterCreateComponent';
+
     /**
      * @const string
      */
@@ -55,12 +69,24 @@ class ComponentsService extends Component
         $siteId = Craft::$app->getSites()->getCurrentSite()->id;
         $vars['sprig:siteId'] = Craft::$app->getSecurity()->hashData($siteId);
 
-        $allVariables = array_merge(
+        $mergedVariables = array_merge(
             $variables,
             Sprig::$plugin->request->getVariables()
         );
 
-        $componentObject = $this->createObject($value, $allVariables);
+        $event = new ComponentEvent([
+            'value' => $value,
+            'variables' => $mergedVariables,
+            'attributes' => $attributes,
+        ]);
+        $this->trigger(self::EVENT_BEFORE_CREATE_COMPONENT, $event);
+
+        // Repopulate values from event
+        $value = $event->value;
+        $mergedVariables = $event->variables;
+        $attributes = $event->attributes;
+
+        $componentObject = $this->createObject($value, $mergedVariables);
 
         if ($componentObject) {
             $type = 'component';
@@ -75,7 +101,7 @@ class ComponentsService extends Component
                 ]));
             }
 
-            $renderedContent = Craft::$app->getView()->renderTemplate($value, $allVariables);
+            $renderedContent = Craft::$app->getView()->renderTemplate($value, $mergedVariables);
         }
 
         $content = $this->getParsedTagAttributes($renderedContent);
@@ -108,9 +134,13 @@ class ComponentsService extends Component
             $this->getParsedAttributes($attributes)
         );
 
-        return Template::raw(
-            Html::tag('div', $content, $attributes)
-        );
+        $event->output = Html::tag('div', $content, $attributes);
+
+        if ($this->hasEventHandlers(self::EVENT_AFTER_CREATE_COMPONENT)) {
+            $this->trigger(self::EVENT_AFTER_CREATE_COMPONENT, $event);
+        }
+
+        return Template::raw($event->output);
     }
 
     /**

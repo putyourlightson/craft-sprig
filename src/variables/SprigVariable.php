@@ -67,34 +67,6 @@ class SprigVariable
         return !$this->getIsRequest();
     }
 
-    // TODO: remove in 1.0.0
-    /**
-     * Returns whether this is a Sprig request.
-     *
-     * @return bool
-     * @deprecated Use [[SprigVariable::getIsRequest()]] instead.
-     */
-    public function getRequest(): bool
-    {
-        Craft::$app->getDeprecator()->log('SprigVariable::getRequest()', 'The “sprig.request” template variable has been deprecated and will be removed in version 1.0.0. Use “sprig.isRequest” instead.');
-
-        return $this->getIsRequest();
-    }
-
-    // TODO: remove in 1.0.0
-    /**
-     * Returns whether this is a Sprig include.
-     *
-     * @return bool
-     * @deprecated Use [[SprigVariable::getIsInclude()]] instead.
-     */
-    public function getInclude(): bool
-    {
-        Craft::$app->getDeprecator()->log('SprigVariable::getInclude()', 'The “sprig.include” template variable has been deprecated and will be removed in version 1.0.0. Use “sprig.isInclude” instead.');
-
-        return $this->getIsInclude();
-    }
-
     /**
      * Returns the URL that the Sprig component was loaded from.
      *

@@ -1,8 +1,13 @@
 # Release Notes for Sprig
 
 ## 1.0.0-beta.18 - Unreleased
+### Added
+- Added `beforeCreateComponent` and `afterCreateComponent` events to `ComponentsService`.
+
 ### Changed
-- Duplicate IDs in components no longer throw an error.
+- Duplicate IDs in components no longer throw an error ([#40](https://github.com/putyourlightson/craft-sprig/issues/40)).
+- Removed the `sprig.request` template variable, use `sprig.isRequest` instead.
+- Removed the `sprig.include` template variable, use `sprig.isInclude` instead.
 
 ## 1.0.0-beta.17 - 2020-09-25
 ### Changed

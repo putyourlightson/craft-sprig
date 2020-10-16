@@ -10,6 +10,9 @@ use craft\base\Component;
 use yii\base\Exception;
 use yii\web\BadRequestHttpException;
 
+/**
+ * @property-read array $variables
+ */
 class RequestService extends Component
 {
     /**
