@@ -1,7 +1,7 @@
 {
     "name": "putyourlightson/craft-sprig",
     "description": "A reactive Twig component framework for Craft.",
-    "version": "1.0.0-beta.17",
+    "version": "1.0.0-beta.18",
     "type": "craft-plugin",
     "license": "mit",
     "require": {
@@ -31,6 +31,7 @@
         "developerUrl": "https://putyourlightson.com/",
         "documentationUrl": "https://putyourlightson.com/plugins/sprig",
         "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/CHANGELOG.md",
-        "class": "putyourlightson\\sprig\\Sprig"
+        "class": "putyourlightson\\sprig\\Sprig",
+        "schemaVersion": "1.0.0-beta.18"
     }
 }

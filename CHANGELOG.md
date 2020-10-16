@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.0.0-beta.18 - Unreleased
+## 1.0.0-beta.18 - 2020-10-16
 ### Added
 - Added `beforeCreateComponent` and `afterCreateComponent` events to `ComponentsService`.
 
