@@ -13,7 +13,6 @@ use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
 use craft\web\View;
-use DOMDocument;
 use DOMElement;
 use IvoPetkov\HTML5DOMDocument;
 use putyourlightson\sprig\base\ComponentInterface;
@@ -24,6 +23,9 @@ use Twig\Markup;
 use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
+/**
+ * @property-write mixed $responseHeaders
+ */
 class ComponentsService extends Component
 {
     /**

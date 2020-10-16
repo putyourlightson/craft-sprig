@@ -23,7 +23,6 @@ class ComponentsController extends Controller
      * Renders a component.
      *
      * @return Response
-     * @throws InvalidRouteException if the requested route cannot be resolved into an action successfully.
      */
     public function actionRender(): Response
     {
