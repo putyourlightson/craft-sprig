@@ -65,7 +65,7 @@ class PlaygroundController extends Controller
 
         Sprig::$plugin->playground->update($id, $component, $variables);
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Playground saved.'));
+        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Playground updated.'));
 
         return $this->redirect('sprig/'.$id);
     }
