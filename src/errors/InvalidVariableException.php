@@ -5,6 +5,7 @@
 
 namespace putyourlightson\sprig\errors;
 
+use Craft;
 use yii\base\Exception;
 
 class InvalidVariableException extends Exception
@@ -14,6 +15,6 @@ class InvalidVariableException extends Exception
      */
     public function getName()
     {
-        return 'Invalid variable';
+        return Craft::t('sprig', 'Invalid variable');
     }
 }
