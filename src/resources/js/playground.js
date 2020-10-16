@@ -125,7 +125,7 @@ function getCompletionItems()
         's-select=""',
         's-swap=""', 's-swap="innerHTML"', 's-swap="outerHTML"', 's-swap="beforebegin"', 's-swap="afterbegin"', 's-swap="beforeend"', 's-swap="afterend"',
         's-swap-oob=""',
-        's-target=""',
+        's-target=""', 's-target="this"',
         's-trigger=""', 's-trigger="click"', 's-trigger="change"', 's-trigger="submit"',
         's-vars=""', 's-vars="x: 1, y: 2"',
     ];
