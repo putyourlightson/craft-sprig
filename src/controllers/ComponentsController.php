@@ -8,7 +8,6 @@ namespace putyourlightson\sprig\controllers;
 use Craft;
 use craft\web\Controller;
 use putyourlightson\sprig\Sprig;
-use yii\base\InvalidRouteException;
 use yii\base\Model;
 use yii\web\Response;
 
