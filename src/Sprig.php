@@ -35,7 +35,7 @@ class Sprig extends Plugin
     public static $sprigVariable;
 
     /**
-     * @inheritdoc
+     * @var bool
      */
     public $hasCpSection = true;
 

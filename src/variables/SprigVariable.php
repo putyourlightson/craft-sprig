@@ -8,8 +8,7 @@ namespace putyourlightson\sprig\variables;
 use Craft;
 use craft\helpers\Html;
 use craft\helpers\Template;
-use putyourlightson\sprig\records\PlaygroundRecord;
-use putyourlightson\sprig\services\ComponentsService;
+use putyourlightson\sprig\base\Component;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
 
@@ -54,7 +53,7 @@ class SprigVariable
      */
     public function getIsRequest(): bool
     {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Request', false, true) == 'true';
+        return Component::getIsRequest();
     }
 
     /**
@@ -64,17 +63,47 @@ class SprigVariable
      */
     public function getIsInclude(): bool
     {
-        return !$this->getIsRequest();
+        return Component::getIsInclude();
     }
 
     /**
-     * Returns the URL that the Sprig component was loaded from.
+     * Returns the ID of the active element.
      *
      * @return string
      */
-    public function getUrl(): string
+    public function getElement(): string
     {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Current-URL', '', true);
+        return Component::getElement();
+    }
+
+    /**
+     * Returns the name of the active element.
+     *
+     * @return string
+     */
+    public function getElementName(): string
+    {
+        return Component::getElementName();
+    }
+
+    /**
+     * Returns the value of the active element.
+     *
+     * @return string
+     */
+    public function getElementValue(): string
+    {
+        return Component::getElementValue();
+    }
+
+    /**
+     * Returns the ID of the original target of the event that triggered the request.
+     *
+     * @return string
+     */
+    public function getEventTarget(): string
+    {
+        return Component::getEventTarget();
     }
 
     /**
@@ -84,7 +113,27 @@ class SprigVariable
      */
     public function getPrompt(): string
     {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Prompt', '', true);
+        return Component::getPrompt();
+    }
+
+    /**
+     * Returns the ID of the target element.
+     *
+     * @return string
+     */
+    public function getTarget(): string
+    {
+        return Component::getTarget();
+    }
+
+    /**
+     * Returns the ID of the element that triggered the request.
+     *
+     * @return string
+     */
+    public function getTrigger(): string
+    {
+        return Component::getTrigger();
     }
 
     /**
@@ -92,81 +141,32 @@ class SprigVariable
      *
      * @return string
      */
-    public function getTrigger(): string
+    public function getTriggerName(): string
     {
-        $headers = Craft::$app->getRequest()->getHeaders();
-
-        return $headers->get('HX-Trigger-Name', '', true);
+        return Component::getTriggerName();
     }
 
-    // Undocumented variables (subject to change)
-    // =========================================================================
+    /**
+     * Returns the URL that the Sprig component was loaded from.
+     *
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return Component::getUrl();
+    }
 
     /**
      * Returns a new component.
      *
-     * @param string $template
+     * @param string $value
      * @param array $variables
      * @param array $attributes
      * @return Markup
      */
-    public function getComponent(string $template, array $variables = [], array $attributes = []): Markup
+    public function getComponent(string $value, array $variables = [], array $attributes = []): Markup
     {
-        return Sprig::$plugin->components->create($template, $variables, $attributes);
-    }
-
-    /**
-     * Returns the target element.
-     *
-     * @return array
-     */
-    public function getTarget(): array
-    {
-        $headers = Craft::$app->getRequest()->getHeaders();
-
-        return [
-            'id' => $headers->get('HX-Target', '', true),
-        ];
-    }
-
-    /**
-     * Returns the original target of the event that triggered the request.
-     *
-     * @return array
-     */
-    public function getEventTarget(): array
-    {
-        $headers = Craft::$app->getRequest()->getHeaders();
-
-        return [
-            'id' => $headers->get('HX-Event-Target', '', true),
-        ];
-    }
-
-    /**
-     * Returns the active element.
-     *
-     * @return array
-     */
-    public function getElement(): array
-    {
-        $headers = Craft::$app->getRequest()->getHeaders();
-
-        return [
-            'id' => $headers->get('HX-Active-Element', '', true),
-            'name' => $headers->get('HX-Active-Element-Name', '', true),
-            'value' => $headers->get('HX-Active-Element-Value', '', true),
-        ];
-    }
-
-    /**
-     * Returns the htmx attributes.
-     *
-     * @return array
-     */
-    public function getHtmxAttributes(): array
-    {
-        return ComponentsService::HTMX_ATTRIBUTES;
+        return Sprig::$plugin->components->create($value, $variables, $attributes);
     }
 
     /**
