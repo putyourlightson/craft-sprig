@@ -36,9 +36,11 @@ class ComponentsTest extends Unit
 
     public function testCreate()
     {
-        $markup = Sprig::$plugin->components->create('_component', ['number' => '15'], [
-            'id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1'
-        ]);
+        $markup = Sprig::$plugin->components->create(
+            '_component',
+            ['number' => '15'],
+            ['id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1']
+        );
         $html = (string)$markup;
 
         $this->assertStringContainsString('id="abc"', $html);
@@ -64,17 +66,24 @@ class ComponentsTest extends Unit
         Sprig::$plugin->components->create('_no-component');
     }
 
-    public function testCreateInvalidVariable()
+    public function testCreateInvalidVariableEntry()
     {
-        $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
-        Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
+        $this->_testCreateInvalidVariable(['number' => '', 'entry' => new Entry()]);
+    }
 
-        $this->expectException(InvalidVariableException::class);
+    public function testCreateInvalidVariableModel()
+    {
+        $this->_testCreateInvalidVariable(['number' => '', 'model' => new Model()]);
+    }
 
-        Sprig::$plugin->components->create('_component', ['number' => '', 'entry' => new Entry()]);
-        Sprig::$plugin->components->create('_component', ['number' => '', 'model' => new Model()]);
-        Sprig::$plugin->components->create('_component', ['number' => '', 'model' => (object)[]]);
-        Sprig::$plugin->components->create('_component', ['number' => '', 'array' => []]);
+    public function testCreateInvalidVariableObject()
+    {
+        $this->_testCreateInvalidVariable(['number' => '', 'model' => (object)[]]);
+    }
+
+    public function testCreateInvalidVariableArray()
+    {
+        $this->_testCreateInvalidVariable(['number' => '', 'array' => []]);
     }
 
     public function testCreateObjectNoComponent()
@@ -129,5 +138,15 @@ class ComponentsTest extends Unit
         $html = 'ÆØÅäöü';
         $result = Sprig::$plugin->components->getParsedTagAttributes($html);
         $this->assertEquals($html, $result);
+    }
+
+    private function _testCreateInvalidVariable(array $variables)
+    {
+        $this->tester->mockCraftMethods('view', ['doesTemplateExist' => true]);
+        Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
+
+        $this->expectException(InvalidVariableException::class);
+
+        Sprig::$plugin->components->create('_component', $variables);
     }
 }
