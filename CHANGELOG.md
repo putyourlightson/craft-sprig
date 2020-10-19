@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.0-beta.18.1 - 2020-10-19
+### Fixed
+- Fixed an issue with the schema version in project config ([#42](https://github.com/putyourlightson/craft-sprig/issues/42)).
+
 ## 1.0.0-beta.18 - 2020-10-16
 ### Added
 - Added `beforeCreateComponent` and `afterCreateComponent` events to `ComponentsService`.
