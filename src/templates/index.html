@@ -5,6 +5,15 @@
 {% set bundle = view.registerAssetBundle('putyourlightson\\sprig\\assets\\PlaygroundAsset') %}
 {% set resourcesUrl = bundle.baseUrl %}
 
+{% block pageTitle %}
+
+    <div style="width: 54px;">
+        {{ svg(craft.app.plugins.getPluginIconSvg('sprig')) }}
+    </div>
+
+    {{ parent() }}
+
+{% endblock %}
 
 {% block contextMenu %}
 

@@ -1,5 +1,13 @@
 # Release Notes for Sprig
 
+## 1.0.1 - 2020-10-21
+- Migration schema version release for beta updates.
+
+## 1.0.0 - 2020-10-21
+### Added
+- Added Sprig playground.
+- Added new Sprig logo.
+
 ## 1.0.0-beta.18.1 - 2020-10-19
 ### Fixed
 - Fixed an issue with the schema version in project config ([#42](https://github.com/putyourlightson/craft-sprig/issues/42)).
