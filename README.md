@@ -1,4 +1,4 @@
-<p align="center"><img width="130" src="https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/src/icon.svg"></p>
+<p align="center"><img width="150" src="https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/src/icon.svg"></p>
 
 # Sprig
 
@@ -7,8 +7,6 @@
 Sprig is a free plugin for [Craft CMS](https://craftcms.com/) that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions, etc.) using AJAX requests, without requiring you to write a single line of JavaScript. 
 
 ![Demo](https://putyourlightson.com/assets/images/plugins/sprig/search-demo.gif)
-
-> No full-page requests were harmed in the making of this demo. 
 
 ## Documentation
 
