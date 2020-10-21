@@ -4,7 +4,7 @@ namespace putyourlightson\sprig\migrations;
 
 use craft\db\Migration;
 
-class m201020_120000_add_playgorunds_table extends Migration
+class m201020_120000_add_playgrounds_table extends Migration
 {
     // Public Methods
     // =========================================================================
