@@ -6,6 +6,16 @@
 
 Sprig is a free plugin for [Craft CMS](https://craftcms.com/) that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions, etc.) using AJAX requests, without requiring you to write a single line of JavaScript. 
 
+Sprig enables common use-cases such as the following while completely avoiding full page refreshes:
+
+- Live searching
+- Loading more elements (with a button or infinite scroll)
+- Pagination, ordering and filtering elements
+- Adding products to a cart
+- Submitting forms
+
+View working examples in the [Sprig cookbook](https://putyourlightson.com/sprig-cookbook), listen to the [devMode.fm podcast](https://devmode.fm/episodes/sprig-brings-reactivity-to-twig) or watch the [CraftQuest livestream](https://craftquest.io/livestreams/sprig-reactive-components-twig) to learn more.
+
 ![Demo](https://putyourlightson.com/assets/images/plugins/sprig/search-demo.gif)
 
 ## Documentation
