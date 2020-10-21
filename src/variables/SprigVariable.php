@@ -11,6 +11,7 @@ use craft\helpers\Template;
 use putyourlightson\sprig\base\Component;
 use putyourlightson\sprig\Sprig;
 use Twig\Markup;
+use yii\web\BadRequestHttpException;
 
 class SprigVariable
 {
@@ -107,7 +108,7 @@ class SprigVariable
     }
 
     /**
-     * Returns the value entered by the user when prompted via `s-prompt` or `hx-prompt`.
+     * Returns the value entered by the user when prompted via `s-prompt`.
      *
      * @return string
      */
@@ -163,6 +164,7 @@ class SprigVariable
      * @param array $variables
      * @param array $attributes
      * @return Markup
+     * @throws BadRequestHttpException
      */
     public function getComponent(string $value, array $variables = [], array $attributes = []): Markup
     {
