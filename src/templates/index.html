@@ -39,6 +39,12 @@
         </div>
     </div>
 
+    {% if craft.app.config.general.devMode %}
+        <span class="info warning" title="devMode is not enabled">
+            {{ 'Enable devMode to see Twig template errors.'|t('sprig') }}
+        </span>
+    {% endif %}
+
 {% endblock %}
 
 

@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 1.0.2 - 2020-10-22
+### Added
+- Added a warning message if `devMode` is not enabled.
+
+### Changed
+- Updated to htmx 0.2.0 ([release notes](https://htmx.org/posts/2020-9-30-htmx-0.2.0-is-released/)).
+
 ## 1.0.1 - 2020-10-21
 - Migration schema version release for beta updates.
 
