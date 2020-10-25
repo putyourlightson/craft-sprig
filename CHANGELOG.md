@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.3 - Unreleaed
+### Added
+- Added a config setting to enable or disable the playground.
+
 ## 1.0.2 - 2020-10-22
 ### Added
 - Added a warning message if `devMode` is not enabled.

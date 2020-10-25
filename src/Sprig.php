@@ -10,6 +10,7 @@ use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
+use putyourlightson\sprig\models\SettingsModel;
 use putyourlightson\sprig\services\ComponentsService;
 use putyourlightson\sprig\services\PlaygroundService;
 use putyourlightson\sprig\services\RequestService;
@@ -21,6 +22,7 @@ use yii\base\Event;
  * @property ComponentsService $components
  * @property RequestService $request
  * @property PlaygroundService $playground
+ * @property SettingsModel $settings
  */
 class Sprig extends Plugin
 {
@@ -49,6 +51,8 @@ class Sprig extends Plugin
         self::$plugin = $this;
         self::$sprigVariable = new SprigVariable();
 
+        $this->hasCpSection = $this->settings->enablePlayground;
+
         $this->setComponents([
             'components' => ComponentsService::class,
             'request' => RequestService::class,
@@ -58,6 +62,14 @@ class Sprig extends Plugin
         $this->_registerTwigExtensions();
         $this->_registerVariables();
         $this->_registerCpRoutes();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function createSettingsModel()
+    {
+        return new SettingsModel();
     }
 
     /**
