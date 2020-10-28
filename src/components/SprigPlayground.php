@@ -31,13 +31,9 @@ class SprigPlayground extends Component
     {
         $variables = $this->_getVariables();
 
-        $headerVariables = [];
+        $headerVariables = urldecode(http_build_query($variables));
 
-        foreach ($variables as $key => $value) {
-            $headerVariables[] = $key.'='.$value;
-        }
-
-        Craft::$app->getResponse()->getHeaders()->set('Sprig-Playground-Variables', implode(',', $headerVariables));
+        Craft::$app->getResponse()->getHeaders()->set('Sprig-Playground-Variables', $headerVariables);
 
         try {
             return Craft::$app->getView()->renderString($this->_getComponent(), $variables);
@@ -61,18 +57,10 @@ class SprigPlayground extends Component
 
     private function _getVariables(): array
     {
-        $variables = [];
-
         $headerVariables = Craft::$app->getRequest()->getHeaders()->get('Sprig-Playground-Variables', '');
         $headerVariables = str_replace(' ', '', $headerVariables);
 
-        foreach (explode(',', $headerVariables) as $variablePair) {
-            $keyValue = explode('=', $variablePair);
-
-            if (count($keyValue) == 2) {
-                $variables[$keyValue[0]] = $keyValue[1];
-            }
-        }
+        parse_str($headerVariables, $variables);
 
         return array_merge(
             $variables,

@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.0.4 - Unreleased
+### Fixed
+- Fixed how array variables are handled in the playground.
+
 ## 1.0.3 - 2020-10-28
 ### Added
 - Added a config setting to enable or disable the playground on a per environment basis.
