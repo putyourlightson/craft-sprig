@@ -1,8 +1,8 @@
 # Release Notes for Sprig
 
-## 1.0.3 - Unreleaed
+## 1.0.3 - 2020-10-28
 ### Added
-- Added a config setting to enable or disable the playground.
+- Added a config setting to enable or disable the playground on a per environment basis.
 
 ## 1.0.2 - 2020-10-22
 ### Added
