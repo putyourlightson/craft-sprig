@@ -1,6 +1,9 @@
 # Release Notes for Sprig
 
 ## 1.0.4 - Unreleased
+### Changed
+- Made minor tweaks to default playground.
+
 ### Fixed
 - Fixed how array variables are handled in the playground.
 
