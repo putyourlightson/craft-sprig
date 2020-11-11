@@ -6,6 +6,8 @@
 namespace putyourlightson\sprig\variables;
 
 use Craft;
+use craft\db\Paginator;
+use craft\db\Query;
 use craft\helpers\Html;
 use craft\helpers\Template;
 use putyourlightson\sprig\base\Component;
@@ -175,6 +177,35 @@ class SprigVariable
     public function pushUrl(string $url)
     {
         Component::pushUrl($url);
+    }
+
+    /**
+     * Returns a Paginate variable for the given query.
+     *
+     * @param Query $query
+     * @param int $currentPage
+     * @param array $config
+     * @return PaginateVariable
+     */
+    public function paginate(Query $query, int $currentPage = 1, array $config = []): PaginateVariable
+    {
+        /**
+         * @see Template::paginateCriteria()
+         */
+        $paginatorQuery = clone $query;
+        $paginatorQuery->limit(null);
+
+        $defaultConfig = [
+            'currentPage' => $currentPage,
+            'pageSize' => $query->limit ?: 100,
+        ];
+        $config = array_merge($defaultConfig, $config);
+        $paginator = new Paginator($paginatorQuery, $config);
+
+        $paginate = PaginateVariable::create($paginator);
+        $paginate->paginator = $paginator;
+
+        return $paginate;
     }
 
     /**
