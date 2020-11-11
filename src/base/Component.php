@@ -13,7 +13,7 @@ abstract class Component extends BaseComponent implements ComponentInterface
 {
     /**
      * The client-side events to trigger in a response.
-     * @see https://htmx.org/headers/x-hx-trigger/
+     * https://htmx.org/headers/x-hx-trigger/
      *
      * @var mixed
      */
@@ -21,7 +21,7 @@ abstract class Component extends BaseComponent implements ComponentInterface
 
     /**
      * The URL to push into the history stack.
-     * @see https://htmx.org/reference#response_headers
+     * https://htmx.org/reference#response_headers
      *
      * @var mixed
      */
@@ -159,7 +159,6 @@ abstract class Component extends BaseComponent implements ComponentInterface
         return Craft::$app->getRequest()->getHeaders()->get('HX-Trigger-Name', '', true);
     }
 
-
     /**
      * Returns the URL that the Sprig component was loaded from.
      *
@@ -168,5 +167,25 @@ abstract class Component extends BaseComponent implements ComponentInterface
     public static function getUrl(): string
     {
         return Craft::$app->getRequest()->getHeaders()->get('HX-Current-URL', '', true);
+    }
+
+    /**
+     * Triggers client-side events.
+     *
+     * @param string $events
+     */
+    public static function triggerEvents(string $events)
+    {
+        Craft::$app->getResponse()->getHeaders()->set('HX-Trigger', $events);
+    }
+
+    /**
+     * Pushes the URL into the history stack.
+     *
+     * @param string $url
+     */
+    public static function pushUrl(string $url)
+    {
+        Craft::$app->getResponse()->getHeaders()->set('HX-Push', $url);
     }
 }

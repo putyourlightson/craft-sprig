@@ -158,6 +158,26 @@ class SprigVariable
     }
 
     /**
+     * Triggers client-side events.
+     *
+     * @param string $events
+     */
+    public function triggerEvents(string $events)
+    {
+        Component::triggerEvents($events);
+    }
+
+    /**
+     * Pushes the URL into the history stack.
+     *
+     * @param string $url
+     */
+    public function pushUrl(string $url)
+    {
+        Component::pushUrl($url);
+    }
+
+    /**
      * Returns a new component.
      *
      * @param string $value
@@ -169,16 +189,6 @@ class SprigVariable
     public function getComponent(string $value, array $variables = [], array $attributes = []): Markup
     {
         return Sprig::$plugin->components->create($value, $variables, $attributes);
-    }
-
-    /**
-     * Pushes the URL into the history stack.
-     *
-     * @param string $url
-     */
-    public function push(string $url)
-    {
-        Craft::$app->getResponse()->getHeaders()->set('HX-Push', $url);
     }
 
     /**
