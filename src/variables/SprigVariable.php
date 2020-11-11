@@ -172,6 +172,16 @@ class SprigVariable
     }
 
     /**
+     * Pushes the URL into the history stack.
+     *
+     * @param string $url
+     */
+    public function push(string $url)
+    {
+        Craft::$app->getResponse()->getHeaders()->set('HX-Push', $url);
+    }
+
+    /**
      * Returns a script tag to a source file.
      *
      * @param string $name

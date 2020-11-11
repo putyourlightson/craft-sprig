@@ -1,6 +1,9 @@
 # Release Notes for Sprig
 
 ## 1.0.4 - Unreleased
+### Added
+- Added a `sprig.push` template variable that pushes a URL into the history stack.
+
 ### Changed
 - Made minor tweaks to default playground.
 
