@@ -160,9 +160,9 @@ class SprigVariable
     /**
      * Triggers client-side events.
      *
-     * @param string $events
+     * @param string|array $events
      */
-    public function triggerEvents(string $events)
+    public function triggerEvents($events)
     {
         Component::triggerEvents($events);
     }

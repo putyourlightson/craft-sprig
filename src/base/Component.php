@@ -172,10 +172,14 @@ abstract class Component extends BaseComponent implements ComponentInterface
     /**
      * Triggers client-side events.
      *
-     * @param string $events
+     * @param string|array $events
      */
-    public static function triggerEvents(string $events)
+    public static function triggerEvents($events)
     {
+        if (is_array($events)) {
+            $events = implode(' ', $events);
+        }
+
         Craft::$app->getResponse()->getHeaders()->set('HX-Trigger', $events);
     }
 
