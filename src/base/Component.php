@@ -181,4 +181,26 @@ abstract class Component extends BaseComponent implements ComponentInterface
     {
         Craft::$app->getResponse()->getHeaders()->set('HX-Push', $url);
     }
+
+    /**
+     * Redirects the browser to the URL.
+     * https://htmx.org/reference#response_headers
+     *
+     * @param string $url
+     */
+    public static function redirect(string $url)
+    {
+        Craft::$app->getResponse()->getHeaders()->set('HX-Redirect', $url);
+    }
+
+    /**
+     * Refreshes the browser.
+     * https://htmx.org/reference#response_headers
+     *
+     * @param bool $refresh
+     */
+    public static function refresh(bool $refresh = true)
+    {
+        Craft::$app->getResponse()->getHeaders()->set('HX-Refresh', $refresh ? 'true' : '');
+    }
 }

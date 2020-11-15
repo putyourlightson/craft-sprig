@@ -7,6 +7,8 @@
 - Added a `sprig.paginate()` template variable that paginates an element query and returns a Paginate variable.
 - Added a `sprig.triggerEvents()` template variable that triggers client-side events.
 - Added a `sprig.pushUrl()` template variable that pushes a URL into the history stack.
+- Added a `sprig.redirect()` template variable that redirects the browser to a URL.
+- Added a `sprig.refresh()` template variable that refreshes the browser.
 
 ### Changed
 - Removed the magic `_events` variable, use the new `sprig.triggerEvents()` function instead.
