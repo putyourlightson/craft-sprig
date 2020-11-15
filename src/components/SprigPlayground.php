@@ -12,7 +12,7 @@ class SprigPlayground extends Component
     public $variables = [];
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function init()
     {
@@ -25,7 +25,7 @@ class SprigPlayground extends Component
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function render(): string
     {

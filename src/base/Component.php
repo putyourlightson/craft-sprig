@@ -12,22 +12,6 @@ use putyourlightson\sprig\Sprig;
 abstract class Component extends BaseComponent implements ComponentInterface
 {
     /**
-     * The client-side events to trigger in a response.
-     * https://htmx.org/headers/x-hx-trigger/
-     *
-     * @var mixed
-     */
-    protected $_events;
-
-    /**
-     * The URL to push into the history stack.
-     * https://htmx.org/reference#response_headers
-     *
-     * @var mixed
-     */
-    protected $_url;
-
-    /**
      * The path to the template that the `render` method should render.
      *
      * @var string|null
@@ -35,20 +19,23 @@ abstract class Component extends BaseComponent implements ComponentInterface
     protected $_template;
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function init()
     {
         parent::init();
 
-        Sprig::$plugin->components->setResponseHeaders([
-            'events' => $this->_events,
-            'url' => $this->_url,
-        ]);
+        if ($this->_events) {
+            self::triggerEvents($this->_events);
+        }
+
+        if ($this->_url) {
+            self::pushUrl($this->_url);
+        }
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function render(): string
     {
@@ -171,8 +158,9 @@ abstract class Component extends BaseComponent implements ComponentInterface
 
     /**
      * Triggers client-side events.
+     * https://htmx.org/headers/x-hx-trigger/
      *
-     * @param string|array $events
+     * @param array|string $events
      */
     public static function triggerEvents($events)
     {
@@ -185,6 +173,7 @@ abstract class Component extends BaseComponent implements ComponentInterface
 
     /**
      * Pushes the URL into the history stack.
+     * https://htmx.org/reference#response_headers
      *
      * @param string $url
      */

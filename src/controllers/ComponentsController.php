@@ -57,8 +57,6 @@ class ComponentsController extends Controller
                 $variables = array_merge($variables, $actionVariables);
             }
 
-            Sprig::$plugin->components->setResponseHeaders($variables);
-
             $template = Sprig::$plugin->request->getValidatedParam('sprig:template');
             $content = Craft::$app->getView()->renderTemplate($template, $variables);
         }
