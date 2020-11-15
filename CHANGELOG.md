@@ -2,6 +2,7 @@
 
 ## 1.1.0 - Unreleased
 ### Added
+- Added a `sprig.paginate` template variable that paginates an element query and returns a Paginate variable.
 - Added a `sprig.triggerEvents` template variable that triggers client-side events.
 - Added a `sprig.pushUrl` template variable that pushes a URL into the history stack.
 
