@@ -7,38 +7,65 @@ namespace putyourlightson\sprig\variables;
 
 use craft\db\Paginator;
 use craft\web\twig\variables\Paginate;
+use yii\base\BaseObject;
 
-class PaginateVariable extends Paginate
+/**
+ * This class is based on the Paginate class in Craft.
+ * @see Paginate::class
+ */
+class PaginateVariable extends BaseObject
 {
     /**
-     * @var Paginator|null
-     */
-    public $paginator;
-
-    /**
-     * @inheritdoc
-     */
-    public static function create(Paginator $paginator): Paginate
-    {
-        $self = parent::create($paginator);
-        $self->paginator = $paginator;
-
-        return $self;
-    }
-
-    /**
-     * Returns the paginator results.
+     * Creates a new instance based on a Paginator object
      *
-     * @return array
+     * @param Paginator $paginator
+     * @return PaginateVariable
+     * @see Paginate::create()
      */
-    public function getPageResults(): array
+    public static function create(Paginator $paginator): self
     {
-        if ($this->paginator === null) {
-            return [];
-        }
+        $pageResults = $paginator->getPageResults();
+        $pageOffset = $paginator->getPageOffset();
 
-        return $this->paginator->getPageResults();
+        return new static([
+            'pageResults' => $pageResults,
+            'first' => $pageOffset + 1,
+            'last' => $pageOffset + count($pageResults),
+            'total' => $paginator->getTotalResults(),
+            'currentPage' => $paginator->getCurrentPage(),
+            'totalPages' => $paginator->getTotalPages(),
+        ]);
     }
+
+    /**
+     * @var array
+     */
+    public $pageResults = [];
+
+    /**
+     * @var int
+     */
+    public $first;
+
+    /**
+     * @var int
+     */
+    public $last;
+
+    /**
+     * @var int
+     */
+    public $total = 0;
+
+    /**
+     * @var int
+     */
+    public $currentPage;
+
+    /**
+     * @var int
+     */
+    public $totalPages = 0;
 
     /**
      * Returns a range of page numbers.
@@ -46,10 +73,25 @@ class PaginateVariable extends Paginate
      * @param int $start
      * @param int $end
      * @return int[]
+     * @see Paginate::getRangeUrls()
      */
     public function getRange(int $start, int $end): array
     {
-        return array_keys($this->getRangeUrls($start, $end));
+        if ($start < 1) {
+            $start = 1;
+        }
+
+        if ($end > $this->totalPages) {
+            $end = $this->totalPages;
+        }
+
+        $range = [];
+
+        for ($page = $start; $page <= $end; $page++) {
+            $range[] = $page;
+        }
+
+        return $range;
     }
 
     /**
@@ -57,9 +99,17 @@ class PaginateVariable extends Paginate
      *
      * @param int $max The maximum number of links to return
      * @return int[]
+     * @see Paginate::getDynamicRangeUrls()
      */
     public function getDynamicRange($max = 10)
     {
-        return array_keys($this->getDynamicRangeUrls($max));
+        $start = max(1, $this->currentPage - floor($max / 2));
+        $end = min($this->totalPages, $start + $max - 1);
+
+        if ($end - $start < $max) {
+            $start = max(1, $end - $max + 1);
+        }
+
+        return $this->getRange($start, $end);
     }
 }

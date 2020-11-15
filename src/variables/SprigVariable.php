@@ -203,7 +203,6 @@ class SprigVariable
         $paginator = new Paginator($paginatorQuery, $config);
 
         $paginate = PaginateVariable::create($paginator);
-        $paginate->paginator = $paginator;
 
         return $paginate;
     }
