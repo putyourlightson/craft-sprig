@@ -267,10 +267,13 @@ class ComponentsService extends Component
                     }
 
                     if ($currentValue) {
-                        $value = array_merge(Json::decode($currentValue), $value);
-                    }
+                        $value = array_merge(
+                            Json::decode($currentValue),
+                            Json::decode($value)
+                        );
 
-                    $value = json_encode($value);
+                        $value = json_encode($value);
+                    }
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;
