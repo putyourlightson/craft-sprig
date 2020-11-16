@@ -1,18 +1,19 @@
 # Release Notes for Sprig
 
 ## 1.1.0 - Unreleased
-> {note} The magic `_events` and `_url` variables have been removed. Use the new `sprig.triggerEvents()` and `sprig.pushUrl()` functions instead.
+> {note} The magic `_url` and `_events` variables have been removed. Use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
 
 ### Added
+- Added support for the new `s-vals` attribute which is a more secure alternative to `s-vars`.
 - Added a `sprig.paginate()` template variable that paginates an element query and returns a Paginate variable.
-- Added a `sprig.triggerEvents()` template variable that triggers client-side events.
 - Added a `sprig.pushUrl()` template variable that pushes a URL into the history stack.
 - Added a `sprig.redirect()` template variable that redirects the browser to a URL.
 - Added a `sprig.refresh()` template variable that refreshes the browser.
+- Added a `sprig.triggerEvents()` template variable that triggers client-side events.
 
 ### Changed
-- Removed the magic `_events` variable, use the new `sprig.triggerEvents()` function instead.
 - Removed the magic `_url` variable, use the new `sprig.pushUrl()` function instead.
+- Removed the magic `_events` variable, use the new `sprig.triggerEvents()` function instead.
 - Updated htmx to version 0.3.0 ([release notes](https://htmx.org/posts/2020-10-27-htmx-0.3.0-is-released/)).
 - Made minor tweaks to default playground.
 

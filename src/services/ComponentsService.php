@@ -9,6 +9,7 @@ use Craft;
 use craft\base\Component;
 use craft\base\ElementInterface;
 use craft\helpers\Html;
+use craft\helpers\Json;
 use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
@@ -52,7 +53,7 @@ class ComponentsService extends Component
     /**
      * @const string[]
      */
-    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vars', 'ws'];
+    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vals', 'vars', 'ws'];
 
     /**
      * Creates a new component.
@@ -64,10 +65,10 @@ class ComponentsService extends Component
      */
     public function create(string $value, array $variables = [], array $attributes = []): Markup
     {
-        $vars = [];
+        $values = [];
 
         $siteId = Craft::$app->getSites()->getCurrentSite()->id;
-        $vars['sprig:siteId'] = Craft::$app->getSecurity()->hashData($siteId);
+        $values['sprig:siteId'] = Craft::$app->getSecurity()->hashData($siteId);
 
         $mergedVariables = array_merge(
             $variables,
@@ -106,17 +107,17 @@ class ComponentsService extends Component
 
         $content = $this->getParsedTagAttributes($renderedContent);
 
-        $vars['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
+        $values['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
 
         foreach ($variables as $name => $val) {
-            $vars['sprig:variables['.$name.']'] = $this->_hashVariable($name, $val);
+            $values['sprig:variables['.$name.']'] = $this->_hashVariable($name, $val);
         }
 
         // Allow ID to be overridden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
         $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
 
         // Merge base attributes with provided attributes, then merge attributes with parsed attributes.
-        // This is done in two steps so that `hx-vars` is included in the attributes when they are parsed.
+        // This is done in two steps so that `hx-vals` is included in the attributes when they are parsed.
         $attributes = array_merge(
             [
                 'id' => $id,
@@ -125,7 +126,7 @@ class ComponentsService extends Component
                 'hx-include' => '#'.$id.' *',
                 'hx-trigger' => 'refresh',
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
-                'hx-vars' => $this->getParsedVars($vars),
+                'hx-vals' => json_encode($values),
             ],
             $attributes
         );
@@ -195,7 +196,7 @@ class ComponentsService extends Component
 
         // Surround html with body tag to ensure script tags are not tampered with
         // https://github.com/putyourlightson/craft-sprig/issues/34
-        $html = '<!DOCTYPE html><html><body>'.$html.'</body></html>';
+        $html = '<!doctype html><html><body>'.$html.'</body></html>';
 
         // Allow duplicate IDs to avoid an error being thrown
         // https://github.com/ivopetkov/html5-dom-document-php/issues/21
@@ -205,7 +206,7 @@ class ComponentsService extends Component
         foreach ($dom->getElementsByTagName('*') as $element) {
             if ($element->hasAttribute('sprig')) {
                 $verb = 'get';
-                $vars = [];
+                $values = [];
 
                 $method = $this->getParsedAttributeValue($element, 'method');
 
@@ -214,21 +215,21 @@ class ComponentsService extends Component
                     $verb = 'post';
 
                     $request = Craft::$app->getRequest();
-                    $vars[$request->csrfParam] = $request->getCsrfToken();
+                    $values[$request->csrfParam] = $request->getCsrfToken();
                 }
 
                 $action = $this->getParsedAttributeValue($element, 'action');
 
                 if ($action) {
-                    $vars['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
+                    $values['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
                 }
 
                 $element->setAttribute('hx-'.$verb,
                     UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION)
                 );
 
-                if (!empty($vars)) {
-                    $element->setAttribute('hx-vars', $this->getParsedVars($vars));
+                if (!empty($values)) {
+                    $element->setAttribute('hx-vals', json_encode($values));
                 }
             }
 
@@ -240,25 +241,6 @@ class ComponentsService extends Component
         }
 
         return $dom->getElementsByTagName('body')[0]->innerHTML;
-    }
-
-    /**
-     * Returns parsed variables for the `hx-vars` attribute.
-     *
-     * @param array $values
-     * @return string
-     */
-    public function getParsedVars(array $values): string
-    {
-        // JSON encode, then remove braces
-        $variables = [];
-
-        foreach ($values as $name => $value) {
-            // Wrap name and value in single quotes so it can be used within a HTML attribute
-            $variables[] = "'".$name."':'".$value."'";
-        }
-
-        return implode(',', $variables);
     }
 
     /**
@@ -275,8 +257,8 @@ class ComponentsService extends Component
             $value = $this->getParsedAttributeValue($attributes, $attribute);
 
             if ($value) {
-                // Append value to current value if `vars`
-                if ($attribute == 'vars') {
+                // Append value to current value if `vals`
+                if ($attribute == 'vals') {
                     if ($attributes instanceof DOMElement) {
                         $currentValue = $attributes->getAttribute('hx-'.$attribute);
                     }
@@ -284,7 +266,11 @@ class ComponentsService extends Component
                         $currentValue = $attributes['hx-'.$attribute] ?? null;
                     }
 
-                    $value = $currentValue ? $currentValue.','.$value : $value;
+                    if ($currentValue) {
+                        $value = array_merge(Json::decode($currentValue), $value);
+                    }
+
+                    $value = json_encode($value);
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;
