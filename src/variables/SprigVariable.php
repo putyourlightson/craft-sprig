@@ -163,10 +163,11 @@ class SprigVariable
      * Triggers client-side events.
      *
      * @param string|array $events
+     * @param string $on
      */
-    public function triggerEvents($events)
+    public function triggerEvents($events, string $on = 'load')
     {
-        Component::triggerEvents($events);
+        Component::triggerEvents($events, $on);
     }
 
     /**
@@ -202,9 +203,7 @@ class SprigVariable
         $config = array_merge($defaultConfig, $config);
         $paginator = new Paginator($paginatorQuery, $config);
 
-        $paginate = PaginateVariable::create($paginator);
-
-        return $paginate;
+        return PaginateVariable::create($paginator);
     }
 
     /**

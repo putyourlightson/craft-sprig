@@ -7,7 +7,6 @@ namespace putyourlightson\sprig\base;
 
 use Craft;
 use craft\base\Component as BaseComponent;
-use putyourlightson\sprig\Sprig;
 
 abstract class Component extends BaseComponent implements ComponentInterface
 {
@@ -17,22 +16,6 @@ abstract class Component extends BaseComponent implements ComponentInterface
      * @var string|null
      */
     protected $_template;
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-
-        if ($this->_events) {
-            self::triggerEvents($this->_events);
-        }
-
-        if ($this->_url) {
-            self::pushUrl($this->_url);
-        }
-    }
 
     /**
      * @inheritdoc
@@ -157,21 +140,6 @@ abstract class Component extends BaseComponent implements ComponentInterface
     }
 
     /**
-     * Triggers client-side events.
-     * https://htmx.org/headers/x-hx-trigger/
-     *
-     * @param array|string $events
-     */
-    public static function triggerEvents($events)
-    {
-        if (is_array($events)) {
-            $events = implode(' ', $events);
-        }
-
-        Craft::$app->getResponse()->getHeaders()->set('HX-Trigger', $events);
-    }
-
-    /**
      * Pushes the URL into the history stack.
      * https://htmx.org/reference#response_headers
      *
@@ -202,5 +170,31 @@ abstract class Component extends BaseComponent implements ComponentInterface
     public static function refresh(bool $refresh = true)
     {
         Craft::$app->getResponse()->getHeaders()->set('HX-Refresh', $refresh ? 'true' : '');
+    }
+
+    /**
+     * Triggers client-side events.
+     * https://htmx.org/headers/x-hx-trigger/
+     *
+     * @param array|string $events
+     * @param string $on
+     */
+    public static function triggerEvents($events, string $on = 'load')
+    {
+        if (is_array($events)) {
+            $events = implode(' ', $events);
+        }
+
+        $headerMap = [
+            'load' => 'HX-Trigger',
+            'swap' => 'HX-Trigger-After-Swap',
+            'settle' => 'HX-Trigger-After-Settle',
+        ];
+
+        $header = $headerMap[$on] ?? null;
+
+        if ($header) {
+            Craft::$app->getResponse()->getHeaders()->set($header, $events);
+        }
     }
 }
