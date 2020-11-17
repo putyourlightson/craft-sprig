@@ -12,9 +12,9 @@
 - Added a `sprig.triggerEvents()` template variable that triggers client-side events.
 
 ### Changed
+- Updated htmx to version 0.4.0 ([release notes](https://htmx.org/posts/2020-11-16-htmx-0.4.0-is-released/)).
 - Removed the magic `_url` variable, use the new `sprig.pushUrl()` function instead.
 - Removed the magic `_events` variable, use the new `sprig.triggerEvents()` function instead.
-- Updated htmx to version 0.3.0 ([release notes](https://htmx.org/posts/2020-10-27-htmx-0.3.0-is-released/)).
 - Made minor tweaks to default playground.
 
 ### Fixed
