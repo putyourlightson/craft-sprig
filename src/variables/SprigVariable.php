@@ -9,6 +9,7 @@ use Craft;
 use craft\db\Paginator;
 use craft\db\Query;
 use craft\helpers\Html;
+use craft\helpers\Json;
 use craft\helpers\Template;
 use putyourlightson\sprig\base\Component;
 use putyourlightson\sprig\Sprig;
@@ -181,7 +182,7 @@ class SprigVariable
     }
 
     /**
-     * Returns a Paginate variable for the given query.
+     * Paginates an element query.
      *
      * @param Query $query
      * @param int $currentPage
@@ -204,6 +205,17 @@ class SprigVariable
         $paginator = new Paginator($paginatorQuery, $config);
 
         return PaginateVariable::create($paginator);
+    }
+
+    /**
+     * Converts an array to an `s-vals` attribute.
+     *
+     * @param array $values
+     * @return string
+     */
+    public function vals(array $values): string
+    {
+        return 's-vals=\''.Json::encode($values).'\'';
     }
 
     /**

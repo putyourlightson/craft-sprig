@@ -1,15 +1,16 @@
 # Release Notes for Sprig
 
 ## 1.1.0 - Unreleased
-> {note} The magic `_url` and `_events` variables have been removed. Use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
+> {warning} The `s-vars` attribute has been deprecated for security reasons, use `s-vals` instead. The magic `_url` and `_events` variables have been removed, use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
 
 ### Added
-- Added support for the new `s-vals` attribute which is a more secure alternative to `s-vars`.
-- Added a `sprig.paginate()` template variable that paginates an element query and returns a Paginate variable.
-- Added a `sprig.pushUrl()` template variable that pushes a URL into the history stack.
-- Added a `sprig.redirect()` template variable that redirects the browser to a URL.
-- Added a `sprig.refresh()` template variable that refreshes the browser.
-- Added a `sprig.triggerEvents()` template variable that triggers client-side events.
+- Added a new [s-vals](https://putyourlightson.com/plugins/sprig#s-vals) attribute which should be used instead of the deprecated [s-vars](https://putyourlightson.com/plugins/sprig#s-vars).
+- Added a [sprig.paginate()](https://putyourlightson.com/plugins/sprig#sprig.paginateelementquery) template variable that paginates an element query and returns a Paginate variable.
+- Added a [sprig.pushUrl()](https://putyourlightson.com/plugins/sprig#sprig.pushurlurl) template variable that pushes a URL into the history stack.
+- Added a [sprig.redirect()](https://putyourlightson.com/plugins/sprig#sprig.redirecturl) template variable that redirects the browser to a URL.
+- Added a [sprig.refresh()](https://putyourlightson.com/plugins/sprig#sprig.refresh) template variable that refreshes the browser.
+- Added a [sprig.triggerEvents()](https://putyourlightson.com/plugins/sprig#sprig.triggereventsevents) template variable that triggers client-side events.
+- Added a [sprig.vals()](https://putyourlightson.com/plugins/sprig#sprig.valsvalues) template variable that converts an array of name-value pairs to an `s-vals` attribute. 
 
 ### Changed
 - Updated htmx to version 0.4.0 ([release notes](https://htmx.org/posts/2020-11-16-htmx-0.4.0-is-released/)).
@@ -19,6 +20,9 @@
 
 ### Fixed
 - Fixed how array variables are handled in the playground.
+
+### Deprecated
+- The `s-vars` attribute has been deprecated for security reasons. Use the more secure `s-vals` instead.
 
 ## 1.0.3 - 2020-10-28
 ### Added

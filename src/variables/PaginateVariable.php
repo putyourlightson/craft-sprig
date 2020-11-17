@@ -68,7 +68,7 @@ class PaginateVariable extends BaseObject
     public $totalPages = 0;
 
     /**
-     * Returns a range of page numbers.
+     * Returns a range of page numbers as an array.
      *
      * @param int $start
      * @param int $end
@@ -95,7 +95,7 @@ class PaginateVariable extends BaseObject
     }
 
     /**
-     * Returns a dynamic range of page numbers that surround (and include) the current page.
+     * Returns a dynamic range of page numbers that surround (and include) the current page as an array.
      *
      * @param int $max The maximum number of links to return
      * @return int[]

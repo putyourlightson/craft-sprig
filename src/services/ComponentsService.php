@@ -51,6 +51,8 @@ class ComponentsService extends Component
     const RENDER_CONTROLLER_ACTION = 'sprig/components/render';
 
     /**
+     * TODO: remove vars
+     *
      * @const string[]
      */
     const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vals', 'vars', 'ws'];
@@ -126,7 +128,7 @@ class ComponentsService extends Component
                 'hx-include' => '#'.$id.' *',
                 'hx-trigger' => 'refresh',
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
-                'hx-vals' => json_encode($values),
+                'hx-vals' => Json::encode($values),
             ],
             $attributes
         );
@@ -257,23 +259,8 @@ class ComponentsService extends Component
             $value = $this->getParsedAttributeValue($attributes, $attribute);
 
             if ($value) {
-                // Append value to current value if `vals`
-                if ($attribute == 'vals') {
-                    if ($attributes instanceof DOMElement) {
-                        $currentValue = $attributes->getAttribute('hx-'.$attribute);
-                    }
-                    else {
-                        $currentValue = $attributes['hx-'.$attribute] ?? null;
-                    }
-
-                    if ($currentValue) {
-                        $value = array_merge(
-                            Json::decode($currentValue),
-                            Json::decode($value)
-                        );
-
-                        $value = json_encode($value);
-                    }
+                if ($attribute == 'vars') {
+                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use “s-vals” instead.');
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;
