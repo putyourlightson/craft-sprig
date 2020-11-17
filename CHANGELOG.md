@@ -5,7 +5,7 @@
 
 ### Added
 - Added a new [s-vals](https://putyourlightson.com/plugins/sprig#s-vals) attribute which should be used instead of the deprecated [s-vars](https://putyourlightson.com/plugins/sprig#s-vars).
-- Added a [sprig.paginate()](https://putyourlightson.com/plugins/sprig#sprig.paginateelementquery) template variable that paginates an element query and returns a Paginate variable.
+- Added a [sprig.paginate()](https://putyourlightson.com/plugins/sprig#sprig.paginateelementquery) template variable that paginates an element query.
 - Added a [sprig.pushUrl()](https://putyourlightson.com/plugins/sprig#sprig.pushurlurl) template variable that pushes a URL into the history stack.
 - Added a [sprig.redirect()](https://putyourlightson.com/plugins/sprig#sprig.redirecturl) template variable that redirects the browser to a URL.
 - Added a [sprig.refresh()](https://putyourlightson.com/plugins/sprig#sprig.refresh) template variable that refreshes the browser.
