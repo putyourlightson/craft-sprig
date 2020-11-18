@@ -55,7 +55,7 @@ class ComponentsService extends Component
      *
      * @const string[]
      */
-    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vals', 'vars', 'ws'];
+    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vars', 'ws'];
 
     /**
      * Creates a new component.
@@ -118,8 +118,7 @@ class ComponentsService extends Component
         // Allow ID to be overridden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
         $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
 
-        // Merge base attributes with provided attributes, then merge attributes with parsed attributes.
-        // This is done in two steps so that `hx-vals` is included in the attributes when they are parsed.
+        // Merge base attributes with provided attributes and with parsed attributes.
         $attributes = array_merge(
             [
                 'id' => $id,
@@ -130,9 +129,6 @@ class ComponentsService extends Component
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
                 'hx-vals' => Json::encode($values),
             ],
-            $attributes
-        );
-        $attributes = array_merge(
             $attributes,
             $this->getParsedAttributes($attributes)
         );
@@ -192,6 +188,8 @@ class ComponentsService extends Component
         if (empty(trim($html))) {
             return $html;
         }
+//        Craft::dd($html);
+//        return $html;
 
         // Use HTML5DOMDocument which supports HTML5 and takes care of UTF-8 encoding
         $dom = new HTML5DOMDocument();
@@ -231,7 +229,7 @@ class ComponentsService extends Component
                 );
 
                 if (!empty($values)) {
-                    $element->setAttribute('hx-vals', json_encode($values));
+                    $element->setAttribute('hx-vals', Json::htmlEncode($values));
                 }
             }
 
@@ -260,7 +258,7 @@ class ComponentsService extends Component
 
             if ($value) {
                 if ($attribute == 'vars') {
-                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use “s-vals” instead.');
+                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the “sprig.vals” template variable instead.');
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;

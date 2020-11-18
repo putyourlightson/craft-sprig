@@ -208,14 +208,17 @@ class SprigVariable
     }
 
     /**
-     * Converts an array to an `s-vals` attribute.
+     * Converts an array to a safe `hx-vals` attribute.
      *
      * @param array $values
-     * @return string
+     * @return Markup
      */
-    public function vals(array $values): string
+    public function vals(array $values): Markup
     {
-        return 's-vals=\''.Json::encode($values).'\'';
+        // Makes the values safe to be embedded in HTML code
+        $vals = "hx-vals='".Json::htmlEncode($values)."'";
+
+        return Template::raw($vals);
     }
 
     /**
