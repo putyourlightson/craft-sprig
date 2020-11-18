@@ -55,7 +55,7 @@ class ComponentsService extends Component
      *
      * @const string[]
      */
-    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vars', 'ws'];
+    const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vals', 'vars', 'ws'];
 
     /**
      * Creates a new component.
@@ -118,7 +118,8 @@ class ComponentsService extends Component
         // Allow ID to be overridden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
         $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
 
-        // Merge base attributes with provided attributes and with parsed attributes.
+        // Merge base attributes with provided attributes, then merge attributes with parsed attributes.
+        // This is done in two steps so that `hx-vals` is included in the attributes when they are parsed.
         $attributes = array_merge(
             [
                 'id' => $id,
@@ -129,6 +130,9 @@ class ComponentsService extends Component
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
                 'hx-vals' => Json::encode($values),
             ],
+            $attributes
+        );
+        $attributes = array_merge(
             $attributes,
             $this->getParsedAttributes($attributes)
         );
@@ -257,8 +261,26 @@ class ComponentsService extends Component
             $value = $this->getParsedAttributeValue($attributes, $attribute);
 
             if ($value) {
+                // Append value to current value if `vals`
+                if ($attribute == 'vals') {
+                    if ($attributes instanceof DOMElement) {
+                        $currentValue = $attributes->getAttribute('hx-'.$attribute);
+                    }
+                    else {
+                        $currentValue = $attributes['hx-'.$attribute] ?? null;
+                    }
+
+                    if ($currentValue) {
+                        $value = Json::encode(array_merge(
+                            Json::decode($currentValue),
+                            Json::decode($value)
+                        ));
+                    }
+                }
+
                 if ($attribute == 'vars') {
                     Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the “sprig.vals” template variable instead.');
+                    $value = Json::htmlEncode($value);
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;
