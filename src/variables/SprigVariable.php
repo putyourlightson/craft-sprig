@@ -191,9 +191,7 @@ class SprigVariable
      */
     public function paginate(Query $query, int $currentPage = 1, array $config = []): PaginateVariable
     {
-        /**
-         * @see Template::paginateCriteria()
-         */
+        /** @see Template::paginateCriteria() */
         $paginatorQuery = clone $query;
         $paginatorQuery->limit(null);
 
