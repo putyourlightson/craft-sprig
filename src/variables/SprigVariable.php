@@ -213,7 +213,7 @@ class SprigVariable
      */
     public function vals(array $values): Markup
     {
-        // Makes the values safe to be embedded in HTML code
+        // Makes the JSON encoded values safe to be embedded in HTML code
         $vals = "s-vals='".Json::htmlEncode($values)."'";
 
         return Template::raw($vals);

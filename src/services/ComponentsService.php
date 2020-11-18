@@ -280,7 +280,6 @@ class ComponentsService extends Component
 
                 if ($attribute == 'vars') {
                     Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the “sprig.vals” template variable instead.');
-                    $value = Json::htmlEncode($value);
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;

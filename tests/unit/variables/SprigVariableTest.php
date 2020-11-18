@@ -7,7 +7,6 @@ namespace putyourlightson\sprigtests\unit;
 
 use Codeception\Test\Unit;
 use Craft;
-use GuzzleHttp\Exception\ConnectException;
 use putyourlightson\sprig\variables\SprigVariable;
 use UnitTester;
 
@@ -68,25 +67,18 @@ class SprigVariableTest extends Unit
         $this->_testScriptExistsRemotely($this->variable->getHyperscript());
     }
 
-    private function _testScriptExistsLocally(string $script)
+    public function testValsIsJsonEncoded()
     {
-        $client = Craft::createGuzzleClient();
+        $vals = $this->variable->vals(['a' => 123, 'b' => 'abc']);
 
-        preg_match('/src="(.*?)"/', (string)$script, $matches);
-        $url = $matches[1];
+        $this->assertEquals('s-vals=\'{"a":123,"b":"abc"}\'', $vals);
+    }
 
-        // Fix weird situation in which the URL becomes `craft3.`
-        $url = str_replace('craft3.', 'craft3', $url);
+    public function testValsIsJsonEncodedAndSanitized()
+    {
+        $vals = $this->variable->vals(['x' => '"alert(\'xss\')']);
 
-        // Catch connect exceptions in case the localhost is not set up (Travis CI)
-        try {
-            $statusCode = $client->get($url)->getStatusCode();
-        }
-        catch (ConnectException $exception) {
-            $statusCode = 200;
-        }
-
-        $this->assertEquals(200, $statusCode);
+        $this->assertEquals('s-vals=\'{"x":"\u0022alert(\u0027xss\u0027)"}\'', $vals);
     }
 
     private function _testScriptExistsRemotely(string $script)
