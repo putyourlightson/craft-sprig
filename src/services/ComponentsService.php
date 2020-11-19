@@ -297,7 +297,7 @@ class ComponentsService extends Component
             $value = $this->getParsedAttributeValue($attributes, $attribute);
 
             if ($value) {
-                // Append value to current value if `vals`
+                // Append `vals` to `hx-vals` if it already exists
                 if ($attribute == 'vals' && !empty($attributes['hx-'.$attribute])) {
                     $value = Json::htmlEncode(array_merge(
                         Json::decode($attributes['hx-'.$attribute]),
@@ -306,7 +306,7 @@ class ComponentsService extends Component
                 }
 
                 if ($attribute == 'vars') {
-                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the “sprig.vals” template variable instead.');
+                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-val-*” attribute or the “sprig.vals()” function instead.');
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;
