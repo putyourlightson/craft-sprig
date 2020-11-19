@@ -76,9 +76,9 @@ class SprigVariableTest extends Unit
 
     public function testValsIsJsonEncodedAndSanitized()
     {
-        $vals = $this->variable->vals(['x' => '"alert(\'xss\')']);
+        $vals = $this->variable->vals(['x' => 'alert(\'xss\')', 'y' => 'alert("xss")']);
 
-        $this->assertEquals('s-vals=\'{"x":"\u0022alert(\u0027xss\u0027)"}\'', $vals);
+        $this->assertEquals('s-vals=\'{"x":"alert(\u0027xss\u0027)","y":"alert(\u0022xss\u0022)"}\'', $vals);
     }
 
     private function _testScriptExistsRemotely(string $script)
