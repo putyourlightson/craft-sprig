@@ -249,7 +249,7 @@ class ComponentsService extends Component
      */
     public function getParsedAttributes(array $attributes): array
     {
-        // Merge parsed `s-val-*` attributes with parsed htmx attributes.
+        // Merge parsed `s-val:*` attributes with parsed htmx attributes.
         return array_merge(
             $this->getParsedValAttributes($attributes),
             $this->getParsedHtmxAttributes($attributes)
@@ -257,7 +257,7 @@ class ComponentsService extends Component
     }
 
     /**
-     * Returns parsed `s-val-*` attributes.
+     * Returns parsed `s-val:*` attributes.
      *
      * @param array $attributes
      * @return array
@@ -267,7 +267,7 @@ class ComponentsService extends Component
         $valAttributes = [];
 
         foreach ($attributes as $key => $value) {
-            if (substr($key, 0, 6) == 's-val-') {
+            if (substr($key, 0, 6) == 's-val:') {
                 $name = StringHelper::toCamelCase(substr($key, 6));
 
                 if ($name) {
@@ -306,7 +306,7 @@ class ComponentsService extends Component
                 }
 
                 if ($attribute == 'vars') {
-                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-val-*” attribute or the “sprig.vals()” function instead.');
+                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-val:*” attribute or the “sprig.vals()” function instead.');
                 }
 
                 $parsedAttributes['hx-'.$attribute] = $value;
