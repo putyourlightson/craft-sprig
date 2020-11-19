@@ -3,9 +3,8 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigtests\unit;
+namespace putyourlightson\sprigtests\unit\services;
 
-use Codeception\Test\Unit;
 use Craft;
 use craft\test\TestCase;
 use putyourlightson\sprig\Sprig;

@@ -3,7 +3,7 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigtests\unit;
+namespace putyourlightson\sprigtests\unit\controllers;
 
 use Codeception\Test\Unit;
 use Craft;
