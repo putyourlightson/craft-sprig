@@ -118,8 +118,7 @@ class ComponentsService extends Component
         // Allow ID to be overridden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
         $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
 
-        // Merge base attributes with provided attributes, then merge attributes with parsed attributes.
-        // This is done in two steps so that `hx-vals` is included in the attributes when they are parsed.
+        // Merge base attributes with provided attributes and parsed attributes.
         $attributes = array_merge(
             [
                 'id' => $id,
@@ -130,9 +129,6 @@ class ComponentsService extends Component
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
                 'hx-vals' => Json::htmlEncode($values),
             ],
-            $attributes
-        );
-        $attributes = array_merge(
             $attributes,
             $this->getParsedAttributes($attributes)
         );
@@ -253,11 +249,11 @@ class ComponentsService extends Component
      */
     public function getParsedAttributes(array $attributes): array
     {
-        // Merge parsed `s-val-*` attributes with provided attributes, then merge attributes with parsed htmx attributes.
-        // This is done in two steps so that `hx-vals` is included in the attributes when they are parsed.
-        $attributes = array_merge($attributes, $this->getParsedValAttributes($attributes));
-
-        return $this->getParsedHtmxAttributes($attributes);
+        // Merge parsed `s-val-*` attributes with parsed htmx attributes.
+        return array_merge(
+            $this->getParsedValAttributes($attributes),
+            $this->getParsedHtmxAttributes($attributes)
+        );
     }
 
     /**
@@ -278,6 +274,10 @@ class ComponentsService extends Component
                     $valAttributes[$name] = $value;
                 }
             }
+        }
+
+        if (empty($valAttributes)) {
+            return [];
         }
 
         return ['hx-vals' => Json::htmlEncode($valAttributes)];

@@ -107,16 +107,23 @@ class ComponentsTest extends Unit
 
     public function testGetParsedTagAttributesVals()
     {
+        $html = '<div sprig s-val-x="a" s-val-y=b></div>';
+        $html = Sprig::$plugin->components->getParsedHtml($html);
+        $this->assertStringContainsString('hx-vals=\'{"x":"a","y":"b"}\'', $html);
+    }
+
+    public function testGetParsedTagAttributesValsOverride()
+    {
         $html = '<div sprig s-val-x="a" s-val-y=b s-vals=\'{"limit":1}\'></div>';
         $html = Sprig::$plugin->components->getParsedHtml($html);
-        $this->assertStringContainsString('hx-vals=\'{"x":"a","y":"b","limit":1}\'', $html);
+        $this->assertStringContainsString('hx-vals=\'{"limit":1}\'', $html);
     }
 
     public function testGetParsedTagAttributesValsEncodedAndSanitized()
     {
-        $html = '<div sprig s-val-x="alert(\'xss\')" s-val-z=\'alert("xss")\' s-vals=\'{"limit":1}\'></div>';
+        $html = '<div sprig s-val-x="alert(\'xss\')" s-val-z=\'alert("xss")\'></div>';
         $html = Sprig::$plugin->components->getParsedHtml($html);
-        $this->assertStringContainsString('hx-vals=\'{"x":"alert(\u0027xss\u0027)","z":"alert(\u0022xss\u0022)","limit":1}\'', $html);
+        $this->assertStringContainsString('hx-vals=\'{"x":"alert(\u0027xss\u0027)","z":"alert(\u0022xss\u0022)"}\'', $html);
     }
 
     public function testGetParsedTagAttributesEmpty()
