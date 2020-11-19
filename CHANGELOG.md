@@ -24,6 +24,9 @@
 ### Deprecated
 - The `s-vars` attribute has been deprecated for security reasons. Use the new `s-val-*` attribute or the `sprig.vals()` function instead.
 
+### Security
+Fixed a potential XSS vulnerability.
+
 ## 1.0.3 - 2020-10-28
 ### Added
 - Added a config setting to enable or disable the playground on a per environment basis.
