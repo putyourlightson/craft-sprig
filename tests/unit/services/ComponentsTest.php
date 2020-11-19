@@ -97,7 +97,7 @@ class ComponentsTest extends Unit
     {
         $html = '<div sprig s-method="post" s-action="a/b/c" s-vars="limit:1"></div>';
 
-        $html = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $html = Sprig::$plugin->components->getParsedHtml($html);
 
         $this->assertStringContainsString('hx-post', $html);
         $this->assertStringContainsString('CRAFT_CSRF_TOKEN', $html);
@@ -108,35 +108,35 @@ class ComponentsTest extends Unit
     public function testGetParsedTagAttributesEmpty()
     {
         $html = '';
-        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $result = Sprig::$plugin->components->getParsedHtml($html);
         $this->assertEquals($html, $result);
     }
 
     public function testGetParsedTagAttributesHtml()
     {
         $html = '<div><p><span><template><h1>Hello</h1></template></span></p></div>';
-        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $result = Sprig::$plugin->components->getParsedHtml($html);
         $this->assertEquals($html, $result);
     }
 
     public function testGetParsedTagAttributesDuplicateIds()
     {
         $html = '<div id="my-id"><p id="my-id"><span id="my-id"></span></p></div>';
-        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $result = Sprig::$plugin->components->getParsedHtml($html);
         $this->assertEquals($html, $result);
     }
 
     public function testGetParsedTagAttributesScript()
     {
         $html = '<script><h1>Hello</h1></script>';
-        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $result = Sprig::$plugin->components->getParsedHtml($html);
         $this->assertEquals($html, $result);
     }
 
     public function testGetParsedTagAttributesUtfEncoding()
     {
         $html = 'ÆØÅäöü';
-        $result = Sprig::$plugin->components->getParsedTagAttributes($html);
+        $result = Sprig::$plugin->components->getParsedHtml($html);
         $this->assertEquals($html, $result);
     }
 

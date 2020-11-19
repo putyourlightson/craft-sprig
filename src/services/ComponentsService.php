@@ -14,8 +14,8 @@ use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
 use craft\web\View;
-use DOMElement;
 use IvoPetkov\HTML5DOMDocument;
+use IvoPetkov\HTML5DOMElement;
 use putyourlightson\sprig\base\ComponentInterface;
 use putyourlightson\sprig\components\SprigPlayground;
 use putyourlightson\sprig\errors\InvalidVariableException;
@@ -107,7 +107,7 @@ class ComponentsService extends Component
             $renderedContent = Craft::$app->getView()->renderTemplate($value, $mergedVariables);
         }
 
-        $content = $this->getParsedTagAttributes($renderedContent);
+        $content = $this->getParsedHtml($renderedContent);
 
         $values['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
 
@@ -128,7 +128,7 @@ class ComponentsService extends Component
                 'hx-include' => '#'.$id.' *',
                 'hx-trigger' => 'refresh',
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
-                'hx-vals' => Json::encode($values),
+                'hx-vals' => Json::htmlEncode($values),
             ],
             $attributes
         );
@@ -182,18 +182,16 @@ class ComponentsService extends Component
     }
 
     /**
-     * Returns parsed tag attributes in the provided HTML
+     * Returns parsed HTML.
      *
      * @param string $html
      * @return string
      */
-    public function getParsedTagAttributes(string $html): string
+    public function getParsedHtml(string $html): string
     {
         if (empty(trim($html))) {
             return $html;
         }
-//        Craft::dd($html);
-//        return $html;
 
         // Use HTML5DOMDocument which supports HTML5 and takes care of UTF-8 encoding
         $dom = new HTML5DOMDocument();
@@ -206,13 +204,13 @@ class ComponentsService extends Component
         // https://github.com/ivopetkov/html5-dom-document-php/issues/21
         $dom->loadHTML($html, HTML5DOMDocument::ALLOW_DUPLICATE_IDS);
 
-        /** @var DOMElement $element */
+        /** @var HTML5DOMElement $element */
         foreach ($dom->getElementsByTagName('*') as $element) {
             if ($element->hasAttribute('sprig')) {
                 $verb = 'get';
                 $values = [];
 
-                $method = $this->getParsedAttributeValue($element, 'method');
+                $method = $this->getParsedAttributeValue($element->getAttributes(), 'method');
 
                 // Make the check case-insensitive
                 if (strtolower($method) == 'post') {
@@ -222,7 +220,7 @@ class ComponentsService extends Component
                     $values[$request->csrfParam] = $request->getCsrfToken();
                 }
 
-                $action = $this->getParsedAttributeValue($element, 'action');
+                $action = $this->getParsedAttributeValue($element->getAttributes(), 'action');
 
                 if ($action) {
                     $values['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
@@ -237,7 +235,7 @@ class ComponentsService extends Component
                 }
             }
 
-            $parsedAttributes = $this->getParsedAttributes($element);
+            $parsedAttributes = $this->getParsedAttributes($element->getAttributes());
 
             foreach ($parsedAttributes as $attribute => $value) {
                 $element->setAttribute($attribute, $value);
@@ -248,12 +246,50 @@ class ComponentsService extends Component
     }
 
     /**
-     * Returns parsed htmx attributes.
+     * Returns parsed HTML attributes.
      *
-     * @param DOMElement|array $attributes
+     * @param array $attributes
      * @return array
      */
-    public function getParsedAttributes($attributes): array
+    public function getParsedAttributes(array $attributes): array
+    {
+        // Merge parsed `s-val-*` attributes with provided attributes, then merge attributes with parsed htmx attributes.
+        // This is done in two steps so that `hx-vals` is included in the attributes when they are parsed.
+        $attributes = array_merge($attributes, $this->getParsedValAttributes($attributes));
+
+        return $this->getParsedHtmxAttributes($attributes);
+    }
+
+    /**
+     * Returns parsed `s-val-*` attributes.
+     *
+     * @param array $attributes
+     * @return array
+     */
+    public function getParsedValAttributes(array $attributes): array
+    {
+        $valAttributes = [];
+
+        foreach ($attributes as $key => $value) {
+            if (substr($key, 0, 6) == 's-val-') {
+                $name = StringHelper::toCamelCase(substr($key, 6));
+
+                if ($name) {
+                    $valAttributes[$name] = $value;
+                }
+            }
+        }
+
+        return ['hx-vals' => Json::htmlEncode($valAttributes)];
+    }
+
+    /**
+     * Returns parsed htmx attributes.
+     *
+     * @param array $attributes
+     * @return array
+     */
+    public function getParsedHtmxAttributes(array $attributes): array
     {
         $parsedAttributes = [];
 
@@ -262,20 +298,11 @@ class ComponentsService extends Component
 
             if ($value) {
                 // Append value to current value if `vals`
-                if ($attribute == 'vals') {
-                    if ($attributes instanceof DOMElement) {
-                        $currentValue = $attributes->getAttribute('hx-'.$attribute);
-                    }
-                    else {
-                        $currentValue = $attributes['hx-'.$attribute] ?? null;
-                    }
-
-                    if ($currentValue) {
-                        $value = Json::encode(array_merge(
-                            Json::decode($currentValue),
-                            Json::decode($value)
-                        ));
-                    }
+                if ($attribute == 'vals' && !empty($attributes['hx-'.$attribute])) {
+                    $value = Json::htmlEncode(array_merge(
+                        Json::decode($attributes['hx-'.$attribute]),
+                        Json::decode($value)
+                    ));
                 }
 
                 if ($attribute == 'vars') {
@@ -292,24 +319,17 @@ class ComponentsService extends Component
     /**
      * Returns a parsed Sprig attribute value.
      *
-     * @param DOMElement|array $attributes
-     * @param string $attribute
+     * @param array $attributes
+     * @param string $name
      * @return string
      */
-    public function getParsedAttributeValue($attributes, string $attribute): string
+    public function getParsedAttributeValue(array $attributes, string $name): string
     {
         $prefixes = ['s', 'sprig'];
 
         foreach ($prefixes as $prefix) {
-            if ($attributes instanceof DOMElement) {
-                $value = $attributes->getAttribute($prefix.'-'.$attribute);
-            }
-            else {
-                $value = $attributes[$prefix.'-'.$attribute] ?? '';
-            }
-
-            if ($value) {
-                return $value;
+            if (!empty($attributes[$prefix.'-'.$name])) {
+                return $attributes[$prefix.'-'.$name];
             }
         }
 

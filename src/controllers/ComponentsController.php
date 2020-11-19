@@ -65,7 +65,7 @@ class ComponentsController extends Controller
         $response->statusCode = 200;
         $response->format = $response::FORMAT_HTML;
 
-        $response->data = Sprig::$plugin->components->getParsedTagAttributes($content);
+        $response->data = Sprig::$plugin->components->getParsedHtml($content);
 
         return $response;
     }
