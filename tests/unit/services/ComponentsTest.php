@@ -95,20 +95,21 @@ class ComponentsTest extends Unit
 
     public function testGetParsedTagAttributes()
     {
-        $html = '<div sprig s-method="post" s-action="a/b/c"></div>';
+        $html = '<div sprig s-method="post" s-action="a/b/c" s-vals=\'{"limit":1}\'></div>';
 
         $html = Sprig::$plugin->components->parseHtml($html);
 
-        $this->assertStringContainsString('hx-post', $html);
+        $this->assertStringContainsString('hx-post=', $html);
         $this->assertStringContainsString('CRAFT_CSRF_TOKEN', $html);
         $this->assertStringContainsString('sprig:action', $html);
+        $this->assertStringContainsString('"limit":1', $html);
     }
 
     public function testGetParsedTagAttributesVals()
     {
-        $html = '<div sprig s-val:x="a" s-val:y=b s-vals=\'{"limit":1}\'></div>';
+        $html = '<div sprig s-val:x-y-z="a" s-vals=\'{"limit":1}\'></div>';
         $html = Sprig::$plugin->components->parseHtml($html);
-        $this->assertStringContainsString('hx-vals=\'{"x":"a","y":"b","limit":1}\'', $html);
+        $this->assertStringContainsString('hx-vals=\'{"xYZ":"a","limit":1}\'', $html);
     }
 
     public function testGetParsedTagAttributesValsEncodedAndSanitized()

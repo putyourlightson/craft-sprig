@@ -56,8 +56,6 @@ class ComponentsService extends Component
     const SPRIG_PREFIXES = ['s', 'sprig'];
 
     /**
-     * TODO: remove vars
-     *
      * @const string[]
      */
     const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'ext', 'get', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vals', 'vars', 'ws'];
@@ -137,7 +135,7 @@ class ComponentsService extends Component
             $attributes
         );
 
-        $attributes = $this->parseAttributes($attributes);
+        $attributes = $this->parseTagAttributes($attributes);
 
         $event->output = Html::tag('div', $content, $attributes);
 
@@ -237,7 +235,7 @@ class ComponentsService extends Component
                 }
             }
 
-            $parsedAttributes = $this->parseAttributes($element->getAttributes());
+            $parsedAttributes = $this->parseTagAttributes($element->getAttributes());
 
             foreach ($parsedAttributes as $attribute => $value) {
                 $element->setAttribute($attribute, $value);
@@ -248,37 +246,54 @@ class ComponentsService extends Component
     }
 
     /**
-     * Parses and returns HTML attributes.
+     * Parses and returns HTML tag attributes.
      *
      * @param array $attributes
      * @return array
      */
-    public function parseAttributes(array $attributes): array
+    public function parseTagAttributes(array $attributes): array
     {
-        // Parse `s-val:*` attributes first
         foreach ($attributes as $key => $value) {
-            $name = $this->getSprigValAttributeName($key);
-
-            if ($name) {
-                $attributes = $this->appendValAttributes($attributes, [$name => $value]);
-            }
+            $attributes = $this->parseTagAttribute($attributes, $key, $value);
         }
 
-        foreach (self::HTMX_ATTRIBUTES as $name) {
-            $value = $this->getSprigAttributeValue($attributes, $name);
+        return $attributes;
+    }
 
-            if ($value) {
-                // Append `vals` to `hx-vals`
-                if ($name == 'vals') {
-                    $attributes = $this->appendValAttributes($attributes, Json::decode($value));
-                }
-                else {
-                    $attributes['hx-'.$name] = $value;
-                }
+    /**
+     * Parses a HTML tag returns attributes.
+     *
+     * @param array $attributes
+     * @param string $key
+     * @param string $value
+     * @return array
+     */
+    public function parseTagAttribute(array $attributes, string $key, string $value): array
+    {
+        $name = $this->getSprigAttributeName($key);
 
-                if ($name == 'vars') {
-                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-vals” or “s-val:*” attribute instead.');
-                }
+        if (!$name) {
+            return $attributes;
+        }
+
+        if (strpos($name, 'val:') === 0) {
+            $name = substr($name, 4);
+
+            return $this->appendValAttributes($attributes, [$name => $value]);
+        }
+
+        if (in_array($name, self::HTMX_ATTRIBUTES)) {
+            // Append `s-vals` to `hx-vals`
+            if ($name == 'vals') {
+                $attributes = $this->appendValAttributes($attributes, Json::decode($value));
+            }
+            else {
+                $attributes['hx-'.$name] = $value;
+            }
+
+            // Deprecate `s-vars`
+            if ($name == 'vars') {
+                Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-vals” or “s-val:*” attribute instead.');
             }
         }
 
@@ -286,16 +301,16 @@ class ComponentsService extends Component
     }
 
     /**
-     * Returns a Sprig `s-val:*` attribute name if it exists.
+     * Returns a Sprig attribute name if it exists.
      *
      * @param string $key
      * @return string
      */
-    public function getSprigValAttributeName(string $key): string
+    public function getSprigAttributeName(string $key): string
     {
         foreach (self::SPRIG_PREFIXES as $prefix) {
-            if (strpos($key, $prefix.'-val:') === 0) {
-                return StringHelper::toCamelCase(substr($key, strlen($prefix) + 5));
+            if (strpos($key, $prefix.'-') === 0) {
+                return StringHelper::toCamelCase(substr($key, strlen($prefix) + 1));
             }
         }
 
