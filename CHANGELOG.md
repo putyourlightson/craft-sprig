@@ -1,16 +1,15 @@
 # Release Notes for Sprig
 
 ## 1.1.0 - Unreleased
-> {warning} The `s-vars` attribute has been deprecated for security reasons, use the new `s-val:*` attribute or the `sprig.vals()` function instead. The magic `_url` and `_events` variables have been removed, use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
+> {warning} The `s-vars` attribute has been deprecated for security reasons, use the new `s-vals` or `s-val:*` attribute instead. The magic `_url` and `_events` variables have been removed, use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
 
-### Added
-- Added a new [s-val:*](https://putyourlightson.com/plugins/sprig#s-val:*) attribute that adds a value to a request and that should be used instead of the deprecated [s-vars](https://putyourlightson.com/plugins/sprig#s-vars).
+### Added`s-vals` or `s-val:*` attribute
+- Added the new [s-vals](https://putyourlightson.com/plugins/sprig#s-vals) and [s-val:*](https://putyourlightson.com/plugins/sprig#s-val:*) attributes that add values to a request and that should be used instead of the deprecated [s-vars](https://putyourlightson.com/plugins/sprig#s-vars).
 - Added a [sprig.paginate()](https://putyourlightson.com/plugins/sprig#sprig.paginateelementquery) template variable that paginates an element query.
 - Added a [sprig.pushUrl()](https://putyourlightson.com/plugins/sprig#sprig.pushurlurl) template variable that pushes a URL into the history stack.
 - Added a [sprig.redirect()](https://putyourlightson.com/plugins/sprig#sprig.redirecturl) template variable that redirects the browser to a URL.
 - Added a [sprig.refresh()](https://putyourlightson.com/plugins/sprig#sprig.refresh) template variable that refreshes the browser.
 - Added a [sprig.triggerEvents()](https://putyourlightson.com/plugins/sprig#sprig.triggereventsevents) template variable that triggers client-side events.
-- Added a [sprig.vals()](https://putyourlightson.com/plugins/sprig#sprig.valsvalues) template variable that adds values to a request and that should be used instead of the deprecated [s-vars](https://putyourlightson.com/plugins/sprig#s-vars).
 
 ### Changed
 - Updated htmx to version 0.4.0 ([release notes](https://htmx.org/posts/2020-11-16-htmx-0.4.0-is-released/)).
@@ -22,7 +21,7 @@
 - Fixed how array variables are handled in the playground.
 
 ### Deprecated
-- The `s-vars` attribute has been deprecated for security reasons. Use the new `s-val:*` attribute or the `sprig.vals()` function instead.
+- The `s-vars` attribute has been deprecated for security reasons. Use the new `s-vals` or `s-val:*` attribute instead.
 
 ### Security
 - Fixed a potential XSS vulnerability.

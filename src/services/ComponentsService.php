@@ -51,6 +51,11 @@ class ComponentsService extends Component
     const RENDER_CONTROLLER_ACTION = 'sprig/components/render';
 
     /**
+     * @const string[]
+     */
+    const SPRIG_PREFIXES = ['s', 'sprig'];
+
+    /**
      * TODO: remove vars
      *
      * @const string[]
@@ -107,7 +112,7 @@ class ComponentsService extends Component
             $renderedContent = Craft::$app->getView()->renderTemplate($value, $mergedVariables);
         }
 
-        $content = $this->getParsedHtml($renderedContent);
+        $content = $this->parseHtml($renderedContent);
 
         $values['sprig:'.$type] = Craft::$app->getSecurity()->hashData($value);
 
@@ -118,7 +123,7 @@ class ComponentsService extends Component
         // Allow ID to be overridden, otherwise ensure random ID does not start with a digit (to avoid a JS error)
         $id = $attributes['id'] ?? ('component-'.StringHelper::randomString(6));
 
-        // Merge base attributes with provided attributes and parsed attributes.
+        // Merge base attributes with provided attributes first, to ensure that `hx-vals` is included in the attributes when they are parsed.
         $attributes = array_merge(
             [
                 'id' => $id,
@@ -129,9 +134,10 @@ class ComponentsService extends Component
                 'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
                 'hx-vals' => Json::htmlEncode($values),
             ],
-            $attributes,
-            $this->getParsedAttributes($attributes)
+            $attributes
         );
+
+        $attributes = $this->parseAttributes($attributes);
 
         $event->output = Html::tag('div', $content, $attributes);
 
@@ -178,12 +184,12 @@ class ComponentsService extends Component
     }
 
     /**
-     * Returns parsed HTML.
+     * Parses and returns HTML.
      *
      * @param string $html
      * @return string
      */
-    public function getParsedHtml(string $html): string
+    public function parseHtml(string $html): string
     {
         if (empty(trim($html))) {
             return $html;
@@ -206,7 +212,7 @@ class ComponentsService extends Component
                 $verb = 'get';
                 $values = [];
 
-                $method = $this->getParsedAttributeValue($element->getAttributes(), 'method');
+                $method = $this->getSprigAttributeValue($element->getAttributes(), 'method');
 
                 // Make the check case-insensitive
                 if (strtolower($method) == 'post') {
@@ -216,7 +222,7 @@ class ComponentsService extends Component
                     $values[$request->csrfParam] = $request->getCsrfToken();
                 }
 
-                $action = $this->getParsedAttributeValue($element->getAttributes(), 'action');
+                $action = $this->getSprigAttributeValue($element->getAttributes(), 'action');
 
                 if ($action) {
                     $values['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
@@ -231,7 +237,7 @@ class ComponentsService extends Component
                 }
             }
 
-            $parsedAttributes = $this->getParsedAttributes($element->getAttributes());
+            $parsedAttributes = $this->parseAttributes($element->getAttributes());
 
             foreach ($parsedAttributes as $attribute => $value) {
                 $element->setAttribute($attribute, $value);
@@ -242,92 +248,70 @@ class ComponentsService extends Component
     }
 
     /**
-     * Returns parsed HTML attributes.
+     * Parses and returns HTML attributes.
      *
      * @param array $attributes
      * @return array
      */
-    public function getParsedAttributes(array $attributes): array
+    public function parseAttributes(array $attributes): array
     {
-        // Merge parsed `s-val:*` attributes with parsed htmx attributes.
-        return array_merge(
-            $this->getParsedValAttributes($attributes),
-            $this->getParsedHtmxAttributes($attributes)
-        );
-    }
-
-    /**
-     * Returns parsed `s-val:*` attributes.
-     *
-     * @param array $attributes
-     * @return array
-     */
-    public function getParsedValAttributes(array $attributes): array
-    {
-        $valAttributes = [];
-
+        // Parse `s-val:*` attributes first
         foreach ($attributes as $key => $value) {
-            if (substr($key, 0, 6) == 's-val:') {
-                $name = StringHelper::toCamelCase(substr($key, 6));
+            $name = $this->getSprigValAttributeName($key);
 
-                if ($name) {
-                    $valAttributes[$name] = $value;
-                }
+            if ($name) {
+                $attributes = $this->appendValAttributes($attributes, [$name => $value]);
             }
         }
 
-        if (empty($valAttributes)) {
-            return [];
-        }
-
-        return ['hx-vals' => Json::htmlEncode($valAttributes)];
-    }
-
-    /**
-     * Returns parsed htmx attributes.
-     *
-     * @param array $attributes
-     * @return array
-     */
-    public function getParsedHtmxAttributes(array $attributes): array
-    {
-        $parsedAttributes = [];
-
-        foreach (self::HTMX_ATTRIBUTES as $attribute) {
-            $value = $this->getParsedAttributeValue($attributes, $attribute);
+        foreach (self::HTMX_ATTRIBUTES as $name) {
+            $value = $this->getSprigAttributeValue($attributes, $name);
 
             if ($value) {
-                // Append `vals` to `hx-vals` if it already exists
-                if ($attribute == 'vals' && !empty($attributes['hx-'.$attribute])) {
-                    $value = Json::htmlEncode(array_merge(
-                        Json::decode($attributes['hx-'.$attribute]),
-                        Json::decode($value)
-                    ));
+                // Append `vals` to `hx-vals`
+                if ($name == 'vals') {
+                    $attributes = $this->appendValAttributes($attributes, Json::decode($value));
+                }
+                else {
+                    $attributes['hx-'.$name] = $value;
                 }
 
-                if ($attribute == 'vars') {
-                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-val:*” attribute or the “sprig.vals()” function instead.');
+                if ($name == 'vars') {
+                    Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-vals” or “s-val:*” attribute instead.');
                 }
-
-                $parsedAttributes['hx-'.$attribute] = $value;
             }
         }
 
-        return $parsedAttributes;
+        return $attributes;
     }
 
     /**
-     * Returns a parsed Sprig attribute value.
+     * Returns a Sprig `s-val:*` attribute name if it exists.
+     *
+     * @param string $key
+     * @return string
+     */
+    public function getSprigValAttributeName(string $key): string
+    {
+        foreach (self::SPRIG_PREFIXES as $prefix) {
+            if (strpos($key, $prefix.'-val:') === 0) {
+                return StringHelper::toCamelCase(substr($key, strlen($prefix) + 5));
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * Returns a Sprig attribute value if it exists.
      *
      * @param array $attributes
      * @param string $name
      * @return string
      */
-    public function getParsedAttributeValue(array $attributes, string $name): string
+    public function getSprigAttributeValue(array $attributes, string $name): string
     {
-        $prefixes = ['s', 'sprig'];
-
-        foreach ($prefixes as $prefix) {
+        foreach (self::SPRIG_PREFIXES as $prefix) {
             if (!empty($attributes[$prefix.'-'.$name])) {
                 return $attributes[$prefix.'-'.$name];
             }
@@ -368,6 +352,24 @@ class ComponentsService extends Component
         }
 
         return Craft::$app->getSecurity()->hashData($value);
+    }
+
+    public function appendValAttributes(array $attributes, array $valAttributes)
+    {
+        if (empty($valAttributes)) {
+            return $attributes;
+        }
+
+        if (!empty($attributes['hx-vals'])) {
+            $valAttributes = array_merge(
+                Json::decode($attributes['hx-vals']),
+                $valAttributes
+            );
+        }
+
+        $attributes['hx-vals'] = Json::htmlEncode($valAttributes);
+
+        return $attributes;
     }
 
     /**

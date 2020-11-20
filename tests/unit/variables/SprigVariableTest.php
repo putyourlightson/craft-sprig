@@ -67,20 +67,6 @@ class SprigVariableTest extends Unit
         $this->_testScriptExistsRemotely($this->variable->getHyperscript());
     }
 
-    public function testValsIsJsonEncoded()
-    {
-        $vals = $this->variable->vals(['a' => 123, 'b' => 'abc']);
-
-        $this->assertEquals('s-vals=\'{"a":123,"b":"abc"}\'', $vals);
-    }
-
-    public function testValsIsJsonEncodedAndSanitized()
-    {
-        $vals = $this->variable->vals(['x' => 'alert(\'xss\')', 'y' => 'alert("xss")']);
-
-        $this->assertEquals('s-vals=\'{"x":"alert(\u0027xss\u0027)","y":"alert(\u0022xss\u0022)"}\'', $vals);
-    }
-
     private function _testScriptExistsRemotely(string $script)
     {
         $client = Craft::createGuzzleClient();
