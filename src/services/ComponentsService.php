@@ -135,7 +135,7 @@ class ComponentsService extends Component
             $attributes
         );
 
-        $attributes = $this->parseTagAttributes($attributes);
+        $this->_parseAttributes($attributes);
 
         $event->output = Html::tag('div', $content, $attributes);
 
@@ -206,38 +206,11 @@ class ComponentsService extends Component
 
         /** @var HTML5DOMElement $element */
         foreach ($dom->getElementsByTagName('*') as $element) {
-            if ($element->hasAttribute('sprig')) {
-                $verb = 'get';
-                $values = [];
+            $attributes = $element->getAttributes();
 
-                $method = $this->getSprigAttributeValue($element->getAttributes(), 'method');
+            $this->_parseAttributes($attributes);
 
-                // Make the check case-insensitive
-                if (strtolower($method) == 'post') {
-                    $verb = 'post';
-
-                    $request = Craft::$app->getRequest();
-                    $values[$request->csrfParam] = $request->getCsrfToken();
-                }
-
-                $action = $this->getSprigAttributeValue($element->getAttributes(), 'action');
-
-                if ($action) {
-                    $values['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
-                }
-
-                $element->setAttribute('hx-'.$verb,
-                    UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION)
-                );
-
-                if (!empty($values)) {
-                    $element->setAttribute('hx-vals', Json::htmlEncode($values));
-                }
-            }
-
-            $parsedAttributes = $this->parseTagAttributes($element->getAttributes());
-
-            foreach ($parsedAttributes as $attribute => $value) {
+            foreach ($attributes as $attribute => $value) {
                 $element->setAttribute($attribute, $value);
             }
         }
@@ -246,46 +219,81 @@ class ComponentsService extends Component
     }
 
     /**
-     * Parses and returns HTML tag attributes.
+     * Parses an array of attributes.
      *
      * @param array $attributes
-     * @return array
      */
-    public function parseTagAttributes(array $attributes): array
+    public function _parseAttributes(array &$attributes)
     {
-        foreach ($attributes as $key => $value) {
-            $attributes = $this->parseTagAttribute($attributes, $key, $value);
-        }
+        $this->_parseSprigAttribute($attributes);
 
-        return $attributes;
+        foreach ($attributes as $key => $value) {
+            $this->_parseAttribute($attributes, $key, $value);
+        }
     }
 
     /**
-     * Parses a HTML tag returns attributes.
+     * Parses the Sprig attribute on an array of attributes.
+     *
+     * @param array $attributes
+     */
+    private function _parseSprigAttribute(array &$attributes)
+    {
+        // Use `array_key_exists` over `!empty` because the attributes value will be an empty string
+        if (!array_key_exists('sprig', $attributes)) {
+            return;
+        }
+
+        $verb = 'get';
+        $values = [];
+
+        $method = $this->_getSprigAttributeValue($attributes, 'method');
+
+        // Make the check case-insensitive
+        if (strtolower($method) == 'post') {
+            $verb = 'post';
+
+            $request = Craft::$app->getRequest();
+            $values[$request->csrfParam] = $request->getCsrfToken();
+        }
+
+        $attributes['hx-'.$verb] = UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION);
+
+        $action = $this->_getSprigAttributeValue($attributes, 'action');
+
+        if ($action) {
+            $values['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
+        }
+
+        if (!empty($values)) {
+            $this->_appendValAttributes($attributes, $values);
+        }
+    }
+
+    /**
+     * Parses an attribute in an array of attributes.
      *
      * @param array $attributes
      * @param string $key
      * @param string $value
-     * @return array
      */
-    public function parseTagAttribute(array $attributes, string $key, string $value): array
+    public function _parseAttribute(array &$attributes, string $key, string $value)
     {
-        $name = $this->getSprigAttributeName($key);
+        $name = $this->_getSprigAttributeName($key);
 
         if (!$name) {
-            return $attributes;
+            return;
         }
 
         if (strpos($name, 'val:') === 0) {
             $name = substr($name, 4);
 
-            return $this->appendValAttributes($attributes, [$name => $value]);
+            $this->_appendValAttributes($attributes, [$name => $value]);
         }
-
-        if (in_array($name, self::HTMX_ATTRIBUTES)) {
+        elseif (in_array($name, self::HTMX_ATTRIBUTES)) {
             // Append `s-vals` to `hx-vals`
             if ($name == 'vals') {
-                $attributes = $this->appendValAttributes($attributes, Json::decode($value));
+                $this->_appendValAttributes($attributes, Json::decode($value));
             }
             else {
                 $attributes['hx-'.$name] = $value;
@@ -296,8 +304,28 @@ class ComponentsService extends Component
                 Craft::$app->getDeprecator()->log(__METHOD__.':vars', 'The “s-vars” attribute in Sprig components has been deprecated for security reasons. Use the new “s-vals” or “s-val:*” attribute instead.');
             }
         }
+    }
 
-        return $attributes;
+    /**
+     * Appends `s-val:*` attributes to `hx-vals` attribute..
+     *
+     * @param array $attributes
+     * @param string $key
+     */
+    private function _appendValAttributes(array &$attributes, array $valAttributes)
+    {
+        if (empty($valAttributes)) {
+            return;
+        }
+
+        if (!empty($attributes['hx-vals'])) {
+            $valAttributes = array_merge(
+                Json::decode($attributes['hx-vals']),
+                $valAttributes
+            );
+        }
+
+        $attributes['hx-vals'] = Json::htmlEncode($valAttributes);
     }
 
     /**
@@ -306,7 +334,7 @@ class ComponentsService extends Component
      * @param string $key
      * @return string
      */
-    public function getSprigAttributeName(string $key): string
+    private function _getSprigAttributeName(string $key): string
     {
         foreach (self::SPRIG_PREFIXES as $prefix) {
             if (strpos($key, $prefix.'-') === 0) {
@@ -324,7 +352,7 @@ class ComponentsService extends Component
      * @param string $name
      * @return string
      */
-    public function getSprigAttributeValue(array $attributes, string $name): string
+    private function _getSprigAttributeValue(array $attributes, string $name): string
     {
         foreach (self::SPRIG_PREFIXES as $prefix) {
             if (!empty($attributes[$prefix.'-'.$name])) {
@@ -367,24 +395,6 @@ class ComponentsService extends Component
         }
 
         return Craft::$app->getSecurity()->hashData($value);
-    }
-
-    public function appendValAttributes(array $attributes, array $valAttributes)
-    {
-        if (empty($valAttributes)) {
-            return $attributes;
-        }
-
-        if (!empty($attributes['hx-vals'])) {
-            $valAttributes = array_merge(
-                Json::decode($attributes['hx-vals']),
-                $valAttributes
-            );
-        }
-
-        $attributes['hx-vals'] = Json::htmlEncode($valAttributes);
-
-        return $attributes;
     }
 
     /**
