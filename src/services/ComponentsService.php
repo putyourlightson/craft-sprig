@@ -290,6 +290,11 @@ class ComponentsService extends Component
 
             $this->_appendValAttributes($attributes, [$name => $value]);
         }
+        elseif ($name == 'replace') {
+            $attributes['hx-select'] = $value;
+            $attributes['hx-target'] = $value;
+            $attributes['hx-swap'] = 'outerHTML';
+        }
         elseif (in_array($name, self::HTMX_ATTRIBUTES)) {
             // Append `s-vals` to `hx-vals`
             if ($name == 'vals') {
