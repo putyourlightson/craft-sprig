@@ -107,7 +107,7 @@
     Hello, {{ currentUser.friendlyName }}!
 </h1>
 
-<button sprig s-vars="count:{{ count + 1 }}" class="btn submit">
+<button sprig s-val:count="{{ count + 1 }}" class="btn submit">
     Re-render
 </button>
 

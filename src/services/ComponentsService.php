@@ -198,7 +198,7 @@ class ComponentsService extends Component
 
         // Surround html with body tag to ensure script tags are not tampered with
         // https://github.com/putyourlightson/craft-sprig/issues/34
-        $html = '<!doctype html><html><body>'.$html.'</body></html>';
+        $html = '<!doctype html><html lang=""><body>'.$html.'</body></html>';
 
         // Allow duplicate IDs to avoid an error being thrown
         // https://github.com/ivopetkov/html5-dom-document-php/issues/21
@@ -310,7 +310,7 @@ class ComponentsService extends Component
      * Appends `s-val:*` attributes to `hx-vals` attribute..
      *
      * @param array $attributes
-     * @param string $key
+     * @param array $valAttributes
      */
     private function _appendValAttributes(array &$attributes, array $valAttributes)
     {
