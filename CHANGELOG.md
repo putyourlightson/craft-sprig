@@ -1,10 +1,10 @@
 # Release Notes for Sprig
 
-## 1.1.0 - Unreleased
-> {warning} The `s-vars` attribute has been deprecated for security reasons, use the new `s-vals` or `s-val:*` attribute instead. The magic `_url` and `_events` variables have been removed, use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
+## 1.1.0 - 2020-11-23
+> {warning} The `s-vars` attribute has been deprecated for security reasons, use the new `s-vals` or `s-val:*` attribute instead (read the details [here](https://putyourlightson.com/articles/sprig-1-1-0-released)). The magic `_url` and `_events` variables have been removed, use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
 
 ### Added
-- Added new [s-vals](https://putyourlightson.com/plugins/sprig#s-vals) and [s-val:*](https://putyourlightson.com/plugins/sprig#s-val:*) attributes that add values to a request and that should be used instead of the deprecated [s-vars](https://putyourlightson.com/plugins/sprig#s-vars).
+- Added new [s-vals](https://putyourlightson.com/plugins/sprig#s-vals) and [s-val:*](https://putyourlightson.com/plugins/sprig#s-val) attributes that add values to a request and that should be used instead of the deprecated [s-vars](https://putyourlightson.com/plugins/sprig#s-vars).
 - Added a new [s-replace](https://putyourlightson.com/plugins/sprig#s-replace) attribute that replaces only the specified element in the component. 
 - Added a [sprig.paginate()](https://putyourlightson.com/plugins/sprig#sprig.paginateelementquery) template variable that paginates an element query.
 - Added a [sprig.pushUrl()](https://putyourlightson.com/plugins/sprig#sprig.pushurlurl) template variable that pushes a URL into the history stack.
