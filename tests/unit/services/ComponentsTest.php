@@ -39,7 +39,7 @@ class ComponentsTest extends Unit
         $markup = Sprig::$plugin->components->create(
             '_component',
             ['number' => '15'],
-            ['id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1']
+            ['id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1', 's-push-url' => 'new-url']
         );
         $html = (string)$markup;
 
@@ -48,6 +48,7 @@ class ComponentsTest extends Unit
         $this->assertStringContainsString('hx-trigger="load"', $html);
         $this->assertStringContainsString('sprig:template', $html);
         $this->assertStringContainsString('limit:1', $html);
+        $this->assertStringContainsString('hx-push-url="new-url"', $html);
         $this->assertStringContainsString('xyz 15', $html);
     }
 

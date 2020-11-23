@@ -1,5 +1,10 @@
 # Release Notes for Sprig
 
+## 1.1.1 - Unreleased
+
+### Fixed
+- Fixed a bug that was preventing the `s-push-url` attribute from being parsed ([#62](https://github.com/putyourlightson/craft-sprig/issues/62)).
+
 ## 1.1.0 - 2020-11-23
 > {warning} The `s-vars` attribute has been deprecated for security reasons, use the new `s-vals` or `s-val:*` attribute instead (read the details [here](https://putyourlightson.com/articles/sprig-1-1-0-released)). The magic `_url` and `_events` variables have been removed, use the new `sprig.pushUrl()` and `sprig.triggerEvents()` functions instead.
 

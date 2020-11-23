@@ -286,7 +286,7 @@ class ComponentsService extends Component
         }
 
         if (strpos($name, 'val:') === 0) {
-            $name = substr($name, 4);
+            $name = StringHelper::toCamelCase(substr($name, 4));
 
             $this->_appendValAttributes($attributes, [$name => $value]);
         }
@@ -343,7 +343,7 @@ class ComponentsService extends Component
     {
         foreach (self::SPRIG_PREFIXES as $prefix) {
             if (strpos($key, $prefix.'-') === 0) {
-                return StringHelper::toCamelCase(substr($key, strlen($prefix) + 1));
+                return substr($key, strlen($prefix) + 1);
             }
         }
 
