@@ -1,9 +1,8 @@
 # Release Notes for Sprig
 
-## 1.1.1 - Unreleased
-
+## 1.1.1 - 2020-11-24
 ### Changed
-- Updated htmx to version 0.4.1 ([release notes](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#041---2020-11-23)).
+- Updated htmx to version 1.0.0 ([release notes](https://htmx.org/posts/2020-11-24-htmx-1.0.0-is-released/)).
 
 ### Fixed
 - Fixed a bug that was preventing the `s-push-url` attribute from being parsed ([#62](https://github.com/putyourlightson/craft-sprig/issues/62)).
