@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.1.2 - Unreleased
+### Added
+- Added the `s-encoding` attribute.
+
 ## 1.1.1 - 2020-11-24
 ### Changed
 - Updated htmx to version 1.0.0 ([release notes](https://htmx.org/posts/2020-11-24-htmx-1.0.0-is-released/)).
