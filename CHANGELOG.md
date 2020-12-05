@@ -1,8 +1,14 @@
 # Release Notes for Sprig
 
-## 1.1.2 - Unreleased
+## 1.2.0 - Unreleased
 ### Added
-- Added the `s-encoding` attribute.
+- Added a new [s-encoding](https://putyourlightson.com/plugins/sprig#s-encoding) attribute that can be used to set the encoding of requests to `multipart/form-data` for file uploads.
+
+### Changed
+- Updated htmx to version 1.0.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md)).
+
+### Deprecated
+- The `sprig.hyperscript` function has been deprecated. Import hyperscript in your templates manually instead.
 
 ## 1.1.1 - 2020-11-24
 ### Changed

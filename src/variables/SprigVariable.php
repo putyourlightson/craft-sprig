@@ -9,7 +9,6 @@ use Craft;
 use craft\db\Paginator;
 use craft\db\Query;
 use craft\helpers\Html;
-use craft\helpers\Json;
 use craft\helpers\Template;
 use putyourlightson\sprig\base\Component;
 use putyourlightson\sprig\Sprig;
@@ -21,7 +20,7 @@ class SprigVariable
     /**
      * @var string
      */
-    public $htmxVersion = '1.0.0';
+    public $htmxVersion = '1.0.1';
 
     /**
      * @var string
@@ -44,9 +43,12 @@ class SprigVariable
      *
      * @param array $attributes
      * @return Markup
+     * @deprecated
      */
     public function getHyperscript(array $attributes = []): Markup
     {
+        Craft::$app->getDeprecator()->log(__METHOD__, 'The “sprig.hyperscript” function has been deprecated. Import hyperscript in your templates manually instead.');
+
         return $this->_getScript('hyperscript', $this->hyperscriptVersion, $attributes);
     }
 

@@ -319,6 +319,14 @@ return (function () {
             while (elt = elt && parentElt(elt));
         }
 
+        function resolveTarget(arg2) {
+            if (isType(arg2, 'String')) {
+                return find(arg2);
+            } else {
+                return arg2;
+            }
+        }
+
         function processEventArgs(arg1, arg2, arg3) {
             if (isFunction(arg2)) {
                 return {
@@ -328,7 +336,7 @@ return (function () {
                 }
             } else {
                 return {
-                    target: arg1,
+                    target: resolveTarget(arg1),
                     event: arg2,
                     listener: arg3
                 }
@@ -1481,7 +1489,7 @@ return (function () {
             if (shouldInclude(elt)) {
                 var name = getRawAttribute(elt,"name");
                 var value = elt.value;
-                if (!!getRawAttribute(elt, 'multiple')) {
+                if (elt.multiple) {
                     value = toArray(elt.querySelectorAll("option:checked")).map(function (e) { return e.value });
                 }
                 // include file inputs
@@ -2063,9 +2071,15 @@ return (function () {
             addRequestIndicatorClasses(elt);
 
             forEach(['loadstart', 'loadend', 'progress', 'abort'], function(eventName) {
-                xhr.addEventListener(eventName, function(event){
-                    triggerEvent(elt, "htmx:xhr:" + eventName, mergeObjects({}, event));
-                })
+                forEach([xhr, xhr.upload], function (target) {
+                    target.addEventListener(eventName, function(event){
+                        triggerEvent(elt, "htmx:xhr:" + eventName, {
+                            lengthComputable:event.lengthComputable,
+                            loaded:event.loaded,
+                            total:event.total
+                        });
+                    })
+                });
             });
             xhr.send(verb === 'get' ? null : encodeParamsForBody(xhr, elt, filteredParameters));
         }
