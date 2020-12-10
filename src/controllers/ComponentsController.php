@@ -73,10 +73,10 @@ class ComponentsController extends Controller
      */
     private function _runActionInternal(string $action): array
     {
-        $response = Craft::$app->runAction($action);
+        $actionResponse = Craft::$app->runAction($action);
 
         $variables = Craft::$app->getUrlManager()->getRouteParams() ?: [];
-        $variables['success'] = $response !== null;
+        $variables['success'] = $actionResponse !== null;
 
         return $variables;
     }
