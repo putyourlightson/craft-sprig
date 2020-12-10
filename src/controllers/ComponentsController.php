@@ -25,8 +25,6 @@ class ComponentsController extends Controller
      */
     public function actionRender(): Response
     {
-        $response = Craft::$app->getResponse();
-
         $siteId = Sprig::$plugin->request->getValidatedParam('sprig:siteId');
         Craft::$app->getSites()->setCurrentSite($siteId);
 
@@ -61,13 +59,10 @@ class ComponentsController extends Controller
             $content = Craft::$app->getView()->renderTemplate($template, $variables);
         }
 
-        // Force 200 status code and set format to HTML
-        $response->statusCode = 200;
-        $response->format = $response::FORMAT_HTML;
+        $this->response->statusCode = 200;
+        $this->response->data = Sprig::$plugin->components->parseHtml($content);
 
-        $response->data = Sprig::$plugin->components->parseHtml($content);
-
-        return $response;
+        return $this->response;
     }
 
     /**
@@ -78,22 +73,11 @@ class ComponentsController extends Controller
      */
     private function _runActionInternal(string $action): array
     {
-        // Force the request to be an AJAX request that accepts JSON only
-        Craft::$app->getRequest()->getHeaders()->set('X-Requested-With', 'XMLHttpRequest');
-        Craft::$app->getRequest()->setAcceptableContentTypes(['application/json' => []]);
-
         $response = Craft::$app->runAction($action);
 
-        if (!empty($response->data)) {
-            if (is_array($response->data)) {
-                return $response->data;
-            }
+        $variables = Craft::$app->getUrlManager()->getRouteParams() ?: [];
+        $variables['success'] = $response !== null;
 
-            if ($response->data instanceof Model) {
-                return $response->data->getAttributes();
-            }
-        }
-
-        return [];
+        return $variables;
     }
 }
