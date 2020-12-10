@@ -2,7 +2,7 @@
 
 ## 1.2.0 - Unreleased
 ### Added
-- Added a new [s-encoding](https://putyourlightson.com/plugins/sprig#s-encoding) attribute that can be used to set the encoding of requests to `multipart/form-data` for file uploads.
+- Added a new [s-encoding](https://putyourlightson.com/plugins/sprig#s-encoding) attribute that can be used to set the encoding of requests to `multipart/form-data` for file uploads ([#9](https://github.com/putyourlightson/craft-sprig/issues/9)).
 
 ### Changed
 - Updated htmx to version 1.0.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md)).
