@@ -73,10 +73,30 @@ class ComponentsController extends Controller
      */
     private function _runActionInternal(string $action): array
     {
+        // Add a redirect to the body params so we can extract the ID on success
+        $redirectPrefix = 'http://';
+        Craft::$app->getRequest()->setBodyParams(array_merge(
+            Craft::$app->getRequest()->getBodyParams(),
+            ['redirect' => Craft::$app->getSecurity()->hashData($redirectPrefix.'{id}')]
+        ));
+
         $actionResponse = Craft::$app->runAction($action);
 
+        // Extract the variables from the route params which are generally set when there are errors
         $variables = Craft::$app->getUrlManager()->getRouteParams() ?: [];
-        $variables['success'] = $actionResponse !== null;
+
+        $success = $actionResponse !== null;
+        $variables['success'] = $success;
+
+        if ($success) {
+            $variables['id'] = str_replace($redirectPrefix, '', $this->response->getHeaders()->get('location'));
+
+            // Remove the redirect header
+            $this->response->getHeaders()->remove('location');
+        }
+
+        // Set flash messages variable and delete them
+        $variables['flashMessages'] = Craft::$app->getSession()->getAllFlashes(true);
 
         return $variables;
     }
