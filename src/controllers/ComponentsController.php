@@ -96,7 +96,7 @@ class ComponentsController extends Controller
         }
 
         // Set flash messages variable and delete them
-        $variables['flashMessages'] = Craft::$app->getSession()->getAllFlashes(true);
+        $variables['flashes'] = Craft::$app->getSession()->getAllFlashes(true);
 
         return $variables;
     }
