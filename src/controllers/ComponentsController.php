@@ -85,6 +85,16 @@ class ComponentsController extends Controller
         // Extract the variables from the route params which are generally set when there are errors
         $variables = Craft::$app->getUrlManager()->getRouteParams() ?: [];
 
+        // TODO: remove in 2.0.0
+        // Extract errors from the route param variables to maintain backwards compatibility.
+        foreach ($variables as $routeParamVariable) {
+            if ($routeParamVariable instanceof Model) {
+                $variables['errors'] = $routeParamVariable->getErrors();
+
+                break;
+            }
+        }
+
         $success = $actionResponse !== null;
         $variables['success'] = $success;
 
