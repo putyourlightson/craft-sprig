@@ -5,11 +5,11 @@
 - Added the following return variables when controller actions are called.
     - `success` (boolean) whether the action succeeded.
     - `flashes` (array) flash messages set by the action, keyed by type (`notice` or `error`).
-    - `id` (integer) the ID of a model if one was successfully created/updated.
+    - `id` (integer) the ID of the model if one was successfully created/updated.
     - `modelName` (model) a model that failed validation, for example `entry` when `entries/save-entry` fails or `user` when `users/save-user` fails.
 
 ### Deprecated
-- The `errors` variable has been deprecation. Use the `getErrors()` method on the model that is returned when validation failed.
+- The `errors` variable has been deprecation. Use the `getErrors()` method on the model that is returned when validation fails.
 
 ```twig
 {# OLD way of handling errors #}
