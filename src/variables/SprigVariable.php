@@ -20,7 +20,7 @@ class SprigVariable
     /**
      * @var string
      */
-    public $htmxVersion = '1.0.1';
+    public $htmxVersion = '1.0.2';
 
     /**
      * @var string

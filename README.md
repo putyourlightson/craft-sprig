@@ -14,13 +14,11 @@ Sprig enables common use-cases such as the following while completely avoiding f
 - Adding products to a cart
 - Submitting forms
 
-View working examples in the [Sprig cookbook](https://putyourlightson.com/sprig-cookbook), listen to the [devMode.fm podcast](https://devmode.fm/episodes/sprig-brings-reactivity-to-twig) or watch the [CraftQuest livestream](https://craftquest.io/livestreams/sprig-reactive-components-twig) to learn more.
+**Read the full documentation at [putyourlightson.com/plugins/sprig »](https://putyourlightson.com/plugins/sprig)**
+
+To see working examples and video tutorials, visit the [learning resources](https://putyourlightson.com/sprig).
 
 ![Demo](https://putyourlightson.com/assets/images/plugins/sprig/search-demo.gif)
-
-## Documentation
-
-Learn more and read the documentation at [putyourlightson.com/plugins/sprig »](https://putyourlightson.com/plugins/sprig)
 
 ## License
 

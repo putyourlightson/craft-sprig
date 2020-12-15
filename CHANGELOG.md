@@ -1,14 +1,14 @@
 # Release Notes for Sprig
 
-## 1.2.0 - Unreleased
+## 1.2.0 - 2020-12-14
 ### Added
 - Added a new [s-encoding](https://putyourlightson.com/plugins/sprig#s-encoding) attribute that can be used to set the encoding of requests to `multipart/form-data` for file uploads ([#9](https://github.com/putyourlightson/craft-sprig/issues/9)).
 
 ### Changed
-- Updated htmx to version 1.0.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md)).
+- Updated htmx to version 1.0.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#102---2020-12-12)).
 
 ### Deprecated
-- The `sprig.hyperscript` function has been deprecated. Import hyperscript in your templates manually instead.
+- The `sprig.hyperscript` function has been deprecated. Use the [htmx JS API](https://htmx.org/reference/#api) or [import hyperscript](https://hyperscript.org/docs/) in your templates manually instead.
 
 ## 1.1.1 - 2020-11-24
 ### Changed
@@ -60,8 +60,8 @@
 
 ## 1.0.0 - 2020-10-21
 ### Added
-- Added Sprig playground.
-- Added new Sprig logo.
+- Added the Sprig playground.
+- Added a new Sprig logo.
 
 ## 1.0.0-beta.18.1 - 2020-10-19
 ### Fixed
