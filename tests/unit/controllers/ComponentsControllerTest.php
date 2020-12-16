@@ -7,6 +7,7 @@ namespace putyourlightson\sprigtests\unit\controllers;
 
 use Codeception\Test\Unit;
 use Craft;
+use craft\web\View;
 use putyourlightson\sprig\Sprig;
 use putyourlightson\sprig\test\mockclasses\controllers\TestController;
 use UnitTester;
@@ -35,6 +36,7 @@ class ComponentsControllerTest extends Unit
         // Add test controller
         Sprig::$plugin->controllerMap = ['test' => TestController::class];
 
+        Craft::$app->getView()->setTemplateMode(View::TEMPLATE_MODE_SITE);
         Craft::$app->getView()->setTemplatesPath(Craft::getAlias('@templates'));
     }
 
@@ -60,7 +62,7 @@ class ComponentsControllerTest extends Unit
         /** @var Response $response */
         $response = Sprig::$plugin->runAction('components/render');
 
-        $this->assertEquals('', trim($response->data));
+        $this->assertStringContainsString('success:false', trim($response->data));
     }
 
     public function testRenderArray()
@@ -73,7 +75,7 @@ class ComponentsControllerTest extends Unit
         /** @var Response $response */
         $response = Sprig::$plugin->runAction('components/render');
 
-        $this->assertEquals('<span>success</span>', trim($response->data));
+        $this->assertStringContainsString('success:true', trim($response->data));
     }
 
     public function testRenderModel()
@@ -86,19 +88,36 @@ class ComponentsControllerTest extends Unit
         /** @var Response $response */
         $response = Sprig::$plugin->runAction('components/render');
 
-        $this->assertEquals('<span>success</span>', trim($response->data));
+        $this->assertStringContainsString('success:true', trim($response->data));
     }
 
-    public function testRenderAsAjaxRequest()
+    public function testControllerActionSuccess()
     {
-        Craft::$app->getRequest()->setQueryParams([
+        Craft::$app->getRequest()->setBodyParams([
             'sprig:template' => Craft::$app->getSecurity()->hashData('_action'),
-            'sprig:action' => Craft::$app->getSecurity()->hashData('sprig/test/get-null'),
+            'sprig:action' => Craft::$app->getSecurity()->hashData('sprig/test/save-success'),
         ]);
 
-        Sprig::$plugin->runAction('components/render');
+        /** @var Response $response */
+        $response = Sprig::$plugin->runAction('components/render');
 
-        $this->assertTrue(Craft::$app->getRequest()->getAcceptsJson());
-        $this->assertTrue(Craft::$app->getRequest()->getIsAjax());
+        $this->assertStringContainsString('success:true', trim($response->data));
+        $this->assertStringContainsString('id:1', trim($response->data));
+        $this->assertStringContainsString('flashes[notice]:Success', trim($response->data));
+    }
+
+    public function testControllerActionError()
+    {
+        Craft::$app->getRequest()->setBodyParams([
+            'sprig:template' => Craft::$app->getSecurity()->hashData('_action'),
+            'sprig:action' => Craft::$app->getSecurity()->hashData('sprig/test/save-error'),
+        ]);
+
+        /** @var Response $response */
+        $response = Sprig::$plugin->runAction('components/render');
+
+        $this->assertStringContainsString('success:false', trim($response->data));
+        $this->assertStringContainsString('flashes[error]:Error', trim($response->data));
+        $this->assertStringContainsString('model', trim($response->data));
     }
 }
