@@ -119,5 +119,6 @@ class ComponentsControllerTest extends Unit
         $this->assertStringContainsString('success:false', trim($response->data));
         $this->assertStringContainsString('flashes[error]:Error', trim($response->data));
         $this->assertStringContainsString('model', trim($response->data));
+        $this->assertStringContainsString('errors', trim($response->data));
     }
 }
