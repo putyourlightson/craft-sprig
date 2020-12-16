@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.2.0 - 2020-12-14
+## 1.2.0 - 2020-12-16
 ### Added
 - Added a new [s-encoding](https://putyourlightson.com/plugins/sprig#s-encoding) attribute that can be used to set the encoding of requests to `multipart/form-data` for file uploads ([#9](https://github.com/putyourlightson/craft-sprig/issues/9)).
 
