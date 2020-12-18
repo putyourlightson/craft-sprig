@@ -1,3 +1,6 @@
+[![Stable Version](https://img.shields.io/packagist/v/putyourlightson/craft-sprig?label=stable)]((https://packagist.org/packages/putyourlightson/craft-sprig))
+[![Total Downloads](https://img.shields.io/packagist/dt/putyourlightson/craft-sprig)](https://packagist.org/packages/putyourlightson/craft-sprig)
+
 <p align="center"><img width="150" src="https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/src/icon.svg"></p>
 
 # Sprig

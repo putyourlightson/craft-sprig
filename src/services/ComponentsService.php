@@ -239,13 +239,13 @@ class ComponentsService extends Component
      */
     private function _parseSprigAttribute(array &$attributes)
     {
-        // Use `array_key_exists` over `!empty` because the attributes value will be an empty string
-        if (!array_key_exists('sprig', $attributes)) {
+        // Use `!isset` over `!empty` because the attributes value will be an empty string
+        if (!isset($attributes['sprig'])) {
             return;
         }
 
         $verb = 'get';
-        $values = [];
+        $params = [];
 
         $method = $this->_getSprigAttributeValue($attributes, 'method');
 
@@ -254,20 +254,19 @@ class ComponentsService extends Component
             $verb = 'post';
 
             $request = Craft::$app->getRequest();
-            $values[$request->csrfParam] = $request->getCsrfToken();
-        }
 
-        $attributes['hx-'.$verb] = UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION);
+            $this->_appendValAttributes($attributes, [
+                $request->csrfParam => $request->getCsrfToken(),
+            ]);
+        }
 
         $action = $this->_getSprigAttributeValue($attributes, 'action');
 
         if ($action) {
-            $values['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
+            $params['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
         }
 
-        if (!empty($values)) {
-            $this->_appendValAttributes($attributes, $values);
-        }
+        $attributes['hx-'.$verb] = UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION, $params);
     }
 
     /**
