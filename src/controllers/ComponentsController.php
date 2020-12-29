@@ -25,8 +25,6 @@ class ComponentsController extends Controller
      */
     public function actionRender(): Response
     {
-        $response = Craft::$app->getResponse();
-
         $siteId = Sprig::$plugin->request->getValidatedParam('sprig:siteId');
         Craft::$app->getSites()->setCurrentSite($siteId);
 
@@ -61,13 +59,10 @@ class ComponentsController extends Controller
             $content = Craft::$app->getView()->renderTemplate($template, $variables);
         }
 
-        // Force 200 status code and set format to HTML
-        $response->statusCode = 200;
-        $response->format = $response::FORMAT_HTML;
+        $this->response->statusCode = 200;
+        $this->response->data = Sprig::$plugin->components->parseHtml($content);
 
-        $response->data = Sprig::$plugin->components->parseHtml($content);
-
-        return $response;
+        return $this->response;
     }
 
     /**
@@ -78,22 +73,41 @@ class ComponentsController extends Controller
      */
     private function _runActionInternal(string $action): array
     {
-        // Force the request to be an AJAX request that accepts JSON only
-        Craft::$app->getRequest()->getHeaders()->set('X-Requested-With', 'XMLHttpRequest');
-        Craft::$app->getRequest()->setAcceptableContentTypes(['application/json' => []]);
+        // Add a redirect to the body params so we can extract the ID on success
+        $redirectPrefix = 'http://';
+        Craft::$app->getRequest()->setBodyParams(array_merge(
+            Craft::$app->getRequest()->getBodyParams(),
+            ['redirect' => Craft::$app->getSecurity()->hashData($redirectPrefix.'{id}')]
+        ));
 
-        $response = Craft::$app->runAction($action);
+        $actionResponse = Craft::$app->runAction($action);
 
-        if (!empty($response->data)) {
-            if (is_array($response->data)) {
-                return $response->data;
-            }
+        // Extract the variables from the route params which are generally set when there are errors
+        $variables = Craft::$app->getUrlManager()->getRouteParams() ?: [];
 
-            if ($response->data instanceof Model) {
-                return $response->data->getAttributes();
+        // TODO: remove in 2.0.0
+        // Extract errors from the route param variables to maintain backwards compatibility.
+        foreach ($variables as $routeParamVariable) {
+            if ($routeParamVariable instanceof Model) {
+                $variables['errors'] = $routeParamVariable->getErrors();
+
+                break;
             }
         }
 
-        return [];
+        $success = $actionResponse !== null;
+        $variables['success'] = $success;
+
+        if ($success) {
+            $variables['id'] = str_replace($redirectPrefix, '', $this->response->getHeaders()->get('location'));
+
+            // Remove the redirect header
+            $this->response->getHeaders()->remove('location');
+        }
+
+        // Set flash messages variable and delete them
+        $variables['flashes'] = Craft::$app->getSession()->getAllFlashes(true);
+
+        return $variables;
     }
 }

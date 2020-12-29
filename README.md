@@ -5,7 +5,7 @@
 
 # Sprig
 
-### A reactive Twig component framework for Craft.
+### A reactive Twig component framework for Craft CMS.
 
 Sprig is a free plugin for [Craft CMS](https://craftcms.com/) that allows you to create reactive components from Twig templates and/or PHP classes. These components can re-render themselves on user-triggered events (clicks, changes to input fields, form submissions, etc.) using AJAX requests, without requiring you to write a single line of JavaScript. 
 
