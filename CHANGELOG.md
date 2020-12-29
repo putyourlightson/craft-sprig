@@ -8,6 +8,10 @@
     - `id` (integer) the ID of the model if one was successfully created/updated.
     - `modelName` (model) a model that failed validation, for example `entry` when `entries/save-entry` fails or `user` when `users/save-user` fails.
 
+### Changed
+- Craft 3.1.19 or higher is required.
+- Updated htmx to version 1.0.X ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#102---2020-12-12)).
+
 ### Deprecated
 - The `errors` variable has been deprecation. Use the `getErrors()` method on the model that is returned when validation fails.
 

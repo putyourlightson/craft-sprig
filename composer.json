@@ -5,7 +5,7 @@
     "type": "craft-plugin",
     "license": "mit",
     "require": {
-        "craftcms/cms": "^3.0.0",
+        "craftcms/cms": "^3.1.19",
         "ivopetkov/html5-dom-document-php": "^2.0.0"
     },
     "require-dev": {
