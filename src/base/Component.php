@@ -50,46 +50,6 @@ abstract class Component extends BaseComponent implements ComponentInterface
     }
 
     /**
-     * Returns the ID of the active element.
-     *
-     * @return string
-     */
-    public static function getElement(): string
-    {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Active-Element', '', true);
-    }
-
-    /**
-     * Returns the name of the active element.
-     *
-     * @return string
-     */
-    public static function getElementName(): string
-    {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Active-Element-Name', '', true);
-    }
-
-    /**
-     * Returns the value of the active element.
-     *
-     * @return string
-     */
-    public static function getElementValue(): string
-    {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Active-Element-Name', '', true);
-    }
-
-    /**
-     * Returns the ID of the original target of the event that triggered the request.
-     *
-     * @return string
-     */
-    public static function getEventTarget(): string
-    {
-        return Craft::$app->getRequest()->getHeaders()->get('HX-Event-Target', '', true);
-    }
-
-    /**
      * Returns the value entered by the user when prompted via `s-prompt` or `hx-prompt`.
      *
      * @return string

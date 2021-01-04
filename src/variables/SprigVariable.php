@@ -20,7 +20,14 @@ class SprigVariable
     /**
      * @var string
      */
-    public $htmxVersion = '1.0.2';
+    public $htmxVersion = '1.1.0';
+
+    /**
+     * Generate the SRI hash at https://www.srihash.org/
+     *
+     * @var string
+     */
+    public $htmxSRIHash = 'sha384-';
 
     /**
      * @var string
@@ -35,6 +42,11 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
+        // Add subresource integrity
+        // https://github.com/bigskysoftware/htmx/issues/261
+        $attributes['integrity'] = $this->htmxSRIHash;
+        $attributes['crossorigin'] = 'anonymous';
+
         return $this->_getScript('htmx', $this->htmxVersion, $attributes);
     }
 
@@ -76,40 +88,52 @@ class SprigVariable
      * Returns the ID of the active element.
      *
      * @return string
+     * @deprecated
      */
     public function getElement(): string
     {
-        return Component::getElement();
+        Craft::$app->getDeprecator()->log(__METHOD__, 'The “sprig.element” tag has been deprecated and should be removed from templates.');
+
+        return '';
     }
 
     /**
      * Returns the name of the active element.
      *
      * @return string
+     * @deprecated
      */
     public function getElementName(): string
     {
-        return Component::getElementName();
+        Craft::$app->getDeprecator()->log(__METHOD__, 'The “sprig.elementName” tag has been deprecated and should be removed from templates.');
+
+        return '';
     }
 
     /**
      * Returns the value of the active element.
      *
      * @return string
+     * @deprecated
      */
     public function getElementValue(): string
     {
-        return Component::getElementValue();
+        Craft::$app->getDeprecator()->log(__METHOD__, 'The “sprig.elementValue” tag has been deprecated and should be removed from templates.');
+
+        return '';
     }
 
     /**
      * Returns the ID of the original target of the event that triggered the request.
      *
      * @return string
+     * @deprecated
      */
     public function getEventTarget(): string
     {
-        return Component::getEventTarget();
+        Craft::$app->getDeprecator()->log(__METHOD__, 'The “sprig.eventTarget” tag has been deprecated and should be removed from templates.');
+
+        return '';
     }
 
     /**

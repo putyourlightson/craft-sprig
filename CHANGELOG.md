@@ -7,10 +7,11 @@
     - `flashes` (array) flash messages set by the action, keyed by type (`notice` or `error`).
     - `id` (integer) the ID of the model if one was successfully created/updated.
     - `modelName` (model) a model that failed validation, for example `entry` when `entries/save-entry` fails or `user` when `users/save-user` fails.
+- Added [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) to the htmx script tag when fetching from a CDN for added security.
 
 ### Changed
 - Craft 3.1.19 or higher is required.
-- Updated htmx to version 1.0.X ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#102---2020-12-12)).
+- Updated htmx to version 1.1.0 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#110---2021-1-8)).
 
 ### Deprecated
 - The `errors` variable has been deprecation. Use the `getErrors()` method on the model that is returned when validation fails.
@@ -26,6 +27,8 @@
     {{ entry.getFirstError('title') }}
 {% endif %}
 ```
+
+- The `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags have been deprecated and should be removed from templates.
 
 ## 1.2.0 - 2020-12-14
 ### Added
