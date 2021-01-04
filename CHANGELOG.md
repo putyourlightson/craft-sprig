@@ -11,8 +11,8 @@
 - Added a [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) attribute to the htmx script tag when fetching from a CDN for added security.
 
 ### Changed
-- Craft 3.1.19 or higher is required.
 - Updated htmx to version 1.1.0 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#110---2021-1-8)).
+- Requires Craft 3.1.19 or higher.
 
 ### Deprecated
 - The `errors` variable has been deprecation. Use the `getErrors()` method on the model that is returned when validation fails.
@@ -29,7 +29,7 @@
 {% endif %}
 ```
 
-- The `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags have been deprecated and should be removed from templates.
+- The `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags have been deprecated, will each return a blank string since being removed from htmx 1.1.0, and should be removed from templates.
 
 ## 1.2.0 - 2020-12-14
 ### Added
