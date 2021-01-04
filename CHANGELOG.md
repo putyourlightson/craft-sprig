@@ -7,7 +7,8 @@
     - `flashes` (array) flash messages set by the action, keyed by type (`notice` or `error`).
     - `id` (integer) the ID of the model if one was successfully created/updated.
     - `modelName` (model) a model that failed validation, for example `entry` when `entries/save-entry` fails or `user` when `users/save-user` fails.
-- Added [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) to the htmx script tag when fetching from a CDN for added security.
+- Added a new [hx-preserve](https://htmx.org/attributes/hx-preserve/) attribute, which specifies that an element should be unaffected by re-rendering.
+- Added a [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) attribute to the htmx script tag when fetching from a CDN for added security.
 
 ### Changed
 - Craft 3.1.19 or higher is required.

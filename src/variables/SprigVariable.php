@@ -42,11 +42,6 @@ class SprigVariable
      */
     public function getScript(array $attributes = []): Markup
     {
-        // Add subresource integrity
-        // https://github.com/bigskysoftware/htmx/issues/261
-        $attributes['integrity'] = $this->htmxSRIHash;
-        $attributes['crossorigin'] = 'anonymous';
-
         return $this->_getScript('htmx', $this->htmxVersion, $attributes);
     }
 
@@ -260,6 +255,15 @@ class SprigVariable
         if (Craft::$app->getConfig()->env == 'dev') {
             $path = '@putyourlightson/sprig/resources/js/'.$name.'-'.$version.'.js';
             $url = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
+        }
+        else {
+            // TODO: remove this conditional in 2.0.0
+            if ($name == 'htmx') {
+                // Add subresource integrity
+                // https://github.com/bigskysoftware/htmx/issues/261
+                $attributes['integrity'] = $this->htmxSRIHash;
+                $attributes['crossorigin'] = 'anonymous';
+            }
         }
 
         $script = Html::jsFile($url, $attributes);

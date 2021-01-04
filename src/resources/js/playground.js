@@ -116,18 +116,22 @@ function getCompletionItems()
     let suggestionLabels = [
         's-action=""',
         's-method=""', 's-method="post"',
+        's-boost=""', 's-boost="true"',
         's-confirm=""', 's-confirm="Are you sure?"',
+        's-encoding=""', 's-encoding="multipart/form-data"',
         's-include=""',
         's-indicator=""',
         's-params=""',
+        's-preserve=""', 's-preserve="true"',
         's-prompt=""',
         's-push-url=""',
         's-select=""',
+        's-swap-oob=""',
         's-swap=""', 's-swap="innerHTML"', 's-swap="outerHTML"', 's-swap="beforebegin"', 's-swap="afterbegin"', 's-swap="beforeend"', 's-swap="afterend"',
         's-swap-oob=""',
         's-target=""', 's-target="this"',
         's-trigger=""', 's-trigger="click"', 's-trigger="change"', 's-trigger="submit"',
-        's-vars=""', 's-vars="x: 1, y: 2"',
+        's-val-x="1"', 's-val-y="2"',
     ];
 
     for (let i = 0; i < suggestionLabels.length; i++) {
