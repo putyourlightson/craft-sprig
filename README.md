@@ -29,7 +29,7 @@ This plugin is licensed for free under the MIT License.
 
 ## Requirements
 
-Craft CMS 3.0.0 or later.
+Craft CMS 3.1.19 or later.
 
 ## Installation
 
