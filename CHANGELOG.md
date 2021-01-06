@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.3.0 - Unreleased
+## 1.3.0 - 2021-01-06
 ### Added
 - Added the following return variables when controller actions are called.
     - `success` (boolean) whether the action succeeded.
@@ -11,7 +11,7 @@
 - Added a [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) attribute to the htmx script tag when fetching from a CDN for added security.
 
 ### Changed
-- Updated htmx to version 1.1.0 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#110---2021-1-8)).
+- Updated htmx to version 1.1.0 ([release notes](https://htmx.org/posts/2021-1-6-htmx-1.1.0-is-released/)).
 - Requires Craft 3.1.19 or higher.
 
 ### Removed
@@ -39,7 +39,7 @@
 - Added a new [s-encoding](https://putyourlightson.com/plugins/sprig#s-encoding) attribute that can be used to set the encoding of requests to `multipart/form-data` for file uploads ([#9](https://github.com/putyourlightson/craft-sprig/issues/9)).
 
 ### Changed
-- Updated htmx to version 1.0.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#102---2020-12-12)).
+- Updated htmx to version 1.0.2 ([release notes](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#102---2020-12-12)).
 
 ### Deprecated
 - The `sprig.hyperscript` function has been deprecated. Use the [htmx JS API](https://htmx.org/reference/#api) or [import hyperscript](https://hyperscript.org/docs/) in your templates manually instead.
