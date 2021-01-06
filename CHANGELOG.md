@@ -14,6 +14,9 @@
 - Updated htmx to version 1.1.0 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#110---2021-1-8)).
 - Requires Craft 3.1.19 or higher.
 
+### Removed
+- The `sprig.hyperscript` function has been removed. Use the [htmx JS API](https://htmx.org/reference/#api) or [import hyperscript](https://hyperscript.org/docs/) in your templates manually instead.
+
 ### Deprecated
 - The `errors` variable has been deprecation. Use the `getErrors()` method on the model that is returned when validation fails.
 

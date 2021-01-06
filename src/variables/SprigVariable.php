@@ -27,36 +27,17 @@ class SprigVariable
      *
      * @var string
      */
-    public $htmxSRIHash = 'sha384-';
+    public $htmxSRIHash = 'sha384-JVb/MVb+DiMDoxpTmoXWmMYSpQD2Z/1yiruL8+vC6Ri9lk6ORGiQqKSqfmCBbpbX';
 
     /**
-     * @var string
-     */
-    public $hyperscriptVersion = '0.0.2';
-
-    /**
-     * Returns a script tag to the htmx source file.
+     * Returns the script tag with the given attributes.
      *
      * @param array $attributes
      * @return Markup
      */
     public function getScript(array $attributes = []): Markup
     {
-        return $this->_getScript('htmx', $this->htmxVersion, $attributes);
-    }
-
-    /**
-     * Returns a script tag to the hyperscript source file.
-     *
-     * @param array $attributes
-     * @return Markup
-     * @deprecated
-     */
-    public function getHyperscript(array $attributes = []): Markup
-    {
-        Craft::$app->getDeprecator()->log(__METHOD__, 'The “sprig.hyperscript” function has been deprecated. Import hyperscript in your templates manually instead.');
-
-        return $this->_getScript('hyperscript', $this->hyperscriptVersion, $attributes);
+        return $this->_getScript($attributes);
     }
 
     /**
@@ -241,29 +222,24 @@ class SprigVariable
     }
 
     /**
-     * Returns a script tag to a source file.
+     * Returns a script tag to the source file.
      *
-     * @param string $name
-     * @param string $version
      * @param array $attributes
      * @return Markup
      */
-    private function _getScript(string $name, string $version, array $attributes = []): Markup
+    private function _getScript(array $attributes = []): Markup
     {
-        $url = 'https://unpkg.com/'.$name.'.org@'.$version;
+        $url = 'https://unpkg.com/htmx.org@'.$this->htmxVersion;
 
-        if (Craft::$app->getConfig()->env == 'dev') {
-            $path = '@putyourlightson/sprig/resources/js/'.$name.'-'.$version.'.js';
+        if (Craft::$app->getConfig()->env == 'xdev') {
+            $path = '@putyourlightson/sprig/resources/js/htmx-'.$this->htmxVersion.'.js';
             $url = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
         }
         else {
-            // TODO: remove this conditional in 2.0.0
-            if ($name == 'htmx') {
-                // Add subresource integrity
-                // https://github.com/bigskysoftware/htmx/issues/261
-                $attributes['integrity'] = $this->htmxSRIHash;
-                $attributes['crossorigin'] = 'anonymous';
-            }
+            // Add subresource integrity
+            // https://github.com/bigskysoftware/htmx/issues/261
+            $attributes['integrity'] = $this->htmxSRIHash;
+            $attributes['crossorigin'] = 'anonymous';
         }
 
         $script = Html::jsFile($url, $attributes);
