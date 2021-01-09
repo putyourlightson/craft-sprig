@@ -182,6 +182,28 @@ class SprigVariable
     {
         Component::pushUrl($url);
     }
+    
+    /**
+     * Redirects the browser to the URL.
+     * https://htmx.org/reference#response_headers
+     *
+     * @param string $url
+     */
+    public function redirect(string $url)
+    {
+        Component::redirect($url);
+    }
+    
+    /**
+     * Refreshes the browser.
+     * https://htmx.org/reference#response_headers
+     *
+     * @param bool $refresh
+     */
+    public function refresh(bool $refresh = true)
+    {
+        Component::refresh($refresh);
+    }
 
     /**
      * Paginates an element query.
