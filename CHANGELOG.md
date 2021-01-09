@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.3.1 - Unreleased
+### Fixed
+- Fixed missing variable methods ([#79](https://github.com/putyourlightson/craft-sprig/issues/79)).
+
 ## 1.3.0 - 2021-01-06
 ### Added
 - Added the following return variables when controller actions are called.

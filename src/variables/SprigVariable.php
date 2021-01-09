@@ -163,49 +163,6 @@ class SprigVariable
     }
 
     /**
-     * Triggers client-side events.
-     *
-     * @param string|array $events
-     * @param string $on
-     */
-    public function triggerEvents($events, string $on = 'load')
-    {
-        Component::triggerEvents($events, $on);
-    }
-
-    /**
-     * Pushes the URL into the history stack.
-     *
-     * @param string $url
-     */
-    public function pushUrl(string $url)
-    {
-        Component::pushUrl($url);
-    }
-    
-    /**
-     * Redirects the browser to the URL.
-     * https://htmx.org/reference#response_headers
-     *
-     * @param string $url
-     */
-    public function redirect(string $url)
-    {
-        Component::redirect($url);
-    }
-    
-    /**
-     * Refreshes the browser.
-     * https://htmx.org/reference#response_headers
-     *
-     * @param bool $refresh
-     */
-    public function refresh(bool $refresh = true)
-    {
-        Component::refresh($refresh);
-    }
-
-    /**
      * Paginates an element query.
      *
      * @param Query $query
@@ -227,6 +184,49 @@ class SprigVariable
         $paginator = new Paginator($paginatorQuery, $config);
 
         return PaginateVariable::create($paginator);
+    }
+
+    /**
+     * Pushes the URL into the history stack.
+     *
+     * @param string $url
+     */
+    public function pushUrl(string $url)
+    {
+        Component::pushUrl($url);
+    }
+
+    /**
+     * Redirects the browser to the URL.
+     * https://htmx.org/reference#response_headers
+     *
+     * @param string $url
+     */
+    public function redirect(string $url)
+    {
+        Component::redirect($url);
+    }
+
+    /**
+     * Refreshes the browser.
+     * https://htmx.org/reference#response_headers
+     *
+     * @param bool $refresh
+     */
+    public function refresh(bool $refresh = true)
+    {
+        Component::refresh($refresh);
+    }
+
+    /**
+     * Triggers client-side events.
+     *
+     * @param string|array $events
+     * @param string $on
+     */
+    public function triggerEvents($events, string $on = 'load')
+    {
+        Component::triggerEvents($events, $on);
     }
 
     /**
@@ -253,7 +253,7 @@ class SprigVariable
     {
         $url = 'https://unpkg.com/htmx.org@'.$this->htmxVersion;
 
-        if (Craft::$app->getConfig()->env == 'xdev') {
+        if (Craft::$app->getConfig()->env == 'dev') {
             $path = '@putyourlightson/sprig/resources/js/htmx-'.$this->htmxVersion.'.js';
             $url = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
         }
