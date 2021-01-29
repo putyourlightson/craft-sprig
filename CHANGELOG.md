@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.3.2 - 2021-01-29
+### Fixed
+- Fixed compatibility with Craft pre version 3.5.0 ([#91](https://github.com/putyourlightson/craft-sprig/issues/91)).
+
 ## 1.3.1 - 2021-01-13
 ### Fixed
 - Fixed missing variable methods ([#79](https://github.com/putyourlightson/craft-sprig/issues/79)).

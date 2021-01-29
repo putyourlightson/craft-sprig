@@ -41,7 +41,7 @@
 
     {% if not craft.app.config.general.devMode %}
         <span class="info warning" title="devMode is not enabled">
-            {{ 'Enable devMode to see Twig template errors.'|t('sprig') }}
+            {{ 'Enable `devMode` to see Twig template errors.'|t('sprig')|markdown }}
         </span>
     {% endif %}
 
@@ -60,8 +60,7 @@
         <textarea name="variables" class="hidden"></textarea>
 
         <div class="flex">
-            <a href="https://putyourlightson.com/plugins/sprig" class="btn" target="_blank">{{ 'Docs'|t('sprig') }}</a>
-            <a href="https://putyourlightson.com/sprig-cookbook" class="btn" target="_blank">{{ 'Cookbook'|t('sprig') }}</a>
+            <a href="https://putyourlightson.com/sprig" class="btn" target="_blank">{{ 'Learning Resources'|t('sprig') }}</a>
 
             {% if playground %}
                 <div class="btngroup">

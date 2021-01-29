@@ -59,10 +59,11 @@ class ComponentsController extends Controller
             $content = Craft::$app->getView()->renderTemplate($template, $variables);
         }
 
-        $this->response->statusCode = 200;
-        $this->response->data = Sprig::$plugin->components->parseHtml($content);
+        $response = Craft::$app->getResponse();
+        $response->statusCode = 200;
+        $response->data = Sprig::$plugin->components->parseHtml($content);
 
-        return $this->response;
+        return $response;
     }
 
     /**
@@ -99,10 +100,12 @@ class ComponentsController extends Controller
         $variables['success'] = $success;
 
         if ($success) {
-            $variables['id'] = str_replace($redirectPrefix, '', $this->response->getHeaders()->get('location'));
+            $response = Craft::$app->getResponse();
+
+            $variables['id'] = str_replace($redirectPrefix, '', $response->getHeaders()->get('location'));
 
             // Remove the redirect header
-            $this->response->getHeaders()->remove('location');
+            $response->getHeaders()->remove('location');
         }
 
         // Set flash messages variable and delete them
