@@ -165,17 +165,10 @@ class ComponentsService extends Component
             return null;
         }
 
-        $componentObject = new $componentClass();
+        $componentObject = Craft::createObject(array_merge(['class' => $componentClass], $variables));
 
         if (!($componentObject instanceof ComponentInterface)) {
             return null;
-        }
-
-        // Only populate variables that exist as properties on the class
-        foreach ($variables as $name => $value) {
-            if (property_exists($componentObject, $name)) {
-                $componentObject->$name = $value;
-            }
         }
 
         return $componentObject;

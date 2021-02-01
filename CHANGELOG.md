@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## Unreleased
+### Changed
+- Component classes are now created using the `createObject` method.
+
 ## 1.3.2 - 2021-01-29
 ### Fixed
 - Fixed compatibility with Craft pre version 3.5.0 ([#91](https://github.com/putyourlightson/craft-sprig/issues/91)).
