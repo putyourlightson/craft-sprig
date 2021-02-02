@@ -8,6 +8,7 @@ namespace putyourlightson\sprig\services;
 use Craft;
 use craft\base\Component;
 use craft\base\ElementInterface;
+use craft\helpers\ArrayHelper;
 use craft\helpers\Html;
 use craft\helpers\Json;
 use craft\helpers\StringHelper;
@@ -165,17 +166,13 @@ class ComponentsService extends Component
             return null;
         }
 
-        $componentObject = new $componentClass();
+        $componentObject = Craft::createObject([
+            'class' => $componentClass,
+            'attributes' => $variables,
+        ]);
 
         if (!($componentObject instanceof ComponentInterface)) {
             return null;
-        }
-
-        // Only populate variables that exist as properties on the class
-        foreach ($variables as $name => $value) {
-            if (property_exists($componentObject, $name)) {
-                $componentObject->$name = $value;
-            }
         }
 
         return $componentObject;

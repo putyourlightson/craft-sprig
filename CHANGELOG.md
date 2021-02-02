@@ -2,6 +2,7 @@
 
 ## 1.3.3 - Unreleased
 ### Changed
+- Component classes are now created using the `createObject` method.
 - Variables returned by controller actions called `variables` are now merged in as expected ([#94](https://github.com/putyourlightson/craft-sprig/issues/94)).
 
 ## 1.3.2 - 2021-01-29
