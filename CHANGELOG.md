@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.3.3 - Unreleased
+### Changed
+- Variables returned by controller actions called `variables` are now merged in as expected ([#94](https://github.com/putyourlightson/craft-sprig/issues/94)).
+
 ## 1.3.2 - 2021-01-29
 ### Fixed
 - Fixed compatibility with Craft pre version 3.5.0 ([#91](https://github.com/putyourlightson/craft-sprig/issues/91)).

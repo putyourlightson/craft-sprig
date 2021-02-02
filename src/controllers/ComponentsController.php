@@ -6,7 +6,9 @@
 namespace putyourlightson\sprig\controllers;
 
 use Craft;
+use craft\helpers\ArrayHelper;
 use craft\web\Controller;
+use craft\web\UrlRule;
 use putyourlightson\sprig\Sprig;
 use yii\base\Model;
 use yii\web\Response;
@@ -31,7 +33,7 @@ class ComponentsController extends Controller
         $component = Sprig::$plugin->request->getValidatedParam('sprig:component');
         $action = Sprig::$plugin->request->getValidatedParam('sprig:action');
 
-        $variables = array_merge(
+        $variables = ArrayHelper::merge(
             Sprig::$plugin->request->getValidatedParamValues('sprig:variables'),
             Sprig::$plugin->request->getVariables()
         );
@@ -52,7 +54,7 @@ class ComponentsController extends Controller
         else {
             if ($action) {
                 $actionVariables = $this->_runActionInternal($action);
-                $variables = array_merge($variables, $actionVariables);
+                $variables = ArrayHelper::merge($variables, $actionVariables);
             }
 
             $template = Sprig::$plugin->request->getValidatedParam('sprig:template');
@@ -76,7 +78,7 @@ class ComponentsController extends Controller
     {
         // Add a redirect to the body params so we can extract the ID on success
         $redirectPrefix = 'http://';
-        Craft::$app->getRequest()->setBodyParams(array_merge(
+        Craft::$app->getRequest()->setBodyParams(ArrayHelper::merge(
             Craft::$app->getRequest()->getBodyParams(),
             ['redirect' => Craft::$app->getSecurity()->hashData($redirectPrefix.'{id}')]
         ));
@@ -85,6 +87,16 @@ class ComponentsController extends Controller
 
         // Extract the variables from the route params which are generally set when there are errors
         $variables = Craft::$app->getUrlManager()->getRouteParams() ?: [];
+
+        /**
+         * Merge and unset any variable called `variables`
+         * https://github.com/putyourlightson/craft-sprig/issues/94#issuecomment-771489394
+         * @see UrlRule::parseRequest()
+         */
+        if (isset($variables['variables'])) {
+            $variables = ArrayHelper::merge($variables, $variables['variables']);
+            unset($variables['variables']);
+        }
 
         // TODO: remove in 2.0.0
         // Extract errors from the route param variables to maintain backwards compatibility.
