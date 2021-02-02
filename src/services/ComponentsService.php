@@ -166,13 +166,10 @@ class ComponentsService extends Component
             return null;
         }
 
-        $reflection = new \ReflectionClass($componentClass);
-        $properties = ArrayHelper::getColumn($reflection->getProperties(\ReflectionProperty::IS_PUBLIC), 'name');
-        $variables = array_filter($variables, function($key) use ($properties) {
-            return in_array($key, $properties);
-        }, ARRAY_FILTER_USE_KEY);
-
-        $componentObject = Craft::createObject(array_merge(['class' => $componentClass], $variables));
+        $componentObject = Craft::createObject([
+            'class' => $componentClass,
+            'attributes' => $variables,
+        ]);
 
         if (!($componentObject instanceof ComponentInterface)) {
             return null;
