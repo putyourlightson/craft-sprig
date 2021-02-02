@@ -18,6 +18,14 @@ abstract class Component extends BaseComponent implements ComponentInterface
     protected $_template;
 
     /**
+     * Set all attributes to be safe by default.
+     */
+    protected function defineRules(): array
+    {
+        return [[$this->attributes(), 'safe']];
+    }
+
+    /**
      * @inheritdoc
      */
     public function render(): string

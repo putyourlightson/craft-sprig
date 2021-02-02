@@ -6,7 +6,7 @@
 namespace putyourlightson\sprig\services;
 
 use Craft;
-use craft\base\Component;
+use craft\base\Component as BaseComponent;
 use craft\base\ElementInterface;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Html;
@@ -17,7 +17,7 @@ use craft\helpers\UrlHelper;
 use craft\web\View;
 use IvoPetkov\HTML5DOMDocument;
 use IvoPetkov\HTML5DOMElement;
-use putyourlightson\sprig\base\ComponentInterface;
+use putyourlightson\sprig\base\Component;
 use putyourlightson\sprig\components\SprigPlayground;
 use putyourlightson\sprig\errors\InvalidVariableException;
 use putyourlightson\sprig\events\ComponentEvent;
@@ -29,7 +29,7 @@ use yii\web\BadRequestHttpException;
 /**
  * @property-write mixed $responseHeaders
  */
-class ComponentsService extends Component
+class ComponentsService extends BaseComponent
 {
     /**
      * @event ComponentEvent
@@ -152,7 +152,7 @@ class ComponentsService extends Component
      *
      * @param string $component
      * @param array $variables
-     * @return object|null
+     * @return Component|null
      */
     public function createObject(string $component, array $variables = [])
     {
@@ -166,16 +166,17 @@ class ComponentsService extends Component
             return null;
         }
 
-        $componentObject = Craft::createObject([
+        if (!is_subclass_of($componentClass, Component::class)) {
+            throw new BadRequestHttpException(Craft::t('sprig', 'Component class “{class}” must extend “{extendsClass}”.', [
+                'class' => $componentClass,
+                'extendsClass' => Component::class,
+            ]));
+        }
+
+        return Craft::createObject([
             'class' => $componentClass,
             'attributes' => $variables,
         ]);
-
-        if (!($componentObject instanceof ComponentInterface)) {
-            return null;
-        }
-
-        return $componentObject;
     }
 
     /**
