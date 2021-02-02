@@ -8,6 +8,7 @@ namespace putyourlightson\sprig\services;
 use Craft;
 use craft\base\Component;
 use craft\base\ElementInterface;
+use craft\helpers\ArrayHelper;
 use craft\helpers\Html;
 use craft\helpers\Json;
 use craft\helpers\StringHelper;
@@ -164,6 +165,12 @@ class ComponentsService extends Component
         if (!class_exists($componentClass)) {
             return null;
         }
+
+        $reflection = new \ReflectionClass($componentClass);
+        $properties = ArrayHelper::getColumn($reflection->getProperties(\ReflectionProperty::IS_PUBLIC), 'name');
+        $variables = array_filter($variables, function($key) use ($properties) {
+            return in_array($key, $properties);
+        }, ARRAY_FILTER_USE_KEY);
 
         $componentObject = Craft::createObject(array_merge(['class' => $componentClass], $variables));
 
