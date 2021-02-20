@@ -1,5 +1,11 @@
 # Release Notes for Sprig
 
+## 1.4.0 - Unreleased
+- Added a new [s-headers](https://putyourlightson.com/plugins/sprig#s-headers) attribute that allows you to add to the headers that will be submitted with an AJAX request.
+
+### Changed
+- Updated htmx to version 1.2.1 ([release notes](https://htmx.org/posts/2021-2-13-htmx-1.2.0-is-released/)).
+
 ## 1.3.3 - 2021-02-03
 ### Changed
 - Component classes are now created using the `createObject` method ([#93](https://github.com/putyourlightson/craft-sprig/issues/93)).
@@ -20,7 +26,7 @@
     - `flashes` (array) flash messages set by the action, keyed by type (`notice` or `error`).
     - `id` (integer) the ID of the model if one was successfully created/updated.
     - `modelName` (model) a model that failed validation, for example `entry` when `entries/save-entry` fails or `user` when `users/save-user` fails.
-- Added a new [hx-preserve](https://htmx.org/attributes/hx-preserve/) attribute, which specifies that an element should be unaffected by re-rendering.
+- Added a new [s-preserve](https://putyourlightson.com/plugins/sprig#s-preserve) attribute that ensures that an element remains unchanged even when the component is re-rendered.
 - Added a [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) attribute to the htmx script tag when fetching from a CDN for added security.
 
 ### Changed
