@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.4.0 - Unreleased
+## 1.4.0 - 2021-02-24
 - Added a new [s-headers](https://putyourlightson.com/plugins/sprig#s-headers) attribute that allows you to add to the headers that will be submitted with an AJAX request.
 
 ### Changed
