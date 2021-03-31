@@ -100,10 +100,22 @@ class ComponentsTest extends Unit
 
         $html = Sprig::$plugin->components->parseHtml($html);
 
+        $this->assertStringContainsString('hx-vals=', $html);
         $this->assertStringContainsString('hx-post=', $html);
         $this->assertStringContainsString('CRAFT_CSRF_TOKEN', $html);
         $this->assertStringContainsString('sprig:action', $html);
         $this->assertStringContainsString('"limit":1', $html);
+    }
+
+    public function testGetParsedTagAttributesWithHxData()
+    {
+        $html = '<div data-sprig data-s-method="post"></div>';
+
+        Sprig::$plugin->settings->hxDataPrefix = true;
+        $html = Sprig::$plugin->components->parseHtml($html);
+
+        $this->assertStringContainsString('data-hx-vals=', $html);
+        $this->assertStringContainsString('data-hx-post=', $html);
     }
 
     public function testGetParsedTagAttributesVals()

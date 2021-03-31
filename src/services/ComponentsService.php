@@ -8,7 +8,6 @@ namespace putyourlightson\sprig\services;
 use Craft;
 use craft\base\Component as BaseComponent;
 use craft\base\ElementInterface;
-use craft\helpers\ArrayHelper;
 use craft\helpers\Html;
 use craft\helpers\Json;
 use craft\helpers\StringHelper;
@@ -54,12 +53,26 @@ class ComponentsService extends BaseComponent
     /**
      * @const string[]
      */
-    const SPRIG_PREFIXES = ['s', 'sprig'];
+    const SPRIG_PREFIXES = ['s', 'sprig', 'data-s', 'data-sprig'];
 
     /**
      * @const string[]
      */
     const HTMX_ATTRIBUTES = ['boost', 'confirm', 'delete', 'encoding', 'ext', 'get', 'headers', 'history-elt', 'include', 'indicator', 'params', 'patch', 'post', 'preserve', 'prompt', 'push-url', 'put', 'select', 'sse', 'swap-oob', 'swap', 'target', 'trigger', 'vals', 'vars', 'ws'];
+
+    /**
+     * @var string
+     */
+    private $_hxPrefix = '';
+
+    public function init()
+    {
+        parent::init();
+
+        if (Sprig::$plugin->settings->hxDataPrefix === true) {
+            $this->_hxPrefix = 'data-';
+        }
+    }
 
     /**
      * Creates a new component.
@@ -127,11 +140,11 @@ class ComponentsService extends BaseComponent
             [
                 'id' => $id,
                 'class' => 'sprig-component',
-                'hx-target' => 'this',
-                'hx-include' => '#'.$id.' *',
-                'hx-trigger' => 'refresh',
-                'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
-                'hx-vals' => Json::htmlEncode($values),
+                $this->_hxPrefix.'hx-target' => 'this',
+                $this->_hxPrefix.'hx-include' => '#'.$id.' *',
+                $this->_hxPrefix.'hx-trigger' => 'refresh',
+                $this->_hxPrefix.'hx-get' => UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION),
+                $this->_hxPrefix.'hx-vals' => Json::htmlEncode($values),
             ],
             $attributes
         );
@@ -238,7 +251,7 @@ class ComponentsService extends BaseComponent
     private function _parseSprigAttribute(array &$attributes)
     {
         // Use `!isset` over `!empty` because the attributes value will be an empty string
-        if (!isset($attributes['sprig'])) {
+        if (!isset($attributes['sprig']) && !isset($attributes['data-sprig'])) {
             return;
         }
 
@@ -264,7 +277,7 @@ class ComponentsService extends BaseComponent
             $params['sprig:action'] = Craft::$app->getSecurity()->hashData($action);
         }
 
-        $attributes['hx-'.$verb] = UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION, $params);
+        $attributes[$this->_hxPrefix.'hx-'.$verb] = UrlHelper::actionUrl(self::RENDER_CONTROLLER_ACTION, $params);
     }
 
     /**
@@ -288,9 +301,9 @@ class ComponentsService extends BaseComponent
             $this->_appendValAttributes($attributes, [$name => $value]);
         }
         elseif ($name == 'replace') {
-            $attributes['hx-select'] = $value;
-            $attributes['hx-target'] = $value;
-            $attributes['hx-swap'] = 'outerHTML';
+            $attributes[$this->_hxPrefix.'hx-select'] = $value;
+            $attributes[$this->_hxPrefix.'hx-target'] = $value;
+            $attributes[$this->_hxPrefix.'hx-swap'] = 'outerHTML';
         }
         elseif (in_array($name, self::HTMX_ATTRIBUTES)) {
             // Append `s-vals` to `hx-vals`
@@ -298,7 +311,7 @@ class ComponentsService extends BaseComponent
                 $this->_appendValAttributes($attributes, Json::decode($value));
             }
             else {
-                $attributes['hx-'.$name] = $value;
+                $attributes[$this->_hxPrefix.'hx-'.$name] = $value;
             }
 
             // Deprecate `s-vars`
@@ -320,14 +333,14 @@ class ComponentsService extends BaseComponent
             return;
         }
 
-        if (!empty($attributes['hx-vals'])) {
+        if (!empty($attributes[$this->_hxPrefix.'hx-vals'])) {
             $valAttributes = array_merge(
-                Json::decode($attributes['hx-vals']),
+                Json::decode($attributes[$this->_hxPrefix.'hx-vals']),
                 $valAttributes
             );
         }
 
-        $attributes['hx-vals'] = Json::htmlEncode($valAttributes);
+        $attributes[$this->_hxPrefix.'hx-vals'] = Json::htmlEncode($valAttributes);
     }
 
     /**

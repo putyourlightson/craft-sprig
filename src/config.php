@@ -21,5 +21,8 @@ return [
     '*' => [
         // Whether the playground should be enabled.
         //'enablePlayground' => true,
-    ]
+
+        // Whether `hx-` attributes should be prefixed with `data-`.
+        //'hxDataPrefix' => false,
+    ],
 ];
