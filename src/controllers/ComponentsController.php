@@ -118,6 +118,16 @@ class ComponentsController extends Controller
 
             // Remove the redirect header
             $response->getHeaders()->remove('location');
+
+            // Override the `currentUser` global variable with a fresh version if the current user was just updated
+            // https://github.com/putyourlightson/craft-sprig/issues/81#issuecomment-758619306
+            if ($action == 'users/save-user') {
+                $userId = Craft::$app->getRequest()->getBodyParam('userId');
+
+                if ($userId == Craft::$app->getUser()->getId()) {
+                    $variables['currentUser'] = Craft::$app->getUsers()->getUserById($userId);
+                }
+            }
         }
 
         // Set flash messages variable and delete them

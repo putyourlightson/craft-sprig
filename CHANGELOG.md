@@ -1,6 +1,11 @@
 # Release Notes for Sprig
 
+## 1.5.1 - Unreleased
+### Added
+- Sprig overrides the `currentUser` global variable with a fresh version if the current user is updated using the `users/save-user` controller action ([#81](https://github.com/putyourlightson/craft-sprig/issues/81)).
+
 ## 1.5.0 - 2021-03-07
+### Added
 - Added the ability to prefix both `sprig` and `s-` attributes with `data-` for more valid HTML ([#117](https://github.com/putyourlightson/craft-sprig/issues/117)).
 - Added the `hxDataPrefix` config setting that forces Sprig to use the `data-` prefix for `hx-` attributes.
 - Added the [s-disable](https://putyourlightson.com/plugins/sprig#s-disable) attribute that disables htmx processing for a given element and its children.
