@@ -1,14 +1,15 @@
 # Release Notes for Sprig
 
-## 1.5.0 - Unreleased
-- Added the ability to prefix `sprig` and `s-` attributes with `data-` for more valid HTML ([#117](https://github.com/putyourlightson/craft-sprig/issues/117)).
+## 1.5.0 - 2021-03-07
+- Added the ability to prefix both `sprig` and `s-` attributes with `data-` for more valid HTML ([#117](https://github.com/putyourlightson/craft-sprig/issues/117)).
 - Added the `hxDataPrefix` config setting that forces `hx-` attributes to use the `data-` prefix.
+- Added the [s-disable](https://putyourlightson.com/plugins/sprig#s-disable) attribute that disables htmx processing for a given element and its children.
 
 ### Changed
-- Updated htmx to version 1.3.2 ([release notes](https://htmx.org/posts/2021-3-6-htmx-1.3.0-is-released/)).
+- Updated htmx to version 1.3.3 ([release notes](https://htmx.org/posts/2021-3-6-htmx-1.3.0-is-released/)).
 
 ## 1.4.0 - 2021-02-24
-- Added a new [s-headers](https://putyourlightson.com/plugins/sprig#s-headers) attribute that allows you to add to the headers that will be submitted with an AJAX request.
+- Added the [s-headers](https://putyourlightson.com/plugins/sprig#s-headers) attribute that allows you to add to the headers that will be submitted with an AJAX request.
 
 ### Changed
 - Updated htmx to version 1.2.1 ([release notes](https://htmx.org/posts/2021-2-13-htmx-1.2.0-is-released/)).

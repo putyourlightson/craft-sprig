@@ -20,14 +20,14 @@ class SprigVariable
     /**
      * @var string
      */
-    public $htmxVersion = '1.2.1';
+    public $htmxVersion = '1.3.3';
 
     /**
      * Generate the SRI hash at https://www.srihash.org/
      *
      * @var string
      */
-    public $htmxSRIHash = 'sha384-t37OW0DbqgL50XZW+Tl8TLchxsPoxIJ7NQ/l4aSZIXZVJQAhyQvvkWZgL/SiY/jD';
+    public $htmxSRIHash = 'sha384-QrlPmoLqMVfnV4lzjmvamY0Sv/Am8ca1W7veO++Sp6PiIGixqkD+0xZ955Nc03qO';
 
     /**
      * Returns the script tag with the given attributes.
