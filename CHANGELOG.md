@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.5.2 - 2021-04-09
+### Fixed
+- Fixed an error that could occur when registering a new user.
+
 ## 1.5.1 - 2021-04-09
 ### Changed
 - Sprig overrides the `currentUser` global variable with a fresh version if the current user is updated using the `users/save-user` controller action ([#81](https://github.com/putyourlightson/craft-sprig/issues/81)).

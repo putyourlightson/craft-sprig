@@ -124,7 +124,7 @@ class ComponentsController extends Controller
             if ($action == 'users/save-user') {
                 $userId = Craft::$app->getRequest()->getBodyParam('userId');
 
-                if ($userId == Craft::$app->getUser()->getId()) {
+                if ($userId !== null && $userId == Craft::$app->getUser()->getId()) {
                     $variables['currentUser'] = Craft::$app->getUsers()->getUserById($userId);
                 }
             }
