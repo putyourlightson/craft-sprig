@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.5.3 - Unreleased
+### Fixed
+- Fixed double encoding of ampersands in element attributes ([#133](https://github.com/putyourlightson/craft-sprig/issues/133)).
+
 ## 1.5.2 - 2021-04-09
 ### Fixed
 - Fixed an error that could occur when registering a new user.

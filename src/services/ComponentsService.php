@@ -204,14 +204,14 @@ class ComponentsService extends BaseComponent
             return $html;
         }
 
-        // Use HTML5DOMDocument which supports HTML5 and takes care of UTF-8 encoding
+        // Use HTML5DOMDocument which supports HTML5 and takes care of UTF-8 encoding.
         $dom = new HTML5DOMDocument();
 
-        // Surround html with body tag to ensure script tags are not tampered with
+        // Surround html with body tag to ensure script tags are not tampered with.
         // https://github.com/putyourlightson/craft-sprig/issues/34
         $html = '<!doctype html><html lang=""><body>'.$html.'</body></html>';
 
-        // Allow duplicate IDs to avoid an error being thrown
+        // Allow duplicate IDs to avoid an error being thrown.
         // https://github.com/ivopetkov/html5-dom-document-php/issues/21
         $dom->loadHTML($html, HTML5DOMDocument::ALLOW_DUPLICATE_IDS);
 
@@ -226,7 +226,13 @@ class ComponentsService extends BaseComponent
             }
         }
 
-        return $dom->getElementsByTagName('body')[0]->innerHTML;
+        $output = $dom->getElementsByTagName('body')[0]->innerHTML;
+
+        // Solves HTML entities being double encoded.
+        // https://github.com/putyourlightson/craft-sprig/issues/133#issuecomment-840662721
+        $output = str_replace('&amp;#', '&#', $output);
+
+        return $output;
     }
 
     /**
