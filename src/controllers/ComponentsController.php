@@ -6,10 +6,13 @@
 namespace putyourlightson\sprig\controllers;
 
 use Craft;
+use craft\elements\User;
+use craft\events\ModelEvent;
 use craft\helpers\ArrayHelper;
 use craft\web\Controller;
 use craft\web\UrlRule;
 use putyourlightson\sprig\Sprig;
+use yii\base\Event;
 use yii\base\Model;
 use yii\web\Response;
 
@@ -76,8 +79,12 @@ class ComponentsController extends Controller
      */
     private function _runActionInternal(string $action): array
     {
+        if ($action == 'users/save-user') {
+            $this->_registerSaveCurrentUserEvent();
+        }
+
         // Add a redirect to the body params so we can extract the ID on success
-        $redirectPrefix = 'http://';
+        $redirectPrefix = 'https://';
         Craft::$app->getRequest()->setBodyParams(ArrayHelper::merge(
             Craft::$app->getRequest()->getBodyParams(),
             ['redirect' => Craft::$app->getSecurity()->hashData($redirectPrefix.'{id}')]
@@ -108,6 +115,10 @@ class ComponentsController extends Controller
             }
         }
 
+        // Override the `currentUser` global variable with a fresh version, in case it was just updated
+        // https://github.com/putyourlightson/craft-sprig/issues/81#issuecomment-758619306
+        $variables['currentUser'] = Craft::$app->getUser()->getIdentity();
+
         $success = $actionResponse !== null;
         $variables['success'] = $success;
 
@@ -118,21 +129,34 @@ class ComponentsController extends Controller
 
             // Remove the redirect header
             $response->getHeaders()->remove('location');
-
-            // Override the `currentUser` global variable with a fresh version if the current user was just updated
-            // https://github.com/putyourlightson/craft-sprig/issues/81#issuecomment-758619306
-            if ($action == 'users/save-user') {
-                $userId = Craft::$app->getRequest()->getBodyParam('userId');
-
-                if ($userId !== null && $userId == Craft::$app->getUser()->getId()) {
-                    $variables['currentUser'] = Craft::$app->getUsers()->getUserById($userId);
-                }
-            }
         }
 
         // Set flash messages variable and delete them
         $variables['flashes'] = Craft::$app->getSession()->getAllFlashes(true);
 
         return $variables;
+    }
+
+    /**
+     * Registers an event when saving the current user
+     */
+    private function _registerSaveCurrentUserEvent()
+    {
+        $currentUserId = Craft::$app->getUser()->getId();
+        $userId = Craft::$app->getRequest()->getBodyParam('userId');
+
+        if (!$currentUserId || $currentUserId != $userId) {
+            return;
+        }
+
+        Event::on(User::class, User::EVENT_AFTER_SAVE, function (ModelEvent $event) {
+            /** @var User $user */
+            $user = $event->sender;
+
+            // Update the user identity and regenerate the CSRF token in case the password was changed
+            // https://github.com/putyourlightson/craft-sprig/issues/136
+            Craft::$app->getUser()->setIdentity($user);
+            Craft::$app->getRequest()->regenCsrfToken();
+        });
     }
 }

@@ -1,6 +1,9 @@
 # Release Notes for Sprig
 
 ## 1.5.3 - Unreleased
+### Changed
+- The CSRF token is now regenerated if a new password is set for the current user ([#136](https://github.com/putyourlightson/craft-sprig/issues/136)).
+
 ### Fixed
 - Fixed double encoding of ampersands in element attributes ([#133](https://github.com/putyourlightson/craft-sprig/issues/133)).
 
