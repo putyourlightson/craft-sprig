@@ -1,8 +1,9 @@
 # Release Notes for Sprig
 
-## 1.5.3 - Unreleased
+## 1.6.0 - Unreleased
 ### Changed
 - The CSRF token is now regenerated if a new password is set for the current user ([#136](https://github.com/putyourlightson/craft-sprig/issues/136)).
+- Updated htmx to version 1.4.0 ([release notes](https://htmx.org/posts/2021-5-25-htmx-1.4.0-is-released/)).
 
 ### Fixed
 - Fixed double encoding of ampersands in element attributes ([#133](https://github.com/putyourlightson/craft-sprig/issues/133)).
