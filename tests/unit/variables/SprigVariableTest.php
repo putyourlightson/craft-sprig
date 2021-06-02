@@ -55,7 +55,7 @@ class SprigVariableTest extends Unit
     {
         $client = Craft::createGuzzleClient();
 
-        preg_match('/src="(.*?)"/', (string)$script, $matches);
+        preg_match('/src="(.*?)"/', $script, $matches);
         $url = $matches[1];
 
         $statusCode = $client->get($url)->getStatusCode();
