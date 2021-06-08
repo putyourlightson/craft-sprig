@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.6.0 - Unreleased
+## 1.6.0 - 2021-06-08
 ### Changed
 - The CSRF token is now regenerated if the password is updated for the current user ([#136](https://github.com/putyourlightson/craft-sprig/issues/136)).
 - CSRF tokens are now sent as request headers instead of body params.
