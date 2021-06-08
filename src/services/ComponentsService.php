@@ -13,6 +13,7 @@ use craft\helpers\Json;
 use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use craft\helpers\UrlHelper;
+use craft\web\Request;
 use craft\web\View;
 use IvoPetkov\HTML5DOMDocument;
 use IvoPetkov\HTML5DOMElement;
@@ -25,9 +26,6 @@ use Twig\Markup;
 use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
-/**
- * @property-write mixed $responseHeaders
- */
 class ComponentsService extends BaseComponent
 {
     /**
@@ -186,10 +184,13 @@ class ComponentsService extends BaseComponent
             ]));
         }
 
-        return Craft::createObject([
+        /** @var Component $component */
+        $component = Craft::createObject([
             'class' => $componentClass,
             'attributes' => $variables,
         ]);
+
+        return $component;
     }
 
     /**
@@ -270,10 +271,8 @@ class ComponentsService extends BaseComponent
         if (strtolower($method) == 'post') {
             $verb = 'post';
 
-            $request = Craft::$app->getRequest();
-
-            $this->_appendValAttributes($attributes, [
-                $request->csrfParam => $request->getCsrfToken(),
+            $this->_mergeJsonAttributes($attributes, 'headers', [
+                Request::CSRF_HEADER => Craft::$app->getRequest()->getCsrfToken(),
             ]);
         }
 
@@ -304,7 +303,7 @@ class ComponentsService extends BaseComponent
         if (strpos($name, 'val:') === 0) {
             $name = StringHelper::toCamelCase(substr($name, 4));
 
-            $this->_appendValAttributes($attributes, [$name => $value]);
+            $this->_mergeJsonAttributes($attributes, 'vals', [$name => $value]);
         }
         elseif ($name == 'replace') {
             $attributes[$this->_hxPrefix.'hx-select'] = $value;
@@ -312,9 +311,8 @@ class ComponentsService extends BaseComponent
             $attributes[$this->_hxPrefix.'hx-swap'] = 'outerHTML';
         }
         elseif (in_array($name, self::HTMX_ATTRIBUTES)) {
-            // Append `s-vals` to `hx-vals`
-            if ($name == 'vals') {
-                $this->_appendValAttributes($attributes, Json::decode($value));
+            if ($name == 'headers' || $name == 'vals') {
+                $this->_mergeJsonAttributes($attributes, $name, $value);
             }
             else {
                 $attributes[$this->_hxPrefix.'hx-'.$name] = $value;
@@ -328,25 +326,29 @@ class ComponentsService extends BaseComponent
     }
 
     /**
-     * Appends `s-val:*` attributes to `hx-vals` attribute..
+     * Merges new values to existing JSON attribute values.
      *
      * @param array $attributes
-     * @param array $valAttributes
+     * @param string $name
+     * @param array|string $values
      */
-    private function _appendValAttributes(array &$attributes, array $valAttributes)
+    private function _mergeJsonAttributes(array &$attributes, string $name, $values)
     {
-        if (empty($valAttributes)) {
-            return;
+        if (is_string($values)) {
+            if (strpos($values, 'javascript:') === 0) {
+                throw new BadRequestHttpException('The “s-'.$name.'” attribute in Sprig components may not contain a “javascript:” prefix for security reasons. Use a JSON encoded value instead.');
+            }
+
+            $values = Json::decode($values);
         }
 
-        if (!empty($attributes[$this->_hxPrefix.'hx-vals'])) {
-            $valAttributes = array_merge(
-                Json::decode($attributes[$this->_hxPrefix.'hx-vals']),
-                $valAttributes
-            );
+        $key = $this->_hxPrefix.'hx-'.$name;
+
+        if (!empty($attributes[$key])) {
+            $values = array_merge(Json::decode($attributes[$key]), $values);
         }
 
-        $attributes[$this->_hxPrefix.'hx-vals'] = Json::htmlEncode($valAttributes);
+        $attributes[$key] = Json::htmlEncode($values);
     }
 
     /**

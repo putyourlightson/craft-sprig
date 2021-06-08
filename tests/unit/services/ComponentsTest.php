@@ -8,6 +8,7 @@ namespace putyourlightson\sprigtests\unit\services;
 use Codeception\Test\Unit;
 use Craft;
 use craft\elements\Entry;
+use craft\web\Request;
 use putyourlightson\sprig\errors\InvalidVariableException;
 use putyourlightson\sprig\Sprig;
 use UnitTester;
@@ -100,9 +101,9 @@ class ComponentsTest extends Unit
 
         $html = Sprig::$plugin->components->parseHtml($html);
 
-        $this->assertStringContainsString('hx-vals=', $html);
+        $this->assertStringContainsString('hx-vals=\'{"limit":1}', $html);
         $this->assertStringContainsString('hx-post=', $html);
-        $this->assertStringContainsString('CRAFT_CSRF_TOKEN', $html);
+        $this->assertStringContainsString('hx-headers=\'{"'.Request::CSRF_HEADER.'"', $html);
         $this->assertStringContainsString('sprig:action', $html);
         $this->assertStringContainsString('"limit":1', $html);
     }
@@ -114,7 +115,7 @@ class ComponentsTest extends Unit
         Sprig::$plugin->settings->hxDataPrefix = true;
         $html = Sprig::$plugin->components->parseHtml($html);
 
-        $this->assertStringContainsString('data-hx-vals=', $html);
+        $this->assertStringContainsString('data-hx-headers=\'{"'.Request::CSRF_HEADER.'"', $html);
         $this->assertStringContainsString('data-hx-post=', $html);
     }
 
