@@ -4,7 +4,7 @@
 ### Changed
 - The CSRF token is now regenerated if the password is updated for the current user ([#136](https://github.com/putyourlightson/craft-sprig/issues/136)).
 - CSRF tokens are now sent as request headers instead of body params.
-- Use of the `javascript:`”` prefix is disallowed for security reasons and results in an exception being thrown.
+- Use of the `javascript:` prefix is disallowed for security reasons and results in an exception being thrown.
 - Updated htmx to version 1.4.1 ([release notes](https://htmx.org/posts/2021-5-25-htmx-1.4.0-is-released/)).
 
 ### Fixed
