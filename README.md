@@ -3,7 +3,7 @@
 
 <p align="center"><img width="150" src="https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/src/icon.svg"></p>
 
-# Sprig
+# Sprig Plugin for Craft CMS
 
 ### A reactive Twig component framework for Craft CMS.
 
@@ -17,11 +17,13 @@ Sprig enables common use-cases such as the following while completely avoiding f
 - Adding products to a cart
 - Submitting forms
 
-**Read the full documentation at [putyourlightson.com/plugins/sprig »](https://putyourlightson.com/plugins/sprig)**
+![Demo](https://putyourlightson.com/assets/images/plugins/sprig/search-demo.gif)
+
+## Documentation
+
+Learn more and read the documentation at [putyourlightson.com/plugins/sprig »](https://putyourlightson.com/plugins/sprig)
 
 To see working examples and video tutorials, visit the [learning resources](https://putyourlightson.com/sprig).
-
-![Demo](https://putyourlightson.com/assets/images/plugins/sprig/search-demo.gif)
 
 ## License
 

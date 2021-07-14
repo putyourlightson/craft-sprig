@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.6.1 - 2021-07-14
+### Changed
+- Updated htmx to version 1.5.0 ([release notes](https://htmx.org/posts/2021-7-12-htmx-1.5.0-is-released/)).
+
 ## 1.6.0 - 2021-06-08
 ### Changed
 - The CSRF token is now regenerated if the password is updated for the current user ([#136](https://github.com/putyourlightson/craft-sprig/issues/136)).
