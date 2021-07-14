@@ -1,6 +1,9 @@
 # Release Notes for Sprig
 
-## 1.6.1 - 2021-07-14
+## 1.7.0 - 2021-07-14
+### Added
+- Added the [s-request](https://putyourlightson.com/plugins/sprig#s-request) attribute that allows you to configure various aspects of the request.
+
 ### Changed
 - Updated htmx to version 1.5.0 ([release notes](https://htmx.org/posts/2021-7-12-htmx-1.5.0-is-released/)).
 
