@@ -6,6 +6,7 @@
 
 ### Changed
 - Updated htmx to version 1.5.0 ([release notes](https://htmx.org/posts/2021-7-12-htmx-1.5.0-is-released/)).
+- Improved autocomplete suggestions in playground.
 
 ## 1.6.0 - 2021-06-08
 ### Changed
