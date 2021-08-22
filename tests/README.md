@@ -8,7 +8,7 @@ To run static analysis on the plugin, install PHPStan and run the following comm
 
 To test the plugin, install Codeception, update `.env` and run the following command from the root of your project.
 
-    ./vendor/bin/codecept run -c ./vendor/putyourlightson/craft-sprig
+    ./vendor/bin/codecept run -c ./vendor/putyourlightson/craft-sprig unit
 
 Or to run a specific test.
 

@@ -39,7 +39,7 @@ class ComponentsTest extends Unit
     {
         $markup = Sprig::$plugin->components->create(
             '_component',
-            ['number' => '15'],
+            ['number' => 15],
             ['id' => 'abc', 's-trigger' => 'load', 's-vars' => 'limit:1', 's-push-url' => 'new-url']
         );
         $html = (string)$markup;
@@ -85,7 +85,7 @@ class ComponentsTest extends Unit
 
     public function testCreateInvalidVariableArray()
     {
-        $this->_testCreateInvalidVariable(['number' => '', 'array' => []]);
+        $this->_testCreateInvalidVariable(['number' => '', 'array' => [new Entry()]]);
     }
 
     public function testCreateObjectNoComponent()
