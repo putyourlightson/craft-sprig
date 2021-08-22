@@ -396,28 +396,46 @@ class ComponentsService extends BaseComponent
      */
     private function _hashVariable(string $name, $value): string
     {
-        $variables = [
-            'name' => $name,
-            'value' => $value,
-        ];
-
-        if ($value instanceof ElementInterface) {
-            throw new InvalidVariableException($this->_getError('variable-element', $variables));
-        }
-
-        if ($value instanceof Model) {
-            throw new InvalidVariableException($this->_getError('variable-model', $variables));
-        }
+        $this->_validateVariableType($name, $value);
 
         if (is_array($value)) {
-            throw new InvalidVariableException($this->_getError('variable-array', $variables));
-        }
-
-        if (is_object($value)) {
-            throw new InvalidVariableException($this->_getError('variable-object', $variables));
+            $value = Json::encode($value);
         }
 
         return Craft::$app->getSecurity()->hashData($value);
+    }
+
+    private function _validateVariableType(string $name, $value, $isArray = false)
+    {
+        $variable = [
+            'name' => $name,
+            'value' => $value,
+            'isArray' => $isArray,
+        ];
+
+        if ($value instanceof ElementInterface) {
+            throw new InvalidVariableException(
+                $this->_getError('variable-element', $variable)
+            );
+        }
+
+        if ($value instanceof Model) {
+            throw new InvalidVariableException(
+                $this->_getError('variable-model', $variable)
+            );
+        }
+
+        if (is_object($value)) {
+            throw new InvalidVariableException(
+                $this->_getError('variable-object', $variable)
+            );
+        }
+
+        if (is_array($value)) {
+            foreach ($value as $arrayValue) {
+                $this->_validateVariableType($name, $arrayValue, true);
+            }
+        }
     }
 
     /**

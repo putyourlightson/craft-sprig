@@ -13,7 +13,7 @@ class InvalidVariableException extends Exception
     /**
      * @inheritdoc
      */
-    public function getName()
+    public function getName(): string
     {
         return Craft::t('sprig', 'Invalid variable');
     }

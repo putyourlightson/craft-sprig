@@ -1,13 +1,13 @@
-The variable `{{ name }}` is an element of type `{{ value.className }}` and cannot be passed into a Sprig component.
+The variable `{{ name }}` {{ isArray ? 'is an array that contains' : 'is' }} an element of type `{{ value.className }}` and cannot be passed into a Sprig component.
 Instead of passing an element, consider passing its `id`.
 
----
+=========================================================================
 
 Before:
 
 {{ '{{' }} sprig('_components/my-component', { '{{ name }}': {{ name }} }) {{ '}}' }}
 
----
+=========================================================================
 
 After:
 

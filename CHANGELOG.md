@@ -1,5 +1,13 @@
 # Release Notes for Sprig
 
+## 1.8.0 - Unreleased
+> {warning} Variables passed into Sprig components are now automatically JSON decoded, so you should remove any usage of the `json_decode` filter from Sprig components.
+### Added
+- Added the ability to pass variables as arrays into Sprig components.
+
+### Changed
+- Variables passed into Sprig components are now automatically JSON decoded.
+
 ## 1.7.0 - 2021-07-14
 ### Added
 - Added the [s-request](https://putyourlightson.com/plugins/sprig#s-request) attribute that allows you to configure various aspects of the request.

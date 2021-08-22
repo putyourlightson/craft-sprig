@@ -7,6 +7,7 @@ namespace putyourlightson\sprig\services;
 
 use Craft;
 use craft\base\Component;
+use craft\helpers\Json;
 use yii\base\Exception;
 use yii\web\BadRequestHttpException;
 
@@ -75,7 +76,9 @@ class RequestService extends Component
         $param = Craft::$app->getRequest()->getParam($name, []);
 
         foreach ($param as $name => $value) {
-            $values[$name] = self::validateData($value);
+            $value = self::validateData($value);
+            $value = Json::decodeIfJson($value);
+            $values[$name] = $value;
         }
 
         return $values;

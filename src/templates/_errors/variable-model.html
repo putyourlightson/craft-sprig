@@ -1,13 +1,13 @@
-The variable `{{ name }}` is a model of type `{{ value.className }}` and cannot be passed into a Sprig component.
+The variable `{{ name }}` {{ isArray ? 'is an array that contains' : 'is' }} a model of type `{{ value.className }}` and cannot be passed into a Sprig component.
 Instead of passing a model, consider passing its `id`.
 
----
+=========================================================================
 
 Before
 
 {{ '{{' }} sprig('_components/my-component', { '{{ name }}': {{ name }} }) {{ '}}' }}
 
----
+=========================================================================
 
 After
 
