@@ -1,9 +1,12 @@
 # Release Notes for Sprig
 
-## 1.8.0 - Unreleased
+## 1.8.0 - 2021-08-23
 > {warning} Variables passed into Sprig components are now automatically JSON decoded, so you should remove any usage of the `json_decode` filter from Sprig components.
 ### Added
-- Added the ability to pass variables as arrays into Sprig components.
+- Added the ability to pass variables as arrays into Sprig components, so you can now do this:
+  ```twig
+  {{ sprig('_components/entries', {entryIds: [1, 2, 3]}) }}
+  ```
 
 ### Changed
 - Variables passed into Sprig components are now automatically JSON decoded.
