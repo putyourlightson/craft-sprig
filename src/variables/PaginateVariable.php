@@ -7,65 +7,21 @@ namespace putyourlightson\sprig\variables;
 
 use craft\db\Paginator;
 use craft\web\twig\variables\Paginate;
-use yii\base\BaseObject;
 
-/**
- * This class is based on the Paginate class in Craft.
- * @see Paginate::class
- */
-class PaginateVariable extends BaseObject
+class PaginateVariable extends Paginate
 {
-    /**
-     * Creates a new instance based on a Paginator object
-     *
-     * @param Paginator $paginator
-     * @return PaginateVariable
-     * @see Paginate::create()
-     */
-    public static function create(Paginator $paginator): self
+    public static function create(Paginator $paginator): Paginate
     {
-        $pageResults = $paginator->getPageResults();
-        $pageOffset = $paginator->getPageOffset();
+        $paginateVariable = parent::create($paginator);
+        $paginateVariable->pageResults = $paginator->getPageResults();
 
-        return new static([
-            'pageResults' => $pageResults,
-            'first' => $pageOffset + 1,
-            'last' => $pageOffset + count($pageResults),
-            'total' => $paginator->getTotalResults(),
-            'currentPage' => $paginator->getCurrentPage(),
-            'totalPages' => $paginator->getTotalPages(),
-        ]);
+        return $paginateVariable;
     }
 
     /**
      * @var array
      */
     public $pageResults = [];
-
-    /**
-     * @var int
-     */
-    public $first;
-
-    /**
-     * @var int
-     */
-    public $last;
-
-    /**
-     * @var int
-     */
-    public $total = 0;
-
-    /**
-     * @var int
-     */
-    public $currentPage;
-
-    /**
-     * @var int
-     */
-    public $totalPages = 0;
 
     /**
      * Returns a range of page numbers as an array.
