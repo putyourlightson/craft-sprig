@@ -10,6 +10,10 @@ use craft\web\twig\variables\Paginate;
 
 class PaginateVariable extends Paginate
 {
+    /**
+     * @param Paginator $paginator
+     * @return PaginateVariable
+     */
     public static function create(Paginator $paginator): Paginate
     {
         $paginateVariable = parent::create($paginator);

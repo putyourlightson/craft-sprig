@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.8.1 - 2021-08-27
+### Changed
+- The `PaginateVariable` class now extends Craft’s Paginate class, adding more functionality and better compatibility with other plugins.
+
 ## 1.8.0 - 2021-08-23
 > {warning} Variables passed into Sprig components are now automatically JSON decoded, so you should remove any usage of the `json_decode` filter from Sprig components.
 
