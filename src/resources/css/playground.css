@@ -83,6 +83,12 @@
     width: 350px;
 }
 
+/*--- Fix ugly accessibility focus on the Monaco editor cursor ---*/
+
+.monaco-mouse-cursor-text:focus,
+.monaco-mouse-cursor-text:focus-visible {
+    box-shadow: none!important;
+}
 
 /*--- CodeMirror ---*/
 
