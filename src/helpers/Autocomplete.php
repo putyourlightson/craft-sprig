@@ -7,6 +7,7 @@ namespace putyourlightson\sprig\helpers;
 
 use Craft;
 
+use craft\helpers\ArrayHelper;
 use Jasny\PhpdocParser\Set\PhpDocumentor;
 use Jasny\PhpdocParser\PhpdocParser;
 use Jasny\PhpdocParser\Tag\Summery;
@@ -53,7 +54,7 @@ class Autocomplete
     /**
      * Core function that generates the autocomplete array
      */
-    public static function generateInternal()
+    public static function generate()
     {
         $completionList = [];
         // Iterate through the globals in the Twig context
@@ -72,20 +73,22 @@ class Autocomplete
                 case 'integer':
                 case 'string':
                     $kind = self::CompletionItemKind['Variable'];
+                    $path = $key;
                     $normalizedKey = preg_replace("/[^A-Za-z]/", '', $key);
                     if (ctype_upper($normalizedKey)) {
                         $kind = self::CompletionItemKind['Constant'];
                     }
-                    $completionList[] = [
+                    ArrayHelper::setValue($completionList, $path, [
                         'detail' => "{$type}: {$value}",
                         'kind' => $kind,
                         'label' => $key,
                         'insertText' => $key,
-                    ];
+                    ]);
                     break;
             }
         }
-        //Craft::dd(json_encode($completionList));
+
+        return $completionList;
     }
 
     public static function parseObject(array &$completionList, string $name, $object, string $path = '')
@@ -100,11 +103,11 @@ class Autocomplete
         self::getClassCompletion($completionList, $object, $parser, $name);
         $path .= $name.'.';
         // ServiceLocator Components
-        self::getComponentCompletion($completionList, $object, $path);
+        //self::getComponentCompletion($completionList, $object, $path);
         // Class properties
-        self::getPropertyCompletion($completionList, $object, $parser, $path);
+        //self::getPropertyCompletion($completionList, $object, $parser, $path);
         // Class methods
-        self::getMethodCompletion($completionList, $object, $parser, $path);
+        //self::getMethodCompletion($completionList, $object, $parser, $path);
     }
 
     /**
@@ -129,13 +132,14 @@ class Autocomplete
         } catch (\Throwable $e) {
             // That's okay
         }
-        $completionList[] = [
+        $path = $name;
+        ArrayHelper::setValue($completionList, $path, [
             'detail' => "{$type}: {$className}",
             'documentation' => $annotations['description'] ?? $docs,
             'kind' => self::CompletionItemKind['Class'],
             'label' => $name,
             'insertText' => $name,
-        ];
+        ]);
     }
 
     /**
