@@ -8,6 +8,7 @@ namespace putyourlightson\sprig;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
+use craft\services\Plugins;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use putyourlightson\sprig\models\SettingsModel;
@@ -17,6 +18,8 @@ use putyourlightson\sprig\services\RequestService;
 use putyourlightson\sprig\twigextensions\SprigTwigExtension;
 use putyourlightson\sprig\variables\SprigVariable;
 use yii\base\Event;
+
+use putyourlightson\sprig\helpers\Autocomplete;
 
 /**
  * @property ComponentsService $components
@@ -62,6 +65,16 @@ class Sprig extends Plugin
         $this->_registerTwigExtensions();
         $this->_registerVariables();
         $this->_registerCpRoutes();
+
+        // Handler: Plugins::EVENT_AFTER_LOAD_PLUGINS
+        Event::on(
+            Plugins::class,
+            Plugins::EVENT_AFTER_LOAD_PLUGINS,
+            function () {
+                Autocomplete::generateInternal();
+            }
+        );
+
     }
 
     /**
