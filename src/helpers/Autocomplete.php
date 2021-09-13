@@ -18,9 +18,15 @@ use yii\di\ServiceLocator;
 class Autocomplete
 {
     const COMPLETION_KEY = '__completions';
-    const EXCLUDED_PROPERTIES = [
+    const EXCLUDED_PROPERTY_NAMES = [
         'controller',
         'Controller',
+    ];
+    const EXCLUDED_PROPERTY_REGEXES = [
+        '^_',
+    ];
+    const EXCLUDED_METHOD_REGEXES = [
+        '^_',
     ];
 
     // Faux enum, from: https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.completionitemkind.html
@@ -188,7 +194,16 @@ class Autocomplete
         $reflectionProperties = $reflectionClass->getProperties();
         foreach ($reflectionProperties as $reflectionProperty) {
             $propertyName = $reflectionProperty->getName();
-            if ($reflectionProperty->isPublic()) {
+            // Exclude some properties
+            $propertyAllowed = true;
+            foreach(self::EXCLUDED_PROPERTY_REGEXES as $excludePattern) {
+                $pattern = '`'.$excludePattern.'`i';
+                if (preg_match($pattern, $propertyName) === 1) {
+                    $propertyAllowed = false;
+                }
+            }
+            // Process the property
+            if ($propertyAllowed && $reflectionProperty->isPublic()) {
                 $type = "Property";
                 $docs = $reflectionProperty->getDocComment();
                 try {
@@ -246,7 +261,7 @@ class Autocomplete
                 ]);
                 // Recurse through if this is an object
                 if (isset($object->$propertyName) && is_object($object->$propertyName)) {
-                    if (!in_array($propertyName, self::EXCLUDED_PROPERTIES, true)) {
+                    if (!in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
                         self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
                     }
                 }
@@ -270,7 +285,16 @@ class Autocomplete
         $reflectionMethods = $reflectionClass->getMethods();
         foreach ($reflectionMethods as $reflectionMethod) {
             $methodName = $reflectionMethod->getName();
-            if ($methodName[0] !== '_' && $reflectionMethod->isPublic()) {
+            // Exclude some properties
+            $methodAllowed = true;
+            foreach(self::EXCLUDED_METHOD_REGEXES as $excludePattern) {
+                $pattern = '`'.$excludePattern.'`i';
+                if (preg_match($pattern, $methodName) === 1) {
+                    $methodAllowed = false;
+                }
+            }
+            // Process the method
+            if ($methodAllowed && $reflectionMethod->isPublic()) {
                 $type = "Method";
                 $detail = $type;
                 $docs = $reflectionMethod->getDocComment();
