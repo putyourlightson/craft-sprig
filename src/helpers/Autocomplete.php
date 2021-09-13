@@ -6,14 +6,12 @@
 namespace putyourlightson\sprig\helpers;
 
 use Craft;
-
 use craft\helpers\ArrayHelper;
-use Jasny\PhpdocParser\Set\PhpDocumentor;
-use Jasny\PhpdocParser\PhpdocParser;
-use Jasny\PhpdocParser\Tag\Summery;
 
 use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
+
+use phpDocumentor\Reflection\DocBlockFactory;
 
 class Autocomplete
 {
@@ -111,31 +109,28 @@ class Autocomplete
 
     public static function parseObject(array &$completionList, string $name, $object, string $path = '')
     {
-        // Create the docblock parser
-        $customTags = [
-            new Summery(),
-        ];
-        $tags = PhpDocumentor::tags()->with($customTags);
-        $parser = new PhpdocParser($tags);
+        // Create the docblock factory
+        $factory = DocBlockFactory::createInstance();
+
         $path = trim(implode('.', [$path, $name]), '.');
         // The class itself
-        self::getClassCompletion($completionList, $object, $parser, $name, $path);
+        self::getClassCompletion($completionList, $object, $factory, $name, $path);
         // ServiceLocator Components
         self::getComponentCompletion($completionList, $object, $path);
         // Class properties
-        self::getPropertyCompletion($completionList, $object, $parser, $path);
+        self::getPropertyCompletion($completionList, $object, $factory, $path);
         // Class methods
-        self::getMethodCompletion($completionList, $object, $parser, $path);
+        self::getMethodCompletion($completionList, $object, $factory, $path);
     }
 
     /**
      * @param array $completionList
      * @param $object
-     * @param PhpdocParser $parser
+     * @param DocBlockFactory $factory
      * @param string $name
      * @param $path
      */
-    protected static function getClassCompletion(array &$completionList, $object, PhpdocParser $parser, string $name, $path)
+    protected static function getClassCompletion(array &$completionList, $object, DocBlockFactory $factory, string $name, $path)
     {
         try {
             $reflectionClass = new \ReflectionClass($object);
@@ -147,14 +142,14 @@ class Autocomplete
         $type = 'Class';
         $docs = $reflectionClass->getDocComment();
         try {
-            $annotations = $parser->parse($docs);
+            $docblock = $factory->create($docs);
         } catch (\Throwable $e) {
             // That's okay
         }
         ArrayHelper::setValue($completionList, $path, [
             self::COMPLETION_KEY => [
                 'detail' => "{$className}",
-                'documentation' => $annotations['description'] ?? $docs,
+                'documentation' => $docblock->getDescription()->render() ?? $docs,
                 'kind' => self::CompletionItemKind['Class'],
                 'label' => $name,
                 'insertText' => $name,
@@ -186,10 +181,10 @@ class Autocomplete
     /**
      * @param array $completionList
      * @param $object
-     * @param PhpdocParser $parser
+     * @param DocBlockFactory $factory
      * @param string $path
      */
-    protected static function getPropertyCompletion(array &$completionList, $object, PhpdocParser $parser, string $path)
+    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
     {
         try {
             $reflectionClass = new \ReflectionClass($object);
@@ -212,7 +207,7 @@ class Autocomplete
                 $type = "Property";
                 $docs = $reflectionProperty->getDocComment();
                 try {
-                    $annotations = $parser->parse($docs);
+                    $docblock = $factory->create($docs);
                 } catch (\Throwable $e) {
                     // That's okay
                 }
@@ -277,10 +272,10 @@ class Autocomplete
     /**
      * @param array $completionList
      * @param $object
-     * @param PhpdocParser $parser
+     * @param DocBlockFactory $factory
      * @param string $path
      */
-    protected static function getMethodCompletion(array &$completionList, $object, PhpdocParser $parser, string $path)
+    protected static function getMethodCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
     {
         try {
             $reflectionClass = new \ReflectionClass($object);
@@ -304,13 +299,13 @@ class Autocomplete
                 $detail = $type;
                 $docs = $reflectionMethod->getDocComment();
                 try {
-                    $annotations = $parser->parse($docs);
+                    $docblock = $factory->create($docs);
                 } catch (\Throwable $e) {
                     // That's okay
                 }
                 $thisPath = trim(implode('.', [$path, $methodName]), '.');
                 $label = $methodName . '()';
-                $varDescription = $annotations['var']['description'] ?? null;
+                $varDescription = $docblock->getDescription()->render() ?? null;
                 if ($varDescription) {
                     $varDescription = str_replace(['*/', ' * '], '', $varDescription);
                 }
