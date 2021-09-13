@@ -77,10 +77,12 @@ function addCompletionItemsToMonaco(completionItems) {
             }
             // Get all the child properties
             for (let item in currentItems) {
-                console.log(item);
                 if (currentItems.hasOwnProperty(item) && !item.startsWith("__")) {
-                    // Add to final results
-                    result.push(currentItems[item][COMPLETION_KEY]);
+                    const completionItem = currentItems[item][COMPLETION_KEY];
+                    if (completionItem !== undefined) {
+                        // Add to final results
+                        result.push(completionItem);
+                    }
                 }
             }
 

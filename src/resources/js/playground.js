@@ -114,9 +114,7 @@ function getCompletionItems()
             insertText: 'sprig',
             kind: monaco.languages.CompletionItemKind.Function,
             sortText: '_sprig',
-        },
-        {"detail":"string: English","kind":4,"label":"siteName"},{"detail":"string: http:\/\/localhost:8000\/","kind":4,"label":"siteUrl"},{"detail":"string: plugindev","kind":4,"label":"systemName"},{"detail":"boolean: 1","kind":4,"label":"devMode"},{"detail":"integer: 4","kind":14,"label":"SORT_ASC"},{"detail":"integer: 3","kind":14,"label":"SORT_DESC"},{"detail":"integer: 0","kind":14,"label":"SORT_REGULAR"},{"detail":"integer: 1","kind":14,"label":"SORT_NUMERIC"},{"detail":"integer: 2","kind":14,"label":"SORT_STRING"},{"detail":"integer: 5","kind":14,"label":"SORT_LOCALE_STRING"},{"detail":"integer: 6","kind":14,"label":"SORT_NATURAL"},{"detail":"integer: 8","kind":14,"label":"SORT_FLAG_CASE"},{"detail":"integer: 1","kind":14,"label":"POS_HEAD"},{"detail":"integer: 2","kind":14,"label":"POS_BEGIN"},{"detail":"integer: 3","kind":14,"label":"POS_END"},{"detail":"integer: 4","kind":14,"label":"POS_READY"},{"detail":"integer: 5","kind":14,"label":"POS_LOAD"},{"detail":"boolean: 1","kind":4,"label":"isInstalled"},{"detail":"string: http:\/\/localhost:8000\/login","kind":4,"label":"loginUrl"},{"detail":"string: http:\/\/localhost:8000\/logout","kind":4,"label":"logoutUrl"},
-
+        }
     ];
 
     let suggestionLabels = [
@@ -144,7 +142,7 @@ function getCompletionItems()
     ];
 
     for (let i = 0; i < suggestionLabels.length; i++) {
-        suggestions[i + suggestions.length] = {
+        suggestions[i + 1] = {
             label: suggestionLabels[i],
             insertText: suggestionLabels[i],
             kind: monaco.languages.CompletionItemKind.Field,
