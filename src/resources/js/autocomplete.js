@@ -27,7 +27,6 @@ function ShowAutocompletion(obj) {
         provideCompletionItems: function(model, position, token) {
             // Split everything the user has typed on the current line up at each space, and only look at the last word
             var last_chars = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 0, endLineNumber: position.lineNumber, endColumn: position.column});
-            console.log(last_chars);
             var words = last_chars.replace("\t", "").split(" ");
             var active_typing = words[words.length - 1]; // What the user is currently typing (everything after the last space)
 
@@ -73,15 +72,13 @@ function ShowAutocompletion(obj) {
                     }
 
                     // Create completion object
-                    var to_push = last_token[prop];
+                    var to_push = last_token[prop].__completions;
 
                     // Change insertText and documentation for functions
                     if (to_push.detail.toLowerCase() == 'function') {
                         to_push.insertText += "(";
                         to_push.documentation = (last_token[prop].toString()).split("{")[0]; // Show function prototype in the documentation popup
                     }
-
-                    console.log(to_push);
 
                     // Add to final results
                     result.push(to_push);
@@ -130,20 +127,25 @@ function getCompletionItems() {
     if (responseVars === null) {
         // Grab the globals set Reference Tags from our controller
         var request = new XMLHttpRequest();
-        request.open('GET', Craft.getActionUrl('sprig/autocomplete/index'), false);
+        request.open('GET', Craft.getActionUrl('sprig/autocomplete/index'), true);
+        console.log('request.open');
         request.onload = function () {
             if (request.status >= 200 && request.status < 400) {
+                console.log('status returned');
                 responseVars = JSON.parse(request.responseText);
-                setWithExpiry('sprig-autocomplete-cache', responseVars, 60 * 1000)
+                console.log('JSON parsed');
+                setWithExpiry('sprig-autocomplete-cache', responseVars, 1);
+                console.log('stored in local storage');
+                ShowAutocompletion(responseVars);
+                console.log('autocomplete shown');
             } else {
             }
         };
         request.send();
-        console.log(responseVars);
+        console.log('request.send()');
     }
 
     return responseVars;
 }
-let woof = getCompletionItems();
-console.log(woof);
-ShowAutocompletion(woof);
+
+getCompletionItems();

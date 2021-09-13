@@ -65,6 +65,16 @@ class Sprig extends Plugin
         $this->_registerTwigExtensions();
         $this->_registerVariables();
         $this->_registerCpRoutes();
+
+        // Handler: Plugins::EVENT_AFTER_LOAD_PLUGINS
+        Event::on(
+            Plugins::class,
+            Plugins::EVENT_AFTER_LOAD_PLUGINS,
+            function () {
+                Autocomplete::generate();
+            }
+        );
+
     }
 
     /**

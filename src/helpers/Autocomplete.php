@@ -17,6 +17,8 @@ use yii\di\ServiceLocator;
 
 class Autocomplete
 {
+    const COMPLETION_KEY = '__completions';
+
     /**
      * Faux enum, from: https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.completionitemkind.html
      */
@@ -79,14 +81,17 @@ class Autocomplete
                         $kind = self::CompletionItemKind['Constant'];
                     }
                     ArrayHelper::setValue($completionList, $path, [
-                        'detail' => "{$type}: {$value}",
-                        'kind' => $kind,
-                        'label' => $key,
-                        'insertText' => $key,
+                        self::COMPLETION_KEY => [
+                            'detail' => "{$type}: {$value}",
+                            'kind' => $kind,
+                            'label' => $key,
+                            'insertText' => $key,
+                        ]
                     ]);
                     break;
             }
         }
+
 
         return $completionList;
     }
@@ -99,15 +104,15 @@ class Autocomplete
         ];
         $tags = PhpDocumentor::tags()->with($customTags);
         $parser = new PhpdocParser($tags);
+        $path = trim(implode('.', [$path, $name]), '.');
         // The class itself
-        self::getClassCompletion($completionList, $object, $parser, $name);
-        $path .= $name.'.';
+        self::getClassCompletion($completionList, $object, $parser, $name, $path);
         // ServiceLocator Components
-        //self::getComponentCompletion($completionList, $object, $path);
+        self::getComponentCompletion($completionList, $object, $path);
         // Class properties
-        //self::getPropertyCompletion($completionList, $object, $parser, $path);
+        self::getPropertyCompletion($completionList, $object, $parser, $path);
         // Class methods
-        //self::getMethodCompletion($completionList, $object, $parser, $path);
+        self::getMethodCompletion($completionList, $object, $parser, $path);
     }
 
     /**
@@ -115,8 +120,9 @@ class Autocomplete
      * @param $object
      * @param PhpdocParser $parser
      * @param string $name
+     * @param $path
      */
-    protected static function getClassCompletion(array &$completionList, $object, PhpdocParser $parser, string $name)
+    protected static function getClassCompletion(array &$completionList, $object, PhpdocParser $parser, string $name, $path)
     {
         try {
             $reflectionClass = new \ReflectionClass($object);
@@ -132,13 +138,14 @@ class Autocomplete
         } catch (\Throwable $e) {
             // That's okay
         }
-        $path = $name;
         ArrayHelper::setValue($completionList, $path, [
-            'detail' => "{$type}: {$className}",
-            'documentation' => $annotations['description'] ?? $docs,
-            'kind' => self::CompletionItemKind['Class'],
-            'label' => $name,
-            'insertText' => $name,
+            self::COMPLETION_KEY => [
+                'detail' => "{$type}: {$className}",
+                'documentation' => $annotations['description'] ?? $docs,
+                'kind' => self::CompletionItemKind['Class'],
+                'label' => $name,
+                'insertText' => $name,
+            ]
         ]);
     }
 
@@ -151,6 +158,7 @@ class Autocomplete
     {
         if ($object instanceof ServiceLocator) {
             foreach ($object->getComponents() as $key => $value) {
+                $componentObject = null;
                 try {
                     $componentObject = $object->get($key);
                 } catch (InvalidConfigException $e) {
@@ -218,22 +226,29 @@ class Autocomplete
                     }
                 }
                 $propertyName = $reflectionProperty->getName();
-                $label = $path . $propertyName;
+                $thisPath = trim(implode('.', [$path, $propertyName]), '.');
+                $label = $propertyName;
                 $varDescription = $annotations['var']['description'] ?? null;
                 if ($varDescription) {
                     $varDescription = str_replace(['*/', ' * '], '', $varDescription);
                 }
-                $completionList[] = [
-                    'detail' => $detail,
-                    'documentation' => $varDescription ?? $annotations['description'] ?? $docs,
-                    'kind' => self::CompletionItemKind['Property'],
-                    'label' => $label,
-                    'insertText' => $label,
-                    'sortText' => '_'.$label,
-                ];
+                ArrayHelper::setValue($completionList, $thisPath, [
+                    self::COMPLETION_KEY => [
+                        'detail' => $detail,
+                        'documentation' => $varDescription ?? $annotations['description'] ?? $docs,
+                        'kind' => self::CompletionItemKind['Property'],
+                        'label' => $label,
+                        'insertText' => $label,
+                        'sortText' => '_' . $label,
+                    ]
+                ]);
                 // Recurse through if this is an object
                 if (isset($object->$propertyName) && is_object($object->$propertyName)) {
-                    self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
+                    Craft::info('MOOF - ' . $propertyName . ' - ' . $detail, __METHOD__);
+                    Craft::info('WOOF - ' . $path, __METHOD__);
+                    if ($propertyName === 'app') {
+                        self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
+                    }
                 }
             }
         }
@@ -264,19 +279,22 @@ class Autocomplete
                 } catch (\Throwable $e) {
                     // That's okay
                 }
-                $label = $path . $methodName . '()';
+                $thisPath = trim(implode('.', [$path, $methodName]), '.');
+                $label = $methodName . '()';
                 $varDescription = $annotations['var']['description'] ?? null;
                 if ($varDescription) {
                     $varDescription = str_replace(['*/', ' * '], '', $varDescription);
                 }
-                $completionList[] = [
-                    'detail' => $detail,
-                    'documentation' => $varDescription ?? $annotations['description'] ?? $docs,
-                    'kind' => self::CompletionItemKind['Method'],
-                    'label' => $label,
-                    'insertText' => $label,
-                    'sortText' => '__'.$label,
-                ];
+                ArrayHelper::setValue($completionList, $thisPath, [
+                    self::COMPLETION_KEY => [
+                        'detail' => $detail,
+                        'documentation' => $varDescription ?? $annotations['description'] ?? $docs,
+                        'kind' => self::CompletionItemKind['Method'],
+                        'label' => $label,
+                        'insertText' => $label,
+                        'sortText' => '__' . $label,
+                    ]
+                ]);
             }
         }
     }
