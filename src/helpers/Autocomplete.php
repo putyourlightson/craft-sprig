@@ -21,6 +21,9 @@ class Autocomplete
     const EXCLUDED_PROPERTY_NAMES = [
         'controller',
         'Controller',
+        'CraftEdition',
+        'CraftSolo',
+        'CraftPro',
     ];
     const EXCLUDED_PROPERTY_REGEXES = [
         '^_',
@@ -71,32 +74,34 @@ class Autocomplete
         /* @noinspection PhpInternalEntityUsedInspection */
         $globals = Craft::$app->view->getTwig()->getGlobals();
         foreach ($globals as $key => $value) {
-            $type = gettype($value);
-            switch ($type) {
-                case 'object':
-                    self::parseObject($completionList, $key, $value, '');
-                    break;
+            if (!in_array($key, self::EXCLUDED_PROPERTY_NAMES, true)) {
+                $type = gettype($value);
+                switch ($type) {
+                    case 'object':
+                        self::parseObject($completionList, $key, $value, '');
+                        break;
 
-                case 'array':
-                case 'boolean':
-                case 'double':
-                case 'integer':
-                case 'string':
-                    $kind = self::CompletionItemKind['Variable'];
-                    $path = $key;
-                    $normalizedKey = preg_replace("/[^A-Za-z]/", '', $key);
-                    if (ctype_upper($normalizedKey)) {
-                        $kind = self::CompletionItemKind['Constant'];
-                    }
-                    ArrayHelper::setValue($completionList, $path, [
-                        self::COMPLETION_KEY => [
-                            'detail' => "{$type}: {$value}",
-                            'kind' => $kind,
-                            'label' => $key,
-                            'insertText' => $key,
-                        ]
-                    ]);
-                    break;
+                    case 'array':
+                    case 'boolean':
+                    case 'double':
+                    case 'integer':
+                    case 'string':
+                        $kind = self::CompletionItemKind['Variable'];
+                        $path = $key;
+                        $normalizedKey = preg_replace("/[^A-Za-z]/", '', $key);
+                        if (ctype_upper($normalizedKey)) {
+                            $kind = self::CompletionItemKind['Constant'];
+                        }
+                        ArrayHelper::setValue($completionList, $path, [
+                            self::COMPLETION_KEY => [
+                                'detail' => "{$value}",
+                                'kind' => $kind,
+                                'label' => $key,
+                                'insertText' => $key,
+                            ]
+                        ]);
+                        break;
+                }
             }
         }
 
@@ -148,7 +153,7 @@ class Autocomplete
         }
         ArrayHelper::setValue($completionList, $path, [
             self::COMPLETION_KEY => [
-                'detail' => "{$type}: {$className}",
+                'detail' => "{$className}",
                 'documentation' => $annotations['description'] ?? $docs,
                 'kind' => self::CompletionItemKind['Class'],
                 'label' => $name,
@@ -237,7 +242,7 @@ class Autocomplete
                                     $value = json_encode($value);
                                 }
                                 if (!empty($value)) {
-                                    $detail = "{$type}: {$value}";
+                                    $detail = "{$value}";
                                 }
                             }
                         }
