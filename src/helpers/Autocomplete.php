@@ -18,6 +18,10 @@ use yii\di\ServiceLocator;
 class Autocomplete
 {
     const COMPLETION_KEY = '__completions';
+    const EXCLUDED_PROPERTIES = [
+        'controller',
+        'Controller',
+    ];
 
     /**
      * Faux enum, from: https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.completionitemkind.html
@@ -185,6 +189,7 @@ class Autocomplete
         }
         $reflectionProperties = $reflectionClass->getProperties();
         foreach ($reflectionProperties as $reflectionProperty) {
+            $propertyName = $reflectionProperty->getName();
             if ($reflectionProperty->isPublic()) {
                 $type = "Property";
                 $docs = $reflectionProperty->getDocComment();
@@ -225,7 +230,6 @@ class Autocomplete
                         }
                     }
                 }
-                $propertyName = $reflectionProperty->getName();
                 $thisPath = trim(implode('.', [$path, $propertyName]), '.');
                 $label = $propertyName;
                 $varDescription = $annotations['var']['description'] ?? null;
@@ -239,14 +243,12 @@ class Autocomplete
                         'kind' => self::CompletionItemKind['Property'],
                         'label' => $label,
                         'insertText' => $label,
-                        'sortText' => '_' . $label,
+                        'sortText' => '~' . $label,
                     ]
                 ]);
                 // Recurse through if this is an object
                 if (isset($object->$propertyName) && is_object($object->$propertyName)) {
-                    Craft::info('MOOF - ' . $propertyName . ' - ' . $detail, __METHOD__);
-                    Craft::info('WOOF - ' . $path, __METHOD__);
-                    if ($propertyName === 'app') {
+                    if (!in_array($propertyName, self::EXCLUDED_PROPERTIES, true)) {
                         self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
                     }
                 }
@@ -292,7 +294,7 @@ class Autocomplete
                         'kind' => self::CompletionItemKind['Method'],
                         'label' => $label,
                         'insertText' => $label,
-                        'sortText' => '__' . $label,
+                        'sortText' => '~~' . $label,
                     ]
                 ]);
             }
