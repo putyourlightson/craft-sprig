@@ -23,9 +23,7 @@ class Autocomplete
         'Controller',
     ];
 
-    /**
-     * Faux enum, from: https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.completionitemkind.html
-     */
+    // Faux enum, from: https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.completionitemkind.html
     const CompletionItemKind = [
         'Class' => 5,
         'Color' => 19,
