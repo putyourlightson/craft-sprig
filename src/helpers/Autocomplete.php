@@ -141,15 +141,16 @@ class Autocomplete
         $className = $reflectionClass->getName();
         $type = 'Class';
         $docs = $reflectionClass->getDocComment();
-        try {
+        if ($docs) {
             $docblock = $factory->create($docs);
-        } catch (\Throwable $e) {
-            // That's okay
+            if ($docblock) {
+                $docs = $docblock->getDescription()->render();
+            }
         }
         ArrayHelper::setValue($completionList, $path, [
             self::COMPLETION_KEY => [
                 'detail' => "{$className}",
-                'documentation' => $docblock->getDescription()->render() ?? $docs,
+                'documentation' => $docs,
                 'kind' => self::CompletionItemKind['Class'],
                 'label' => $name,
                 'insertText' => $name,
@@ -204,15 +205,19 @@ class Autocomplete
             }
             // Process the property
             if ($propertyAllowed && $reflectionProperty->isPublic()) {
-                $type = "Property";
-                $docs = $reflectionProperty->getDocComment();
-                try {
+                $detail = "Property";
+                $docblock = null;
+                $docs = $reflectionClass->getDocComment();
+                if ($docs) {
                     $docblock = $factory->create($docs);
-                } catch (\Throwable $e) {
-                    // That's okay
+                    if ($docblock) {
+                        $docs = $docblock->getDescription()->render();
+                    }
                 }
                 // Figure out the type
-                $detail = $annotations['var']['type'] ?? "Property";
+                if ($docblock) {
+                    $detail = $docblock->getTagsByName('var') ?? "Property";
+                }
                 if ($detail === "Property") {
                     if (preg_match('/@var\s+([^\s]+)/', $docs, $matches)) {
                         list(, $type) = $matches;
@@ -245,14 +250,10 @@ class Autocomplete
                 }
                 $thisPath = trim(implode('.', [$path, $propertyName]), '.');
                 $label = $propertyName;
-                $varDescription = $annotations['var']['description'] ?? null;
-                if ($varDescription) {
-                    $varDescription = str_replace(['*/', ' * '], '', $varDescription);
-                }
                 ArrayHelper::setValue($completionList, $thisPath, [
                     self::COMPLETION_KEY => [
                         'detail' => $detail,
-                        'documentation' => $varDescription ?? $annotations['description'] ?? $docs,
+                        'documentation' => $docs,
                         'kind' => self::CompletionItemKind['Property'],
                         'label' => $label,
                         'insertText' => $label,
@@ -297,22 +298,20 @@ class Autocomplete
             if ($methodAllowed && $reflectionMethod->isPublic()) {
                 $type = "Method";
                 $detail = $type;
-                $docs = $reflectionMethod->getDocComment();
-                try {
+                $docblock = null;
+                $docs = $reflectionClass->getDocComment();
+                if ($docs) {
                     $docblock = $factory->create($docs);
-                } catch (\Throwable $e) {
-                    // That's okay
+                    if ($docblock) {
+                        $docs = $docblock->getDescription()->render();
+                    }
                 }
                 $thisPath = trim(implode('.', [$path, $methodName]), '.');
                 $label = $methodName . '()';
-                $varDescription = $docblock->getDescription()->render() ?? null;
-                if ($varDescription) {
-                    $varDescription = str_replace(['*/', ' * '], '', $varDescription);
-                }
                 ArrayHelper::setValue($completionList, $thisPath, [
                     self::COMPLETION_KEY => [
                         'detail' => $detail,
-                        'documentation' => $varDescription ?? $annotations['description'] ?? $docs,
+                        'documentation' => $docs,
                         'kind' => self::CompletionItemKind['Method'],
                         'label' => $label,
                         'insertText' => $label,
