@@ -402,7 +402,7 @@ class Autocomplete
             'entry' => new \craft\elements\Entry(),
             'tag' => new \craft\elements\Tag(),
             // Set the nonce to a blank string, as it changes on every request
-            'nonce' => "",
+            'nonce' => '',
         ];
         if (Craft::$app->getPlugins()->getPlugin(self::COMMERCE_PLUGIN_HANDLE)) {
             $result = array_merge($result, [
