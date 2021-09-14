@@ -8,7 +8,6 @@ namespace putyourlightson\sprig;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
-use craft\services\Plugins;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use putyourlightson\sprig\models\SettingsModel;
@@ -18,8 +17,6 @@ use putyourlightson\sprig\services\RequestService;
 use putyourlightson\sprig\twigextensions\SprigTwigExtension;
 use putyourlightson\sprig\variables\SprigVariable;
 use yii\base\Event;
-
-use putyourlightson\sprig\helpers\Autocomplete;
 
 /**
  * @property ComponentsService $components

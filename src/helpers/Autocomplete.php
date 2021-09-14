@@ -102,8 +102,7 @@ class Autocomplete
                 }
             }
         }
-
-
+        
         return $completionList;
     }
 
@@ -144,7 +143,14 @@ class Autocomplete
         if ($docs) {
             $docblock = $factory->create($docs);
             if ($docblock) {
-                $docs = $docblock->getDescription()->render();
+                $summary = $docblock->getSummary();
+                if (!empty($summary)) {
+                    $docs = $summary;
+                }
+                $description = $docblock->getDescription()->render();
+                if (!empty($description)) {
+                    $docs = $description;
+                }
             }
         }
         ArrayHelper::setValue($completionList, $path, [
@@ -207,11 +213,18 @@ class Autocomplete
             if ($propertyAllowed && $reflectionProperty->isPublic()) {
                 $detail = "Property";
                 $docblock = null;
-                $docs = $reflectionClass->getDocComment();
+                $docs = $reflectionProperty->getDocComment();
                 if ($docs) {
                     $docblock = $factory->create($docs);
                     if ($docblock) {
-                        $docs = $docblock->getDescription()->render();
+                        $summary = $docblock->getSummary();
+                        if (!empty($summary)) {
+                            $docs = $summary;
+                        }
+                        $description = $docblock->getDescription()->render();
+                        if (!empty($description)) {
+                            $docs = $description;
+                        }
                     }
                 }
                 // Figure out the type
@@ -299,11 +312,18 @@ class Autocomplete
                 $type = "Method";
                 $detail = $type;
                 $docblock = null;
-                $docs = $reflectionClass->getDocComment();
+                $docs = $reflectionMethod->getDocComment();
                 if ($docs) {
                     $docblock = $factory->create($docs);
                     if ($docblock) {
-                        $docs = $docblock->getDescription()->render();
+                        $summary = $docblock->getSummary();
+                        if (!empty($summary)) {
+                            $docs = $summary;
+                        }
+                        $description = $docblock->getDescription()->render();
+                        if (!empty($description)) {
+                            $docs = $description;
+                        }
                     }
                 }
                 $thisPath = trim(implode('.', [$path, $methodName]), '.');
