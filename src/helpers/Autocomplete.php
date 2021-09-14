@@ -6,6 +6,7 @@
 namespace putyourlightson\sprig\helpers;
 
 use Craft;
+use craft\base\Element;
 use craft\helpers\ArrayHelper;
 
 use yii\base\InvalidConfigException;
@@ -146,7 +147,7 @@ class Autocomplete
         self::getPropertyCompletion($completionList, $object, $factory, $path);
         // Class methods
         self::getMethodCompletion($completionList, $object, $factory, $path);
-        // Behavior methods
+        // Behavior properties
         self::getBehaviorCompletion($completionList, $object, $factory, $path);
     }
 
@@ -222,7 +223,7 @@ class Autocomplete
      * @param DocBlockFactory $factory
      * @param string $path
      */
-    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path, $recurse = true)
     {
         try {
             $reflectionClass = new \ReflectionClass($object);
@@ -310,7 +311,7 @@ class Autocomplete
                 ]);
                 // Recurse through if this is an object
                 if (isset($object->$propertyName) && is_object($object->$propertyName)) {
-                    if (!in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
+                    if ($recurse && !in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
                         self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
                     }
                 }
@@ -395,6 +396,22 @@ class Autocomplete
                         'sortText' => '~~' . $label,
                     ]
                 ]);
+            }
+        }
+    }
+
+    /**
+     * @param array $completionList
+     * @param $object
+     * @param DocBlockFactory $factory
+     * @param string $path
+     */
+    protected static function getBehaviorCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    {
+        if ($object instanceof Element) {
+            $behaviorClass = $object->getBehavior('customFields');
+            if ($behaviorClass) {
+                self::getPropertyCompletion($completionList, $behaviorClass, $factory, $path, false);
             }
         }
     }
