@@ -105,6 +105,7 @@ function addCompletionItemsToMonaco(completionItems) {
                     if (currentItems.hasOwnProperty(item) && !item.startsWith("__")) {
                         const completionItem = currentItems[item][COMPLETION_KEY];
                         if (completionItem !== undefined) {
+                            delete completionItem.range;
                             // Add to final results
                             result.push(completionItem);
                         }
