@@ -218,8 +218,8 @@ class Autocomplete
             $propertyName = $reflectionProperty->getName();
             // Exclude some properties
             $propertyAllowed = true;
-            foreach(self::EXCLUDED_PROPERTY_REGEXES as $excludePattern) {
-                $pattern = '`'.$excludePattern.'`i';
+            foreach (self::EXCLUDED_PROPERTY_REGEXES as $excludePattern) {
+                $pattern = '`' . $excludePattern . '`i';
                 if (preg_match($pattern, $propertyName) === 1) {
                     $propertyAllowed = false;
                 }
@@ -320,8 +320,8 @@ class Autocomplete
             $methodName = $reflectionMethod->getName();
             // Exclude some properties
             $methodAllowed = true;
-            foreach(self::EXCLUDED_METHOD_REGEXES as $excludePattern) {
-                $pattern = '`'.$excludePattern.'`i';
+            foreach (self::EXCLUDED_METHOD_REGEXES as $excludePattern) {
+                $pattern = '`' . $excludePattern . '`i';
                 if (preg_match($pattern, $methodName) === 1) {
                     $methodAllowed = false;
                 }
@@ -347,11 +347,11 @@ class Autocomplete
                 $detail = $methodName . '(';
                 $params = $reflectionMethod->getParameters();
                 $paramList = [];
-                foreach($params as $param) {
+                foreach ($params as $param) {
                     if ($param->hasType()) {
-                        $paramList[] = $param->getType()->getName() . ': ' . $param->getName();
+                        $paramList[] = $param->getType()->getName() . ': ' . '$' . $param->getName();
                     } else {
-                        $paramList[] = $param->getName();
+                        $paramList[] = '$' . $param->getName();
                     }
                 }
                 $detail .= implode(', ', $paramList) . ')';
@@ -363,7 +363,7 @@ class Autocomplete
                     $tags = $docblock->getTagsByName('param');
                     if ($tags) {
                         $docsPreamble = "Parameters:\n\n";
-                        foreach($tags as $tag) {
+                        foreach ($tags as $tag) {
                             $docsPreamble .= strval($tag) . "\n";
                         }
                         $docsPreamble .= "\n";
