@@ -22,6 +22,9 @@ use phpDocumentor\Reflection\DocBlockFactory;
  */
 class Autocomplete
 {
+    // Constants
+    // =========================================================================
+
     const COMMERCE_PLUGIN_HANDLE = 'commerce';
 
     const COMPLETION_KEY = '__completions';
@@ -70,6 +73,9 @@ class Autocomplete
         'Value' => 13,
         'Variable' => 4,
     ];
+
+    // Public Static Methods
+    // =========================================================================
 
     /**
      * Core function that generates the autocomplete array
@@ -140,7 +146,12 @@ class Autocomplete
         self::getPropertyCompletion($completionList, $object, $factory, $path);
         // Class methods
         self::getMethodCompletion($completionList, $object, $factory, $path);
+        // Behavior methods
+        self::getBehaviorCompletion($completionList, $object, $factory, $path);
     }
+
+    // Protected Static Methods
+    // =========================================================================
 
     /**
      * @param array $completionList
@@ -387,6 +398,9 @@ class Autocomplete
             }
         }
     }
+
+    // Private Static Methods
+    // =========================================================================
 
     /**
      * Override certain values that we always want hard-coded
