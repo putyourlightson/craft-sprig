@@ -54,7 +54,7 @@ function addCompletionItemsToMonaco(completionItems) {
     monaco.languages.registerCompletionItemProvider('twig', {
         triggerCharacters: ['.', '('],
         provideCompletionItems: function(model, position, token) {
-            var result = [];
+            let result = [];
             // Get the last word the user has typed
             const currentLine = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 0, endLineNumber: position.lineNumber, endColumn: position.column});
             const currentWords = currentLine.replace("\t", "").split(" ");
@@ -64,10 +64,10 @@ function addCompletionItemsToMonaco(completionItems) {
             // If the last character typed is a period, then we need to look up a sub-property of the completionItems
             if (isSubProperty) {
                 // Is a sub-property, get a list of parent properties
-                var parents = currentWord.substring(0, currentWord.length - 1).split(".");
+                const parents = currentWord.substring(0, currentWord.length - 1).split(".");
                 currentItems = completionItems[parents[0]];
                 // Loop through all the parents to traverse the completion items and find the current one
-                for (var i = 1; i < parents.length; i++) {
+                for (let i = 1; i < parents.length; i++) {
                     if (currentItems.hasOwnProperty(parents[i])) {
                         currentItems = currentItems[parents[i]];
                     } else {
@@ -105,7 +105,7 @@ function addHoverHandlerToMonaco(completionItems) {
             let searchLine = currentLine.substring(0, currentWord.endColumn -1)
             let isSubProperty = false;
             let currentItems = completionItems;
-            for (var i = searchLine.length; i >= 0; i--) {
+            for (let i = searchLine.length; i >= 0; i--) {
                 if (searchLine[i] === ' ') {
                     searchLine = currentLine.substring(i + 1, searchLine.length);
                     break;
@@ -116,9 +116,9 @@ function addHoverHandlerToMonaco(completionItems) {
             }
             if (isSubProperty) {
                 // Is a sub-property, get a list of parent properties
-                var parents = searchLine.substring(0, searchLine.length).split(".");
+                const parents = searchLine.substring(0, searchLine.length).split(".");
                 // Loop through all the parents to traverse the completion items and find the current one
-                for (var i = 0; i < parents.length - 1; i++) {
+                for (let i = 0; i < parents.length - 1; i++) {
                     if (currentItems.hasOwnProperty(parents[i])) {
                         currentItems = currentItems[parents[i]];
                     } else {
@@ -149,7 +149,7 @@ function addHoverHandlerToMonaco(completionItems) {
  */
 function getCompletionItemsFromEndpoint() {
     // Try to get the completion items from local storage
-    var completionItems = getWithExpiry(AUTOCOMPLETE_CACHE_KEY);
+    let completionItems = getWithExpiry(AUTOCOMPLETE_CACHE_KEY);
     if (completionItems !== null) {
         addCompletionItemsToMonaco(completionItems);
         addHoverHandlerToMonaco(completionItems);
