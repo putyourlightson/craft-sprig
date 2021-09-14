@@ -99,12 +99,15 @@ function addHoverHandlerToMonaco(completionItems) {
             let result = {};
             const currentLine = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 0, endLineNumber: position.lineNumber, endColumn: model.getLineMaxColumn(position.lineNumber) });
             const currentWord = model.getWordAtPosition(position);
+            if (currentWord === null) {
+                return;
+            }
             let searchLine = currentLine.substring(0, currentWord.endColumn -1)
             let isSubProperty = false;
             let currentItems = completionItems;
             for (var i = searchLine.length; i >= 0; i--) {
                 if (searchLine[i] === ' ') {
-                    searchLine = currentLine.substring(i, searchLine.length);
+                    searchLine = currentLine.substring(i + 1, searchLine.length);
                     break;
                 }
             }
@@ -114,12 +117,8 @@ function addHoverHandlerToMonaco(completionItems) {
             if (isSubProperty) {
                 // Is a sub-property, get a list of parent properties
                 var parents = searchLine.substring(0, searchLine.length).split(".");
-                console.log(parents[0]);
-                console.log(completionItems[parents[0]]);
-                currentItems = completionItems[parents[0]];
-                console.log(currentItems);
                 // Loop through all the parents to traverse the completion items and find the current one
-                for (var i = 1; i < parents.length; i++) {
+                for (var i = 0; i < parents.length - 1; i++) {
                     if (currentItems.hasOwnProperty(parents[i])) {
                         currentItems = currentItems[parents[i]];
                     } else {
@@ -127,15 +126,14 @@ function addHoverHandlerToMonaco(completionItems) {
                     }
                 }
             }
-
             if (currentItems[currentWord.word] !== undefined) {
                 const completionItem = currentItems[currentWord.word][COMPLETION_KEY];
                 if (completionItem !== undefined) {
                     return {
                         range: new monaco.Range(position.lineNumber, currentWord.startColumn, position.lineNumber, currentWord.endColum),
                         contents: [
-                            {value: completionItem.label},
-                            {value: completionItem.detail},
+                            {value: '**' + completionItem.detail + '**'},
+                            {value: completionItem.documentation},
                         ]
                     }
                 }

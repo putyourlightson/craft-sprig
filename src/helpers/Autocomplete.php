@@ -102,7 +102,7 @@ class Autocomplete
                 }
             }
         }
-        
+
         return $completionList;
     }
 
@@ -229,7 +229,10 @@ class Autocomplete
                 }
                 // Figure out the type
                 if ($docblock) {
-                    $detail = $docblock->getTagsByName('var') ?? "Property";
+                    $tag = $docblock->getTagsByName('var');
+                    if ($tag && isset($tag[0])) {
+                        $detail = strval($tag[0]);
+                    }
                 }
                 if ($detail === "Property") {
                     if (preg_match('/@var\s+([^\s]+)/', $docs, $matches)) {
