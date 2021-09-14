@@ -9,6 +9,7 @@ use Craft;
 use craft\base\Element;
 use craft\helpers\ArrayHelper;
 
+use yii\base\Behavior;
 use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
 
@@ -35,6 +36,11 @@ class Autocomplete
         'CraftEdition',
         'CraftSolo',
         'CraftPro',
+    ];
+    const EXCLUDED_BEHAVIOR_NAMES = [
+        'fieldHandles',
+        'hasMethods',
+        'owner',
     ];
     const EXCLUDED_PROPERTY_REGEXES = [
         '^_',
@@ -223,7 +229,7 @@ class Autocomplete
      * @param DocBlockFactory $factory
      * @param string $path
      */
-    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path, $recurse = true)
+    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
     {
         try {
             $reflectionClass = new \ReflectionClass($object);
@@ -231,6 +237,11 @@ class Autocomplete
             return;
         }
         $reflectionProperties = $reflectionClass->getProperties();
+        $customField = false;
+        if ($object instanceof Behavior) {
+            $customField = true;
+        }
+        $sortPrefix = $customField ? '~' : '~~';
         foreach ($reflectionProperties as $reflectionProperty) {
             $propertyName = $reflectionProperty->getName();
             // Exclude some properties
@@ -240,6 +251,12 @@ class Autocomplete
                 if (preg_match($pattern, $propertyName) === 1) {
                     $propertyAllowed = false;
                 }
+            }
+            if (in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
+                $propertyAllowed = false;
+            }
+            if ($customField && in_array($propertyName, self::EXCLUDED_BEHAVIOR_NAMES, true)) {
+                $propertyAllowed = false;
             }
             // Process the property
             if ($propertyAllowed && $reflectionProperty->isPublic()) {
@@ -303,15 +320,15 @@ class Autocomplete
                     self::COMPLETION_KEY => [
                         'detail' => $detail,
                         'documentation' => $docs,
-                        'kind' => self::CompletionItemKind['Property'],
+                        'kind' => $customField ? self::CompletionItemKind['Field'] : self::CompletionItemKind['Property'],
                         'label' => $label,
                         'insertText' => $label,
-                        'sortText' => '~' . $label,
+                        'sortText' => $sortPrefix . $label,
                     ]
                 ]);
                 // Recurse through if this is an object
                 if (isset($object->$propertyName) && is_object($object->$propertyName)) {
-                    if ($recurse && !in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
+                    if (!$customField && !in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
                         self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
                     }
                 }
@@ -393,7 +410,7 @@ class Autocomplete
                         'kind' => self::CompletionItemKind['Method'],
                         'label' => $label,
                         'insertText' => $label,
-                        'sortText' => '~~' . $label,
+                        'sortText' => '~~~' . $label,
                     ]
                 ]);
             }
@@ -411,7 +428,7 @@ class Autocomplete
         if ($object instanceof Element) {
             $behaviorClass = $object->getBehavior('customFields');
             if ($behaviorClass) {
-                self::getPropertyCompletion($completionList, $behaviorClass, $factory, $path, false);
+                self::getPropertyCompletion($completionList, $behaviorClass, $factory, $path);
             }
         }
     }
