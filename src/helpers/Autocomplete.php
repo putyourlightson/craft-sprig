@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (c) PutYourLightsOn
+ * @copyright Copyright (c) nystudio107, PutYourLightsOn
  */
 
 namespace putyourlightson\sprig\helpers;
@@ -13,6 +13,13 @@ use yii\di\ServiceLocator;
 
 use phpDocumentor\Reflection\DocBlockFactory;
 
+/**
+ * Class Autocomplete
+ *
+ * @author    nystudio107
+ * @package   Sprig
+ * @since     1.8.2
+ */
 class Autocomplete
 {
     const COMPLETION_KEY = '__completions';
@@ -106,6 +113,14 @@ class Autocomplete
         return $completionList;
     }
 
+    /**
+     * Parse the object passed in, including any properties or methods
+     *
+     * @param array $completionList
+     * @param string $name
+     * @param $object
+     * @param string $path
+     */
     public static function parseObject(array &$completionList, string $name, $object, string $path = '')
     {
         // Create the docblock factory
@@ -216,6 +231,7 @@ class Autocomplete
                 $docs = $reflectionProperty->getDocComment();
                 if ($docs) {
                     $docblock = $factory->create($docs);
+                    $docs = '';
                     if ($docblock) {
                         $summary = $docblock->getSummary();
                         if (!empty($summary)) {

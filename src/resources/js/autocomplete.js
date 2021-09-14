@@ -1,3 +1,11 @@
+/**
+ * autocomplete.js
+ *
+ * @author    nystudio107
+ * @package   Sprig
+ * @since     1.8.2
+ */
+
 const COMPLETION_KEY = '__completions';
 const AUTOCOMPLETE_CONTROLLER_ENDPOINT = 'sprig/autocomplete/index';
 const AUTOCOMPLETE_CACHE_KEY = 'sprig-autocomplete-cache';
@@ -93,6 +101,11 @@ function addCompletionItemsToMonaco(completionItems) {
     });
 }
 
+/**
+ * Register hover items with the Monaco editor, for the Twig language
+ *
+ * @param completionItems
+ */
 function addHoverHandlerToMonaco(completionItems) {
     monaco.languages.registerHoverProvider('twig', {
         provideHover: function (model, position) {
