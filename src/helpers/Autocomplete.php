@@ -22,6 +22,8 @@ use phpDocumentor\Reflection\DocBlockFactory;
  */
 class Autocomplete
 {
+    const COMMERCE_PLUGIN_HANDLE = 'commerce';
+
     const COMPLETION_KEY = '__completions';
     const EXCLUDED_PROPERTY_NAMES = [
         'controller',
@@ -77,7 +79,10 @@ class Autocomplete
         $completionList = [];
         // Iterate through the globals in the Twig context
         /* @noinspection PhpInternalEntityUsedInspection */
-        $globals = Craft::$app->view->getTwig()->getGlobals();
+        $globals = array_merge(
+            Craft::$app->view->getTwig()->getGlobals(),
+            self::overrideValues()
+        );
         foreach ($globals as $key => $value) {
             if (!in_array($key, self::EXCLUDED_PROPERTY_NAMES, true)) {
                 $type = gettype($value);
@@ -381,5 +386,33 @@ class Autocomplete
                 ]);
             }
         }
+    }
+
+    /**
+     * Override certain values that we always want hard-coded
+     *
+     * @return array
+     */
+    private static function overrideValues(): array
+    {
+        $result = [
+            // Craft core route variables
+            'asset' => new \craft\elements\Asset(),
+            'category' => new \craft\elements\Category(),
+            'entry' => new \craft\elements\Entry(),
+            'tag' => new \craft\elements\Tag(),
+            // Set the nonce to a blank string, as it changes on every request
+            'nonce' => "",
+        ];
+        if (Craft::$app->getPlugins()->getPlugin(self::COMMERCE_PLUGIN_HANDLE)) {
+            $result = array_merge($result, [
+                // Commerce route variables
+                'lineItem' => new \craft\commerce\models\LineItem(),
+                'order' => new \craft\commerce\elements\Order(),
+                'product' => new \craft\commerce\elements\Product(),
+            ]);
+        }
+
+        return  $result;
     }
 }
