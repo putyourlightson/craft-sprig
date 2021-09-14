@@ -12,6 +12,16 @@ const AUTOCOMPLETE_CACHE_KEY = 'sprig-autocomplete-cache';
 const AUTOCOMPLETE_CACHE_DURATION = 60 * 1000;
 
 /**
+ * Get the last item from the array
+ *
+ * @param arr
+ * @returns {*}
+ */
+function getLastItem(arr) {
+    return arr[arr.length - 1];
+}
+
+/**
  * Store a value in local storage via a key, and with a duration in TTL
  *
  * @param key
@@ -66,7 +76,13 @@ function addCompletionItemsToMonaco(completionItems) {
             // Get the last word the user has typed
             const currentLine = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 0, endLineNumber: position.lineNumber, endColumn: position.column});
             const currentWords = currentLine.replace("\t", "").split(" ");
-            const currentWord = currentWords[currentWords.length - 1];
+            let currentWord = currentWords[currentWords.length - 1];
+            if (currentWord.includes('(')) {
+                currentWord = getLastItem(currentWord.split('('));
+            }
+            if (currentWord.includes('>')) {
+                currentWord = getLastItem(currentWord.split('>'));
+            }
             const isSubProperty = currentWord.charAt(currentWord.length - 1) == ".";
             let currentItems = completionItems;
             // If the last character typed is a period, then we need to look up a sub-property of the completionItems
@@ -84,12 +100,14 @@ function addCompletionItemsToMonaco(completionItems) {
                 }
             }
             // Get all the child properties
-            for (let item in currentItems) {
-                if (currentItems.hasOwnProperty(item) && !item.startsWith("__")) {
-                    const completionItem = currentItems[item][COMPLETION_KEY];
-                    if (completionItem !== undefined) {
-                        // Add to final results
-                        result.push(completionItem);
+            if (currentItems !== undefined) {
+                for (let item in currentItems) {
+                    if (currentItems.hasOwnProperty(item) && !item.startsWith("__")) {
+                        const completionItem = currentItems[item][COMPLETION_KEY];
+                        if (completionItem !== undefined) {
+                            // Add to final results
+                            result.push(completionItem);
+                        }
                     }
                 }
             }
@@ -139,7 +157,7 @@ function addHoverHandlerToMonaco(completionItems) {
                     }
                 }
             }
-            if (currentItems[currentWord.word] !== undefined) {
+            if (currentItems !== undefined && currentItems[currentWord.word] !== undefined) {
                 const completionItem = currentItems[currentWord.word][COMPLETION_KEY];
                 if (completionItem !== undefined) {
                     return {
