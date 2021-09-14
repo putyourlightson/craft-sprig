@@ -313,7 +313,6 @@ class Autocomplete
             // Process the method
             if ($methodAllowed && $reflectionMethod->isPublic()) {
                 $type = "Method";
-                $detail = $type;
                 $docblock = null;
                 $docs = $reflectionMethod->getDocComment();
                 if ($docs) {
@@ -329,12 +328,35 @@ class Autocomplete
                         }
                     }
                 }
+                $detail = $methodName . '(';
+                $params = $reflectionMethod->getParameters();
+                $paramList = [];
+                foreach($params as $param) {
+                    if ($param->hasType()) {
+                        $paramList[] = $param->getType()->getName() . ': ' . $param->getName();
+                    } else {
+                        $paramList[] = $param->getName();
+                    }
+                }
+                $detail .= implode(', ', $paramList) . ')';
                 $thisPath = trim(implode('.', [$path, $methodName]), '.');
                 $label = $methodName . '()';
+                $docsPreamble = '';
+                // Figure out the type
+                if ($docblock) {
+                    $tags = $docblock->getTagsByName('param');
+                    if ($tags) {
+                        $docsPreamble = "Parameters:\n\n";
+                        foreach($tags as $tag) {
+                            $docsPreamble .= strval($tag) . "\n";
+                        }
+                        $docsPreamble .= "\n";
+                    }
+                }
                 ArrayHelper::setValue($completionList, $thisPath, [
                     self::COMPLETION_KEY => [
                         'detail' => $detail,
-                        'documentation' => $docs,
+                        'documentation' => $docsPreamble . $docs,
                         'kind' => self::CompletionItemKind['Method'],
                         'label' => $label,
                         'insertText' => $label,
