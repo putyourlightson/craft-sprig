@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (c) PutYourLightsOn
+ * @copyright Copyright (c) nystudio107, PutYourLightsOn
  */
 
 namespace putyourlightson\sprig\controllers;
@@ -10,6 +10,13 @@ use putyourlightson\sprig\helpers\Autocomplete as AutocompleteHelper;
 use craft\web\Controller;
 use yii\web\Response;
 
+/**
+ * Class AutocompleteController
+ *
+ * @author    nystudio107
+ * @package   Sprig
+ * @since     1.8.2
+ */
 class AutocompleteController extends Controller
 {
     /**
