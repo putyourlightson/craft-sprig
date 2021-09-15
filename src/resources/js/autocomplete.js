@@ -12,16 +12,6 @@ const AUTOCOMPLETE_CACHE_KEY = 'sprig-autocomplete-cache';
 const AUTOCOMPLETE_CACHE_DURATION = 60 * 1000;
 
 /**
- * Get the last item from the array
- *
- * @param arr
- * @returns {*}
- */
-function getLastItem(arr) {
-    return arr[arr.length - 1];
-}
-
-/**
  * Store a value in local storage via a key, and with a duration in TTL
  *
  * @param key
@@ -40,7 +30,7 @@ function setWithExpiry(key, value, ttl) {
 }
 
 /**
- * Retireve a value from local storage
+ * Retrieve a value from local storage
  *
  * @param key
  * @returns {null|*}
@@ -77,12 +67,6 @@ function addCompletionItemsToMonaco(completionItems) {
             const currentLine = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 0, endLineNumber: position.lineNumber, endColumn: position.column});
             const currentWords = currentLine.replace("\t", "").split(" ");
             let currentWord = currentWords[currentWords.length - 1];
-            if (currentWord.includes('(')) {
-                currentWord = getLastItem(currentWord.split('('));
-            }
-            if (currentWord.includes('>')) {
-                currentWord = getLastItem(currentWord.split('>'));
-            }
             const isSubProperty = currentWord.charAt(currentWord.length - 1) == ".";
             let currentItems = completionItems;
             // If the last character typed is a period, then we need to look up a sub-property of the completionItems
