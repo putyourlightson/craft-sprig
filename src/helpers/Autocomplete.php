@@ -42,6 +42,10 @@ class Autocomplete
         'hasMethods',
         'owner',
     ];
+    const ELEMENT_ROUTE_EXCLUDES = [
+        'matrixblock',
+        'globalset'
+    ];
     const EXCLUDED_PROPERTY_REGEXES = [
         '^_',
     ];
@@ -94,6 +98,7 @@ class Autocomplete
         /* @noinspection PhpInternalEntityUsedInspection */
         $globals = array_merge(
             Craft::$app->view->getTwig()->getGlobals(),
+            self::elementRouteVariables(),
             self::overrideValues()
         );
         foreach ($globals as $key => $value) {
@@ -438,30 +443,35 @@ class Autocomplete
     // =========================================================================
 
     /**
+     * Add in the element types that could be injected as route variables
+     *
+     * @return array
+     */
+    private static function elementRouteVariables(): array
+    {
+        $routeVariables = [];
+        $elementTypes = Craft::$app->elements->getAllElementTypes();
+        foreach ($elementTypes as $elementType) {
+            /* @var Element $elementType */
+            $key = $elementType::refHandle();
+            if (!empty($key) && !in_array($key, static::ELEMENT_ROUTE_EXCLUDES)) {
+                $routeVariables[$key] = new $elementType;
+            }
+        }
+
+        return $routeVariables;
+    }
+
+    /**
      * Override certain values that we always want hard-coded
      *
      * @return array
      */
     private static function overrideValues(): array
     {
-        $result = [
-            // Craft core route variables
-            'asset' => new \craft\elements\Asset(),
-            'category' => new \craft\elements\Category(),
-            'entry' => new \craft\elements\Entry(),
-            'tag' => new \craft\elements\Tag(),
+        return  [
             // Set the nonce to a blank string, as it changes on every request
             'nonce' => '',
         ];
-        if (Craft::$app->getPlugins()->getPlugin(self::COMMERCE_PLUGIN_HANDLE)) {
-            $result = array_merge($result, [
-                // Commerce route variables
-                'lineItem' => new \craft\commerce\models\LineItem(),
-                'order' => new \craft\commerce\elements\Order(),
-                'product' => new \craft\commerce\elements\Product(),
-            ]);
-        }
-
-        return  $result;
     }
 }
