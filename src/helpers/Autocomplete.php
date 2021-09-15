@@ -215,6 +215,7 @@ class Autocomplete
                 try {
                     $componentObject = $object->get($key);
                 } catch (InvalidConfigException $e) {
+                    // That's okay
                 }
                 if ($componentObject) {
                     self::parseObject($completionList, $key, $componentObject, $path);
