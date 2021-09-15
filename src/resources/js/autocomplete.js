@@ -105,6 +105,8 @@ function addCompletionItemsToMonaco(completionItems) {
                     if (currentItems.hasOwnProperty(item) && !item.startsWith("__")) {
                         const completionItem = currentItems[item][COMPLETION_KEY];
                         if (completionItem !== undefined) {
+                            // Monaco adds a 'range' to the object, to denote where the autocomplete is triggered from,
+                            // which needs to be removed each time the autocomplete objects are re-used
                             delete completionItem.range;
                             // Add to final results
                             result.push(completionItem);
