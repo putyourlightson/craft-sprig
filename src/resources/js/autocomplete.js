@@ -77,6 +77,7 @@ function addCompletionItemsToMonaco(completionItems) {
             const currentLine = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 0, endLineNumber: position.lineNumber, endColumn: position.column});
             const currentWords = currentLine.replace("\t", "").split(" ");
             let currentWord = currentWords[currentWords.length - 1];
+            // If the current word includes ( or >, split on that, too, to allow the autocomplete to work in nested functions and HTML tags
             if (currentWord.includes('(')) {
                 currentWord = getLastItem(currentWord.split('('));
             }
