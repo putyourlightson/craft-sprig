@@ -6,6 +6,7 @@
     "license": "mit",
     "require": {
         "craftcms/cms": "^3.1.19",
+        "phpdocumentor/reflection-docblock": "^5.2.0",
         "ivopetkov/html5-dom-document-php": "^2.2.8"
     },
     "require-dev": {

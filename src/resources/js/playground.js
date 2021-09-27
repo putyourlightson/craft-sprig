@@ -19,6 +19,8 @@ $(document).ready(function()
             provideCompletionItems: getCompletionItems,
         });
 
+        import(resourcesUrl + "/js/autocomplete.js");
+
         editor = monaco.editor.create($('#editor')[0], {
             language: 'twig',
             value: $('#input').val(),
@@ -32,6 +34,7 @@ $(document).ready(function()
             },
         });
     });
+
 
     //--- htmx ---//
 
@@ -102,6 +105,7 @@ $(document).ready(function()
     });
 });
 
+
 function getCompletionItems()
 {
     let suggestions = [
@@ -110,7 +114,7 @@ function getCompletionItems()
             insertText: 'sprig',
             kind: monaco.languages.CompletionItemKind.Function,
             sortText: '_sprig',
-        },
+        }
     ];
 
     let suggestionLabels = [
