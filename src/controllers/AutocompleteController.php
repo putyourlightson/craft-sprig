@@ -3,9 +3,9 @@
  * @copyright Copyright (c) nystudio107, PutYourLightsOn
  */
 
-namespace putyourlightson\sprig\controllers;
+namespace putyourlightson\sprigplugin\controllers;
 
-use putyourlightson\sprig\helpers\Autocomplete as AutocompleteHelper;
+use putyourlightson\sprigplugin\helpers\Autocomplete as AutocompleteHelper;
 
 use craft\web\Controller;
 use yii\web\Response;
@@ -15,7 +15,7 @@ use yii\web\Response;
  *
  * @author    nystudio107
  * @package   Sprig
- * @since     1.8.2
+ * @since     1.9.0
  */
 class AutocompleteController extends Controller
 {

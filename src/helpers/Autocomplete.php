@@ -3,7 +3,7 @@
  * @copyright Copyright (c) nystudio107, PutYourLightsOn
  */
 
-namespace putyourlightson\sprig\helpers;
+namespace putyourlightson\sprigplugin\helpers;
 
 use Craft;
 use craft\base\Element;
@@ -20,7 +20,7 @@ use phpDocumentor\Reflection\DocBlockFactory;
  *
  * @author    nystudio107
  * @package   Sprig
- * @since     1.8.2
+ * @since     1.9.0
  */
 class Autocomplete
 {

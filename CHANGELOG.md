@@ -1,5 +1,14 @@
 # Release Notes for Sprig
 
+## 1.9.0 - Unreleased
+### Added
+- Added Craft API autocomplete and documentation to the code editor in the Sprig playground ([#157](https://github.com/putyourlightson/craft-sprig/issues/157)).
+
+### Changed
+- Split the core functionality of Sprig into a [Sprig Core package](https://github.com/putyourlightson/craft-sprig-core) that can be used by Craft plugins/modules without requiring that the Sprig plugin is installed.
+- An unminified version of htmx is now loaded from a CDN rather than locally when in a development environment.
+- Removed the `hxDataPrefix` config setting, opting to prefix `hx-` attributes with `data-` by default.
+
 ## 1.8.1 - 2021-08-27
 ### Changed
 - The `PaginateVariable` class now extends Craft’s Paginate class, adding more functionality and better compatibility with other plugins.
