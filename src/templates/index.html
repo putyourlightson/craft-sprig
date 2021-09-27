@@ -2,7 +2,7 @@
 
 {% set title = 'Sprig Playground'|t('sprig') %}
 
-{% set bundle = view.registerAssetBundle('putyourlightson\\sprig\\assets\\PlaygroundAsset') %}
+{% set bundle = view.registerAssetBundle('putyourlightson\\sprigplugin\\assets\\PlaygroundAsset') %}
 {% set resourcesUrl = bundle.baseUrl %}
 
 {% block pageTitle %}
@@ -53,7 +53,7 @@
     <form id="action-form" method="post">
 
         {{ csrfInput() }}
-        <input type="hidden" name="action" value="sprig/playground/save">
+        <input type="hidden" name="action" value="sprig-plugin/playground/save">
         <input type="hidden" name="id" value="{{ playground ? playground.id }}">
         <input type="hidden" name="name" value="">
         <textarea name="component" class="hidden"></textarea>
@@ -64,7 +64,7 @@
 
             {% if playground %}
                 <div class="btngroup">
-                    <button type="button" class="btn submit formsubmit" data-action="sprig/playground/update">{{ 'Update'|t('sprig') }}</button>
+                    <button type="button" class="btn submit formsubmit" data-action="sprig-plugin/playground/update">{{ 'Update'|t('sprig') }}</button>
                     <button type="button" class="btn submit menubtn"></button>
                     <div class="menu">
                         <ul>
@@ -75,7 +75,7 @@
                         <hr>
                         <ul>
                             <li>
-                                <a class="formsubmit error" data-action="sprig/playground/delete" data-confirm="{{ 'Are you sure you want to delete this playground?'|t('sprig') }}">{{ 'Delete playground'|t('sprig') }}</a>
+                                <a class="formsubmit error" data-action="sprig-plugin/playground/delete" data-confirm="{{ 'Are you sure you want to delete this playground?'|t('sprig') }}">{{ 'Delete playground'|t('sprig') }}</a>
                             </li>
                         </ul>
                     </div>

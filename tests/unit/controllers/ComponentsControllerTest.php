@@ -3,13 +3,13 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigtests\unit\controllers;
+namespace putyourlightson\sprigplugintests\unit\controllers;
 
 use Codeception\Test\Unit;
 use Craft;
 use craft\web\View;
-use putyourlightson\sprig\Sprig;
-use putyourlightson\sprig\test\mockclasses\controllers\TestController;
+use putyourlightson\sprigplugin\Sprig;
+use putyourlightson\sprigplugin\test\mockclasses\controllers\TestController;
 use UnitTester;
 use yii\web\Response;
 

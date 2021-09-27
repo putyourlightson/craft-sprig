@@ -3,14 +3,14 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigtests\unit\services;
+namespace putyourlightson\sprigplugintests\unit\services;
 
 use Codeception\Test\Unit;
 use Craft;
 use craft\elements\Entry;
 use craft\web\Request;
-use putyourlightson\sprig\errors\InvalidVariableException;
-use putyourlightson\sprig\Sprig;
+use putyourlightson\sprigplugin\errors\InvalidVariableException;
+use putyourlightson\sprigplugin\Sprig;
 use UnitTester;
 use yii\base\Model;
 use yii\web\BadRequestHttpException;

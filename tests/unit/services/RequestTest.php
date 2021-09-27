@@ -3,11 +3,11 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigtests\unit\services;
+namespace putyourlightson\sprigplugintests\unit\services;
 
 use Craft;
 use craft\test\TestCase;
-use putyourlightson\sprig\Sprig;
+use putyourlightson\sprigplugin\Sprig;
 use UnitTester;
 use yii\web\BadRequestHttpException;
 

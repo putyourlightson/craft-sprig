@@ -3,11 +3,11 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprig\test\mockclasses\controllers;
+namespace putyourlightson\sprigplugin\test\mockclasses\controllers;
 
 use Craft;
 use craft\web\Controller;
-use putyourlightson\sprig\test\mockclasses\models\TestModel;
+use putyourlightson\sprigplugin\test\mockclasses\models\TestModel;
 use yii\base\Model;
 use yii\web\Response;
 
