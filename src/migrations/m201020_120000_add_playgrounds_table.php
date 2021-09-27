@@ -1,6 +1,6 @@
 <?php
 
-namespace putyourlightson\sprig\migrations;
+namespace putyourlightson\sprigplugin\migrations;
 
 use craft\db\Migration;
 

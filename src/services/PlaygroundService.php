@@ -3,11 +3,11 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprig\services;
+namespace putyourlightson\sprigplugin\services;
 
 use craft\base\Component;
-use putyourlightson\sprig\models\PlaygroundModel;
-use putyourlightson\sprig\records\PlaygroundRecord;
+use putyourlightson\sprigplugin\models\PlaygroundModel;
+use putyourlightson\sprigplugin\records\PlaygroundRecord;
 
 /**
  * @property-read PlaygroundModel[] $all
