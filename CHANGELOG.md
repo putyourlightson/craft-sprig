@@ -1,12 +1,14 @@
 # Release Notes for Sprig
 
 ## 1.9.0 - Unreleased
+> {warning} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package. If you were referencing its classes from custom plugins/modules then you will need to update your namespaces accordingly.
+
 ### Added
 - Added Craft API autocomplete and documentation to the code editor in the Sprig playground ([#157](https://github.com/putyourlightson/craft-sprig/issues/157)).
 - Sprig components now pass the token parameter along so that they work seamlessly in a live preview scenario ([#162](https://github.com/putyourlightson/craft-sprig/issues/162)).
 
 ### Changed
-- Split the core functionality of Sprig into a [Sprig Core package](https://github.com/putyourlightson/craft-sprig-core) that can be used by Craft plugins/modules without requiring that the Sprig plugin is installed.
+- Split the core functionality of Sprig into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package that can be used by Craft plugins/modules without requiring that the Sprig plugin is installed.
 - An unminified version of htmx is now loaded from a CDN rather than locally when in a development environment.
 - Removed the `hxDataPrefix` config setting, opting to prefix `hx-` attributes with `data-` by default.
 

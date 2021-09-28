@@ -3,10 +3,10 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigplugin\migrations;
+namespace putyourlightson\sprig\migrations;
 
 use craft\db\Migration;
-use putyourlightson\sprigplugin\records\PlaygroundRecord;
+use putyourlightson\sprig\records\PlaygroundRecord;
 
 class Install extends Migration
 {

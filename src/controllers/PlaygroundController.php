@@ -3,11 +3,11 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigplugin\controllers;
+namespace putyourlightson\sprig\controllers;
 
 use Craft;
 use craft\web\Controller;
-use putyourlightson\sprigplugin\Sprig;
+use putyourlightson\sprig\Sprig;
 use yii\web\Response;
 
 class PlaygroundController extends Controller

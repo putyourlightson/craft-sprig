@@ -3,7 +3,7 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigplugin\records;
+namespace putyourlightson\sprig\records;
 
 use craft\db\ActiveRecord;
 

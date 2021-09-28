@@ -3,7 +3,7 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigplugin\models;
+namespace putyourlightson\sprig\models;
 
 use craft\base\Model;
 

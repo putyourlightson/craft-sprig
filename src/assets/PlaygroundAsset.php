@@ -3,7 +3,7 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprigplugin\assets;
+namespace putyourlightson\sprig\assets;
 
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
@@ -15,7 +15,7 @@ class PlaygroundAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = '@putyourlightson/sprigplugin/resources';
+        $this->sourcePath = '@putyourlightson/sprig/resources';
 
         $this->depends = [
             CpAsset::class,

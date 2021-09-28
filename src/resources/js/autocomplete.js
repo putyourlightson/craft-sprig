@@ -7,7 +7,7 @@
  */
 
 const COMPLETION_KEY = '__completions';
-const AUTOCOMPLETE_CONTROLLER_ENDPOINT = 'sprig-plugin/autocomplete/index';
+const AUTOCOMPLETE_CONTROLLER_ENDPOINT = 'sprig/autocomplete/index';
 const AUTOCOMPLETE_CACHE_KEY = 'sprig-autocomplete-cache';
 const AUTOCOMPLETE_CACHE_DURATION = 60 * 1000;
 

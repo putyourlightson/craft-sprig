@@ -1,19 +1,13 @@
 {
     "name": "putyourlightson/craft-sprig",
     "description": "A reactive Twig component framework for Craft.",
-    "version": "1.8.1",
+    "version": "1.9.0",
     "type": "craft-plugin",
     "license": "mit",
     "require": {
         "craftcms/cms": "^3.1.19",
-        "phpdocumentor/reflection-docblock": "^5.2.0",
-        "ivopetkov/html5-dom-document-php": "^2.2.8"
-    },
-    "require-dev": {
-        "codeception/codeception": "^4.0.0",
-        "vlucas/phpdotenv": "^3.0",
-        "codeception/module-asserts": "^1.0.0",
-        "codeception/module-yii2": "^1.0.0"
+        "putyourlightson/craft-sprig-core": "^1.9.0",
+        "phpdocumentor/reflection-docblock": "^5.2.0"
     },
     "autoload": {
         "psr-4": {
