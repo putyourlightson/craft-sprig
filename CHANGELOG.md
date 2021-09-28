@@ -3,6 +3,7 @@
 ## 1.9.0 - Unreleased
 ### Added
 - Added Craft API autocomplete and documentation to the code editor in the Sprig playground ([#157](https://github.com/putyourlightson/craft-sprig/issues/157)).
+- Sprig components now pass the token parameter along so that they work seamlessly in a live preview scenario ([#162](https://github.com/putyourlightson/craft-sprig/issues/162)).
 
 ### Changed
 - Split the core functionality of Sprig into a [Sprig Core package](https://github.com/putyourlightson/craft-sprig-core) that can be used by Craft plugins/modules without requiring that the Sprig plugin is installed.
