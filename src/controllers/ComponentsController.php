@@ -3,7 +3,7 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprig\base;
+namespace putyourlightson\sprig\controllers;
 
 /**
  * This class exists for backwards compatibility only.
@@ -11,6 +11,6 @@ namespace putyourlightson\sprig\base;
  *
  * @since 1.9.0
  */
-abstract class Component extends \putyourlightson\sprigcore\base\Component
+class ComponentsController extends \putyourlightson\sprigcore\controllers\ComponentsController
 {
 }
