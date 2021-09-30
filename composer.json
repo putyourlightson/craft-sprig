@@ -6,12 +6,12 @@
     "license": "mit",
     "require": {
         "craftcms/cms": "^3.1.19",
-        "putyourlightson/craft-sprig-core": "^1.9.0",
+        "putyourlightson/craft-sprig-core": "^1.0.0",
         "phpdocumentor/reflection-docblock": "^5.2.0"
     },
     "autoload": {
         "psr-4": {
-          "putyourlightson\\sprig\\": "src/"
+          "putyourlightson\\sprig\\plugin\\": "src/"
         }
     },
     "support": {
@@ -26,7 +26,7 @@
         "developerUrl": "https://putyourlightson.com/",
         "documentationUrl": "https://putyourlightson.com/plugins/sprig",
         "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-sprig/v1/CHANGELOG.md",
-        "class": "putyourlightson\\sprig\\Sprig",
+        "class": "putyourlightson\\sprig\\plugin\\Sprig",
         "schemaVersion": "1.0.1"
     }
 }

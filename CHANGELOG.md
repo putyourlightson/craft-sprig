@@ -9,8 +9,9 @@
 
 ### Changed
 - Split the core functionality of Sprig into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package that can be used by Craft plugins/modules without requiring that the Sprig plugin is installed.
-- An unminified version of htmx is now loaded from a CDN rather than locally when in a development environment.
 - Removed the `hxDataPrefix` config setting, opting to prefix `hx-` attributes with `data-` by default.
+- An unminified version of htmx is now loaded from a CDN rather than locally when in a development environment.
+- Improved the performance of loading the htmx script from the CDN ([#166](https://github.com/putyourlightson/craft-sprig/issues/166)).
 
 ## 1.8.1 - 2021-08-27
 ### Changed

@@ -3,14 +3,14 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprig;
+namespace putyourlightson\sprig\plugin;
 
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
-use putyourlightson\sprigcore\SprigCore;
-use putyourlightson\sprig\models\SettingsModel;
-use putyourlightson\sprig\services\PlaygroundService;
+use putyourlightson\sprig\Sprig as SprigCore;
+use putyourlightson\sprig\plugin\models\SettingsModel;
+use putyourlightson\sprig\plugin\services\PlaygroundService;
 use yii\base\Event;
 
 /**

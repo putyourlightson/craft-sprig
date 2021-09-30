@@ -3,7 +3,7 @@
  * @copyright Copyright (c) nystudio107, PutYourLightsOn
  */
 
-namespace putyourlightson\sprig\helpers;
+namespace putyourlightson\sprig\plugin\helpers;
 
 use Craft;
 use craft\base\Element;

@@ -3,7 +3,7 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\sprig\assets;
+namespace putyourlightson\sprig\plugin\assets;
 
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;

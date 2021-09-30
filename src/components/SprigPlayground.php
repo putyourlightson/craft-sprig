@@ -1,10 +1,10 @@
 <?php
-namespace putyourlightson\sprig\components;
+namespace putyourlightson\sprig\plugin\components;
 
 use Craft;
 use Exception;
-use putyourlightson\sprigcore\base\Component;
-use putyourlightson\sprig\Sprig;
+use putyourlightson\sprig\base\Component;
+use putyourlightson\sprig\plugin\Sprig;
 use yii\web\ForbiddenHttpException;
 
 class SprigPlayground extends Component
