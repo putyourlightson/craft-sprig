@@ -27,8 +27,6 @@ class Autocomplete
     // Constants
     // =========================================================================
 
-    const COMMERCE_PLUGIN_HANDLE = 'commerce';
-
     const COMPLETION_KEY = '__completions';
     const EXCLUDED_PROPERTY_NAMES = [
         'controller',
