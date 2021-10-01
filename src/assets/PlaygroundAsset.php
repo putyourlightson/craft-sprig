@@ -15,7 +15,7 @@ class PlaygroundAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = '@putyourlightson/sprig/resources';
+        $this->sourcePath = '@putyourlightson/sprig/plugin/resources';
 
         $this->depends = [
             CpAsset::class,
