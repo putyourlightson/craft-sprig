@@ -303,7 +303,7 @@ class Autocomplete
                         if ($reflectionProperty->hasType()) {
                             $reflectionType = $reflectionProperty->getType();
                             if ($reflectionType instanceof ReflectionNamedType) {
-                                $type = $reflectionType::getName();
+                                $type = $reflectionType->getName();
                                 $detail = $type;
                             }
                         }
