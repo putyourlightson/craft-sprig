@@ -9,6 +9,9 @@ use Craft;
 use craft\base\Element;
 use craft\helpers\ArrayHelper;
 
+use ReflectionClass;
+use ReflectionException;
+use ReflectionNamedType;
 use yii\base\Behavior;
 use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
@@ -89,7 +92,7 @@ class Autocomplete
     /**
      * Core function that generates the autocomplete array
      */
-    public static function generate()
+    public static function generate(): array
     {
         $completionList = [];
         // Iterate through the globals in the Twig context
@@ -104,7 +107,7 @@ class Autocomplete
                 $type = gettype($value);
                 switch ($type) {
                     case 'object':
-                        self::parseObject($completionList, $key, $value, '');
+                        self::parseObject($completionList, $key, $value);
                         break;
 
                     case 'array':
@@ -120,7 +123,7 @@ class Autocomplete
                         }
                         ArrayHelper::setValue($completionList, $path, [
                             self::COMPLETION_KEY => [
-                                'detail' => "{$value}",
+                                'detail' => "$value",
                                 'kind' => $kind,
                                 'label' => $key,
                                 'insertText' => $key,
@@ -173,13 +176,12 @@ class Autocomplete
     protected static function getClassCompletion(array &$completionList, $object, DocBlockFactory $factory, string $name, $path)
     {
         try {
-            $reflectionClass = new \ReflectionClass($object);
-        } catch (\ReflectionException $e) {
+            $reflectionClass = new ReflectionClass($object);
+        } catch (ReflectionException $e) {
             return;
         }
         // Information on the class itself
         $className = $reflectionClass->getName();
-        $type = 'Class';
         $docs = $reflectionClass->getDocComment();
         if ($docs) {
             $docblock = $factory->create($docs);
@@ -196,7 +198,7 @@ class Autocomplete
         }
         ArrayHelper::setValue($completionList, $path, [
             self::COMPLETION_KEY => [
-                'detail' => "{$className}",
+                'detail' => "$className",
                 'documentation' => $docs,
                 'kind' => self::CompletionItemKind['Class'],
                 'label' => $name,
@@ -236,8 +238,8 @@ class Autocomplete
     protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
     {
         try {
-            $reflectionClass = new \ReflectionClass($object);
-        } catch (\ReflectionException $e) {
+            $reflectionClass = new ReflectionClass($object);
+        } catch (ReflectionException $e) {
             return;
         }
         $reflectionProperties = $reflectionClass->getProperties();
@@ -300,7 +302,7 @@ class Autocomplete
                     if ((PHP_MAJOR_VERSION >= 7 && PHP_MINOR_VERSION >= 4) || (PHP_MAJOR_VERSION >= 8)) {
                         if ($reflectionProperty->hasType()) {
                             $reflectionType = $reflectionProperty->getType();
-                            if ($reflectionType && $reflectionType instanceof \ReflectionNamedType) {
+                            if ($reflectionType instanceof ReflectionNamedType) {
                                 $type = $reflectionType::getName();
                                 $detail = $type;
                             }
@@ -312,7 +314,7 @@ class Autocomplete
                                     $value = json_encode($value);
                                 }
                                 if (!empty($value)) {
-                                    $detail = "{$value}";
+                                    $detail = "$value";
                                 }
                             }
                         }
@@ -349,8 +351,8 @@ class Autocomplete
     protected static function getMethodCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
     {
         try {
-            $reflectionClass = new \ReflectionClass($object);
-        } catch (\ReflectionException $e) {
+            $reflectionClass = new ReflectionClass($object);
+        } catch (ReflectionException $e) {
             return;
         }
         $reflectionMethods = $reflectionClass->getMethods();
@@ -366,7 +368,6 @@ class Autocomplete
             }
             // Process the method
             if ($methodAllowed && $reflectionMethod->isPublic()) {
-                $type = "Method";
                 $docblock = null;
                 $docs = $reflectionMethod->getDocComment();
                 if ($docs) {
@@ -402,7 +403,7 @@ class Autocomplete
                     if ($tags) {
                         $docsPreamble = "Parameters:\n\n";
                         foreach ($tags as $tag) {
-                            $docsPreamble .= strval($tag) . "\n";
+                            $docsPreamble .= $tag. "\n";
                         }
                         $docsPreamble .= "\n";
                     }
@@ -453,7 +454,7 @@ class Autocomplete
             /* @var Element $elementType */
             $key = $elementType::refHandle();
             if (!empty($key) && !in_array($key, static::ELEMENT_ROUTE_EXCLUDES)) {
-                $routeVariables[$key] = new $elementType;
+                $routeVariables[$key] = new $elementType();
             }
         }
 

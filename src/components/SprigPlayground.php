@@ -68,7 +68,7 @@ class SprigPlayground extends Component
         );
     }
 
-    private function _getErrorMessage(string $error)
+    private function _getErrorMessage(string $error): string
     {
         $error = preg_replace('/in "__string_template__(.*?)"/', '', $error);
 

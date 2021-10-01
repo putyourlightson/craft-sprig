@@ -36,8 +36,6 @@ class Sprig extends Plugin
     {
         parent::init();
 
-        SprigCore::bootstrap();
-
         self::$plugin = $this;
 
         $this->hasCpSection = $this->settings->enablePlayground;
@@ -47,6 +45,8 @@ class Sprig extends Plugin
         ]);
 
         $this->_registerCpRoutes();
+
+        SprigCore::bootstrap();
     }
 
     /**

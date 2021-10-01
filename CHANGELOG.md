@@ -1,7 +1,7 @@
 # Release Notes for Sprig
 
 ## 1.9.0 - Unreleased
-> {warning} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package. If you were referencing its classes from custom plugins/modules then you will need to update your namespaces accordingly.
+> {info} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package.
 
 ### Added
 - Added Craft API autocomplete and documentation to the code editor in the Sprig playground ([#157](https://github.com/putyourlightson/craft-sprig/issues/157)).

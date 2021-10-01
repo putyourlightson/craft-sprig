@@ -11,7 +11,7 @@ use putyourlightson\sprig\plugin\records\PlaygroundRecord;
 class Install extends Migration
 {
     /**
-     * @return boolean
+     * @inheritdoc
      */
     public function safeUp(): bool
     {
@@ -31,7 +31,7 @@ class Install extends Migration
     }
 
     /**
-     * @return boolean
+     * @inheritdoc
      */
     public function safeDown(): bool
     {

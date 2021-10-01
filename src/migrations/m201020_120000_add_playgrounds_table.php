@@ -12,7 +12,7 @@ class m201020_120000_add_playgrounds_table extends Migration
     /**
      * @inheritdoc
      */
-    public function safeUp()
+    public function safeUp(): bool
     {
         // Call the install class for upgrades from the beta
         $install = new Install();
