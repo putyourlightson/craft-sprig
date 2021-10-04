@@ -1,7 +1,7 @@
 # Release Notes for Sprig
 
 ## 1.9.0 - 2021-10-04
-> {info} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package.
+> {note} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package.
 
 ### Added
 - Added Craft API autocomplete and documentation to the code editor in the Sprig playground ([#157](https://github.com/putyourlightson/craft-sprig/issues/157)).
