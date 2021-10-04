@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.9.0 - Unreleased
+## 1.9.0 - 2021-10-04
 > {info} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package.
 
 ### Added
