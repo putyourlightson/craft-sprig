@@ -3,7 +3,7 @@
 ## 1.9.1 - 2021-10-05
 ### Fixed
 - Fixed an error in the CLI due to an undefined alias in Sprig core ([#170](https://github.com/putyourlightson/craft-sprig/issues/170)).
-- 
+
 ## 1.9.0 - 2021-10-04
 > {tip} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package.
 
