@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.9.2 - 2021-10-11
+### Changed
+- Optimised the performance and overhead of parsing large Sprig components ([#2](https://github.com/putyourlightson/craft-sprig-core/issues/2) ❤️@nystudio107).
+
 ## 1.9.1 - 2021-10-05
 ### Fixed
 - Fixed an error in the CLI due to an undefined alias in Sprig core ([#170](https://github.com/putyourlightson/craft-sprig/issues/170)).
@@ -8,7 +12,7 @@
 > {tip} The core functionality of Sprig has been split out into the [Sprig Core](https://github.com/putyourlightson/craft-sprig-core) package.
 
 ### Added
-- Added Craft API autocomplete and documentation to the code editor in the Sprig playground ([#157](https://github.com/putyourlightson/craft-sprig/issues/157)).
+- Added Craft API autocomplete and documentation to the code editor in the Sprig playground ([#157](https://github.com/putyourlightson/craft-sprig/issues/157) ❤️@nystudio107).
 - Sprig components now pass the token parameter along so that they work seamlessly in a live preview scenario ([#162](https://github.com/putyourlightson/craft-sprig/issues/162)).
 
 ### Changed
