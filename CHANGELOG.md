@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.9.3 - 2021-10-14
+### Fixed
+- Fixed multibyte character strings not being correctly converted ([#173](https://github.com/putyourlightson/craft-sprig/issues/173)). 
+
 ## 1.9.2 - 2021-10-11
 ### Changed
 - Optimised the performance and overhead of parsing large Sprig components ([#2](https://github.com/putyourlightson/craft-sprig-core/issues/2) ❤️@nystudio107).
