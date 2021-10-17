@@ -17,6 +17,8 @@ use yii\helpers\Inflector;
  */
 class PlaygroundService extends Component
 {
+    const COOKBOOK_DIR_PATH = '@putyourlightson/sprig/plugin/cookbook/';
+
     /**
      * Returns a saved playground.
      *
@@ -123,7 +125,7 @@ class PlaygroundService extends Component
     public function getRecipes(): array
     {
         $recipes = [];
-        $recipesIndex = Craft::getAlias('@putyourlightson/sprig/plugin/cookbook/recipes.json');
+        $recipesIndex = Craft::getAlias(self::COOKBOOK_DIR_PATH . 'recipes.json');
         if ($recipesIndex === false) {
             return $recipes;
         }
@@ -137,7 +139,7 @@ class PlaygroundService extends Component
         }
         foreach ($recipesArray as $recipe) {
             $playground = new PlaygroundModel($recipe);
-            $recipeComponent = Craft::getAlias('@putyourlightson/sprig/plugin/cookbook/'.$playground->component);
+            $recipeComponent = Craft::getAlias(self::COOKBOOK_DIR_PATH .$playground->component);
             if ($recipeComponent === false) {
                 continue;
             }
