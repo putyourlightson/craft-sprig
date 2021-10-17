@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Basic",
+    "component": "basic.twig",
+    "variables": "count=1"
+  },
+  {
+    "name": "Search",
+    "component": "search.twig",
+    "variables": ""
+  }
+]

@@ -19,15 +19,21 @@
 
     <div id="context-btngroup" class="btngroup">
         <button type="button" id="context-btn" class="btn menubtn">
-            <span id="revision-label">{{ playground ? playground.name : 'New' }}</span>
+            <span id="revision-label">{{ playground.name ?? recipe.name }}</span>
         </button>
         <div class="menu">
+            {% if allRecipes|length > 0 %}<h6>{{ "Example Components" | t('sprig') }}</h6>{% endif %}
             <ul class="padded">
+                {% for curSlug,curRecipe in allRecipes %}
                 <li>
-                    <a href="{{ url('sprig') }}" class="{{ playground is null ? 'sel' }}">
-                        New
+                    <a href="{{ url('sprig/' ~ curSlug) }}" class="{{ curSlug == recipeSlug ? 'sel' }}">
+                        {{ curRecipe.name }}
                     </a>
                 </li>
+                {% endfor %}
+            </ul>
+            {% if allPlaygrounds|length > 0 %}<h6>{{ "Saved Components" | t('sprig') }}</h6>{% endif %}
+            <ul class="padded">
                 {% for curPlayground in allPlaygrounds %}
                     <li>
                         <a href="{{ url('sprig/' ~ curPlayground.id) }}" class="{{ playground and playground.id == curPlayground.id ? 'sel' }}">
@@ -101,26 +107,14 @@
                     {%- if playground -%}
                         {{ playground.component }}
                     {%- else -%}
-                        {%- verbatim -%}
-<h1>
-    Hello, {{ currentUser.friendlyName }}!
-</h1>
-
-<button sprig s-val:count="{{ count + 1 }}" class="btn submit">
-    Re-render
-</button>
-
-<p>
-    <em>Component re-rendered {{ count }} times</em>
-</p>
-                        {%- endverbatim -%}
+                        {{ recipe.component }}
                     {%- endif -%}
                 </textarea>
                 <button id="create" type="submit" class="btn submit topright">{{ 'Create'|t('sprig') }}</button>
             </div>
             <div class="variables content-pane">
                 <p class="light code">{{ 'Component Variables'|t('sprig') }}</p>
-                {% set variables = playground ? playground.variables : 'count=0' %}
+                {% set variables = playground ? playground.variables : recipe.variables %}
                 <input id="input-variables" class="input code fullwidth field" value="{{ variables }}" placeholder="x=1&y=2&z=3">
             </div>
         </div>
@@ -132,7 +126,9 @@
                     <span id="spinner" class="spinner" style="display: none;"></span>
                 </p>
                 <a href="#" id="output-toggle" class="btn topright">&lt; &gt;</a>
-                {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
+                <div class="playground-output">
+                    {{ sprig('SprigPlayground', {}, {id: 'playground'}) }}
+                </div>
                 <textarea id="sourcecode" class="code fullwidth field" style="display: none;" disabled></textarea>
             </div>
             <div class="variables content-pane">

@@ -1,0 +1,11 @@
+<h1>
+    Hello, {{ currentUser.friendlyName }}!
+</h1>
+
+<button sprig s-val:count="{{ count + 1 }}" class="btn submit">
+    Re-render
+</button>
+
+<p>
+    <em>Component re-rendered {{ count }} times</em>
+</p>
