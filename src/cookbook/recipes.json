@@ -8,5 +8,10 @@
     "name": "Search",
     "component": "search.twig",
     "variables": ""
+  },
+  {
+    "name": "Load More",
+    "component": "load-more.twig",
+    "variables": "limit=1"
   }
 ]
