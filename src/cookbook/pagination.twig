@@ -1,0 +1,44 @@
+{#--- _components/pagination ---#}
+
+{# Sets a default value if not defined by `s-val:*` on the clicked element #}
+{% set page = page ?? 1 %}
+
+{% set entryQuery = craft.entries.limit(limit) %}
+
+{# Paginates the entry query given the current page #}
+{% set pageInfo = sprig.paginate(entryQuery, page) %}
+{% set entries = pageInfo.pageResults %}
+
+{% for entry in entries %}
+    <h2>{{ entry.title }}</h2>
+{% endfor %}
+
+{% if entries %}
+    {% if page > 1 %}
+        {# Decrements `page` by 1 and pushes the new value into the URL on click #}
+        <button sprig s-val:page="{{ page - 1 }}" s-push-url="?page={{ page - 1 }}" class="btn">
+            Previous
+        </button>
+    {% endif %}
+    {% if page < pageInfo.totalPages %}
+        {# Increments `page` by 1 and pushes the new value into the URL on click #}
+        <button sprig s-val:page="{{ page + 1 }}" s-push-url="?page={{ page + 1 }}" class="btn">
+            Next
+        </button>
+    {% endif %}
+    <p>
+        <em>
+            Showing {{ pageInfo.first }}-{{ pageInfo.last }}
+            of {{ pageInfo.total }} entries.
+        </em><br>
+        <em>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }} pages.</em><br>
+        {% for i in 1..pageInfo.totalPages %}
+            {% if i == page %}
+                {{ i }}
+            {% else %}
+                {# Refreshes the component and pushes the new value into the URL #}
+                <a sprig s-val:page="{{ i }}" s-push-url="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+    </p>
+{% endif %}
