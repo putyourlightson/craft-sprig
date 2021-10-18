@@ -1,6 +1,4 @@
-{#--- _components/load-more ---#}
-
-{# Sets a default value if not defined by the `s-val:*` attribute on the button #}
+{# Sets a default value if not defined #}
 {% set offset = offset ?? 0 %}
 
 {% set entryQuery = craft.entries.offset(offset).limit(limit) %}
@@ -13,8 +11,7 @@
 {# If the total entry count is greater than the number that has been displayed #}
 {% if entryQuery.count() > offset + entries|length %}
     {# Increments `offset` by the value of `limit` and swaps itself out on click #}
-    <button sprig s-val:offset="{{ offset + limit }}" class="btn submit"
-            s-target="this" s-swap="outerHTML">
+    <button sprig s-val:offset="{{ offset + limit }}" s-target="this" s-swap="outerHTML" class="btn submit">
         Load another
     </button>
 {% endif %}

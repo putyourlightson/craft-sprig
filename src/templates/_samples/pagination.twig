@@ -1,6 +1,4 @@
-{#--- _components/pagination ---#}
-
-{# Sets a default value if not defined by `s-val:*` on the clicked element #}
+{# Sets a default value if not defined #}
 {% set page = page ?? 1 %}
 
 {% set entryQuery = craft.entries.limit(limit) %}

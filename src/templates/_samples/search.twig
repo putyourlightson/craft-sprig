@@ -1,0 +1,20 @@
+{# Sets a default value if not defined #}
+{% set query = query ?? '' %}
+
+<div class="field">
+    {# Replaces only the `#results` div #}
+    <input sprig s-trigger="keyup changed" s-replace="#results" type="text" name="query" value="{{ query }}" placeholder="Search" class="text">
+</div>
+
+<div id="results">
+    {% if query %}
+        {% set entries = craft.entries.search(query).all() %}
+        {% if entries|length %}
+            {% for entry in entries %}
+                <h2>{{ entry.title }}</h2>
+            {% endfor %}
+        {% else %}
+                No results
+        {% endif %}
+    {% endif %}
+</div>

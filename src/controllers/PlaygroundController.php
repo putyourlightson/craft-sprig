@@ -14,35 +14,37 @@ class PlaygroundController extends Controller
 {
     /**
      * @param int|null $id
+     * @param string|null $slug
      * @return Response
      */
-    public function actionIndex(int $id = null, string $recipeSlug = null): Response
+    public function actionIndex(int $id = null, string $slug = null): Response
     {
         $playground = null;
+
         if ($id) {
             $playground = Sprig::$plugin->playground->get($id);
         }
 
-        $recipe = null;
-        $recipes = Sprig::$plugin->playground->getRecipes();
-        if ($id === null && $recipeSlug === null) {
-            $recipeSlug = array_key_first($recipes);
+        $samples = Sprig::$plugin->playground->getSamples();
+
+        if ($id === null && $slug === null) {
+            $slug = array_key_first($samples);
         }
-        if ($recipeSlug) {
-            $recipe = $recipes[$recipeSlug] ?? null;
+
+        if ($slug) {
+            $playground = $samples[$slug] ?? null;
         }
 
         return $this->renderTemplate('sprig/index', [
             'playground' => $playground,
-            'allPlaygrounds' => Sprig::$plugin->playground->getAll(),
-            'recipeSlug' => $recipeSlug,
-            'recipe' => $recipe,
-            'allRecipes' => $recipes,
+            'slug' => $slug,
+            'allSaved' => Sprig::$plugin->playground->getSaved(),
+            'allSamples' => $samples,
         ]);
     }
 
     /**
-     * Saves a playground.
+     * Saves a component.
      *
      * @return Response
      */
@@ -56,13 +58,13 @@ class PlaygroundController extends Controller
 
         $id = Sprig::$plugin->playground->save($name, $component, $variables);
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Playground saved.'));
+        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component saved.'));
 
         return $this->redirect('sprig/'.$id);
     }
 
     /**
-     * Updates a playground.
+     * Updates a component.
      *
      * @return Response
      */
@@ -76,13 +78,13 @@ class PlaygroundController extends Controller
 
         Sprig::$plugin->playground->update($id, $component, $variables);
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Playground updated.'));
+        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component updated.'));
 
         return $this->redirect('sprig/'.$id);
     }
 
     /**
-     * Deletes a playground.
+     * Deletes a component.
      *
      * @return Response
      */
@@ -94,7 +96,7 @@ class PlaygroundController extends Controller
 
         Sprig::$plugin->playground->delete($id);
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Playground deleted.'));
+        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component deleted.'));
 
         return $this->redirect('sprig');
     }

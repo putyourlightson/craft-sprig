@@ -90,7 +90,7 @@ $(document).ready(function()
         $(this).find('textarea[name=variables]').val($('#input-variables').val());
 
         if ($(this).find('input[name=action]:last').val() == 'sprig/playground/save') {
-            let name = prompt('Enter a name for this playground.');
+            let name = prompt('Enter a name for this component.');
 
             if (name) {
                 $(this).find('input[name=name]').val(name);

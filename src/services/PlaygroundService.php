@@ -10,17 +10,17 @@ use craft\base\Component;
 use craft\helpers\Json;
 use putyourlightson\sprig\plugin\models\PlaygroundModel;
 use putyourlightson\sprig\plugin\records\PlaygroundRecord;
-use yii\helpers\Inflector;
 
 /**
- * @property-read PlaygroundModel[] $all
+ * @property-read PlaygroundModel[] $samples
+ * @property-read PlaygroundModel[] $saved
  */
 class PlaygroundService extends Component
 {
-    const COOKBOOK_DIR_PATH = '@putyourlightson/sprig/plugin/cookbook/';
+    const SAMPLES_DIR_PATH = '@putyourlightson/sprig/plugin/templates/_samples/';
 
     /**
-     * Returns a saved playground.
+     * Returns a saved component.
      *
      * @param int $id
      * @return PlaygroundModel|null
@@ -40,25 +40,75 @@ class PlaygroundService extends Component
     }
 
     /**
-     * Returns all saved playgrounds.
+     * Returns sample components.
      *
      * @return PlaygroundModel[]
      */
-    public function getAll(): array
+    public function getSamples(): array
+    {
+        $index = Craft::getAlias(self::SAMPLES_DIR_PATH . 'index.json');
+
+        if ($index === false) {
+            return [];
+        }
+
+        $json = @file_get_contents($index);
+
+        if ($json === false) {
+            return [];
+        }
+
+        $samplesConfig = Json::decodeIfJson($json);
+
+        if (!is_array($samplesConfig)) {
+            return [];
+        }
+
+        $samples = [];
+
+        foreach ($samplesConfig as $config) {
+            $playground = new PlaygroundModel($config);
+            $componentPath = Craft::getAlias(self::SAMPLES_DIR_PATH . $playground->component);
+
+            if ($componentPath === false) {
+                continue;
+            }
+
+            $content = @file_get_contents($componentPath);
+
+            if ($content === false) {
+                continue;
+            }
+
+            if ($playground->validate()) {
+                $playground->component = $content;
+                $samples[$playground->slug] = $playground;
+            }
+        }
+
+        return $samples;
+    }
+
+    /**
+     * Returns saved components.
+     *
+     * @return PlaygroundModel[]
+     */
+    public function getSaved(): array
     {
         $records = PlaygroundRecord::find()
             ->orderBy('dateCreated DESC')
             ->all();
 
-        $playgrounds = [];
+        $saved = [];
 
         foreach ($records as $record) {
             $playground = new PlaygroundModel();
             $playground->setAttributes($record->getAttributes(), false);
-            $playgrounds[] = $playground;
+            $saved[] = $playground;
         }
 
-        return $playgrounds;
+        return $saved;
     }
 
     /**
@@ -115,45 +165,5 @@ class PlaygroundService extends Component
     public function delete(int $id)
     {
         PlaygroundRecord::deleteAll(['id' => $id]);
-    }
-
-    /**
-     * Returns all of the recipes from the cookbook
-     *
-     * @return array|void
-     */
-    public function getRecipes(): array
-    {
-        $recipes = [];
-        $recipesIndex = Craft::getAlias(self::COOKBOOK_DIR_PATH . 'recipes.json');
-        if ($recipesIndex === false) {
-            return $recipes;
-        }
-        $recipesJson = @file_get_contents($recipesIndex);
-        if ($recipesJson === false) {
-            return $recipes;
-        }
-        $recipesArray = Json::decodeIfJson($recipesJson);
-        if (is_string($recipesArray)) {
-            return $recipes;
-        }
-        foreach ($recipesArray as $recipe) {
-            $playground = new PlaygroundModel($recipe);
-            $recipeComponent = Craft::getAlias(self::COOKBOOK_DIR_PATH .$playground->component);
-            if ($recipeComponent === false) {
-                continue;
-            }
-            $componentContents = @file_get_contents($recipeComponent);
-            if ($componentContents === false) {
-                continue;
-            }
-            $playground->component = $componentContents;
-            if ($playground->validate()) {
-                $slug = Inflector::slug($playground->name);
-                $recipes[$slug] = $playground;
-            }
-        }
-
-        return $recipes;
     }
 }

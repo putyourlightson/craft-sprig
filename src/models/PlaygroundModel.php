@@ -18,6 +18,11 @@ class PlaygroundModel extends Model
     /**
      * @var string
      */
+    public $slug;
+
+    /**
+     * @var string
+     */
     public $name;
 
     /**
@@ -43,6 +48,8 @@ class PlaygroundModel extends Model
             [
                 ['id', 'integer'],
                 ['id', 'default', 'value' => null],
+                ['slug', 'string'],
+                ['slug', 'default', 'value' => null],
                 ['name', 'required'],
                 ['name', 'string'],
                 ['component', 'required'],
@@ -57,14 +64,10 @@ class PlaygroundModel extends Model
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'typecast' => [
-                    'class' => AttributeTypecastBehavior::class,
-                    // 'attributeTypes' will be composed automatically according to `rules()`
-                ],
-            ]
-        );
+        return array_merge(parent::behaviors(), [
+            'typecast' => [
+                'class' => AttributeTypecastBehavior::class,
+            ],
+        ]);
     }
 }
