@@ -18,5 +18,10 @@
     "name": "Pagination",
     "component": "pagination.twig",
     "variables": "page=1&limit=1"
+  },
+  {
+    "name": "Polling",
+    "component": "polling.twig",
+    "variables": ""
   }
 ]
