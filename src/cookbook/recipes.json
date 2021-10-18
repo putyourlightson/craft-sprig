@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Basic",
+    "component": "basic.twig",
+    "variables": "count=1"
+  },
+  {
+    "name": "Search",
+    "component": "search.twig",
+    "variables": ""
+  },
+  {
+    "name": "Load More",
+    "component": "load-more.twig",
+    "variables": "limit=1"
+  },
+  {
+    "name": "Pagination",
+    "component": "pagination.twig",
+    "variables": "page=1&limit=1"
+  },
+  {
+    "name": "Polling",
+    "component": "polling.twig",
+    "variables": ""
+  }
+]

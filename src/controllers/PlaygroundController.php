@@ -16,17 +16,28 @@ class PlaygroundController extends Controller
      * @param int|null $id
      * @return Response
      */
-    public function actionIndex(int $id = null): Response
+    public function actionIndex(int $id = null, string $recipeSlug = null): Response
     {
         $playground = null;
-
         if ($id) {
             $playground = Sprig::$plugin->playground->get($id);
+        }
+
+        $recipe = null;
+        $recipes = Sprig::$plugin->playground->getRecipes();
+        if ($id === null && $recipeSlug === null) {
+            $recipeSlug = array_key_first($recipes);
+        }
+        if ($recipeSlug) {
+            $recipe = $recipes[$recipeSlug] ?? null;
         }
 
         return $this->renderTemplate('sprig/index', [
             'playground' => $playground,
             'allPlaygrounds' => Sprig::$plugin->playground->getAll(),
+            'recipeSlug' => $recipeSlug,
+            'recipe' => $recipe,
+            'allRecipes' => $recipes,
         ]);
     }
 

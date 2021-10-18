@@ -5,15 +5,20 @@
 
 namespace putyourlightson\sprig\plugin\services;
 
+use Craft;
 use craft\base\Component;
+use craft\helpers\Json;
 use putyourlightson\sprig\plugin\models\PlaygroundModel;
 use putyourlightson\sprig\plugin\records\PlaygroundRecord;
+use yii\helpers\Inflector;
 
 /**
  * @property-read PlaygroundModel[] $all
  */
 class PlaygroundService extends Component
 {
+    const COOKBOOK_DIR_PATH = '@putyourlightson/sprig/plugin/cookbook/';
+
     /**
      * Returns a saved playground.
      *
@@ -110,5 +115,45 @@ class PlaygroundService extends Component
     public function delete(int $id)
     {
         PlaygroundRecord::deleteAll(['id' => $id]);
+    }
+
+    /**
+     * Returns all of the recipes from the cookbook
+     *
+     * @return array|void
+     */
+    public function getRecipes(): array
+    {
+        $recipes = [];
+        $recipesIndex = Craft::getAlias(self::COOKBOOK_DIR_PATH . 'recipes.json');
+        if ($recipesIndex === false) {
+            return $recipes;
+        }
+        $recipesJson = @file_get_contents($recipesIndex);
+        if ($recipesJson === false) {
+            return $recipes;
+        }
+        $recipesArray = Json::decodeIfJson($recipesJson);
+        if (is_string($recipesArray)) {
+            return $recipes;
+        }
+        foreach ($recipesArray as $recipe) {
+            $playground = new PlaygroundModel($recipe);
+            $recipeComponent = Craft::getAlias(self::COOKBOOK_DIR_PATH .$playground->component);
+            if ($recipeComponent === false) {
+                continue;
+            }
+            $componentContents = @file_get_contents($recipeComponent);
+            if ($componentContents === false) {
+                continue;
+            }
+            $playground->component = $componentContents;
+            if ($playground->validate()) {
+                $slug = Inflector::slug($playground->name);
+                $recipes[$slug] = $playground;
+            }
+        }
+
+        return $recipes;
     }
 }
