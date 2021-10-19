@@ -66,7 +66,7 @@ class Sprig extends Plugin
             function(RegisterUrlRulesEvent $event) {
                 $event->rules['sprig'] = 'sprig/playground/index';
                 $event->rules['sprig/<id:\d+>'] = 'sprig/playground/index';
-                $event->rules['sprig/<slug:[0-9a-zA-Z\-]+>'] = 'sprig/playground/index';
+                $event->rules['sprig/<slug:([^\/]*)?>'] = 'sprig/playground/index';
             }
         );
     }
