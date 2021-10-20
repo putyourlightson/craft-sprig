@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.10.1 - 2021-10-20
+### Fixed
+- Fixed a bug in which using `s-vals` with JSON encoded variables could throw an exception when parsed ([#176](https://github.com/putyourlightson/craft-sprig/issues/176)). 
+
 ## 1.10.0 - 2021-10-19
 ### Added
 - Added sample components to the playground ([#174](https://github.com/putyourlightson/craft-sprig-core/issues/174) ❤️@nystudio107).
