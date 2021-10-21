@@ -3,7 +3,7 @@
 ## 1.10.3 - 2021-10-21
 ### Fixed
 - Fixed a bug in which attributes could be double encoded in nested components ([#176](https://github.com/putyourlightson/craft-sprig/issues/176), [#178](https://github.com/putyourlightson/craft-sprig/issues/178)). 
-- 
+
 ## 1.10.2 - 2021-10-20
 ### Fixed
 - Fixed a bug in which using `s-action` could throw an exception when parsed ([#177](https://github.com/putyourlightson/craft-sprig/issues/177)). 
