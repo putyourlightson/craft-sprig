@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.10.4 - 2021-10-22
+### Fixed
+- Fixed an issue in which attributes with spaces before or after the `=` were not being correctly parsed ([#178](https://github.com/putyourlightson/craft-sprig/issues/178)). 
+
 ## 1.10.3 - 2021-10-21
 ### Fixed
 - Fixed a bug in which attributes could be double encoded in nested components ([#176](https://github.com/putyourlightson/craft-sprig/issues/176), [#178](https://github.com/putyourlightson/craft-sprig/issues/178)). 
