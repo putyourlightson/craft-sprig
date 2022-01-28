@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 1.11.0 - Unreleased
+### Added
+- Added the [sprig.retarget()](https://putyourlightson.com/plugins/sprig#sprig.retarget) template variable that retargets the element to update with a CSS selector (requires htmx 1.6.1 or later).
+
+### Changed
+- Updated htmx to version 1.6.1 ([release notes](https://htmx.org/posts/2021-11-22-htmx-1.6.1-is-released/)).
+
 ## 1.10.4 - 2021-10-22
 ### Fixed
 - Fixed an issue in which attributes with spaces before or after the `=` were not being correctly parsed ([#178](https://github.com/putyourlightson/craft-sprig/issues/178)). 
