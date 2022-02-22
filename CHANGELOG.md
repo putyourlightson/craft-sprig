@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 1.11.1 - Unreleased
+## 1.11.1 - 2022-02-22
 ### Changed
 - The response format is now explicitly set to HTML, to avoid a scenario in which it might be interpreted as JSON.
 
