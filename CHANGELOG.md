@@ -1,5 +1,13 @@
 # Release Notes for Sprig
 
+## 1.12.0 - Unreleased
+### Added
+- Added the [s-sync](https://putyourlightson.com/plugins/sprig#s-sync) attribute that allows you to synchronize AJAX requests between multiple elements.
+- Added the [s-disinherit](https://putyourlightson.com/plugins/sprig#s-disinherit) attribute that allows you to control attribute inheritance.
+
+### Changed
+- Updated htmx to version 1.7.0 ([release notes](https://htmx.org/posts/2022-02-22-htmx-1.7.0-is-released/)).
+
 ## 1.11.1 - 2022-02-22
 ### Changed
 - The response format is now explicitly set to HTML, to avoid a scenario in which it might be interpreted as JSON.
