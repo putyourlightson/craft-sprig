@@ -9,12 +9,15 @@ use yii\web\ForbiddenHttpException;
 
 class SprigPlayground extends Component
 {
-    public $variables = [];
+    /**
+     * @var array
+     */
+    public array $variables = [];
 
     /**
      * @inheritdoc
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
 

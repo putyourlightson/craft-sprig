@@ -13,9 +13,7 @@ use yii\web\Response;
 class PlaygroundController extends Controller
 {
     /**
-     * @param int|null $id
-     * @param string|null $slug
-     * @return Response
+     * Renders the main playground template.
      */
     public function actionIndex(int $id = null, string $slug = null): Response
     {
@@ -45,8 +43,6 @@ class PlaygroundController extends Controller
 
     /**
      * Saves a component.
-     *
-     * @return Response
      */
     public function actionSave(): Response
     {
@@ -65,8 +61,6 @@ class PlaygroundController extends Controller
 
     /**
      * Updates a component.
-     *
-     * @return Response
      */
     public function actionUpdate(): Response
     {
@@ -85,8 +79,6 @@ class PlaygroundController extends Controller
 
     /**
      * Deletes a component.
-     *
-     * @return Response
      */
     public function actionDelete(): Response
     {

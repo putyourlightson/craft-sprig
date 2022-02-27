@@ -17,15 +17,15 @@ use putyourlightson\sprig\plugin\records\PlaygroundRecord;
  */
 class PlaygroundService extends Component
 {
-    const SAMPLES_DIR_PATH = '@putyourlightson/sprig/plugin/templates/_samples/';
+    /**
+     * @const string
+     */
+    public const SAMPLES_DIR_PATH = '@putyourlightson/sprig/plugin/templates/_samples/';
 
     /**
-     * Returns a saved component.
-     *
-     * @param int $id
-     * @return PlaygroundModel|null
+     * Returns a saved playground.
      */
-    public function get(int $id)
+    public function get(int $id): ?PlaygroundModel
     {
         $record = PlaygroundRecord::findOne(['id' => $id]);
 
@@ -40,7 +40,7 @@ class PlaygroundService extends Component
     }
 
     /**
-     * Returns sample components.
+     * Returns sample playgrounds.
      *
      * @return PlaygroundModel[]
      */
@@ -90,7 +90,7 @@ class PlaygroundService extends Component
     }
 
     /**
-     * Returns saved components.
+     * Returns saved playgrounds.
      *
      * @return PlaygroundModel[]
      */
@@ -113,11 +113,6 @@ class PlaygroundService extends Component
 
     /**
      * Saves a playground.
-     *
-     * @param string $name
-     * @param string $component
-     * @param string $variables
-     * @return int
      */
     public function save(string $name, string $component, string $variables): int
     {
@@ -139,10 +134,6 @@ class PlaygroundService extends Component
 
     /**
      * Updates a playground.
-     *
-     * @param int $id
-     * @param string $component
-     * @param string $variables
      */
     public function update(int $id, string $component, string $variables)
     {
@@ -159,8 +150,6 @@ class PlaygroundService extends Component
 
     /**
      * Deletes a playground.
-     *
-     * @param int $id
      */
     public function delete(int $id)
     {

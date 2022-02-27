@@ -17,8 +17,6 @@ class PlaygroundRecord extends ActiveRecord
 {
      /**
      * @inheritdoc
-     *
-     * @return string
      */
     public static function tableName(): string
     {

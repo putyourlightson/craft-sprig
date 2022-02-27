@@ -5,6 +5,7 @@
 
 namespace putyourlightson\sprig\plugin;
 
+use craft\base\Model;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
@@ -22,12 +23,12 @@ class Sprig extends Plugin
     /**
      * @var Sprig
      */
-    public static $plugin;
+    public static Sprig $plugin;
 
     /**
      * @var bool
      */
-    public $hasCpSection = true;
+    public bool $hasCpSection = true;
 
     /**
      * @inheritdoc
@@ -52,7 +53,7 @@ class Sprig extends Plugin
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?Model
     {
         return new SettingsModel();
     }

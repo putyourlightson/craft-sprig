@@ -13,35 +13,32 @@ class PlaygroundModel extends Model
     /**
      * @var int|null
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @var string
      */
-    public $slug;
+    public string $slug = '';
 
     /**
      * @var string
      */
-    public $name;
+    public string $name = '';
 
     /**
      * @var string
      */
-    public $component;
+    public string $component = '';
 
     /**
      * @var string
      */
-    public $variables;
-
-    // Public Methods
-    // =========================================================================
+    public string $variables = '';
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return array_merge(
             parent::rules(),
@@ -60,9 +57,9 @@ class PlaygroundModel extends Model
     }
 
     /**
-     * @return array
+     * @inerhitdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return array_merge(parent::behaviors(), [
             'typecast' => [
