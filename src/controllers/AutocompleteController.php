@@ -19,9 +19,6 @@ use yii\web\Response;
  */
 class AutocompleteController extends Controller
 {
-    /**
-     * @return Response
-     */
     public function actionIndex(): Response
     {
         $result = AutocompleteHelper::generate();

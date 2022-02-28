@@ -38,22 +38,14 @@ class PlaygroundModel extends Model
     /**
      * @inheritdoc
      */
-    public function rules(): array
+    public function defineRules(): array
     {
-        return array_merge(
-            parent::rules(),
-            [
-                ['id', 'integer'],
-                ['id', 'default', 'value' => null],
-                ['slug', 'string'],
-                ['slug', 'default', 'value' => null],
-                ['name', 'required'],
-                ['name', 'string'],
-                ['component', 'required'],
-                ['component', 'string'],
-                ['variables', 'string'],
-            ]
-        );
+        return [
+            ['id', 'integer'],
+            [['slug', 'name', 'component', 'variables'], 'string'],
+            [['id', 'slug'], 'default', 'value' => null],
+            [['name', 'component'], 'required'],
+        ];
     }
 
     /**
@@ -61,10 +53,11 @@ class PlaygroundModel extends Model
      */
     public function behaviors(): array
     {
-        return array_merge(parent::behaviors(), [
-            'typecast' => [
-                'class' => AttributeTypecastBehavior::class,
-            ],
-        ]);
+        $behaviors = parent::behaviors();
+        $behaviors['typecast'] = [
+            'class' => AttributeTypecastBehavior::class,
+        ];
+
+        return $behaviors;
     }
 }
