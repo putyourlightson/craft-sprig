@@ -7,7 +7,7 @@
 ### Removed
 - Removed the deprecated `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags.
 
-## 1.12.0 - Unreleased
+## 1.12.0 - 2022-03-01
 ### Added
 - Added the [s-sync](https://putyourlightson.com/plugins/sprig#s-sync) attribute that allows you to synchronize AJAX requests between multiple elements.
 - Added the [s-disinherit](https://putyourlightson.com/plugins/sprig#s-disinherit) attribute that allows you to control attribute inheritance.
