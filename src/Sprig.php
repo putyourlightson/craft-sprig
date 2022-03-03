@@ -26,9 +26,14 @@ class Sprig extends Plugin
     public static Sprig $plugin;
 
     /**
-     * @var bool
+     * @inheritdoc
      */
     public bool $hasCpSection = true;
+
+    /**
+     * @inheritdoc
+     */
+    public string $schemaVersion = '1.0.1';
 
     /**
      * @inheritdoc

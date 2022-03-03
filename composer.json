@@ -27,6 +27,5 @@
         "documentationUrl": "https://putyourlightson.com/plugins/sprig",
         "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-sprig/v2/CHANGELOG.md",
         "class": "putyourlightson\\sprig\\plugin\\Sprig",
-        "schemaVersion": "1.0.1"
     }
 }
