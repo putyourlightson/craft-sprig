@@ -26,6 +26,6 @@
         "developerUrl": "https://putyourlightson.com/",
         "documentationUrl": "https://putyourlightson.com/plugins/sprig",
         "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-sprig/v2/CHANGELOG.md",
-        "class": "putyourlightson\\sprig\\plugin\\Sprig",
+        "class": "putyourlightson\\sprig\\plugin\\Sprig"
     }
 }
