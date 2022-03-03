@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 2.0.0 - Unreleased
+## 2.0.0-alpha.1 - Unreleased
 ### Added
 - Added compatibility with Craft 4.
 
