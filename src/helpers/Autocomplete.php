@@ -11,15 +11,13 @@ namespace putyourlightson\sprig\plugin\helpers;
 use Craft;
 use craft\base\Element;
 use craft\helpers\ArrayHelper;
-
+use phpDocumentor\Reflection\DocBlockFactory;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
 use yii\base\Behavior;
 use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
-
-use phpDocumentor\Reflection\DocBlockFactory;
 
 /**
  * Class Autocomplete
