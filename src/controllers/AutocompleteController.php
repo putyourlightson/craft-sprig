@@ -11,8 +11,6 @@ use craft\web\Controller;
 use yii\web\Response;
 
 /**
- * Class AutocompleteController
- *
  * @author    nystudio107
  * @package   Sprig
  * @since     1.9.0

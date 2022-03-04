@@ -20,8 +20,6 @@ use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
 
 /**
- * Class Autocomplete
- *
  * @author    nystudio107
  * @package   Sprig
  * @since     1.9.0
