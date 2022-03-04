@@ -15,8 +15,8 @@ use putyourlightson\sprig\plugin\services\PlaygroundService;
 use yii\base\Event;
 
 /**
- * @property PlaygroundService $playground
- * @property SettingsModel $settings
+ * @property-read PlaygroundService $playground
+ * @property-read SettingsModel $settings
  */
 class Sprig extends Plugin
 {

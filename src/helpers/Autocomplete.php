@@ -1,4 +1,7 @@
 <?php
+/** @noinspection PhpEnforceDocCommentInspection */
+/** @noinspection PhpMissingDocCommentInspection */
+
 /**
  * @copyright Copyright (c) nystudio107, PutYourLightsOn
  */
@@ -256,7 +259,7 @@ class Autocomplete
                 }
                 if ($detail === "Property") {
                     if (preg_match('/@var\s+([^\s]+)/', $docs, $matches)) {
-                        list(, $type) = $matches;
+                        [, $type] = $matches;
                         $detail = $type;
                     }
                     if ($reflectionProperty->hasType()) {
@@ -289,9 +292,9 @@ class Autocomplete
                     ]
                 ]);
                 // Recurse through if this is an object
-                if (isset($object->$propertyName) && is_object($object->$propertyName)) {
+                if (isset($object->{$propertyName}) && is_object($object->{$propertyName})) {
                     if (!$customField && !in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
-                        self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
+                        self::parseObject($completionList, $propertyName, $object->{$propertyName}, $path);
                     }
                 }
             }
