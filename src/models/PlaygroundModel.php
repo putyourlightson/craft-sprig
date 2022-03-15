@@ -6,7 +6,6 @@
 namespace putyourlightson\sprig\plugin\models;
 
 use craft\base\Model;
-use yii\behaviors\AttributeTypecastBehavior;
 
 class PlaygroundModel extends Model
 {
@@ -38,7 +37,7 @@ class PlaygroundModel extends Model
     /**
      * @inheritdoc
      */
-    public function defineRules(): array
+    protected function defineRules(): array
     {
         return [
             ['id', 'integer'],
@@ -46,18 +45,5 @@ class PlaygroundModel extends Model
             [['id', 'slug'], 'default', 'value' => null],
             [['name', 'component'], 'required'],
         ];
-    }
-
-    /**
-     * @inerhitdoc
-     */
-    public function behaviors(): array
-    {
-        $behaviors = parent::behaviors();
-        $behaviors['typecast'] = [
-            'class' => AttributeTypecastBehavior::class,
-        ];
-
-        return $behaviors;
     }
 }
