@@ -7,6 +7,10 @@
 ### Removed
 - Removed the deprecated `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags.
 
+## 1.12.1 - 2022-03-15
+### Fixed
+- Fixed an issue that caused htmx 1.7.0 to log console errors in some edge cases ([#202](https://github.com/putyourlightson/craft-sprig/issues/202)).
+
 ## 1.12.0 - 2022-03-01
 ### Added
 - Added the [s-sync](https://putyourlightson.com/plugins/sprig#s-sync) attribute that allows you to synchronize AJAX requests between multiple elements.
