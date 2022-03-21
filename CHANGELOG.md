@@ -1,8 +1,11 @@
 # Release Notes for Sprig
 
-## 2.0.0-alpha.1 - Unreleased
+## 2.0.0-beta.1 - 2022-03-21
 ### Added
 - Added compatibility with Craft 4.
+
+### Changed
+- Restyled invalid variable error messages.
 
 ### Removed
 - Removed the deprecated `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags.
