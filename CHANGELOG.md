@@ -2,7 +2,7 @@
 
 ## 1.12.2 - 2022-03-24
 ### Fixed
-- Fixed nested components being parsed twice, resulting in duplicate attributes ([#208](https://github.com/putyourlightson/craft-sprig-core/issues/208)).
+- Fixed nested components being parsed twice, resulting in duplicate attributes ([#208](https://github.com/putyourlightson/craft-sprig/issues/208)).
 
 ## 1.12.1 - 2022-03-15
 ### Fixed
