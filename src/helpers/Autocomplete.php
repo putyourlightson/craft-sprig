@@ -15,6 +15,7 @@ use phpDocumentor\Reflection\DocBlockFactory;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
+use ReflectionUnionType;
 use yii\base\Behavior;
 use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
@@ -335,7 +336,18 @@ class Autocomplete
                 $paramList = [];
                 foreach ($params as $param) {
                     if ($param->hasType()) {
-                        $paramList[] = $param->getType()->getName() . ': ' . '$' . $param->getName();
+                        $reflectionType = $param->getType();
+                        if ($reflectionType instanceof ReflectionUnionType) {
+                            $unionTypes = $reflectionType->getTypes();
+                            $typeName = '';
+                            foreach($unionTypes as $unionType) {
+                                $typeName.='|' . $unionType->getName();
+                            }
+                            $typeName = trim($typeName, '|');
+                            $paramList[] = $typeName . ': ' . '$' . $param->getName();
+                        } else {
+                            $paramList[] = $param->getType()->getName() . ': ' . '$' . $param->getName();
+                        }
                     } else {
                         $paramList[] = '$' . $param->getName();
                     }
