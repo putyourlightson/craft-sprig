@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 1.12.4 - 2022-04-14
+### Fixed
+- Fixed the minimum PHP requirement format to allow for PHP 8 ([#215](https://github.com/putyourlightson/craft-sprig/issues/215)).
+
 ## 1.12.3 - 2022-04-14
 ### Changed
 - Changed the minimum PHP requirement to 7.1.
