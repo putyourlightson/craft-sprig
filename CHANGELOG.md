@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 1.12.3 - 2022-04-14
+### Changed
+- Changed the minimum PHP requirement to 7.1.
+
+### Fixed
+- Fixed an issue where the `Autocomplete` helper could throw an exception if it encountered a `ReflectionUnionType` ([#213](https://github.com/putyourlightson/craft-sprig/issues/213)).
+
 ## 1.12.2 - 2022-03-24
 ### Fixed
 - Fixed nested components being parsed twice, resulting in duplicate attributes ([#208](https://github.com/putyourlightson/craft-sprig/issues/208)).
