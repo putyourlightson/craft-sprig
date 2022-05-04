@@ -9,9 +9,9 @@ use craft\base\Model;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
-use putyourlightson\sprig\Sprig as SprigCore;
 use putyourlightson\sprig\plugin\models\SettingsModel;
 use putyourlightson\sprig\plugin\services\PlaygroundService;
+use putyourlightson\sprig\Sprig as SprigCore;
 use yii\base\Event;
 
 /**

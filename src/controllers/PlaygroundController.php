@@ -56,7 +56,7 @@ class PlaygroundController extends Controller
 
         Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component saved.'));
 
-        return $this->redirect('sprig/'.$id);
+        return $this->redirect('sprig/' . $id);
     }
 
     /**
@@ -74,7 +74,7 @@ class PlaygroundController extends Controller
 
         Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component updated.'));
 
-        return $this->redirect('sprig/'.$id);
+        return $this->redirect('sprig/' . $id);
     }
 
     /**

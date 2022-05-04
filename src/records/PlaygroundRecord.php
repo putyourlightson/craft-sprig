@@ -15,9 +15,9 @@ use craft\db\ActiveRecord;
  */
 class PlaygroundRecord extends ActiveRecord
 {
-     /**
-     * @inheritdoc
-     */
+    /**
+    * @inheritdoc
+    */
     public static function tableName(): string
     {
         return '{{%sprig_playgrounds}}';

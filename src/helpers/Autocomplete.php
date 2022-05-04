@@ -1,4 +1,5 @@
 <?php
+
 /** @noinspection PhpEnforceDocCommentInspection */
 /** @noinspection PhpMissingDocCommentInspection */
 
@@ -42,7 +43,7 @@ class Autocomplete
     ];
     public const ELEMENT_ROUTE_EXCLUDES = [
         'matrixblock',
-        'globalset'
+        'globalset',
     ];
     public const EXCLUDED_PROPERTY_REGEXES = [
         '^_',
@@ -121,7 +122,7 @@ class Autocomplete
                                 'kind' => $kind,
                                 'label' => $key,
                                 'insertText' => $key,
-                            ]
+                            ],
                         ]);
                         break;
                 }
@@ -156,7 +157,8 @@ class Autocomplete
     {
         try {
             $reflectionClass = new ReflectionClass($object);
-        } catch (ReflectionException) {
+        }
+        catch (ReflectionException) {
             return;
         }
         // Information on the class itself
@@ -180,7 +182,7 @@ class Autocomplete
                 'kind' => self::CompletionItemKind['Class'],
                 'label' => $name,
                 'insertText' => $name,
-            ]
+            ],
         ]);
     }
 
@@ -191,7 +193,8 @@ class Autocomplete
                 $componentObject = null;
                 try {
                     $componentObject = $object->get($key);
-                } catch (InvalidConfigException) {
+                }
+                catch (InvalidConfigException) {
                     // That's okay
                 }
                 if ($componentObject) {
@@ -205,7 +208,8 @@ class Autocomplete
     {
         try {
             $reflectionClass = new ReflectionClass($object);
-        } catch (ReflectionException) {
+        }
+        catch (ReflectionException) {
             return;
         }
         $reflectionProperties = $reflectionClass->getProperties();
@@ -286,7 +290,7 @@ class Autocomplete
                         'label' => $label,
                         'insertText' => $label,
                         'sortText' => $sortPrefix . $label,
-                    ]
+                    ],
                 ]);
                 // Recurse through if this is an object
                 if (isset($object->{$propertyName}) && is_object($object->{$propertyName})) {
@@ -302,7 +306,8 @@ class Autocomplete
     {
         try {
             $reflectionClass = new ReflectionClass($object);
-        } catch (ReflectionException) {
+        }
+        catch (ReflectionException) {
             return;
         }
         $reflectionMethods = $reflectionClass->getMethods();
@@ -340,15 +345,17 @@ class Autocomplete
                         if ($reflectionType instanceof ReflectionUnionType) {
                             $unionTypes = $reflectionType->getTypes();
                             $typeName = '';
-                            foreach($unionTypes as $unionType) {
-                                $typeName.='|' . $unionType->getName();
+                            foreach ($unionTypes as $unionType) {
+                                $typeName .= '|' . $unionType->getName();
                             }
                             $typeName = trim($typeName, '|');
                             $paramList[] = $typeName . ': ' . '$' . $param->getName();
-                        } else {
+                        }
+                        else {
                             $paramList[] = $param->getType()->getName() . ': ' . '$' . $param->getName();
                         }
-                    } else {
+                    }
+                    else {
                         $paramList[] = '$' . $param->getName();
                     }
                 }
@@ -362,7 +369,7 @@ class Autocomplete
                     if ($tags) {
                         $docsPreamble = "Parameters:\n\n";
                         foreach ($tags as $tag) {
-                            $docsPreamble .= $tag. "\n";
+                            $docsPreamble .= $tag . "\n";
                         }
                         $docsPreamble .= "\n";
                     }
@@ -375,7 +382,7 @@ class Autocomplete
                         'label' => $label,
                         'insertText' => $label,
                         'sortText' => '~~~' . $label,
-                    ]
+                    ],
                 ]);
             }
         }

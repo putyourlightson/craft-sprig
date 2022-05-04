@@ -125,7 +125,7 @@ class PlaygroundService extends Component
         $record->save();
 
         if ($record->name == '') {
-            $record->name = 'Playground '.$record->id;
+            $record->name = 'Playground ' . $record->id;
             $record->save();
         }
 

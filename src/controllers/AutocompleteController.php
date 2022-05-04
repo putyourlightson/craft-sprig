@@ -5,9 +5,9 @@
 
 namespace putyourlightson\sprig\plugin\controllers;
 
-use putyourlightson\sprig\plugin\helpers\Autocomplete as AutocompleteHelper;
-
 use craft\web\Controller;
+
+use putyourlightson\sprig\plugin\helpers\Autocomplete as AutocompleteHelper;
 use yii\web\Response;
 
 /**

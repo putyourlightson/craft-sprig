@@ -1,4 +1,5 @@
 <?php
+
 namespace putyourlightson\sprig\plugin\components;
 
 use Craft;
@@ -22,7 +23,7 @@ class SprigPlayground extends Component
         parent::init();
 
         // Validate that user has permission to access the plugin in the CP
-        if (!Craft::$app->getUser()->checkPermission('accessPlugin-'.Sprig::$plugin->id)) {
+        if (!Craft::$app->getUser()->checkPermission('accessPlugin-' . Sprig::$plugin->id)) {
             throw new ForbiddenHttpException('Access denied.');
         }
     }
@@ -75,6 +76,6 @@ class SprigPlayground extends Component
     {
         $error = preg_replace('/in "__string_template__(.*?)"/', '', $error);
 
-        return '<h2 class="error">'.$error.'</h2>';
+        return '<h2 class="error">' . $error . '</h2>';
     }
 }
