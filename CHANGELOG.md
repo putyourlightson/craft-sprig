@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 2.0.0-beta.1 - 2022-03-21
+## 2.0.0 - 2022-05-04
 ### Added
 - Added compatibility with Craft 4.
 
@@ -10,6 +10,10 @@
 ### Removed
 - Removed the deprecated `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags.
 - Removed the deprecated `s-vars` attribute.
+
+## 1.12.4 - 2022-04-14
+### Fixed
+- Fixed the minimum PHP requirement format to allow for PHP 8 ([#215](https://github.com/putyourlightson/craft-sprig/issues/215)).
 
 ## 1.12.3 - 2022-04-14
 ### Changed

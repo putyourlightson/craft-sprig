@@ -135,7 +135,7 @@ class Autocomplete
     /**
      * Parse the object passed in, including any properties or methods
      */
-    public static function parseObject(array &$completionList, string $name, $object, string $path = '')
+    public static function parseObject(array &$completionList, string $name, $object, string $path = ''): void
     {
         // Create the docblock factory
         $factory = DocBlockFactory::createInstance();
@@ -153,7 +153,7 @@ class Autocomplete
         self::getBehaviorCompletion($completionList, $object, $factory, $path);
     }
 
-    protected static function getClassCompletion(array &$completionList, $object, DocBlockFactory $factory, string $name, $path)
+    protected static function getClassCompletion(array &$completionList, $object, DocBlockFactory $factory, string $name, $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
@@ -186,7 +186,7 @@ class Autocomplete
         ]);
     }
 
-    protected static function getComponentCompletion(array &$completionList, $object, $path)
+    protected static function getComponentCompletion(array &$completionList, $object, $path): void
     {
         if ($object instanceof ServiceLocator) {
             foreach ($object->getComponents() as $key => $value) {
@@ -204,7 +204,7 @@ class Autocomplete
         }
     }
 
-    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
@@ -302,7 +302,7 @@ class Autocomplete
         }
     }
 
-    protected static function getMethodCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    protected static function getMethodCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
@@ -388,7 +388,7 @@ class Autocomplete
         }
     }
 
-    protected static function getBehaviorCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    protected static function getBehaviorCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path): void
     {
         if ($object instanceof Element) {
             $behaviorClass = $object->getBehavior('customFields');
