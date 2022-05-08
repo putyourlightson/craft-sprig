@@ -1,4 +1,8 @@
 <?php
+
+/** @noinspection PhpEnforceDocCommentInspection */
+/** @noinspection PhpMissingDocCommentInspection */
+
 /**
  * @copyright Copyright (c) nystudio107, PutYourLightsOn
  */
@@ -8,7 +12,7 @@ namespace putyourlightson\sprig\plugin\helpers;
 use Craft;
 use craft\base\Element;
 use craft\helpers\ArrayHelper;
-
+use phpDocumentor\Reflection\DocBlockFactory;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
@@ -17,46 +21,39 @@ use yii\base\Behavior;
 use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
 
-use phpDocumentor\Reflection\DocBlockFactory;
-
 /**
- * Class Autocomplete
- *
  * @author    nystudio107
  * @package   Sprig
  * @since     1.9.0
  */
 class Autocomplete
 {
-    // Constants
-    // =========================================================================
-
-    const COMPLETION_KEY = '__completions';
-    const EXCLUDED_PROPERTY_NAMES = [
+    public const COMPLETION_KEY = '__completions';
+    public const EXCLUDED_PROPERTY_NAMES = [
         'controller',
         'Controller',
         'CraftEdition',
         'CraftSolo',
         'CraftPro',
     ];
-    const EXCLUDED_BEHAVIOR_NAMES = [
+    public const EXCLUDED_BEHAVIOR_NAMES = [
         'fieldHandles',
         'hasMethods',
         'owner',
     ];
-    const ELEMENT_ROUTE_EXCLUDES = [
+    public const ELEMENT_ROUTE_EXCLUDES = [
         'matrixblock',
-        'globalset'
+        'globalset',
     ];
-    const EXCLUDED_PROPERTY_REGEXES = [
+    public const EXCLUDED_PROPERTY_REGEXES = [
         '^_',
     ];
-    const EXCLUDED_METHOD_REGEXES = [
+    public const EXCLUDED_METHOD_REGEXES = [
         '^_',
     ];
 
     // Faux enum, from: https://microsoft.github.io/monaco-editor/api/enums/monaco.languages.completionitemkind.html
-    const CompletionItemKind = [
+    public const CompletionItemKind = [
         'Class' => 5,
         'Color' => 19,
         'Constant' => 14,
@@ -86,9 +83,6 @@ class Autocomplete
         'Value' => 13,
         'Variable' => 4,
     ];
-
-    // Public Static Methods
-    // =========================================================================
 
     /**
      * Core function that generates the autocomplete array
@@ -128,7 +122,7 @@ class Autocomplete
                                 'kind' => $kind,
                                 'label' => $key,
                                 'insertText' => $key,
-                            ]
+                            ],
                         ]);
                         break;
                 }
@@ -140,13 +134,8 @@ class Autocomplete
 
     /**
      * Parse the object passed in, including any properties or methods
-     *
-     * @param array $completionList
-     * @param string $name
-     * @param $object
-     * @param string $path
      */
-    public static function parseObject(array &$completionList, string $name, $object, string $path = '')
+    public static function parseObject(array &$completionList, string $name, $object, string $path = ''): void
     {
         // Create the docblock factory
         $factory = DocBlockFactory::createInstance();
@@ -164,21 +153,12 @@ class Autocomplete
         self::getBehaviorCompletion($completionList, $object, $factory, $path);
     }
 
-    // Protected Static Methods
-    // =========================================================================
-
-    /**
-     * @param array $completionList
-     * @param $object
-     * @param DocBlockFactory $factory
-     * @param string $name
-     * @param $path
-     */
-    protected static function getClassCompletion(array &$completionList, $object, DocBlockFactory $factory, string $name, $path)
+    protected static function getClassCompletion(array &$completionList, $object, DocBlockFactory $factory, string $name, $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
-        } catch (ReflectionException $e) {
+        }
+        catch (ReflectionException) {
             return;
         }
         // Information on the class itself
@@ -186,15 +166,13 @@ class Autocomplete
         $docs = $reflectionClass->getDocComment();
         if ($docs) {
             $docblock = $factory->create($docs);
-            if ($docblock) {
-                $summary = $docblock->getSummary();
-                if (!empty($summary)) {
-                    $docs = $summary;
-                }
-                $description = $docblock->getDescription()->render();
-                if (!empty($description)) {
-                    $docs = $description;
-                }
+            $summary = $docblock->getSummary();
+            if (!empty($summary)) {
+                $docs = $summary;
+            }
+            $description = $docblock->getDescription()->render();
+            if (!empty($description)) {
+                $docs = $description;
             }
         }
         ArrayHelper::setValue($completionList, $path, [
@@ -204,23 +182,19 @@ class Autocomplete
                 'kind' => self::CompletionItemKind['Class'],
                 'label' => $name,
                 'insertText' => $name,
-            ]
+            ],
         ]);
     }
 
-    /**
-     * @param array $completionList
-     * @param $object
-     * @param $path
-     */
-    protected static function getComponentCompletion(array &$completionList, $object, $path)
+    protected static function getComponentCompletion(array &$completionList, $object, $path): void
     {
         if ($object instanceof ServiceLocator) {
             foreach ($object->getComponents() as $key => $value) {
                 $componentObject = null;
                 try {
                     $componentObject = $object->get($key);
-                } catch (InvalidConfigException $e) {
+                }
+                catch (InvalidConfigException) {
                     // That's okay
                 }
                 if ($componentObject) {
@@ -230,17 +204,12 @@ class Autocomplete
         }
     }
 
-    /**
-     * @param array $completionList
-     * @param $object
-     * @param DocBlockFactory $factory
-     * @param string $path
-     */
-    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    protected static function getPropertyCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
-        } catch (ReflectionException $e) {
+        }
+        catch (ReflectionException) {
             return;
         }
         $reflectionProperties = $reflectionClass->getProperties();
@@ -273,15 +242,13 @@ class Autocomplete
                 if ($docs) {
                     $docblock = $factory->create($docs);
                     $docs = '';
-                    if ($docblock) {
-                        $summary = $docblock->getSummary();
-                        if (!empty($summary)) {
-                            $docs = $summary;
-                        }
-                        $description = $docblock->getDescription()->render();
-                        if (!empty($description)) {
-                            $docs = $description;
-                        }
+                    $summary = $docblock->getSummary();
+                    if (!empty($summary)) {
+                        $docs = $summary;
+                    }
+                    $description = $docblock->getDescription()->render();
+                    if (!empty($description)) {
+                        $docs = $description;
                     }
                 }
                 // Figure out the type
@@ -293,31 +260,23 @@ class Autocomplete
                 }
                 if ($detail === "Property") {
                     if (preg_match('/@var\s+([^\s]+)/', $docs, $matches)) {
-                        list(, $type) = $matches;
+                        [, $type] = $matches;
                         $detail = $type;
-                    } else {
-                        $detail = "Property";
                     }
-                }
-                if ($detail === "Property") {
-                    if ((PHP_MAJOR_VERSION >= 7 && PHP_MINOR_VERSION >= 4) || (PHP_MAJOR_VERSION >= 8)) {
-                        if ($reflectionProperty->hasType()) {
-                            $reflectionType = $reflectionProperty->getType();
-                            if ($reflectionType instanceof ReflectionNamedType) {
-                                $type = $reflectionType->getName();
-                                $detail = $type;
-                            }
+                    if ($reflectionProperty->hasType()) {
+                        $reflectionType = $reflectionProperty->getType();
+                        if ($reflectionType instanceof ReflectionNamedType) {
+                            $type = $reflectionType->getName();
+                            $detail = $type;
                         }
-                        if (PHP_MAJOR_VERSION >= 8) {
-                            if ($reflectionProperty->hasDefaultValue()) {
-                                $value = $reflectionProperty->getDefaultValue();
-                                if (is_array($value)) {
-                                    $value = json_encode($value);
-                                }
-                                if (!empty($value)) {
-                                    $detail = "$value";
-                                }
-                            }
+                    }
+                    if ($reflectionProperty->hasDefaultValue()) {
+                        $value = $reflectionProperty->getDefaultValue();
+                        if (is_array($value)) {
+                            $value = json_encode($value);
+                        }
+                        if (!empty($value)) {
+                            $detail = "$value";
                         }
                     }
                 }
@@ -331,29 +290,24 @@ class Autocomplete
                         'label' => $label,
                         'insertText' => $label,
                         'sortText' => $sortPrefix . $label,
-                    ]
+                    ],
                 ]);
                 // Recurse through if this is an object
-                if (isset($object->$propertyName) && is_object($object->$propertyName)) {
+                if (isset($object->{$propertyName}) && is_object($object->{$propertyName})) {
                     if (!$customField && !in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
-                        self::parseObject($completionList, $propertyName, $object->$propertyName, $path);
+                        self::parseObject($completionList, $propertyName, $object->{$propertyName}, $path);
                     }
                 }
             }
         }
     }
 
-    /**
-     * @param array $completionList
-     * @param $object
-     * @param DocBlockFactory $factory
-     * @param string $path
-     */
-    protected static function getMethodCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    protected static function getMethodCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
-        } catch (ReflectionException $e) {
+        }
+        catch (ReflectionException) {
             return;
         }
         $reflectionMethods = $reflectionClass->getMethods();
@@ -373,15 +327,13 @@ class Autocomplete
                 $docs = $reflectionMethod->getDocComment();
                 if ($docs) {
                     $docblock = $factory->create($docs);
-                    if ($docblock) {
-                        $summary = $docblock->getSummary();
-                        if (!empty($summary)) {
-                            $docs = $summary;
-                        }
-                        $description = $docblock->getDescription()->render();
-                        if (!empty($description)) {
-                            $docs = $description;
-                        }
+                    $summary = $docblock->getSummary();
+                    if (!empty($summary)) {
+                        $docs = $summary;
+                    }
+                    $description = $docblock->getDescription()->render();
+                    if (!empty($description)) {
+                        $docs = $description;
                     }
                 }
                 $detail = $methodName . '(';
@@ -393,15 +345,17 @@ class Autocomplete
                         if ($reflectionType instanceof ReflectionUnionType) {
                             $unionTypes = $reflectionType->getTypes();
                             $typeName = '';
-                            foreach($unionTypes as $unionType) {
-                                $typeName.='|' . $unionType->getName();
+                            foreach ($unionTypes as $unionType) {
+                                $typeName .= '|' . $unionType->getName();
                             }
                             $typeName = trim($typeName, '|');
                             $paramList[] = $typeName . ': ' . '$' . $param->getName();
-                        } else {
+                        }
+                        else {
                             $paramList[] = $param->getType()->getName() . ': ' . '$' . $param->getName();
                         }
-                    } else {
+                    }
+                    else {
                         $paramList[] = '$' . $param->getName();
                     }
                 }
@@ -415,7 +369,7 @@ class Autocomplete
                     if ($tags) {
                         $docsPreamble = "Parameters:\n\n";
                         foreach ($tags as $tag) {
-                            $docsPreamble .= $tag. "\n";
+                            $docsPreamble .= $tag . "\n";
                         }
                         $docsPreamble .= "\n";
                     }
@@ -428,19 +382,13 @@ class Autocomplete
                         'label' => $label,
                         'insertText' => $label,
                         'sortText' => '~~~' . $label,
-                    ]
+                    ],
                 ]);
             }
         }
     }
 
-    /**
-     * @param array $completionList
-     * @param $object
-     * @param DocBlockFactory $factory
-     * @param string $path
-     */
-    protected static function getBehaviorCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path)
+    protected static function getBehaviorCompletion(array &$completionList, $object, DocBlockFactory $factory, string $path): void
     {
         if ($object instanceof Element) {
             $behaviorClass = $object->getBehavior('customFields');
@@ -450,13 +398,8 @@ class Autocomplete
         }
     }
 
-    // Private Static Methods
-    // =========================================================================
-
     /**
      * Add in the element types that could be injected as route variables
-     *
-     * @return array
      */
     private static function elementRouteVariables(): array
     {
@@ -475,8 +418,6 @@ class Autocomplete
 
     /**
      * Override certain values that we always want hard-coded
-     *
-     * @return array
      */
     private static function overrideValues(): array
     {

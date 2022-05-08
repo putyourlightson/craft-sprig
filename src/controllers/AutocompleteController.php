@@ -5,14 +5,12 @@
 
 namespace putyourlightson\sprig\plugin\controllers;
 
-use putyourlightson\sprig\plugin\helpers\Autocomplete as AutocompleteHelper;
-
 use craft\web\Controller;
+
+use putyourlightson\sprig\plugin\helpers\Autocomplete as AutocompleteHelper;
 use yii\web\Response;
 
 /**
- * Class AutocompleteController
- *
  * @author    nystudio107
  * @package   Sprig
  * @since     1.9.0
@@ -20,7 +18,7 @@ use yii\web\Response;
 class AutocompleteController extends Controller
 {
     /**
-     * @return Response
+     * Returns the autocomplete array.
      */
     public function actionIndex(): Response
     {

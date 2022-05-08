@@ -12,5 +12,5 @@ class SettingsModel extends Model
     /**
      * @var bool Whether the playground should be enabled.
      */
-    public $enablePlayground = true;
+    public bool $enablePlayground = true;
 }

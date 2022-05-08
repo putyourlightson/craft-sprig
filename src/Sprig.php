@@ -5,29 +5,35 @@
 
 namespace putyourlightson\sprig\plugin;
 
+use craft\base\Model;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
-use putyourlightson\sprig\Sprig as SprigCore;
 use putyourlightson\sprig\plugin\models\SettingsModel;
 use putyourlightson\sprig\plugin\services\PlaygroundService;
+use putyourlightson\sprig\Sprig as SprigCore;
 use yii\base\Event;
 
 /**
- * @property PlaygroundService $playground
- * @property SettingsModel $settings
+ * @property-read PlaygroundService $playground
+ * @property-read SettingsModel $settings
  */
 class Sprig extends Plugin
 {
     /**
      * @var Sprig
      */
-    public static $plugin;
+    public static Sprig $plugin;
 
     /**
-     * @var bool
+     * @inheritdoc
      */
-    public $hasCpSection = true;
+    public bool $hasCpSection = true;
+
+    /**
+     * @inheritdoc
+     */
+    public string $schemaVersion = '1.0.1';
 
     /**
      * @inheritdoc
@@ -52,7 +58,7 @@ class Sprig extends Plugin
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?Model
     {
         return new SettingsModel();
     }

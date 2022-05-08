@@ -6,68 +6,44 @@
 namespace putyourlightson\sprig\plugin\models;
 
 use craft\base\Model;
-use yii\behaviors\AttributeTypecastBehavior;
 
 class PlaygroundModel extends Model
 {
     /**
      * @var int|null
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @var string
      */
-    public $slug;
+    public string $slug = '';
 
     /**
      * @var string
      */
-    public $name;
+    public string $name = '';
 
     /**
      * @var string
      */
-    public $component;
+    public string $component = '';
 
     /**
      * @var string
      */
-    public $variables;
-
-    // Public Methods
-    // =========================================================================
+    public string $variables = '';
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    protected function defineRules(): array
     {
-        return array_merge(
-            parent::rules(),
-            [
-                ['id', 'integer'],
-                ['id', 'default', 'value' => null],
-                ['slug', 'string'],
-                ['slug', 'default', 'value' => null],
-                ['name', 'required'],
-                ['name', 'string'],
-                ['component', 'required'],
-                ['component', 'string'],
-                ['variables', 'string'],
-            ]
-        );
-    }
-
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return array_merge(parent::behaviors(), [
-            'typecast' => [
-                'class' => AttributeTypecastBehavior::class,
-            ],
-        ]);
+        return [
+            ['id', 'integer'],
+            [['slug', 'name', 'component', 'variables'], 'string'],
+            [['id', 'slug'], 'default', 'value' => null],
+            [['name', 'component'], 'required'],
+        ];
     }
 }

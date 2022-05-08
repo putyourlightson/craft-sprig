@@ -1,8 +1,15 @@
 # Release Notes for Sprig
 
-## 1.13.0 - 2022-04-30
+## 2.0.0 - 2022-05-04
 ### Added
-- Added the [s-listen](https://putyourlightson.com/plugins/sprig#s-listen) attribute that allows you to specify one or more components that when refreshed, should trigger a refresh of the current element.
+- Added compatibility with Craft 4.
+
+### Changed
+- Restyled invalid variable error messages.
+
+### Removed
+- Removed the deprecated `sprig.element`, `sprig.elementName`, `sprig.elementValue` and `sprig.eventTarget` tags.
+- Removed the deprecated `s-vars` attribute.
 
 ## 1.12.4 - 2022-04-14
 ### Fixed
