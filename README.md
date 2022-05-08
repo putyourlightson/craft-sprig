@@ -31,7 +31,7 @@ This plugin is licensed for free under the MIT License.
 
 ## Requirements
 
-Craft CMS 3.1.19 or later.
+This plugin requires [Craft CMS](https://craftcms.com/) 3.1.19 or later, or 4.0.0 or later.
 
 ## Installation
 
