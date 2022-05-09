@@ -29,11 +29,6 @@
     height: 380px;
 }
 
-.playground .variables {
-    height: 66px;
-    flex-grow: 0;
-}
-
 .playground code, .playground .code {
     font-size: 1em !important;
 }

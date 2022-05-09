@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 2.0.1 - Unreleased
+### Changed
+- Improved the styling of variables panes in the playground.
+
 ## 2.0.0 - 2022-05-04
 ### Added
 - Added compatibility with Craft 4.
