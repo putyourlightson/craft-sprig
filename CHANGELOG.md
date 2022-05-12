@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 2.0.1 - Unreleased
+## 2.0.1 - 2022-05-12
 ### Changed
 - Improved the styling of variables panes in the playground.
 
