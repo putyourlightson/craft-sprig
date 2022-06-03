@@ -119,11 +119,14 @@ function getCompletionItems()
 
     let suggestionLabels = [
         's-action=""',
+        's-listen=""',
         's-method=""', 's-method="post"',
         's-boost=""', 's-boost="true"',
         's-confirm=""', 's-confirm="Are you sure?"',
         's-disable=""',
+        's-disinherit=""', 's-disinherit="*"',
         's-encoding=""', 's-encoding="multipart/form-data"',
+        's-ext=""',
         's-headers=""',
         's-history-elt=""',
         's-include=""',
@@ -132,13 +135,15 @@ function getCompletionItems()
         's-preserve=""', 's-preserve="true"',
         's-prompt=""',
         's-push-url=""',
+        's-replace=""',
         's-request=""',
         's-select=""',
         's-swap=""', 's-swap="innerHTML"', 's-swap="outerHTML"', 's-swap="beforebegin"', 's-swap="afterbegin"', 's-swap="beforeend"', 's-swap="afterend"',
-        's-swap-oob=""',
+        's-swap-oob=""', 's-swap-oob="true"',
         's-target=""', 's-target="this"',
         's-trigger=""', 's-trigger="click"', 's-trigger="change"', 's-trigger="submit"',
-        's-val-x="1"', 's-val-y="2"',
+        's-val:x="1"', 's-val:y="2"',
+        's-vals="{x:1,y:2}"',
     ];
 
     for (let i = 0; i < suggestionLabels.length; i++) {
