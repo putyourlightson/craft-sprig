@@ -12,7 +12,7 @@ use nystudio107\twigfield\types\CompleteItemKind;
 
 class SprigApiAutocomplete extends Autocomplete
 {
-    public const SPRIG_ATTRIBUTES= [
+    public const SPRIG_ATTRIBUTES = [
         's-action=""',
         's-method=""', 's-method="post"',
         's-boost=""', 's-boost="true"',
@@ -53,7 +53,7 @@ class SprigApiAutocomplete extends Autocomplete
     }
 
     /**
-     * Core function that generates the autocomplete array
+     * @inerhitDoc
      */
     public static function generateCompleteItems(): void
     {
@@ -69,7 +69,6 @@ class SprigApiAutocomplete extends Autocomplete
                 ->label($attribute)
                 ->insertText($attribute)
                 ->kind(CompleteItemKind::FieldKind)
-                ->sortText($attribute)
                 ->add(self::class);
         }
     }

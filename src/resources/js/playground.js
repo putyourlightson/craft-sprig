@@ -52,7 +52,7 @@ $(document).ready(function () {
     $(this).find('textarea[name=component]').val(editor.getValue());
     $(this).find('textarea[name=variables]').val($('#input-variables').val());
 
-    if ($(this).find('input[name=action]:last').val() == 'sprig/playground/save') {
+    if ($(this).find('input[name=action]:last').val() === 'sprig/playground/save') {
       let name = prompt('Enter a name for this component.');
 
       if (name) {
