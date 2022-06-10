@@ -1,32 +1,33 @@
 {
-    "name": "putyourlightson/craft-sprig",
-    "description": "A reactive Twig component framework for Craft.",
-    "version": "2.0.2",
-    "type": "craft-plugin",
-    "license": "mit",
-    "require": {
-        "php": "^8.0.2",
-        "craftcms/cms": "^4.0.0",
-        "putyourlightson/craft-sprig-core": "^2.0.4",
-        "phpdocumentor/reflection-docblock": "^5.2.0"
-    },
-    "autoload": {
-        "psr-4": {
-          "putyourlightson\\sprig\\plugin\\": "src/"
-        }
-    },
-    "support": {
-        "docs": "https://putyourlightson.com/plugins/sprig",
-        "source": "https://github.com/putyourlightson/craft-sprig",
-        "issues": "https://github.com/putyourlightson/craft-sprig/issues"
-    },
-    "extra": {
-        "name": "Sprig",
-        "handle": "sprig",
-        "developer": "PutYourLightsOn",
-        "developerUrl": "https://putyourlightson.com/",
-        "documentationUrl": "https://putyourlightson.com/plugins/sprig",
-        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-sprig/v2/CHANGELOG.md",
-        "class": "putyourlightson\\sprig\\plugin\\Sprig"
+  "name": "putyourlightson/craft-sprig",
+  "description": "A reactive Twig component framework for Craft.",
+  "version": "2.0.2",
+  "type": "craft-plugin",
+  "license": "mit",
+  "require": {
+    "php": "^8.0.2",
+    "craftcms/cms": "^4.0.0",
+    "nystudio107/craft-twigfield": "^1.0.0",
+    "putyourlightson/craft-sprig-core": "^2.0.4",
+    "phpdocumentor/reflection-docblock": "^5.2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "putyourlightson\\sprig\\plugin\\": "src/"
     }
+  },
+  "support": {
+    "docs": "https://putyourlightson.com/plugins/sprig",
+    "source": "https://github.com/putyourlightson/craft-sprig",
+    "issues": "https://github.com/putyourlightson/craft-sprig/issues"
+  },
+  "extra": {
+    "name": "Sprig",
+    "handle": "sprig",
+    "developer": "PutYourLightsOn",
+    "developerUrl": "https://putyourlightson.com/",
+    "documentationUrl": "https://putyourlightson.com/plugins/sprig",
+    "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-sprig/v2/CHANGELOG.md",
+    "class": "putyourlightson\\sprig\\plugin\\Sprig"
+  }
 }

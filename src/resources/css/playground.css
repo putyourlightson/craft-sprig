@@ -7,7 +7,7 @@
     height: 600px;
     display: flex;
     align-items: flex-start;
- }
+}
 
 .playground > div {
     width: 50%;
@@ -18,11 +18,6 @@
 
 .playground > div:first-of-type {
     margin-right: 10px;
-}
-
-.playground > div > div {
-    flex-grow: 1;
-    margin-bottom: 10px;
 }
 
 .playground .editor {
@@ -51,9 +46,14 @@
     resize: none;
 }
 
-.playground .output {
+.playground .input-pane, .playground .output-pane {
+    flex-grow: 1;
     height: 100%;
     box-sizing: border-box;
+}
+
+.playground .content-pane {
+    flex-grow: 0;
 }
 
 .playground .output .sprig-component {
@@ -82,5 +82,5 @@
 
 .monaco-mouse-cursor-text:focus,
 .monaco-mouse-cursor-text:focus-visible {
-    box-shadow: none!important;
+    box-shadow: none !important;
 }
