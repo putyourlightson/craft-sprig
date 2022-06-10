@@ -42,5 +42,16 @@ class SprigApiAutocomplete extends Autocomplete
             ->kind(CompleteItemKind::FunctionKind)
             ->sortText('__sprig')
             ->add(self::class);
+        CompleteItem::create()
+            ->label('s-action=""')
+            ->insertText('s-action=""')
+            ->kind(CompleteItemKind::FieldKind)
+            ->add(self::class);
+        // Example code you can used too, delete below
+        $completeItems = [];
+        foreach (self::COMPLETE_ITEMS as $completeItem) {
+            self::addCompleteItem($completeItem);
+        }
+
     }
 }
