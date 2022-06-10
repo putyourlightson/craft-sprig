@@ -73,8 +73,9 @@
         <textarea name="variables" class="hidden"></textarea>
 
         <div class="flex">
-            <a href="https://putyourlightson.com/sprig" class="btn"
-               target="_blank">{{ 'Learning Resources'|t('sprig') }}</a>
+            <a href="https://putyourlightson.com/sprig" class="btn" target="_blank" rel="noopener">
+                {{ 'Learning Resources'|t('sprig') }}
+            </a>
 
             {% if playground and not slug %}
                 <div class="btngroup">
