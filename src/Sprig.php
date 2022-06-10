@@ -9,9 +9,9 @@ use craft\base\Model;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
+use nystudio107\twigfield\autocompletes\CraftApiAutocomplete;
 use nystudio107\twigfield\events\RegisterTwigfieldAutocompletesEvent;
 use nystudio107\twigfield\services\AutocompleteService;
-use nystudio107\twigfield\autocompletes\CraftApiAutocomplete;
 use putyourlightson\sprig\plugin\autocompletes\SprigApiAutocomplete;
 use putyourlightson\sprig\plugin\models\SettingsModel;
 use putyourlightson\sprig\plugin\services\PlaygroundService;
@@ -24,7 +24,7 @@ use yii\base\Event;
  */
 class Sprig extends Plugin
 {
-    const SPRIG_TWIG_FIELD_TYPE = 'SprigField';
+    public const SPRIG_TWIG_FIELD_TYPE = 'SprigField';
 
     /**
      * @var Sprig
@@ -77,7 +77,7 @@ class Sprig extends Plugin
     private function _registerCpRoutes()
     {
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES,
-            function (RegisterUrlRulesEvent $event) {
+            function(RegisterUrlRulesEvent $event) {
                 $event->rules['sprig'] = 'sprig/playground/index';
                 $event->rules['sprig/<id:\d+>'] = 'sprig/playground/index';
                 $event->rules['sprig/<slug:([^\/]*)?>'] = 'sprig/playground/index';
@@ -91,7 +91,7 @@ class Sprig extends Plugin
     private function _registerEventHandlers()
     {
         // Register our autocompletes
-        Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_TWIGFIELD_AUTOCOMPLETES, static function (RegisterTwigfieldAutocompletesEvent $e) {
+        Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_TWIGFIELD_AUTOCOMPLETES, static function(RegisterTwigfieldAutocompletesEvent $e) {
             if ($e->fieldType === self::SPRIG_TWIG_FIELD_TYPE) {
                 $e->types[] = CraftApiAutocomplete::class;
                 $e->types[] = SprigApiAutocomplete::class;

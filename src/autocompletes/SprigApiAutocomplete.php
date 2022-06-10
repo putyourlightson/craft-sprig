@@ -49,9 +49,8 @@ class SprigApiAutocomplete extends Autocomplete
             ->add(self::class);
         // Example code you can used too, delete below
         $completeItems = [];
-        foreach (self::COMPLETE_ITEMS as $completeItem) {
-            self::addCompleteItem($completeItem);
-        }
-
+//        foreach (self::COMPLETE_ITEMS as $completeItem) {
+//            self::addCompleteItem($completeItem);
+//        }
     }
 }
