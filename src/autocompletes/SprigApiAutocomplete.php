@@ -36,40 +36,37 @@ class SprigApiAutocomplete extends Autocomplete
         's-val-x="1"', 's-val-y="2"',
     ];
 
+    // Public Properties
+    // =========================================================================
+
     /**
-     * @inerhitDoc
+     * @var string The name of the autocomplete
      */
-    public static function getAutocompleteName(): string
-    {
-        return 'SprigApiAutocomplete';
-    }
+    public $name = 'SprigApiAutocomplete';
+
+    /**
+     * @var string The type of the autocomplete
+     */
+    public $type = AutocompleteTypes::TwigExpressionAutocomplete;
 
     /**
      * @inerhitDoc
      */
-    public static function getAutocompleteType(): string
-    {
-        return AutocompleteTypes::TwigExpressionAutocomplete;
-    }
-
-    /**
-     * @inerhitDoc
-     */
-    public static function generateCompleteItems(): void
+    public function generateCompleteItems(): void
     {
         CompleteItem::create()
             ->label('sprig')
             ->insertText('sprig')
             ->kind(CompleteItemKind::FunctionKind)
             ->sortText('__sprig')
-            ->add(self::class);
+            ->add($this);
 
         foreach (self::SPRIG_ATTRIBUTES as $attribute) {
             CompleteItem::create()
                 ->label($attribute)
                 ->insertText($attribute)
                 ->kind(CompleteItemKind::FieldKind)
-                ->add(self::class);
+                ->add($this);
         }
     }
 }
