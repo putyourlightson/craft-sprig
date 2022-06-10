@@ -32,6 +32,18 @@ class Sprig extends Plugin
     public static Sprig $plugin;
 
     /**
+     * @inerhitdoc
+     */
+    public static function config(): array
+    {
+        return [
+            'components' => [
+                'playground' => ['class' => PlaygroundService::class],
+            ],
+        ];
+    }
+
+    /**
      * @inheritdoc
      */
     public bool $hasCpSection = true;
@@ -47,18 +59,12 @@ class Sprig extends Plugin
     public function init()
     {
         parent::init();
-
         self::$plugin = $this;
 
         $this->hasCpSection = $this->settings->enablePlayground;
 
-        $this->setComponents([
-            'playground' => PlaygroundService::class,
-        ]);
-
         $this->_registerCpRoutes();
-
-        $this->_registerEventHandlers();
+        $this->_registerAutocompletes();
 
         SprigCore::bootstrap();
     }
@@ -86,16 +92,17 @@ class Sprig extends Plugin
     }
 
     /**
-     * Registers event handlers
+     * Registers the autocompletes.
      */
-    private function _registerEventHandlers()
+    private function _registerAutocompletes()
     {
-        // Register our autocompletes
-        Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_TWIGFIELD_AUTOCOMPLETES, static function(RegisterTwigfieldAutocompletesEvent $e) {
-            if ($e->fieldType === self::SPRIG_TWIG_FIELD_TYPE) {
-                $e->types[] = CraftApiAutocomplete::class;
-                $e->types[] = SprigApiAutocomplete::class;
+        Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_TWIGFIELD_AUTOCOMPLETES,
+            function(RegisterTwigfieldAutocompletesEvent $event) {
+                if ($event->fieldType === self::SPRIG_TWIG_FIELD_TYPE) {
+                    $event->types[] = CraftApiAutocomplete::class;
+                    $event->types[] = SprigApiAutocomplete::class;
+                }
             }
-        });
+        );
     }
 }
