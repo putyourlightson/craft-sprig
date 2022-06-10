@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 use craft\ecs\SetList;
 use PhpCsFixer\Fixer\ControlStructure\ControlStructureContinuationPositionFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function(ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::PARALLEL, true);
-    $parameters->set(Option::PATHS, [
+return static function(ECSConfig $ecsConfig): void {
+    $ecsConfig->parallel();
+    $ecsConfig->paths([
         __DIR__ . '/src',
         __FILE__,
     ]);
 
-    $containerConfigurator->import(SetList::CRAFT_CMS_4);
+    $ecsConfig->sets([SetList::CRAFT_CMS_4]);
 
     // Sets the control structure continuation keyword to be on the next line.
-    $services = $containerConfigurator->services();
-    $services->set(ControlStructureContinuationPositionFixer::class)
-        ->call('configure', [[
-            'position' => ControlStructureContinuationPositionFixer::NEXT_LINE,
-        ]]);
+    $ecsConfig->ruleWithConfiguration(ControlStructureContinuationPositionFixer::class, [
+        'position' => ControlStructureContinuationPositionFixer::NEXT_LINE,
+    ]);
 };
