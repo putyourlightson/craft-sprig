@@ -11,6 +11,7 @@ use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
 use nystudio107\twigfield\events\RegisterTwigfieldAutocompletesEvent;
 use nystudio107\twigfield\services\AutocompleteService;
+use nystudio107\twigfield\autocompletes\CraftApiAutocomplete;
 use putyourlightson\sprig\plugin\autocompletes\SprigApiAutocomplete;
 use putyourlightson\sprig\plugin\models\SettingsModel;
 use putyourlightson\sprig\plugin\services\PlaygroundService;
