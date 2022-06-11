@@ -38,7 +38,7 @@ class SprigApiAutocomplete extends Autocomplete
             'values' => [
                 's-disable',
             ],
-            'description' => 'Disables htmx processing for a given element and its children.',
+            'description' => 'Disables htmx processing for an element and its children.',
         ],
         's-disinherit' => [
             'values' => [
@@ -52,7 +52,7 @@ class SprigApiAutocomplete extends Autocomplete
                 's-encoding=""',
                 's-encoding="multipart/form-data"',
             ],
-            'description' => 'Allows you to change the request encoding from the usual `application/x-www-form-urlencoded` to `multipart/form-data`, useful for when you want to support file uploads.',
+            'description' => 'Allows you to change the request encoding.',
         ],
         's-ext' => [
             'values' => [
@@ -95,7 +95,7 @@ class SprigApiAutocomplete extends Autocomplete
                 's-method=""',
                 's-method="post"',
             ],
-            'description' => 'Forces the request to be of the type provided. Possible values are `get` (default) or `post`. If set to `post`, Sprig automatically sends a CSRF token in the request.',
+            'description' => 'Forces the request to be of the type provided.',
         ],
         's-params' => [
             'values' => [
@@ -107,7 +107,7 @@ class SprigApiAutocomplete extends Autocomplete
             'values' => [
                 's-preserve="true"',
             ],
-            'description' => 'Ensures that an element remains unchanged even when the component is re-rendered. The value should be set to `true` and the element must have an `id`.',
+            'description' => 'Ensures that an element remains unchanged even when the component is re-rendered.',
         ],
         's-prompt' => [
             'values' => [
@@ -125,7 +125,7 @@ class SprigApiAutocomplete extends Autocomplete
             'values' => [
                 's-replace=""',
             ],
-            'description' => 'Specifies the element to be replaced. The entire component is returned in the response, but only the specified element is replaced. This is equivalent to combining `s-select`, `s-target` and `s-swap`.',
+            'description' => 'Specifies the element to be replaced.',
         ],
         's-request' => [
             'values' => [
@@ -149,7 +149,7 @@ class SprigApiAutocomplete extends Autocomplete
                 's-swap="beforeend"',
                 's-swap="afterend"',
             ],
-            'description' => 'Controls how the response content is swapped into the DOM (`outerHTML`, `beforeEnd`, etc.).',
+            'description' => 'Controls how the response content is swapped into the DOM.',
         ],
         's-swap-oob' => [
             'values' => [
@@ -190,11 +190,11 @@ class SprigApiAutocomplete extends Autocomplete
             'values' => [
                 's-vals=""',
             ],
-            'description' => 'Adds to the parameters that will be submitted with the request. The value must be a JSON encoded list of name-value pairs.',
+            'description' => 'Adds to the parameters that will be submitted with the request.',
         ],
     ];
 
-    public const DOCS_URL = 'https://putyourlightson.com/plugins/sprig#';
+    public const BASE_DOCS_URL = 'https://putyourlightson.com/plugins/sprig#';
 
     /**
      * @inheritdoc
@@ -217,13 +217,13 @@ class SprigApiAutocomplete extends Autocomplete
             ->label('sprig')
             ->insertText('sprig')
             ->detail($detail)
-            ->documentation(Craft::t('sprig', 'Adding the sprig attribute to elements makes them trigger a component re-render.'))
+            ->documentation(Craft::t('sprig', 'Adding the sprig attribute to an element makes it reactive.'))
             ->kind(CompleteItemKind::FieldKind)
             ->sortText('_sprig')
             ->add($this);
 
         foreach (self::SPRIG_ATTRIBUTES as $name => $attribute) {
-            $docs = '[' . $name . '](' . self::DOCS_URL . $name . ') | ' . Craft::t('sprig', $attribute['description']);
+            $docs = '[' . $name . '](' . self::BASE_DOCS_URL . $name . ') | ' . Craft::t('sprig', $attribute['description']);
 
             foreach ($attribute['values'] as $value) {
                 CompleteItem::create()
