@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use craft\ecs\SetList;
 use PhpCsFixer\Fixer\ControlStructure\ControlStructureContinuationPositionFixer;
+use putyourlightson\ecs\SetList;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return static function(ECSConfig $ecsConfig): void {

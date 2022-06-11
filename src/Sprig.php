@@ -84,7 +84,7 @@ class Sprig extends Plugin
     private function _registerCpRoutes()
     {
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES,
-            function (RegisterUrlRulesEvent $event) {
+            function(RegisterUrlRulesEvent $event) {
                 $event->rules['sprig'] = 'sprig/playground/index';
                 $event->rules['sprig/<id:\d+>'] = 'sprig/playground/index';
                 $event->rules['sprig/<slug:([^\/]*)?>'] = 'sprig/playground/index';
@@ -98,7 +98,7 @@ class Sprig extends Plugin
     private function _registerAutocompletes()
     {
         Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_TWIGFIELD_AUTOCOMPLETES,
-            function (RegisterTwigfieldAutocompletesEvent $event) {
+            function(RegisterTwigfieldAutocompletesEvent $event) {
                 if ($event->fieldType === self::SPRIG_TWIG_FIELD_TYPE) {
                     $event->types[] = TwigLanguageAutocomplete::class;
                     $event->types[] = CraftApiAutocomplete::class;

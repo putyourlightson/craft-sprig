@@ -1,5 +1,7 @@
 $(document).ready(function ()
 {
+    const editor = monaco.editor.getModels()[0];
+
     htmx.on('htmx:configRequest', function (event) {
         $('.spinner').show();
 
