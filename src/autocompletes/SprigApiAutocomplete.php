@@ -17,7 +17,7 @@ class SprigApiAutocomplete extends Autocomplete
         's-method=""', 's-method="post"',
         's-boost=""', 's-boost="true"',
         's-confirm=""', 's-confirm="Are you sure?"',
-        's-disable=""',
+        's-disable',
         's-encoding=""', 's-encoding="multipart/form-data"',
         's-headers=""',
         's-history-elt=""',
@@ -36,21 +36,18 @@ class SprigApiAutocomplete extends Autocomplete
         's-val-x="1"', 's-val-y="2"',
     ];
 
-    // Public Properties
-    // =========================================================================
-
     /**
-     * @var string The name of the autocomplete
+     * @inheritdoc
      */
     public $name = 'SprigApiAutocomplete';
 
     /**
-     * @var string The type of the autocomplete
+     * @inheritdoc
      */
     public $type = AutocompleteTypes::TwigExpressionAutocomplete;
 
     /**
-     * @inerhitDoc
+     * @inheritdoc
      */
     public function generateCompleteItems(): void
     {
