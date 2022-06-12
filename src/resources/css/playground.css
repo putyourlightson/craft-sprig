@@ -4,9 +4,9 @@
 }
 
 .playground {
-    height: auto;
     display: flex;
     align-items: flex-start;
+    height: auto;
 }
 
 .playground > div {
@@ -20,8 +20,8 @@
     margin-right: 10px;
 }
 
-.playground .editor {
-    height: 380px;
+.playground .pane {
+    min-height: 380px;
 }
 
 .playground code, .playground .code {
