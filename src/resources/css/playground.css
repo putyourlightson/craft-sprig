@@ -4,7 +4,7 @@
 }
 
 .playground {
-    height: 600px;
+    height: auto;
     display: flex;
     align-items: flex-start;
 }
