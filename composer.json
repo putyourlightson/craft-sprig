@@ -6,8 +6,8 @@
   "license": "mit",
   "require": {
     "php": "^8.0.2",
-    "craftcms/cms": "^4.0.0",
-    "nystudio107/craft-twigfield": "dev-develop",
+    "craftcms/cms": "^4.0",
+    "nystudio107/craft-twigfield": "^1.0",
     "putyourlightson/craft-sprig-core": "^2.0.4"
   },
   "autoload": {
