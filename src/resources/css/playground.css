@@ -24,6 +24,10 @@
     min-height: 380px;
 }
 
+.playground #input-monaco-editor {
+    padding: .5rem 0;
+}
+
 .playground code, .playground .code {
     font-size: 1em !important;
 }
@@ -52,16 +56,6 @@
     box-sizing: border-box;
 }
 
-.playground .content-pane {
-    flex-grow: 0;
-}
-
-.playground .output .sprig-component {
-    height: 380px;
-    overflow-y: auto;
-    box-sizing: border-box;
-}
-
 .playground .topright {
     position: absolute;
     top: -5px;
@@ -72,15 +66,4 @@
 .playground #spinner {
     position: absolute;
     margin: -8px 8px !important;
-}
-
-#share-url {
-    width: 350px;
-}
-
-/*--- Fix ugly accessibility focus on the Monaco editor cursor ---*/
-
-.monaco-mouse-cursor-text:focus,
-.monaco-mouse-cursor-text:focus-visible {
-    box-shadow: none !important;
 }

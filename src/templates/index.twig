@@ -1,6 +1,6 @@
 {% extends '_layouts/cp' %}
 
-{% import "twigfield/twigfield" as twigfield %}
+{% import 'twigfield/twigfield' as twigfield %}
 
 {% set title = 'Sprig Playground'|t('sprig') %}
 
@@ -119,11 +119,18 @@
             </div>
             <div class="pane input-pane">
                 <p class="light code">{{ 'Component'|t('sprig') }}</p>
+                {# See default options in https://github.com/nystudio107/craft-twigfield/blob/develop/src/web/assets/src/js/twigfield.js #}
+                {% set options = {
+                    lineNumbers: 'on',
+                    lineNumbersMinChars: 4,
+                    lineDecorationsWidth: 6,
+                    folding: true,
+                } %}
                 {{ twigfield.textarea({
                     id: 'input',
                     class: 'hidden',
                     value: playground.component ?? '',
-                }, 'SprigField') }}
+                }, 'SprigField', '', options) }}
                 <button id="create" type="submit" class="btn submit topright">{{ 'Create'|t('sprig') }}</button>
             </div>
         </div>
