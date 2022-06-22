@@ -1,11 +1,11 @@
 # Release Notes for Sprig
 
-## 2.1.0 - Unreleased
+## 2.1.0 - 2022-06-22
 ### Added
-- Added the Twigfield package to power the editor in the playground ([#235](https://github.com/putyourlightson/craft-sprig/pull/235) ❤️@nystudio107).
+- Added the Twigfield package that adds full autocomplete to the code editor in the playground ([#235](https://github.com/putyourlightson/craft-sprig/pull/235) ❤️@nystudio107).
 
 ### Changed
-- Improved attribute autosuggestions in the playground.
+- Improved attribute autocomplete in the playground.
 
 ## 2.0.1 - 2022-05-12
 ### Changed
