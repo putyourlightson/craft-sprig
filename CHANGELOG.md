@@ -4,9 +4,9 @@
 ### Added
 - Added the [s-replace-url](https://putyourlightson.com/plugins/sprig#s-replace-url) attribute that allows you to replace the current url of the browser location history.
 - Added the [s-select-oob](https://putyourlightson.com/plugins/sprig#s-select-oob) attribute that selects one or more elements from a server response to swap in via an out-of-band swap.
-- Added the [sprig.location(url)](https://putyourlightson.com/plugins/sprig#sprig.locationurl) template variable that triggers a client-side redirect without reloading the page.
-- Added the [sprig.replaceUrl(url)](https://putyourlightson.com/plugins/sprig#sprig.replaceurl) template variable that replaces the current URL in the location bar.
-- Added the [sprig.reswap(value)](https://putyourlightson.com/plugins/sprig#sprig.reswapvalue) template variable that allows you to change the swap behaviour.
+- Added the [sprig.location(url)](https://putyourlightson.com/plugins/sprig#sprig-locationurl) template variable that triggers a client-side redirect without reloading the page.
+- Added the [sprig.replaceUrl(url)](https://putyourlightson.com/plugins/sprig#sprig-replaceurl) template variable that replaces the current URL in the location bar.
+- Added the [sprig.reswap(value)](https://putyourlightson.com/plugins/sprig#sprig-reswapvalue) template variable that allows you to change the swap behaviour.
 
 ### Changed
 - Updated htmx to version 1.8.0 ([release notes](https://htmx.org/posts/2022-07-12-htmx-1.8.0-is-released/)).
