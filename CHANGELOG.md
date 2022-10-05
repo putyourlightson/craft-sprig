@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 2.2.0 - Unreleased
+## 2.2.0 - 2022-10-05
 ### Added
 - Added the [s-replace-url](https://putyourlightson.com/plugins/sprig#s-replace-url) attribute that allows you to replace the current url of the browser location history.
 - Added the [s-select-oob](https://putyourlightson.com/plugins/sprig#s-select-oob) attribute that selects one or more elements from a server response to swap in via an out-of-band swap.
