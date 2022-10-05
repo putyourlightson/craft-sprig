@@ -1,5 +1,16 @@
 # Release Notes for Sprig
 
+## 2.2.0 - Unreleased
+### Added
+- Added the [s-replace-url](https://putyourlightson.com/plugins/sprig#s-replace-url) attribute that allows you to replace the current url of the browser location history.
+- Added the [s-select-oob](https://putyourlightson.com/plugins/sprig#s-select-oob) attribute that selects one or more elements from a server response to swap in via an out-of-band swap.
+- Added the [sprig.location()](https://putyourlightson.com/plugins/sprig#sprig.location) template variable that triggers a client-side redirect without reloading the page.
+- Added the [sprig.replaceUrl()](https://putyourlightson.com/plugins/sprig#sprig.replaceurl) template variable that replaces the current URL in the location bar.
+- Added the [sprig.reswap()](https://putyourlightson.com/plugins/sprig#sprig.reswap) template variable that allows you to change the swap behaviour.
+
+### Changed
+- Updated htmx to version 1.8.0 ([release notes](https://htmx.org/posts/2022-07-12-htmx-1.8.0-is-released/)).
+
 ## 2.1.0 - 2022-06-22
 ### Added
 - Added the Twigfield package that adds full autocomplete to the code editor in the playground ([#235](https://github.com/putyourlightson/craft-sprig/pull/235) ❤️@nystudio107).
