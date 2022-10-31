@@ -7,7 +7,7 @@
   "require": {
     "php": "^8.0.2",
     "craftcms/cms": "^4.0",
-    "nystudio107/craft-twigfield": "^1.0.8",
+    "nystudio107/craft-code-editor": "^1.0.0",
     "putyourlightson/craft-sprig-core": "^2.1.1"
   },
   "autoload": {
