@@ -126,7 +126,9 @@
                     lineDecorationsWidth: 6,
                     folding: true,
                 } %}
-                {% set codeEditorOptions = {} %}
+                {% set codeEditorOptions = {
+                    displayLanguageIcon: false,
+                } %}
                 {{ codeEditor.textarea({
                     id: 'input',
                     class: 'hidden',
