@@ -1,5 +1,10 @@
 # Release Notes for Sprig
 
+## 2.2.2 - Unreleased
+### Changed
+- Swapped out the TwigField package for the Code Editor package ([#278](https://github.com/putyourlightson/craft-sprig/issues/278)).
+- Improved the autocomplete API.
+
 ## 2.2.1 - 2022-10-08
 ### Fixed
 - Fixed a bug in which Sprig requests were failing in live preview requests ([#269](https://github.com/putyourlightson/craft-sprig/issues/269)).

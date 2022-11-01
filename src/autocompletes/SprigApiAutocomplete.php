@@ -83,11 +83,17 @@ class SprigApiAutocomplete extends Autocomplete
         's-replace' => [
             'description' => 'Specifies the element to be replaced.',
         ],
+        's-replace-url' => [
+            'description' => 'Allows you to replace the current URL of the browser location history.',
+        ],
         's-request' => [
             'description' => 'Allows you to configure various aspects of the request.',
         ],
         's-select' => [
             'description' => 'Selects a subset of the server response to process.',
+        ],
+        's-select-oob' => [
+            'description' => 'Selects one or more elements from a server response to swap in via an “Out of Band” swap.',
         ],
         's-swap' => [
             'options' => [
