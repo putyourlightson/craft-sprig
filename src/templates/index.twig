@@ -120,17 +120,18 @@
             <div class="pane input-pane">
                 <p class="light code">{{ 'Component'|t('sprig') }}</p>
                 {# See default options in https://github.com/nystudio107/craft-code-editor/blob/develop/src/web/assets/src/js/default-monaco-editor-options.ts #}
-                {% set options = {
+                {% set monacoOptions = {
                     lineNumbers: 'on',
                     lineNumbersMinChars: 4,
                     lineDecorationsWidth: 6,
                     folding: true,
                 } %}
+                {% set codeEditorOptions = {} %}
                 {{ codeEditor.textarea({
                     id: 'input',
                     class: 'hidden',
                     value: playground.component ?? '',
-                }, 'SprigField', '', options) }}
+                }, 'SprigField', monacoOptions, codeEditorOptions) }}
                 <button id="create" type="submit" class="btn submit topright">{{ 'Create'|t('sprig') }}</button>
             </div>
         </div>
