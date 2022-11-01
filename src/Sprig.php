@@ -9,8 +9,8 @@ use craft\base\Model;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
-use nystudio107\twigfield\events\RegisterTwigfieldAutocompletesEvent;
-use nystudio107\twigfield\services\AutocompleteService;
+use nystudio107\codeeditor\events\RegisterCodeEditorAutocompletesEvent;
+use nystudio107\codeeditor\services\AutocompleteService;
 use putyourlightson\sprig\plugin\autocompletes\SprigApiAutocomplete;
 use putyourlightson\sprig\plugin\models\SettingsModel;
 use putyourlightson\sprig\plugin\services\PlaygroundService;
@@ -23,7 +23,7 @@ use yii\base\Event;
  */
 class Sprig extends Plugin
 {
-    public const SPRIG_TWIG_FIELD_TYPE = 'SprigField';
+    public const SPRIG_CODEEDITOR_FIELD_TYPE = 'SprigField';
 
     /**
      * @var Sprig
@@ -95,9 +95,9 @@ class Sprig extends Plugin
      */
     private function _registerAutocompletes()
     {
-        Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_TWIGFIELD_AUTOCOMPLETES,
-            function (RegisterTwigfieldAutocompletesEvent $event) {
-                if ($event->fieldType === self::SPRIG_TWIG_FIELD_TYPE) {
+        Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_CODEEDITOR_AUTOCOMPLETES,
+            function (RegisterCodeEditorAutocompletesEvent $event) {
+                if ($event->fieldType === self::SPRIG_CODEEDITOR_FIELD_TYPE) {
                     $event->types[] = SprigApiAutocomplete::class;
                 }
             }

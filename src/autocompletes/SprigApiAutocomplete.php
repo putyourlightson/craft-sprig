@@ -6,10 +6,10 @@
 namespace putyourlightson\sprig\plugin\autocompletes;
 
 use Craft;
-use nystudio107\twigfield\base\Autocomplete;
-use nystudio107\twigfield\models\CompleteItem;
-use nystudio107\twigfield\types\AutocompleteTypes;
-use nystudio107\twigfield\types\CompleteItemKind;
+use nystudio107\codeeditor\base\Autocomplete;
+use nystudio107\codeeditor\models\CompleteItem;
+use nystudio107\codeeditor\types\AutocompleteTypes;
+use nystudio107\codeeditor\types\CompleteItemKind;
 
 class SprigApiAutocomplete extends Autocomplete
 {
