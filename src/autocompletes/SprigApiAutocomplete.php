@@ -133,6 +133,12 @@ class SprigApiAutocomplete extends Autocomplete
             ],
             'description' => 'Provides a more readable way of populating the `s-vals` attribute.',
         ],
+        's-validate' => [
+            'options' => [
+                's-boost="validate"',
+            ],
+            'description' => 'Forces an element to validate itself before it submits a request.',
+        ],
         's-vals' => [
             'description' => 'Adds to the parameters that will be submitted with the request.',
         ],
