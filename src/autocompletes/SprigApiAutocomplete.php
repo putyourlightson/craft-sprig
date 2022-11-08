@@ -6,10 +6,10 @@
 namespace putyourlightson\sprig\plugin\autocompletes;
 
 use Craft;
-use nystudio107\twigfield\base\Autocomplete;
-use nystudio107\twigfield\models\CompleteItem;
-use nystudio107\twigfield\types\AutocompleteTypes;
-use nystudio107\twigfield\types\CompleteItemKind;
+use nystudio107\codeeditor\base\Autocomplete;
+use nystudio107\codeeditor\models\CompleteItem;
+use nystudio107\codeeditor\types\AutocompleteTypes;
+use nystudio107\codeeditor\types\CompleteItemKind;
 
 class SprigApiAutocomplete extends Autocomplete
 {
@@ -83,11 +83,17 @@ class SprigApiAutocomplete extends Autocomplete
         's-replace' => [
             'description' => 'Specifies the element to be replaced.',
         ],
+        's-replace-url' => [
+            'description' => 'Allows you to replace the current URL of the browser location history.',
+        ],
         's-request' => [
             'description' => 'Allows you to configure various aspects of the request.',
         ],
         's-select' => [
             'description' => 'Selects a subset of the server response to process.',
+        ],
+        's-select-oob' => [
+            'description' => 'Selects one or more elements from a server response to swap in via an “Out of Band” swap.',
         ],
         's-swap' => [
             'options' => [
@@ -126,6 +132,12 @@ class SprigApiAutocomplete extends Autocomplete
                 's-val:y="2"',
             ],
             'description' => 'Provides a more readable way of populating the `s-vals` attribute.',
+        ],
+        's-validate' => [
+            'options' => [
+                's-boost="validate"',
+            ],
+            'description' => 'Forces an element to validate itself before it submits a request.',
         ],
         's-vals' => [
             'description' => 'Adds to the parameters that will be submitted with the request.',

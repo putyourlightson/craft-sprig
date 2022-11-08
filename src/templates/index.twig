@@ -1,6 +1,6 @@
 {% extends '_layouts/cp' %}
 
-{% import 'twigfield/twigfield' as twigfield %}
+{% import 'codeeditor/codeEditor' as codeEditor %}
 
 {% set title = 'Sprig Playground'|t('sprig') %}
 
@@ -119,18 +119,21 @@
             </div>
             <div class="pane input-pane">
                 <p class="light code">{{ 'Component'|t('sprig') }}</p>
-                {# See default options in https://github.com/nystudio107/craft-twigfield/blob/develop/src/web/assets/src/js/twigfield.js #}
-                {% set options = {
+                {# See default options in https://github.com/nystudio107/craft-code-editor/blob/develop/src/web/assets/src/js/default-monaco-options.ts #}
+                {% set monacoOptions = {
                     lineNumbers: 'on',
                     lineNumbersMinChars: 4,
                     lineDecorationsWidth: 6,
                     folding: true,
                 } %}
-                {{ twigfield.textarea({
+                {% set codeEditorOptions = {
+                    displayLanguageIcon: false,
+                } %}
+                {{ codeEditor.textarea({
                     id: 'input',
                     class: 'hidden',
                     value: playground.component ?? '',
-                }, 'SprigField', '', options) }}
+                }, 'SprigField', monacoOptions, codeEditorOptions) }}
                 <button id="create" type="submit" class="btn submit topright">{{ 'Create'|t('sprig') }}</button>
             </div>
         </div>

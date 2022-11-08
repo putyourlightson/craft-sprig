@@ -1,5 +1,15 @@
 # Release Notes for Sprig
 
+## 2.3.0 - 2022-11-07
+### Added
+- Added the [s-validate](https://putyourlightson.com/plugins/sprig#s-validate) attribute that forces an element to validate itself before it submits a request.
+- Added the [sprig.isHistoryRestoreRequest](https://putyourlightson.com/plugins/sprig#sprig-ishistoryrestorerequest) template variable that returns whether the request is for history restoration after a miss in the local history cache a client-side redirect without reloading the page.
+
+### Changed
+- Updated htmx to version 1.8.4 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#184---2022-11-05)).
+- Swapped out the Twigfield package for the Code Editor package ([#278](https://github.com/putyourlightson/craft-sprig/issues/278)).
+- Improved the autocomplete API.
+
 ## 2.2.1 - 2022-10-08
 ### Fixed
 - Fixed a bug in which Sprig requests were failing in live preview requests ([#269](https://github.com/putyourlightson/craft-sprig/issues/269)).

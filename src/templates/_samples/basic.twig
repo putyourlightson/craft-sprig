@@ -1,5 +1,5 @@
 <h1>
-    Hello, {{ currentUser.friendlyName }}!
+    Hello, {{ currentUser.getFriendlyName() }}!
 </h1>
 
 <button sprig s-val:count="{{ count + 1 }}" class="btn submit">
