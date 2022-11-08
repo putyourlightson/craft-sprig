@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 2.4.0 - Unreleased
+### Added
+- Added the [sprig.triggerRefreshOnLoad](https://putyourlightson.com/plugins/sprig#sprig-triggerrefreshonload) template variable that triggers a refresh event on all components on page load ([#279](https://github.com/putyourlightson/craft-sprig/issues/279)).
+
 ## 2.3.0 - 2022-11-07
 ### Added
 - Added the [s-validate](https://putyourlightson.com/plugins/sprig#s-validate) attribute that forces an element to validate itself before it submits a request.
