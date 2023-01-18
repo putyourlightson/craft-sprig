@@ -50,6 +50,12 @@ class SprigApiAutocomplete extends Autocomplete
         's-headers' => [
             'description' => 'Allows you to add to the headers that will be submitted with an AJAX request.',
         ],
+        's-history' => [
+            'options' => [
+                's-history="false"',
+            ],
+            'description' => 'Prevents sensitive data being saved to the history cache.',
+        ],
         's-history-elt' => [
             'description' => 'Allows you to specify the element that will be used to snapshot and restore page state during navigation.',
         ],

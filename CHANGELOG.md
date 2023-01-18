@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 2.5.0 - Unreleased
+### Added
+- Added the [s-history](https://putyourlightson.com/plugins/sprig#s-history) attribute that prevents sensitive data being saved to the history cache.
+
+### Changed
+- Updated htmx to version 1.8.5 ([release notes](https://htmx.org/posts/2023-01-17-htmx-1.8.5-is-released/)).
+
 ## 2.4.0 - 2022-12-08
 ### Added
 - Added the [sprig.triggerRefreshOnLoad](https://putyourlightson.com/plugins/sprig#sprig-triggerrefreshonloadselector) template variable that triggers a refresh event on all components on page load ([#279](https://github.com/putyourlightson/craft-sprig/issues/279)).
