@@ -41,8 +41,7 @@ class SprigPlayground extends Component
 
         try {
             return Craft::$app->getView()->renderString($this->_getComponent(), $variables);
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             return $this->_getErrorMessage($exception->getMessage());
         }
     }
