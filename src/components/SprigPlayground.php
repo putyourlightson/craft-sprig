@@ -3,6 +3,7 @@
 namespace putyourlightson\sprig\plugin\components;
 
 use Craft;
+use craft\web\View;
 use Exception;
 use putyourlightson\sprig\base\Component;
 use putyourlightson\sprig\plugin\Sprig;
@@ -40,7 +41,7 @@ class SprigPlayground extends Component
         Craft::$app->getResponse()->getHeaders()->set('Sprig-Playground-Variables', $headerVariables);
 
         try {
-            return Craft::$app->getView()->renderString($this->_getComponent(), $variables);
+            return Craft::$app->getView()->renderString($this->_getComponent(), $variables, View::TEMPLATE_MODE_SITE, true);
         } catch (Exception $exception) {
             return $this->_getErrorMessage($exception->getMessage());
         }

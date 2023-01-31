@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 2.5.1 - 2023-01-31
+### Fixed
+- Fixed rendered markup not being escaped in the Sprig playground.
+
 ## 2.5.0 - 2023-01-18
 ### Added
 - Added the [s-history](https://putyourlightson.com/plugins/sprig#s-history) attribute that prevents sensitive data being saved to the history cache.
