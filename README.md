@@ -37,7 +37,7 @@ This plugin requires [Craft CMS](https://craftcms.com/) 3.1.19 or later, or 4.0.
 
 To install the plugin, search for “Sprig” in the Craft Plugin Store, or install manually using composer.
 
-```
+```shell
 composer require putyourlightson/craft-sprig
 ```
 
