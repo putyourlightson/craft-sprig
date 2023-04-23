@@ -1,5 +1,14 @@
 # Release Notes for Sprig
 
+## 2.6.0 - 2023-23-04
+### Added
+- Added the [sprig.setConfig](https://putyourlightson.com/plugins/sprig#sprig-setconfig) template variable that allows you to set [configuration options](https://htmx.org/docs/#config) for htmx (via a meta tag).
+- Added the [s-on](https://putyourlightson.com/plugins/sprig#s-on) attribute that allows you to respond to events directly on an element.
+
+### Changed
+- Updated htmx to version 1.9.0 ([release notes](https://htmx.org/posts/2023-04-11-htmx-1-9-0-is-released/)).
+- The htmx file is now loaded locally rather than from a CDN, to reduce dependency on third-party sites ([#303](https://github.com/putyourlightson/craft-sprig/issues/303)).
+
 ## 2.5.1 - 2023-01-31
 ### Fixed
 - Fixed rendered markup not being escaped in the Sprig playground.

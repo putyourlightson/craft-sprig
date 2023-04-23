@@ -74,6 +74,9 @@ class SprigApiAutocomplete extends Autocomplete
             ],
             'description' => 'Forces the request to be of the type provided.',
         ],
+        's-on' => [
+            'description' => 'Allows you to respond to events directly on an element.',
+        ],
         's-params' => [
             'description' => 'Filters the parameters that will be submitted with a request.',
         ],
