@@ -5,7 +5,7 @@
         "hasValue": false,
         "links": [
             {
-                "text":"Documentation",
+                "name": "Documentation",
                 "url":"https://putyourlightson.com/plugins/sprig#how-it-works"
             }
         ]
@@ -15,7 +15,7 @@
         "description": "Sends an action request to the provided controller action.\n```twig\n<form sprig s-action=\"plugin-handle/controller/action\">\n```\n\nMost controller actions require that the method be set to `post` and will return a variable called `success` (set to `true` on success, otherwise `false` or undefined) and/or `errors` (set to an array of error messages if defined), however each controller action may return different variables according to its response.\n\n```twig\n<form sprig s-method=\"post\" s-action=\"commerce/cart/update-cart\">\n    <input type=\"hidden\" name=\"purchasableId\" value=\"{{ variant.id }}\">\n    <input type=\"submit\" value=\"Add to cart\">\n</form>\n\n{% if success is defined and success %}\n    Product added to your cart!\n{% elseif errors is defined %}\n    {% for error in errors %}\n      <p class=\"error\">{{ error|first }}</p>\n    {% endfor %}\n{% endif %}\n```",
         "links": [
             {
-                "text":"Documentation",
+                "name": "Documentation",
                 "url":"https://putyourlightson.com/plugins/sprig#s-action"
             },
             {
