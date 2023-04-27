@@ -38,7 +38,7 @@ class SprigApiAutocomplete extends Autocomplete
             $docs = $attribute['description'] . "\n\n";
             $links = $attribute['links'] ?? [];
             foreach ($links as $link) {
-                $docs .= '[' . $link['text'] . ' &raquo;](' . $link['url']  . ')' . PHP_EOL . PHP_EOL;
+                $docs .= '[' . $link['name'] . ' &raquo;](' . $link['url']  . ')' . PHP_EOL . PHP_EOL;
             }
 
             $hasValue = $attribute['hasValue'] ?? false;

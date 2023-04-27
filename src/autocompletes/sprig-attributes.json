@@ -19,7 +19,7 @@
                 "url":"https://putyourlightson.com/plugins/sprig#s-action"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#entry-form"
             }
         ]
@@ -29,11 +29,11 @@
         "description": "Boosts normal anchors and form tags to use AJAX instead.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-boost"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-boost/"
             }
         ],
@@ -46,15 +46,15 @@
         "description": "Shows a `confirm()` dialog before issuing a request.\n\n```twig\n<button sprig s-confirm=\"Are you sure you wish to delete this entry?\">Delete</button>\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-confirm"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-confirm/"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#indicator"
             }
         ],
@@ -67,11 +67,11 @@
         "description": "Disables htmx processing for an element and its children. Useful for prevent malicious scripting attacks when you output untrusted user-generated content that may contain HTML tags (see [htmx security](https://htmx.org/docs/#security)).\n\n```twig\n<div s-disable>\n    {{ entry.untrustedContent }}\n<div>\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-disable"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-disable/"
             }
         ]
@@ -81,11 +81,11 @@
         "description": "Allows you to control attribute inheritance.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-disinherit"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-disinherit/"
             }
         ],
@@ -98,11 +98,11 @@
         "description": "Allows you to change the request encoding from the usual `application/x-www-form-urlencoded` to `multipart/form-data`, useful for when you want to support file uploads.\n\n```twig\n<form sprig s-method=\"post\" s-action=\"entries/save-entry\" s-encoding=\"multipart/form-data\">\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-encoding"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-encoding/"
             }
         ],
@@ -115,11 +115,11 @@
         "description": "Enables an htmx extension for an element and all its children.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-ext"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-ext/"
             }
         ]
@@ -129,11 +129,11 @@
         "description": "Allows you to add to the headers that will be submitted with an AJAX request.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-headers"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-headers/"
             }
         ]
@@ -143,11 +143,11 @@
         "description": "Allows you to prevent sensitive data being saved to the localStorage cache when taking a snapshot of the page state.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-history"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-history/"
             }
         ],
@@ -160,11 +160,11 @@
         "description": "Allows you to specify the element that will be used to snapshot and restore page state during navigation.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-history-elt"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-history-elt/"
             }
         ]
@@ -174,11 +174,11 @@
         "description": "Includes additional element values in AJAX requests.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-include"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-include/"
             }
         ]
@@ -188,11 +188,11 @@
         "description": "The element to put the `htmx-request` class on during the AJAX request.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-indicator"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-indicator/"
             }
         ]
@@ -202,11 +202,11 @@
         "description": "Allows you to specify one or more components (as CSS selectors, separated by commas) that when refreshed, should trigger a refresh on the current element. This attribute is most commonly placed on a component using the third parameter of the `sprig` function.\n\n```twig\n{{ sprig('_components/products', {}, {'id': 'products'}) }}\n\n{# This component is refreshed each time the `#product` component is refreshed. #}\n{{ sprig('_components/cart', {}, {'s-listen': '#products'}) }}\n\n{# Equivalent to: #}\n{{ sprig('_components/cart', {}, {'s-trigger': 'htmx:afterOnLoad from:#products'}) }}\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-listen"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#refreshing-components"
             }
         ]
@@ -216,11 +216,11 @@
         "description": "Forces the request to be of the type provided. Possible values are `get` (default) or `post`. If set to `post`, Sprig automatically sends a CSRF token in the request.\n\n```twig\n<form sprig s-method=\"post\">\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-method"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#entry-form"
             }
         ],
@@ -233,11 +233,11 @@
         "description": "Allows you to respond to events directly on an element.\n```twig\n<div s-on=\"click: alert('Clicked!')\">Click</div>\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-on"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-on/"
             }
         ]
@@ -247,11 +247,11 @@
         "description": "Filters the parameters that will be submitted with a request.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-params"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-params/"
             }
         ]
@@ -261,11 +261,11 @@
         "description": "Ensures that an element remains unchanged even when the component is re-rendered. The value should be set to `true` and the element *must* have an `id`.\n\n```twig\n<iframe id=\"video\" s-preserve=\"true\"></iframe>\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-preserve"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-preserve/"
             }
         ]
@@ -275,11 +275,11 @@
         "description": "Shows a prompt before submitting a request.\n\n```twig\n<button sprig s-prompt=\"Enter “delete” to confirm deletion.\">Delete</button>\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-prompt"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-prompt/"
             }
         ]
@@ -289,15 +289,15 @@
         "description": "Pushes a URL into the URL bar and creates a new history entry.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-push-url"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-push-url/"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#pagination"
             }
         ]
@@ -307,11 +307,11 @@
         "description": "Specifies the element to be replaced. The entire component is returned in the response, but only the specified element is replaced. This is equivalent to combining `s-select`, `s-target` and `s-swap`.\n\n```twig\n<input name=\"query\" sprig s-replace=\"#results\">\n\n{# Equivalent to: #}\n<input name=\"query\" sprig s-select=\"#results\" s-target=\"#results\" s-swap=\"outerHTML\">\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-replace"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#search"
             }
         ]
@@ -321,11 +321,11 @@
         "description": "Allows you to replace the current URL of the browser location history.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-replace-url"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-replace-url/"
             }
         ]
@@ -335,11 +335,11 @@
         "description": "Allows you to configure various aspects of the request.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-request"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-request/"
             }
         ]
@@ -349,15 +349,15 @@
         "description": "Selects a subset of the server response to process.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-select"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-select/"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more-complex"
             }
         ]
@@ -367,11 +367,11 @@
         "description": "Selects one or more elements from a server response to swap in via an “Out of Band” swap.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-select-oob"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-select-oob/"
             }
         ]
@@ -381,15 +381,15 @@
         "description": "Controls how the response content is swapped into the DOM (`outerHTML`,  `beforeEnd`, etc.).\n\n```twig\n<input name=\"query\" sprig s-swap=\"outerHTML\" s-target=\"#results\">\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-swap"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-swap/"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more"
             }
         ],
@@ -407,15 +407,15 @@
         "description": "Marks content in a response as being “Out of Band”, i.e. swapped somewhere other than the target.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-swap-oob"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-swap-oob/"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more-complex"
             }
         ]
@@ -425,11 +425,11 @@
         "description": "Allows you to synchronize AJAX requests between multiple elements.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-sync"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-sync/"
             }
         ]
@@ -439,15 +439,15 @@
         "description": "Specifies the target element to be swapped.\n\n```twig\n<input name=\"query\" sprig s-target=\"#results\">\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-target"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-target/"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more"
             }
         ],
@@ -460,15 +460,15 @@
         "description": "Specifies the event that triggers the request.\n\n```twig\n<input name=\"query\" sprig s-trigger=\"keyup changed delay:300ms\">\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-trigger"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-trigger/"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#search"
             }
         ],
@@ -484,11 +484,11 @@
         "description": "Provides a more readable way of populating the `s-vals` attribute. Replace the `*` with a lower-case name.\n\n```twig\n<button sprig s-val:page=\"{{ page + 1 }}\" s-val:limit=\"10\">Next</button>\n\n{# Equivalent to: #}\n<button sprig s-vals=\"{{ { page: page + 1, limit: 10 }|json_encode }}\">Next</button>\n```\n\nSince HTML attributes are case-insensitive, the name should always be lower-case and in `kebab-case`. Dashes will be removed and the name will be converted to `camelCase` when the variable becomes available in the template after re-rendering.\n\n```twig\n{% set myCustomPage = myCustomPage ?? '' %}\n\n<button sprig s-val:my-custom-page=\"13\">Custom Page</button>\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-val"
             },
             {
-                "text": "Cookbook recipe",
+                "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more"
             }
         ],
@@ -504,11 +504,11 @@
         "description": "Forces an element to validate itself before it submits a request. Form elements do this by default, but other elements do not.",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-validate"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-validate/"
             }
         ],
@@ -521,11 +521,11 @@
         "description": "Adds to the parameters that will be submitted with the request. The value must be a JSON encoded list of name-value pairs.\n\n```twig\n<button sprig s-vals=\"{{ { page: page + 1, limit: 10 }|json_encode }}\">Next</button>\n```",
         "links": [
             {
-                "text": "Documentation",
+                "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-vals"
             },
             {
-                "text": "Attribute reference",
+                "name": "Attribute reference",
                 "url": "https://htmx.org/attributes/hx-vals/"
             }
         ]
