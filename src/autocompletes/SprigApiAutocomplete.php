@@ -33,30 +33,46 @@ class SprigApiAutocomplete extends Autocomplete
 
         // Follows the “Custom Data for HTML Language Service” spec
         // https://github.com/microsoft/vscode-html-languageservice/blob/main/docs/customData.md
-        $path = Craft::getAlias('@putyourlightson/sprig/plugin/autocompletes/sprig-attributes.json');
-        $attributes = Json::decodeFromFile($path);
+        $path = Craft::getAlias('@putyourlightson/sprig/plugin/autocompletes/data/sprig-support.json');
+        $json = Json::decodeFromFile($path);
+        $attributes = $json['globalAttributes'];
+        $valueSets = $json['valueSets'];
+        $attributeDocs = [];
+
         foreach ($attributes as $attribute) {
             $name = $attribute['name'];
             $docs = $attribute['description'] . "\n\n";
             $references = $attribute['references'] ?? [];
+            $links = [];
             foreach ($references as $reference) {
-                $docs .= '[' . $reference['name'] . ' &raquo;](' . $reference['url']  . ')' . PHP_EOL . PHP_EOL;
+                $links[] = '[' . $reference['name'] . '](' . $reference['url']  . ')';
             }
+            $docs .= implode(' | ', $links);
+            $attributeDocs[$name] = $docs;
 
-            $hasValue = $attribute['hasValue'] ?? false;
-            $versions = $hasValue ? [$name . '=""'] : [$name];
-            $values = $attribute['values'] ?? [];
+            $value = $name == 'sprig' ? $name : $name . '=""';
+
+            CompleteItem::create()
+                ->label($value)
+                ->insertText($value)
+                ->sortText($name)
+                ->detail($detail)
+                ->documentation($docs)
+                ->kind(CompleteItemKind::FieldKind)
+                ->add($this);
+        }
+
+        foreach ($valueSets as $valueSet) {
+            $name = $valueSet['name'];
+            $values = $valueSet['values'] ?? [];
             foreach ($values as $value) {
-                $versions[] = $name . '="' . $value['name'] . '"';
-            }
-
-            foreach ($versions as $version) {
+                $value = $name . '="' . $value['name'] . '"';
                 CompleteItem::create()
-                    ->label($version)
-                    ->insertText($version)
-                    ->sortText($name)
+                    ->label($value)
+                    ->insertText($value)
+                    ->sortText($value)
                     ->detail($detail)
-                    ->documentation($docs)
+                    ->documentation($attributeDocs[$name] ?? '')
                     ->kind(CompleteItemKind::FieldKind)
                     ->add($this);
             }
