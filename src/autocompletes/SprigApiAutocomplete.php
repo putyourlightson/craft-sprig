@@ -31,31 +31,29 @@ class SprigApiAutocomplete extends Autocomplete
     {
         $detail = Craft::t('sprig', 'Sprig Attribute');
 
+        // Follows the “Custom Data for HTML Language Service” spec
+        // https://github.com/microsoft/vscode-html-languageservice/blob/main/docs/customData.md
         $path = Craft::getAlias('@putyourlightson/sprig/plugin/autocompletes/sprig-attributes.json');
         $attributes = Json::decodeFromFile($path);
         foreach ($attributes as $attribute) {
             $name = $attribute['name'];
             $docs = $attribute['description'] . "\n\n";
-            $links = $attribute['links'] ?? [];
-            foreach ($links as $link) {
-                $docs .= '[' . $link['name'] . ' &raquo;](' . $link['url']  . ')' . PHP_EOL . PHP_EOL;
+            $references = $attribute['references'] ?? [];
+            foreach ($references as $reference) {
+                $docs .= '[' . $reference['name'] . ' &raquo;](' . $reference['url']  . ')' . PHP_EOL . PHP_EOL;
             }
 
             $hasValue = $attribute['hasValue'] ?? false;
-            $values = $hasValue ? [$name . '=""'] : [$name];
-            $options = $attribute['options'] ?? [];
-            foreach ($options as $option) {
-                if (is_array($option)) {
-                    $values[] = $option['name'] . '="' . $option['value'] . '"';
-                } else {
-                    $values[] = $name . '="' . $option . '"';
-                }
+            $versions = $hasValue ? [$name . '=""'] : [$name];
+            $values = $attribute['values'] ?? [];
+            foreach ($values as $value) {
+                $versions[] = $name . '="' . $value['name'] . '"';
             }
 
-            foreach ($values as $value) {
+            foreach ($versions as $version) {
                 CompleteItem::create()
-                    ->label($value)
-                    ->insertText($value)
+                    ->label($version)
+                    ->insertText($version)
                     ->sortText($name)
                     ->detail($detail)
                     ->documentation($docs)

@@ -1,9 +1,9 @@
 [
     {
         "name": "sprig",
-        "description": "Adding the sprig attribute to an element makes it reactive.\n```twig\n<input sprig type=\"text\" name=\"query\" value=\"{{ query }}\">\n```",
+        "description": "Adding the `sprig` attribute to an element makes it reactive.\n```twig\n<input sprig type=\"text\" name=\"query\" value=\"{{ query }}\">\n```",
         "hasValue": false,
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url":"https://putyourlightson.com/plugins/sprig#how-it-works"
@@ -13,7 +13,7 @@
     {
         "name": "s-action",
         "description": "Sends an action request to the provided controller action.\n```twig\n<form sprig s-action=\"plugin-handle/controller/action\">\n```\n\nMost controller actions require that the method be set to `post` and will return a variable called `success` (set to `true` on success, otherwise `false` or undefined) and/or `errors` (set to an array of error messages if defined), however each controller action may return different variables according to its response.\n\n```twig\n<form sprig s-method=\"post\" s-action=\"commerce/cart/update-cart\">\n    <input type=\"hidden\" name=\"purchasableId\" value=\"{{ variant.id }}\">\n    <input type=\"submit\" value=\"Add to cart\">\n</form>\n\n{% if success is defined and success %}\n    Product added to your cart!\n{% elseif errors is defined %}\n    {% for error in errors %}\n      <p class=\"error\">{{ error|first }}</p>\n    {% endfor %}\n{% endif %}\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url":"https://putyourlightson.com/plugins/sprig#s-action"
@@ -27,7 +27,7 @@
     {
         "name": "s-boost",
         "description": "Boosts normal anchors and form tags to use AJAX instead.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-boost"
@@ -37,14 +37,16 @@
                 "url": "https://htmx.org/attributes/hx-boost/"
             }
         ],
-        "options": [
-            "true"
+        "values": [
+            {
+                "name": "true"
+            }
         ]
     },
     {
         "name": "s-confirm",
         "description": "Shows a `confirm()` dialog before issuing a request.\n\n```twig\n<button sprig s-confirm=\"Are you sure you wish to delete this entry?\">Delete</button>\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-confirm"
@@ -58,14 +60,16 @@
                 "url": "https://putyourlightson.com/sprig/cookbook#indicator"
             }
         ],
-        "options": [
-            "Are you sure?"
+        "values": [
+            {
+                "name": "Are you sure?"
+            }
         ]
     },
     {
         "name": "s-disable",
         "description": "Disables htmx processing for an element and its children. Useful for prevent malicious scripting attacks when you output untrusted user-generated content that may contain HTML tags (see [htmx security](https://htmx.org/docs/#security)).\n\n```twig\n<div s-disable>\n    {{ entry.untrustedContent }}\n<div>\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-disable"
@@ -79,7 +83,7 @@
     {
         "name": "s-disinherit",
         "description": "Allows you to control attribute inheritance.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-disinherit"
@@ -89,14 +93,16 @@
                 "url": "https://htmx.org/attributes/hx-disinherit/"
             }
         ],
-        "options": [
-            "*"
+        "values": [
+            {
+                "name": "*"
+            }
         ]
     },
     {
         "name": "s-encoding",
         "description": "Allows you to change the request encoding from the usual `application/x-www-form-urlencoded` to `multipart/form-data`, useful for when you want to support file uploads.\n\n```twig\n<form sprig s-method=\"post\" s-action=\"entries/save-entry\" s-encoding=\"multipart/form-data\">\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-encoding"
@@ -106,14 +112,16 @@
                 "url": "https://htmx.org/attributes/hx-encoding/"
             }
         ],
-        "options": [
-            "multipart/form-data"
+        "values": [
+            {
+                "name": "multipart/form-data"
+            }
         ]
     },
     {
         "name": "s-ext",
         "description": "Enables an htmx extension for an element and all its children.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-ext"
@@ -127,7 +135,7 @@
     {
         "name": "s-headers",
         "description": "Allows you to add to the headers that will be submitted with an AJAX request.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-headers"
@@ -141,7 +149,7 @@
     {
         "name": "s-history",
         "description": "Allows you to prevent sensitive data being saved to the localStorage cache when taking a snapshot of the page state.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-history"
@@ -151,14 +159,16 @@
                 "url": "https://htmx.org/attributes/hx-history/"
             }
         ],
-        "options": [
-            "false"
+        "values": [
+            {
+                "name": "false"
+            }
         ]
     },
     {
         "name": "s-history-elt",
         "description": "Allows you to specify the element that will be used to snapshot and restore page state during navigation.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-history-elt"
@@ -172,7 +182,7 @@
     {
         "name": "s-include",
         "description": "Includes additional element values in AJAX requests.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-include"
@@ -186,7 +196,7 @@
     {
         "name": "s-indicator",
         "description": "The element to put the `htmx-request` class on during the AJAX request.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-indicator"
@@ -200,7 +210,7 @@
     {
         "name": "s-listen",
         "description": "Allows you to specify one or more components (as CSS selectors, separated by commas) that when refreshed, should trigger a refresh on the current element. This attribute is most commonly placed on a component using the third parameter of the `sprig` function.\n\n```twig\n{{ sprig('_components/products', {}, {'id': 'products'}) }}\n\n{# This component is refreshed each time the `#product` component is refreshed. #}\n{{ sprig('_components/cart', {}, {'s-listen': '#products'}) }}\n\n{# Equivalent to: #}\n{{ sprig('_components/cart', {}, {'s-trigger': 'htmx:afterOnLoad from:#products'}) }}\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-listen"
@@ -214,7 +224,7 @@
     {
         "name": "s-method",
         "description": "Forces the request to be of the type provided. Possible values are `get` (default) or `post`. If set to `post`, Sprig automatically sends a CSRF token in the request.\n\n```twig\n<form sprig s-method=\"post\">\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-method"
@@ -224,14 +234,16 @@
                 "url": "https://putyourlightson.com/sprig/cookbook#entry-form"
             }
         ],
-        "options": [
-            "post"
+        "values": [
+            {
+                "name": "post"
+            }
         ]
     },
     {
         "name": "s-on",
         "description": "Allows you to respond to events directly on an element.\n```twig\n<div s-on=\"click: alert('Clicked!')\">Click</div>\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-on"
@@ -245,7 +257,7 @@
     {
         "name": "s-params",
         "description": "Filters the parameters that will be submitted with a request.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-params"
@@ -259,7 +271,7 @@
     {
         "name": "s-preserve",
         "description": "Ensures that an element remains unchanged even when the component is re-rendered. The value should be set to `true` and the element *must* have an `id`.\n\n```twig\n<iframe id=\"video\" s-preserve=\"true\"></iframe>\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-preserve"
@@ -273,7 +285,7 @@
     {
         "name": "s-prompt",
         "description": "Shows a prompt before submitting a request.\n\n```twig\n<button sprig s-prompt=\"Enter “delete” to confirm deletion.\">Delete</button>\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-prompt"
@@ -287,7 +299,7 @@
     {
         "name": "s-push-url",
         "description": "Pushes a URL into the URL bar and creates a new history entry.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-push-url"
@@ -305,7 +317,7 @@
     {
         "name": "s-replace",
         "description": "Specifies the element to be replaced. The entire component is returned in the response, but only the specified element is replaced. This is equivalent to combining `s-select`, `s-target` and `s-swap`.\n\n```twig\n<input name=\"query\" sprig s-replace=\"#results\">\n\n{# Equivalent to: #}\n<input name=\"query\" sprig s-select=\"#results\" s-target=\"#results\" s-swap=\"outerHTML\">\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-replace"
@@ -319,7 +331,7 @@
     {
         "name": "s-replace-url",
         "description": "Allows you to replace the current URL of the browser location history.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-replace-url"
@@ -333,7 +345,7 @@
     {
         "name": "s-request",
         "description": "Allows you to configure various aspects of the request.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-request"
@@ -347,7 +359,7 @@
     {
         "name": "s-select",
         "description": "Selects a subset of the server response to process.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-select"
@@ -365,7 +377,7 @@
     {
         "name": "s-select-oob",
         "description": "Selects one or more elements from a server response to swap in via an “Out of Band” swap.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-select-oob"
@@ -379,7 +391,7 @@
     {
         "name": "s-swap",
         "description": "Controls how the response content is swapped into the DOM (`outerHTML`,  `beforeEnd`, etc.).\n\n```twig\n<input name=\"query\" sprig s-swap=\"outerHTML\" s-target=\"#results\">\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-swap"
@@ -393,19 +405,31 @@
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more"
             }
         ],
-        "options": [
-            "innerHTML",
-            "outerHTML",
-            "beforebegin",
-            "afterbegin",
-            "beforeend",
-            "afterend"
+        "values": [
+            {
+                "name": "innerHTML"
+            },
+            {
+                "name": "outerHTML"
+            },
+            {
+                "name": "beforebegin"
+            },
+            {
+                "name": "afterbegin"
+            },
+            {
+                "name": "beforeend"
+            },
+            {
+                "name": "afterend"
+            }
         ]
     },
     {
         "name": "s-swap-oob",
         "description": "Marks content in a response as being “Out of Band”, i.e. swapped somewhere other than the target.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-swap-oob"
@@ -423,7 +447,7 @@
     {
         "name": "s-sync",
         "description": "Allows you to synchronize AJAX requests between multiple elements.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-sync"
@@ -437,7 +461,7 @@
     {
         "name": "s-target",
         "description": "Specifies the target element to be swapped.\n\n```twig\n<input name=\"query\" sprig s-target=\"#results\">\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-target"
@@ -451,14 +475,16 @@
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more"
             }
         ],
-        "options": [
-            "this"
+        "values": [
+            {
+                "name": "this"
+            }
         ]
     },
     {
         "name": "s-trigger",
         "description": "Specifies the event that triggers the request.\n\n```twig\n<input name=\"query\" sprig s-trigger=\"keyup changed delay:300ms\">\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-trigger"
@@ -472,7 +498,7 @@
                 "url": "https://putyourlightson.com/sprig/cookbook#search"
             }
         ],
-        "options": [
+        "values": [
             "click",
             "change",
             "submit",
@@ -482,7 +508,7 @@
     {
         "name": "s-val",
         "description": "Provides a more readable way of populating the `s-vals` attribute. Replace the `*` with a lower-case name.\n\n```twig\n<button sprig s-val:page=\"{{ page + 1 }}\" s-val:limit=\"10\">Next</button>\n\n{# Equivalent to: #}\n<button sprig s-vals=\"{{ { page: page + 1, limit: 10 }|json_encode }}\">Next</button>\n```\n\nSince HTML attributes are case-insensitive, the name should always be lower-case and in `kebab-case`. Dashes will be removed and the name will be converted to `camelCase` when the variable becomes available in the template after re-rendering.\n\n```twig\n{% set myCustomPage = myCustomPage ?? '' %}\n\n<button sprig s-val:my-custom-page=\"13\">Custom Page</button>\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-val"
@@ -491,18 +517,12 @@
                 "name": "Cookbook recipe",
                 "url": "https://putyourlightson.com/sprig/cookbook#load-more"
             }
-        ],
-        "options": [
-            {
-                "name": "s-val:name",
-                "value": "value"
-            }
         ]
     },
     {
         "name": "s-validate",
         "description": "Forces an element to validate itself before it submits a request. Form elements do this by default, but other elements do not.",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-validate"
@@ -512,14 +532,14 @@
                 "url": "https://htmx.org/attributes/hx-validate/"
             }
         ],
-        "options": [
+        "values": [
             "validate"
         ]
     },
     {
         "name": "s-vals",
         "description": "Adds to the parameters that will be submitted with the request. The value must be a JSON encoded list of name-value pairs.\n\n```twig\n<button sprig s-vals=\"{{ { page: page + 1, limit: 10 }|json_encode }}\">Next</button>\n```",
-        "links": [
+        "references": [
             {
                 "name": "Documentation",
                 "url": "https://putyourlightson.com/plugins/sprig#s-vals"
