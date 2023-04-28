@@ -1,5 +1,10 @@
 # Release Notes for Sprig
 
+## 2.6.2 - Unreleased
+### Changed
+- Updated htmx to version 1.9.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#192---2023-04-28)).
+- Improved autocomplete documentation in the playground. 
+
 ## 2.6.1 - 2023-04-25
 ### Fixed
 - Fixed a bug in which the htmx file was not being published even if it did not already exist locally ([#305](https://github.com/putyourlightson/craft-sprig/issues/305)).
