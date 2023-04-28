@@ -33,24 +33,15 @@ class SprigApiAutocomplete extends Autocomplete
 
         // Follows the “Custom Data for HTML Language Service” spec
         // https://github.com/microsoft/vscode-html-languageservice/blob/main/docs/customData.md
-        $path = Craft::getAlias('@putyourlightson/sprig/plugin/autocompletes/data/sprig-support.json');
+        $path = Craft::getAlias('@putyourlightson/sprig/plugin/autocompletes/sprig-support.json');
         $json = Json::decodeFromFile($path);
         $attributes = $json['globalAttributes'];
         $valueSets = $json['valueSets'];
-        $attributeDocs = [];
 
         foreach ($attributes as $attribute) {
             $name = $attribute['name'];
-            $docs = $attribute['description'] . "\n\n";
-            $references = $attribute['references'] ?? [];
-            $links = [];
-            foreach ($references as $reference) {
-                $links[] = '[' . $reference['name'] . '](' . $reference['url']  . ')';
-            }
-            $docs .= implode(' | ', $links);
-            $attributeDocs[$name] = $docs;
-
             $value = $name == 'sprig' ? $name : $name . '=""';
+            $docs = $this->_getDocs($attribute);
 
             CompleteItem::create()
                 ->label($value)
@@ -66,16 +57,32 @@ class SprigApiAutocomplete extends Autocomplete
             $name = $valueSet['name'];
             $values = $valueSet['values'] ?? [];
             foreach ($values as $value) {
+                $docs = $this->_getDocs($value);
                 $value = $name . '="' . $value['name'] . '"';
+
                 CompleteItem::create()
                     ->label($value)
                     ->insertText($value)
                     ->sortText($value)
                     ->detail($detail)
-                    ->documentation($attributeDocs[$name] ?? '')
+                    ->documentation($docs)
                     ->kind(CompleteItemKind::FieldKind)
                     ->add($this);
             }
         }
+    }
+
+    private function _getDocs(array $value): string
+    {
+        $docs = $value['description'] . "\n\n";
+
+        $references = $value['references'] ?? [];
+        $links = [];
+        foreach ($references as $reference) {
+            $links[] = '[' . $reference['name'] . '](' . $reference['url']  . ')';
+        }
+        $docs .= implode(' | ', $links);
+
+        return $docs;
     }
 }
