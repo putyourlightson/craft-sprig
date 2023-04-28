@@ -582,8 +582,8 @@
           "description": "Sends a `POST` request.",
           "references": [
             {
-              "name": "Attribute reference",
-              "url": "https://htmx.org/attributes/hx-method/"
+              "name": "Documentation",
+              "url": "https://putyourlightson.com/plugins/sprig#s-method"
             }
           ]
         }
