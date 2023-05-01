@@ -79,7 +79,7 @@ class SprigApiAutocomplete extends Autocomplete
         $references = $value['references'] ?? [];
         $links = [];
         foreach ($references as $reference) {
-            $links[] = '[' . $reference['name'] . '](' . $reference['url']  . ')';
+            $links[] = '[' . $reference['name'] . '](' . $reference['url'] . ')';
         }
         $docs .= implode(' | ', $links);
 

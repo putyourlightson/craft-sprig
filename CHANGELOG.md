@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 2.6.2 - Unreleased
+## 2.6.2 - 2023-05.01
 ### Changed
 - Updated htmx to version 1.9.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#192---2023-04-28)).
 - Improved autocomplete documentation in the playground. 

@@ -8,7 +8,7 @@
     "php": "^8.0.2",
     "craftcms/cms": "^4.0",
     "nystudio107/craft-code-editor": "^1.0.0",
-    "putyourlightson/craft-sprig-core": "^2.6.0"
+    "putyourlightson/craft-sprig-core": "^2.5.2"
   },
   "autoload": {
     "psr-4": {
