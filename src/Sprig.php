@@ -55,7 +55,7 @@ class Sprig extends Plugin
     /**
      * @inheritdoc
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         self::$plugin = $this;
@@ -79,7 +79,7 @@ class Sprig extends Plugin
     /**
      * Registers CP routes.
      */
-    private function _registerCpRoutes()
+    private function _registerCpRoutes(): void
     {
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function(RegisterUrlRulesEvent $event) {
@@ -93,7 +93,7 @@ class Sprig extends Plugin
     /**
      * Registers the autocompletes.
      */
-    private function _registerAutocompletes()
+    private function _registerAutocompletes(): void
     {
         Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_CODEEDITOR_AUTOCOMPLETES,
             function(RegisterCodeEditorAutocompletesEvent $event) {

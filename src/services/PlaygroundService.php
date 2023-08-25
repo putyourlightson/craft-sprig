@@ -96,6 +96,7 @@ class PlaygroundService extends Component
      */
     public function getSaved(): array
     {
+        /** @var PlaygroundRecord[] $records */
         $records = PlaygroundRecord::find()
             ->orderBy('dateCreated DESC')
             ->all();
