@@ -9,7 +9,7 @@
 - Added the [s-on:*](https://putyourlightson.com/plugins/sprig#s-on) attribute that allows you to respond to events directly on an element.
 - Added the [s-disabled-elt](https://putyourlightson.com/plugins/sprig#s-disabled-elt) attribute that allows you to specify elements that will have the disabled attribute added to them for the duration of the request.
 - Added the `sprig.htmxVersion` tag.
-- Added the `sprig.setAddScripts()` tag.
+- Added the `sprig.setAddScript()` tag.
 - Added friendly invalid variable exceptions that are shown when the [Canary](https://plugins.craftcms.com/canary) plugin is installed.
 
 ### Changed
