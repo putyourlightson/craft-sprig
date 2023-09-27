@@ -1,5 +1,11 @@
 # Release Notes for Sprig
 
+## 2.7.1 - 2023-09-27
+
+### Fixed
+
+- Removed a deprecated tag from the Sprig playground.
+
 ## 2.7.0 - 2023-09-26
 
 ### Added
