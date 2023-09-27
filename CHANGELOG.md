@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- Removed a deprecated tag from the Sprig playground.
+- Fixed a deprecated tag in the Sprig playground.
 
 ## 2.7.0 - 2023-09-26
 
