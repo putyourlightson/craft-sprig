@@ -1,5 +1,11 @@
 # Release Notes for Sprig
 
+## 2.7.2 - 2023-09-29
+
+### Added
+
+- Added the `sprig.registerScript()` function.
+
 ## 2.7.1 - 2023-09-27
 
 ### Fixed
