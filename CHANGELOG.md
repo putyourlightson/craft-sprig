@@ -4,7 +4,11 @@
 
 ### Added
 
-- Added the `sprig.registerScript()` function ([#329](https://github.com/putyourlightson/craft-sprig/issues/329)).
+- Added the [`sprig.registerScript()`](https://putyourlightson.com/plugins/sprig#sprig-registerscript) function ([#329](https://github.com/putyourlightson/craft-sprig/issues/329)).
+
+### Changed
+
+- Renamed the `sprig.setAddScript()` function to `sprig.setRegisterScript()`.
 
 ## 2.7.1 - 2023-09-27
 
@@ -20,13 +24,13 @@
 - Added the [s-cache](https://putyourlightson.com/plugins/sprig#s-cache) attribute that allows you to specify if and for how long a request should be cached locally in the browser.
 - Added the [s-on:*](https://putyourlightson.com/plugins/sprig#s-on) attribute that allows you to respond to events directly on an element.
 - Added the [s-disabled-elt](https://putyourlightson.com/plugins/sprig#s-disabled-elt) attribute that allows you to specify elements that will have the disabled attribute added to them for the duration of the request.
-- Added the `sprig.htmxVersion` tag.
-- Added the `sprig.setAddScript()` tag.
+- Added the `sprig.htmxVersion` function.
+- Added the `sprig.setAddScript()` function.
 - Added friendly invalid variable exceptions that are shown when the [Canary](https://plugins.craftcms.com/canary) plugin is installed.
 
 ### Changed
 
-- The htmx script is now automatically injected into the end of the page whenever a Sprig component is created, meaning that the `sprig.script` tag is no longer required and can be safely removed.
+- The htmx script is now automatically injected into the end of the page whenever a Sprig component is created, meaning that the `sprig.script` function is no longer required and can be safely removed.
 - Updated htmx to version 1.9.6 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#196---2023-09-22)).
 - Simplified and improved invalid variable error messages.
 - Invalid variable error messages are now only shown when `devMode` is turned on.
@@ -38,7 +42,7 @@
 
 ### Deprecated
 
-- Deprecated the `sprig.script` tag. It is no longer required and can be safely removed.
+- Deprecated the `sprig.script` function. It is no longer required and can be safely removed.
 - Deprecated the `s-on` attribute. Use the `s-on:*` attribute instead.
 
 ## 2.6.2 - 2023-05.01
