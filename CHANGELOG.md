@@ -4,7 +4,7 @@
 
 ### Added
 
-- Added the `sprig.registerScript()` function.
+- Added the `sprig.registerScript()` function ([#329](https://github.com/putyourlightson/craft-sprig/issues/329)).
 
 ## 2.7.1 - 2023-09-27
 
