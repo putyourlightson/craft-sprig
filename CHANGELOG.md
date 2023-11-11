@@ -2,6 +2,8 @@
 
 ## 2.7.0 - 2023-09-26
 
+> {warning} The htmx script is now automatically injected into the end of the page whenever a Sprig component is created. If you have any JavaScript code in your layouts that rely on htmx being loaded, you will need to wrap them in `{% js %}` tags as per the [docs](https://putyourlightson.com/plugins/sprig#javascript).
+
 ### Added
 
 - Added the Sprig component generator that scaffolds PHP components via a console command (`php craft make sprig-component --path sprig/components`).
