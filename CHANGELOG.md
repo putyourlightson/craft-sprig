@@ -1,5 +1,16 @@
 # Release Notes for Sprig
 
+## 2.7.3 - 2023-12-12
+
+### Added
+
+- Added the ability to pass script tag attributes via the `sprig.registerScript()` and `sprig.setRegisterScript()` functions ([#338](https://github.com/putyourlightson/craft-sprig/issues/338)).
+- Added the `ComponentsService::setConfig()` method.
+
+### Changed
+
+- Updated htmx to version 1.9.9 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#199---2023-11-21)).
+
 ## 2.7.2 - 2023-09-29
 
 ### Added
