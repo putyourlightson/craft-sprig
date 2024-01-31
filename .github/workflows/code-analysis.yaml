@@ -18,6 +18,10 @@ jobs:
             run: composer phpstan
           - name: 'Coding Standards'
             run: composer fix-cs
+    # Tests could be run here too, just set the environment variables as needed, see:
+    # https://docs.github.com/en/actions/learn-github-actions/variables
+    #          - name: 'Tests'
+    #            run: composer test
     name: ${{ matrix.actions.name }}
     runs-on: ubuntu-latest
     steps:
