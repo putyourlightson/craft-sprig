@@ -17,12 +17,20 @@
   "scripts": {
     "phpstan": "phpstan --ansi --memory-limit=1G",
     "check-cs": "ecs check --ansi",
-    "fix-cs": "ecs check --fix --ansi",
+    "fix-cs": "ecs check --fix --ansi"
   },
   "autoload": {
     "psr-4": {
       "putyourlightson\\sprig\\plugin\\": "src/"
     }
+  },
+  "config": {
+    "allow-plugins": {
+      "craftcms/plugin-installer": true,
+      "yiisoft/yii2-composer": true
+    },
+    "optimize-autoloader": true,
+    "sort-packages": true
   },
   "support": {
     "docs": "https://putyourlightson.com/plugins/sprig",
