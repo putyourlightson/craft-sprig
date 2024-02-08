@@ -18,10 +18,6 @@ jobs:
             run: composer phpstan
           - name: 'Coding Standards'
             run: composer fix-cs
-    # Tests could be run here too, just set the environment variables as needed, see:
-    # https://docs.github.com/en/actions/learn-github-actions/variables
-    #          - name: 'Tests'
-    #            run: composer test
     name: ${{ matrix.actions.name }}
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +31,7 @@ jobs:
         id: setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.0.2
           extensions: 'ctype,curl,dom,iconv,imagick,intl,json,mbstring,openssl,pcre,pdo,reflection,spl,zip'
           ini-values: post_max_size=256M, max_execution_time=180, memory_limit=512M
           tools: composer:v2
