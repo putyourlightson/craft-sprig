@@ -34,20 +34,20 @@ class SprigPlayground extends Component
      */
     public function render(): string
     {
-        $variables = $this->_getVariables();
+        $variables = $this->getVariables();
 
         $headerVariables = urldecode(http_build_query($variables));
 
         Craft::$app->getResponse()->getHeaders()->set('Sprig-Playground-Variables', $headerVariables);
 
         try {
-            return Craft::$app->getView()->renderString($this->_getComponent(), $variables, View::TEMPLATE_MODE_SITE, true);
+            return Craft::$app->getView()->renderString($this->getComponent(), $variables, View::TEMPLATE_MODE_SITE, true);
         } catch (Exception $exception) {
-            return $this->_getErrorMessage($exception->getMessage());
+            return $this->getErrorMessage($exception->getMessage());
         }
     }
 
-    private function _getComponent(): string
+    private function getComponent(): string
     {
         $component = Craft::$app->getRequest()->getHeaders()->get('Sprig-Playground-Component', '');
         $uriEncoded = Craft::$app->getRequest()->getHeaders()->get('Sprig-Playground-Component-URI-AutoEncoded', '');
@@ -59,7 +59,7 @@ class SprigPlayground extends Component
         return $component;
     }
 
-    private function _getVariables(): array
+    private function getVariables(): array
     {
         $headerVariables = Craft::$app->getRequest()->getHeaders()->get('Sprig-Playground-Variables', '');
         $headerVariables = str_replace(' ', '', $headerVariables);
@@ -72,7 +72,7 @@ class SprigPlayground extends Component
         );
     }
 
-    private function _getErrorMessage(string $error): string
+    private function getErrorMessage(string $error): string
     {
         $error = preg_replace('/in "__string_template__(.*?)"/', '', $error);
 

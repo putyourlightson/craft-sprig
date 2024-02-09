@@ -62,8 +62,8 @@ class Sprig extends Plugin
 
         $this->hasCpSection = $this->settings->enablePlayground;
 
-        $this->_registerCpRoutes();
-        $this->_registerAutocompletes();
+        $this->registerCpRoutes();
+        $this->registerAutocompletes();
 
         SprigCore::bootstrap();
     }
@@ -79,7 +79,7 @@ class Sprig extends Plugin
     /**
      * Registers CP routes.
      */
-    private function _registerCpRoutes(): void
+    private function registerCpRoutes(): void
     {
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function(RegisterUrlRulesEvent $event) {
@@ -93,7 +93,7 @@ class Sprig extends Plugin
     /**
      * Registers the autocompletes.
      */
-    private function _registerAutocompletes(): void
+    private function registerAutocompletes(): void
     {
         Event::on(AutocompleteService::class, AutocompleteService::EVENT_REGISTER_CODEEDITOR_AUTOCOMPLETES,
             function(RegisterCodeEditorAutocompletesEvent $event) {

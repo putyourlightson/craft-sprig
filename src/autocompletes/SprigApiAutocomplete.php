@@ -41,7 +41,7 @@ class SprigApiAutocomplete extends Autocomplete
         foreach ($attributes as $attribute) {
             $name = $attribute['name'];
             $value = $name == 'sprig' ? $name : $name . '=""';
-            $docs = $this->_getDocs($attribute);
+            $docs = $this->getDocs($attribute);
 
             CompleteItem::create()
                 ->label($value)
@@ -57,7 +57,7 @@ class SprigApiAutocomplete extends Autocomplete
             $name = $valueSet['name'];
             $values = $valueSet['values'] ?? [];
             foreach ($values as $value) {
-                $docs = $this->_getDocs($value);
+                $docs = $this->getDocs($value);
                 $value = $name . '="' . $value['name'] . '"';
 
                 CompleteItem::create()
@@ -72,7 +72,7 @@ class SprigApiAutocomplete extends Autocomplete
         }
     }
 
-    private function _getDocs(array $value): string
+    private function getDocs(array $value): string
     {
         $docs = $value['description'] . "\n\n";
 
