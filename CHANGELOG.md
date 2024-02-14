@@ -1,6 +1,6 @@
 # Release Notes for Sprig
 
-## 3.0.0-beta.1 - Unreleased
+## 3.0.0-beta.1 - 2024-02-14
 
 > {warning} Template caches and static page caches should be cleared after performing this update.
 
