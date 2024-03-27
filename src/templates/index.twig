@@ -7,76 +7,54 @@
 {% set bundle = view.registerAssetBundle('putyourlightson\\sprig\\plugin\\assets\\PlaygroundAsset') %}
 {% set resourcesUrl = bundle.baseUrl %}
 
-{% block pageTitle %}
+{% set crumbs = [{
+    label: playground ? playground.name : 'Components'|t('sprig'),
+    menu: {
+        items: [
+            {
+                heading: 'Sample Components'|t('sprig'),
+                items: allSamples|map(sample => {
+                label: sample.name,
+                url: 'sprig/' ~ sample.slug,
+                selected: sample.slug == slug,
+            })
+            },
+            {
+                heading: 'Saved Components'|t('sprig'),
+                items: allSaved|map(saved => {
+                label: saved.name,
+                url: 'sprig/' ~ saved.id,
+                selected: saved.id == playground.id ?? null,
+            })
+            },
+        ],
+    },
+}] %}
 
+{% block pageTitle %}
     <div style="width: 54px;">
         {{ svg(craft.app.plugins.getPluginIconSvg('sprig')) }}
     </div>
-
     {{ parent() }}
-
-{% endblock %}
-
-{% block contextMenu %}
-
-    <div id="context-btngroup" class="btngroup">
-        <button type="button" id="context-btn" class="btn menubtn">
-            <span id="revision-label">{{ playground.name ?? '' }}</span>
-        </button>
-        <div class="menu">
-            {% if allSamples|length > 0 %}
-                <h6>{{ "Sample Components" | t('sprig') }}</h6>
-                <ul class="padded">
-                    {% for sample in allSamples %}
-                        <li>
-                            <a href="{{ url('sprig/' ~ sample.slug) }}" class="{{ sample.slug == slug ? 'sel' }}">
-                                {{ sample.name }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {% if allSaved|length > 0 %}
-                <h6>{{ "Saved Components" | t('sprig') }}</h6>
-                <ul class="padded">
-                    {% for saved in allSaved %}
-                        <li>
-                            <a href="{{ url('sprig/' ~ saved.id) }}"
-                               class="{{ playground and playground.id == saved.id ? 'sel' }}">
-                                {{ saved.name }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-    </div>
-
-    {% if not craft.app.config.general.devMode %}
+    {% if  craft.app.config.general.devMode %}
         <span class="info warning" title="devMode is not enabled">
             {{ 'Enable `devMode` to see Twig template errors.'|t('sprig')|markdown }}
         </span>
     {% endif %}
-
 {% endblock %}
 
-
 {% block actionButton %}
-
     <form id="action-form" method="post">
-
         {{ csrfInput() }}
         <input type="hidden" name="action" value="sprig/playground/save">
         <input type="hidden" name="id" value="{{ playground ? playground.id }}">
         <input type="hidden" name="name" value="">
         <textarea name="component" class="hidden"></textarea>
         <textarea name="variables" class="hidden"></textarea>
-
         <div class="flex">
             <a href="https://putyourlightson.com/sprig" class="btn" target="_blank" rel="noopener">
                 {{ 'Learning Resources'|t('sprig') }}
             </a>
-
             {% if playground and not slug %}
                 <div class="btngroup">
                     <button type="button" class="btn submit formsubmit"
@@ -101,21 +79,16 @@
                 <button type="button" class="btn submit formsubmit">{{ 'Save'|t('sprig') }}</button>
             {% endif %}
         </div>
-
     </form>
-
 {% endblock %}
 
-
 {% block main %}
-
     <div class="playground">
         <div>
             <div class="variables content-pane">
                 <p class="light code">{{ 'Component Variables'|t('sprig') }}</p>
                 {% set variables = playground ? playground.variables : '' %}
-                <input id="input-variables" class="input code fullwidth field" value="{{ variables }}"
-                       placeholder="x=1&y=2&z=3">
+                <input id="input-variables" class="input code fullwidth field" value="{{ variables }}" placeholder="x=1&y=2&z=3">
             </div>
             <div class="pane input-pane">
                 <p class="light code">{{ 'Component'|t('sprig') }}</p>
@@ -137,7 +110,6 @@
                 <button id="create" type="submit" class="btn submit topright">{{ 'Create'|t('sprig') }}</button>
             </div>
         </div>
-
         <div>
             <div class="variables content-pane">
                 <p class="light code">{{ 'Output Variables'|t('sprig') }}</p>
@@ -156,9 +128,7 @@
             </div>
         </div>
     </div>
-
     {% js %}
-        let resourcesUrl = '{{ resourcesUrl }}';
+    let resourcesUrl = '{{ resourcesUrl }}';
     {% endjs %}
-
 {% endblock %}

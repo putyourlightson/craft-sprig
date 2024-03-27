@@ -1,5 +1,17 @@
 # Release Notes for Sprig
 
+## 3.0.0-beta.2 - 2024-03-26
+
+### Fixed
+
+- Fixed the site selector dropdown.
+
+### Removed
+
+- Removed the `success` variable. Use `sprig.isSuccess` or `sprig.isError` instead.
+- Removed the `flashes` variable. Use `sprig.message` or `craft.app.session.flash()` instead.
+- Removed the `id` variable. Use `sprig.modelId` instead.
+
 ## 3.0.0-beta.1 - 2024-02-14
 
 > {warning} Template caches and static page caches should be cleared after performing this update.
