@@ -1,5 +1,20 @@
 # Release Notes for Sprig
 
+## 2.8.0 - 2024-03-26
+
+### Added
+
+- Added the `sprig.isSuccess` variable.
+- Added the `sprig.isError` variable.
+- Added the `sprig.message` variable.
+- Added the `sprig.modelId` variable.
+
+### Deprecated
+
+- Deprecated the `success` variable. Use `sprig.isSuccess` or `sprig.isError` instead.
+- Deprecated the `flashes` variable. Use `sprig.message` or `craft.app.session.flash()` instead.
+- Deprecated the `id` variable. Use `sprig.modelId` instead.
+
 ## 2.7.3 - 2023-12-12
 
 ### Added
