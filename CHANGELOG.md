@@ -12,7 +12,7 @@
 ### Deprecated
 
 - Deprecated the `success` variable. Use `sprig.isSuccess` or `sprig.isError` instead.
-- Deprecated the `flashes` variable. Use `sprig.message` or `craft.app.session.flash()` instead.
+- Deprecated the `flashes` variable. Use `sprig.message` instead.
 - Deprecated the `id` variable. Use `sprig.modelId` instead.
 
 ## 2.7.3 - 2023-12-12
