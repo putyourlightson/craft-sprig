@@ -1,5 +1,11 @@
 # Release Notes for Sprig
 
+## 2.8.1 - 2024-04-21
+
+### Fixed
+
+- Fixed a bug in which some `sprig` variables were incorrectly persisting across requests ([#363](https://github.com/putyourlightson/craft-sprig/issues/363)).
+
 ## 2.8.0 - 2024-03-26
 
 ### Added

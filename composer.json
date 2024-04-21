@@ -1,14 +1,14 @@
 {
   "name": "putyourlightson/craft-sprig",
   "description": "A reactive Twig component framework for Craft.",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "type": "craft-plugin",
   "license": "mit",
   "require": {
     "php": "^8.0.2",
     "craftcms/cms": "^4.0",
     "nystudio107/craft-code-editor": "^1.0.0",
-    "putyourlightson/craft-sprig-core": "^2.7.0"
+    "putyourlightson/craft-sprig-core": "^2.7.1"
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
