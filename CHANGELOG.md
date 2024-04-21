@@ -1,5 +1,11 @@
 # Release Notes for Sprig
 
+## 3.0.1 - 2024-04-21
+
+### Fixed
+
+- Fixed a bug in which some `sprig` variables were incorrectly persisting across requests ([#363](https://github.com/putyourlightson/craft-sprig/issues/363)).
+
 ## 3.0.0 - 2024-04-08
 
 > {warning} Template caches and static page caches should be cleared after performing this update.
