@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to submit a feature request! To ensure this isn’t already on our radar, please first search existing issues.
+        Thanks for taking the time to submit a feature request! To ensure this isn’t already on our radar, please first search existing issues and ensure you’re running the latest version.
 
         If you still believe you have a new suggestion, please provide a clear and concise description, including:
         - What problem you believe your feature request can solve.

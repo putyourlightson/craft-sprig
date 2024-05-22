@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to submit a bug report! To ensure this hasn’t already been reported, please first search existing issues.
+        Thanks for taking the time to submit a bug report! To ensure this hasn’t already been reported, please first search existing issues and ensure you’re running the latest version.
 
         To rule out that this isn’t a setup or configuration issue, please read the docs.
         
