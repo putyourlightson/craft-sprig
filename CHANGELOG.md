@@ -1,5 +1,16 @@
 # Release Notes for Sprig
 
+## 3.0.2 - 2024-04-21
+
+### Changed
+
+- Made it possible to pass a fully namespaced component class into the `sprig()` function ([#14](https://github.com/putyourlightson/craft-sprig-core/issues/14)).
+- Updated htmx to version 1.9.12 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#1912---2024-04-17)).
+
+### Fixed
+
+- Fixed a bug in which variables passed into a component were being converted to strings ([#369](https://github.com/putyourlightson/craft-sprig-core/issues/369)).
+
 ## 3.0.1 - 2024-04-21
 
 ### Fixed
