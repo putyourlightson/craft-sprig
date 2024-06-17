@@ -10,6 +10,10 @@
 
 - Updated htmx to version 2.0.0 ([release notes](https://htmx.org/posts/2024-06-17-htmx-2-0-0-is-released/)).
 
+### Removed
+
+- Removed the `s-sse` and `s-ws` attributes.
+
 ## 2.8.1 - 2024-04-21
 
 ### Fixed
