@@ -1,5 +1,19 @@
 # Release Notes for Sprig
 
+## 3.1.0-beta.1 - 2024-06-17
+
+### Added
+
+- Added the [s-inherit](https://putyourlightson.com/plugins/sprig#s-inherit) attribute that allows you to control and enable automatic attribute inheritance for child nodes, if it has been disabled by default.
+
+### Changed
+
+- Updated htmx to version 2.0.0 ([release notes](https://htmx.org/posts/2024-06-17-htmx-2-0-0-is-released/)).
+
+### Removed
+
+- Removed the `s-sse` and `s-ws` attributes.
+
 ## 3.0.2 - 2024-04-21
 
 ### Changed
