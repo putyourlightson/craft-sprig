@@ -12,7 +12,7 @@
 
 ### Fixed
 
-- Fixed the check for whether `devMode` is enabled.
+- Fixed the check for whether `devMode` is enabled in the Sprig playground.
 
 ### Removed
 
