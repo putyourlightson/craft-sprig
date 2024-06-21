@@ -10,6 +10,10 @@
 
 - Updated htmx to version 2.0.0 ([release notes](https://htmx.org/posts/2024-06-17-htmx-2-0-0-is-released/)).
 
+### Fixed
+
+- Fixed the check for whether `devMode` is enabled.
+
 ### Removed
 
 - Removed the `s-sse` and `s-ws` attributes.
