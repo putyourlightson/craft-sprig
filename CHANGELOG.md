@@ -3,7 +3,7 @@
 ## 2.9.0 - 2024-07-15
 
 > [!IMPORTANT]
-> This update introduces htmx 2. [Read about the changes →]()
+> This update introduces htmx 2. [Read about the changes →](https://putyourlightson.com/articles/sprig-htmx-2)
 
 ### Added
 
