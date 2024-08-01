@@ -1,5 +1,16 @@
 # Release Notes for Sprig
 
+## 3.2.0 - 2024-08-01
+
+### Added
+
+- Added the `sprig.swapOob(selector, template, variables)` function that swaps a template out-of-band.
+- Added the `sprig.triggerRefresh(selector, variables)` function that triggers a refresh on a Sprig component.
+
+### Changed
+
+- The `sprig.triggerRefreshOnLoad(selector)` function now appends output to the end of the body and should be called using `{% do sprig.triggerRefreshOnLoad(selector) %}`.
+
 ## 3.1.0 - 2024-07-15
 
 > [!IMPORTANT]
