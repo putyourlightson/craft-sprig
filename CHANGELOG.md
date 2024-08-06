@@ -1,5 +1,11 @@
 # Release Notes for Sprig
 
+## 2.10.1 - 2024-08-06
+
+### Changed
+
+- The `sprig.swapOob()` function now accepts a string in addition to a template to be rendered, in the second argument.
+
 ## 2.10.0 - 2024-08-01
 
 ### Added
@@ -9,6 +15,7 @@
 
 ### Changed
 
+- Components now render markup added via `{% html %}`, `{% css %}` and `{% js %}` tags.
 - The `sprig.triggerRefreshOnLoad(selector)` function now appends output to the end of the body and should be called using `{% do sprig.triggerRefreshOnLoad(selector) %}`.
 
 ## 2.9.0 - 2024-07-15
