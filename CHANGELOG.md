@@ -1,5 +1,17 @@
 # Release Notes for Sprig
 
+## 2.11.0 - 2024-08-08
+
+### Added
+
+- Added the component configurations to a `Sprig` variable in the browser console when `devMode` is enabled.
+- Added the ability to pass any value into `s-method`, including the `put`, `patch` and `delete` verbs.
+- Added the `sprig.registerJs(js)` function.
+
+### Changed
+
+- The `sprig.triggerRefresh(selector, variables)` function now prevents cyclical requests.
+
 ## 2.10.1 - 2024-08-06
 
 ### Changed
