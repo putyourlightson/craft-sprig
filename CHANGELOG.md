@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 3.4.0 - 2024-08-20
+
+### Changed
+
+- The `sprig.registerJs(js)` function now executes the registered JavaScript after htmx settles, and is now the recommended way of outputting JavaScript in Sprig components.
+- Components no longer render markup added via `{% html %}`, `{% css %}` and `{% js %}` tags during Sprig requests.
+
 ## 3.3.0 - 2024-08-08
 
 ### Added
@@ -16,7 +23,7 @@
 
 ### Changed
 
-- The `sprig.swapOob()` function now accepts a string in addition to a template to be rendered, in the second argument.
+- The `sprig.swapOob()` function now accepts a string, in addition to a template to be rendered, in the second argument.
 
 ## 3.2.0 - 2024-08-01
 
