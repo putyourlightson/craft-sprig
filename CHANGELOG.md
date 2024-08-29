@@ -1,5 +1,23 @@
 # Release Notes for Sprig
 
+## 3.5.0 - 2024-08-29
+
+### Added
+
+- Added the ability to assign an ID to a component by passing a string as the third argument to the `sprig()` function.
+
+### Changed
+
+- Updated htmx to version 2.0.2 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#202---2024-08-12)).
+
+### Fixed
+
+- Fixed the positioning of the JavaScript output by the `sprig.triggerRefreshOnLoad` function.
+
+### Deprecated
+
+- Deprecated `sprig.getIsBoosted`, `sprig.getIsError`, `sprig.getIsHistoryRestoreRequest`, `sprig.getIsInclude`, `sprig.getIsRequest`, `sprig.getIsSuccess`. Use `sprig.isBoosted`, `sprig.isError`, `sprig.isHistoryRestoreRequest`, `sprig.isInclude`, `sprig.isRequest`, `sprig.isSuccess` instead.
+
 ## 3.4.0 - 2024-08-20
 
 ### Changed
