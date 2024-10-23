@@ -54,7 +54,7 @@ class PlaygroundController extends Controller
 
         $id = Sprig::$plugin->playground->save($name, $component, $variables);
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component saved.'));
+        Craft::$app->getSession()->setSuccess(Craft::t('sprig', 'Component saved.'));
 
         return $this->redirect('sprig/' . $id);
     }
@@ -72,7 +72,7 @@ class PlaygroundController extends Controller
 
         Sprig::$plugin->playground->update($id, $component, $variables);
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component updated.'));
+        Craft::$app->getSession()->setSuccess(Craft::t('sprig', 'Component updated.'));
 
         return $this->redirect('sprig/' . $id);
     }
@@ -88,7 +88,7 @@ class PlaygroundController extends Controller
 
         Sprig::$plugin->playground->delete($id);
 
-        Craft::$app->getSession()->setNotice(Craft::t('sprig', 'Component deleted.'));
+        Craft::$app->getSession()->setSuccess(Craft::t('sprig', 'Component deleted.'));
 
         return $this->redirect('sprig');
     }

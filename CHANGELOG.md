@@ -1,5 +1,17 @@
 # Release Notes for Sprig
 
+## 3.5.1 - 2024-10-23
+
+### Changed
+
+- Updated htmx to version 2.0.3 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#203---2024-10-03)).
+- The fetch function is now called inside an event listener when calling `sprig.triggerRefreshOnLoad()`, making it more robust.
+- Reverted some variable method name changes to improve autocompletion in PhpStorm.
+
+### Fixed
+
+- Fixed the ability to pass a JSON encoded string into the `sprig.triggerEvents()` function ([#15](https://github.com/putyourlightson/craft-sprig-core/issues/15).
+
 ## 3.5.0 - 2024-08-29
 
 ### Added
