@@ -10,7 +10,7 @@
 
 ### Fixed
 
-- Fixed the ability to pass a JSON encoded string into the `sprig.triggerEvents()` function ([#15](https://github.com/putyourlightson/craft-sprig-core/issues/15).
+- Fixed the ability to pass a JSON encoded string into the `sprig.triggerEvents()` function ([#15](https://github.com/putyourlightson/craft-sprig-core/issues/15)).
 
 ## 3.5.0 - 2024-08-29
 
