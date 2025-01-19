@@ -1,5 +1,11 @@
 # Release Notes for Sprig
 
+## 3.5.2 - 2025-01-19
+
+### Fixed
+
+- Fixed a bug in which `s-action` attributes were being inherited by descendent elements ([#408](https://github.com/putyourlightson/craft-sprig/issues/408)).
+
 ## 3.5.1 - 2024-10-23
 
 ### Changed
