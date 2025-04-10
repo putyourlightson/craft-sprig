@@ -46,11 +46,11 @@ class PlaygroundController extends Controller
      */
     public function actionSave(): Response
     {
-        $request = Craft::$app->getRequest();
+        $this->requirePostRequest();
 
-        $name = $request->getParam('name', '');
-        $component = $request->getParam('component', '');
-        $variables = $request->getParam('variables', '');
+        $name = $this->request->getParam('name', '');
+        $component = $this->request->getParam('component', '');
+        $variables = $this->request->getParam('variables', '');
 
         $id = Sprig::$plugin->playground->save($name, $component, $variables);
 
@@ -64,11 +64,11 @@ class PlaygroundController extends Controller
      */
     public function actionUpdate(): Response
     {
-        $request = Craft::$app->getRequest();
+        $this->requirePostRequest();
 
-        $id = $request->getParam('id');
-        $component = $request->getParam('component', '');
-        $variables = $request->getParam('variables', '');
+        $id = $this->request->getParam('id');
+        $component = $this->request->getParam('component', '');
+        $variables = $this->request->getParam('variables', '');
 
         Sprig::$plugin->playground->update($id, $component, $variables);
 
@@ -82,9 +82,9 @@ class PlaygroundController extends Controller
      */
     public function actionDelete(): Response
     {
-        $request = Craft::$app->getRequest();
+        $this->requirePostRequest();
 
-        $id = $request->getParam('id');
+        $id = $this->request->getParam('id');
 
         Sprig::$plugin->playground->delete($id);
 

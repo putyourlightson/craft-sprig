@@ -1,5 +1,12 @@
 # Release Notes for Sprig
 
+## 2.14.0 - 2025-04-09
+
+- Updated htmx to version 2.0.4 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#204---2024-12-13)).
+- The Sprig Playground component template is now rendered in a sandboxed context.
+- Fixed an information disclosure vulnerability.
+- Fixed an XSS vulnerability.
+
 ## 2.13.1 - 2024-10-23
 
 ### Changed
