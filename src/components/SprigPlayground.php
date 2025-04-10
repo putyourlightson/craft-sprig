@@ -5,6 +5,7 @@ namespace putyourlightson\sprig\plugin\components;
 use Craft;
 use craft\web\View;
 use Exception;
+use nystudio107\crafttwigsandbox\web\SandboxView;
 use putyourlightson\sprig\base\Component;
 use putyourlightson\sprig\plugin\Sprig;
 use yii\web\ForbiddenHttpException;
@@ -41,7 +42,8 @@ class SprigPlayground extends Component
         Craft::$app->getResponse()->getHeaders()->set('Sprig-Playground-Variables', $headerVariables);
 
         try {
-            return Craft::$app->getView()->renderString($this->getComponent(), $variables, View::TEMPLATE_MODE_SITE, true);
+            $sandboxView = new SandboxView();
+            return $sandboxView->renderString($this->getComponent(), $variables, View::TEMPLATE_MODE_SITE, true);
         } catch (Exception $exception) {
             return $this->getErrorMessage($exception->getMessage());
         }
