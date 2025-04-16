@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 3.6.1 - 2025-04-16
+
+- Access to the Sprig Playground is now blocked entirely when the config setting is disabled.
+
 ## 3.6.0 - 2025-04-09
 
 - Updated htmx to version 2.0.4 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#204---2024-12-13)).
