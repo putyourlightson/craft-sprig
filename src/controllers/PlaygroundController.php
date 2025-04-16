@@ -12,6 +12,19 @@ use yii\web\Response;
 
 class PlaygroundController extends Controller
 {
+    public function beforeAction($action): bool
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        if (!Sprig::$plugin->settings->enablePlayground) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Renders the main playground template.
      */
