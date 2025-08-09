@@ -1,5 +1,10 @@
 # Release Notes for Sprig
 
+## 2.15.0 - 2025-08-09
+
+- Updated htmx to version 2.0.6 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#206---2025-06-27)).
+- Variables named the same as Twig globals are now disallowed ([#422](https://github.com/putyourlightson/craft-sprig/issues/422)).
+
 ## 2.14.1 - 2025-04-16
 
 - Access to the Sprig Playground is now blocked entirely when the config setting is disabled.
