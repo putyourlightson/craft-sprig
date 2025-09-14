@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 2.15.1 - 2025-09-14
+
+- Updated htmx to version 2.0.7 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#207---2025-09-08)).
+
 ## 2.15.0 - 2025-08-09
 
 - Updated htmx to version 2.0.6 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#206---2025-06-27)).
