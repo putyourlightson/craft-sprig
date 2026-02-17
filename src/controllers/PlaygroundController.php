@@ -18,7 +18,7 @@ class PlaygroundController extends Controller
             return false;
         }
 
-        if (!Sprig::$plugin->settings->enablePlayground) {
+        if (!Sprig::$plugin->settings->getCanAccessPlayground()) {
             return false;
         }
 

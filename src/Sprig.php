@@ -60,7 +60,7 @@ class Sprig extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        $this->hasCpSection = $this->settings->enablePlayground;
+        $this->hasCpSection = $this->settings->getCanAccessPlayground();
 
         $this->_registerCpRoutes();
         $this->_registerAutocompletes();
