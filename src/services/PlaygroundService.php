@@ -46,8 +46,8 @@ class PlaygroundService extends Component
      */
     public function getSamples(): array
     {
+        /** @var string|false $index */
         $index = Craft::getAlias(self::SAMPLES_DIR_PATH . 'index.json');
-
         if ($index === false) {
             return [];
         }
@@ -68,8 +68,9 @@ class PlaygroundService extends Component
 
         foreach ($samplesConfig as $config) {
             $playground = new PlaygroundModel($config);
-            $componentPath = Craft::getAlias(self::SAMPLES_DIR_PATH . $playground->component);
 
+            /** @var string|false $componentPath */
+            $componentPath = Craft::getAlias(self::SAMPLES_DIR_PATH . $playground->component);
             if ($componentPath === false) {
                 continue;
             }

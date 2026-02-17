@@ -9,7 +9,7 @@
     "craftcms/cms": "^5.0",
     "nystudio107/craft-code-editor": "^1.0",
     "nystudio107/craft-twig-sandbox": "^5.0.2",
-    "putyourlightson/craft-sprig-core": "^3.7.1"
+    "putyourlightson/craft-sprig-core": "^3.7.2"
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
