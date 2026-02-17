@@ -1,5 +1,9 @@
 # Release Notes for Sprig
 
+## 3.7.2 - Unreleased
+
+- The Sprig Playground is now only available in environments in which `devMode` is enabled, unless the `enablePlaygroundWhenDevModeDisabled` config setting is explicitly set to `true`.
+
 ## 3.7.1 - 2025-09-14
 
 - Updated htmx to version 2.0.7 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#207---2025-09-08)).

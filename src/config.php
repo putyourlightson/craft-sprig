@@ -21,5 +21,8 @@ return [
     '*' => [
         // Whether the playground should be enabled.
         //'enablePlayground' => true,
+
+        // Whether the playground should be disabled when `devMode` is disabled
+        //'enablePlaygroundWhenDevModeDisabled' => false,
     ],
 ];
