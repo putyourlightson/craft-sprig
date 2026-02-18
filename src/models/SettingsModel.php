@@ -5,6 +5,7 @@
 
 namespace putyourlightson\sprig\plugin\models;
 
+use Craft;
 use craft\base\Model;
 
 class SettingsModel extends Model
