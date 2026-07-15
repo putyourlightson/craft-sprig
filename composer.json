@@ -1,7 +1,7 @@
 {
   "name": "putyourlightson/craft-sprig",
   "description": "A reactive Twig component framework for Craft.",
-  "version": "3.7.2",
+  "version": "3.7.3",
   "type": "craft-plugin",
   "license": "mit",
   "require": {
@@ -9,7 +9,7 @@
     "craftcms/cms": "^5.0",
     "nystudio107/craft-code-editor": "^1.0",
     "nystudio107/craft-twig-sandbox": "^5.0.2",
-    "putyourlightson/craft-sprig-core": "^3.7.2"
+    "putyourlightson/craft-sprig-core": "^3.7.3"
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
