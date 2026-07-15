@@ -1,5 +1,10 @@
 # Release Notes for Sprig
 
+## 2.15.4 - 2026-07-15
+
+- Updated htmx to version 2.0.10 ([changelog](https://github.com/bigskysoftware/htmx/blob/master/CHANGELOG.md#2010---2026-04-21)).
+- Ensured the event listener created by `triggerRefreshOnLoad()` only runs once ([#432](https://github.com/putyourlightson/craft-sprig/issues/432)).
+
 ## 2.15.3 - 2026-02-18
 
 - Fixed a bug introduced in 2.15.2.
